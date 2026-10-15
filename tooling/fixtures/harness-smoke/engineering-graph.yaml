@@ -1,0 +1,31 @@
+version: 1
+kind: harness-engineering-graph
+id: CHECKER-LAB-HARNESS-SMOKE
+default_subject: CHECKER-LAB-SMOKE
+authorities:
+  - id: DISCOVERY
+    responsibility: Own synthetic smoke-test problem evidence.
+    boundary:
+      semantic_cohesion: One deliberately artificial evidence type for a tooling check.
+      independent_change: Smoke problem fixture can change without verification design.
+      public_contract: Provides a synthetic fact to the verification Authority.
+    produces:
+      - capability: checker-lab.smoke.problem
+        knowledge_kind: problem-evidence
+        requires: []
+  - id: VERIFICATION-DESIGN
+    responsibility: Own synthetic verification intent for the smoke target.
+    boundary:
+      semantic_cohesion: One verification design capability.
+      independent_change: Verification intent can evolve separately from input evidence.
+      public_contract: Produces a synthetic test intent for the smoke consumer.
+    produces:
+      - capability: checker-lab.smoke.verification
+        knowledge_kind: verification-strategy
+        requires:
+          - checker-lab.smoke.problem
+consumers:
+  - id: TOOLCHAIN-SMOKE
+    purpose: Demonstrate independent production and resolution of engineering capabilities.
+    requires:
+      - capability: checker-lab.smoke.verification

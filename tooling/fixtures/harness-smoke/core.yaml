@@ -1,0 +1,12 @@
+# Explicit Core Authorities: Graph Doctor validates this source directly.
+authorities:
+  - id: DISCOVERY
+  - id: VERIFICATION-DESIGN
+artifacts:
+  - id: SMOKE-EVIDENCE
+    authority: DISCOVERY
+    path: tooling/fixtures/harness-smoke/problem.md
+    provides:
+      - checker-lab.smoke.problem
+    depends_on: []
+questions: []
