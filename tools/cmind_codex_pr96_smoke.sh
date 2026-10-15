@@ -133,5 +133,6 @@ result = {
 (run / "summary.json").write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n")
 print(json.dumps(result, ensure_ascii=False, indent=2))
 PY
+cat "$RUN/summary.json"
 echo "Complete. Local evidence: $RUN"
 echo "No model invocation, no generated RPG and no changes to project hooks/source."

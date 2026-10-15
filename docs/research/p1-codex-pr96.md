@@ -1,6 +1,6 @@
 # P1 / TASK-003-CODEX-PR96 — Microsoft CoderMind Codex candidate
 
-Status: **RESEARCHED / candidate prepared; Ubuntu probe NOT_RUN**.
+Status: **STRUCTURAL PASS — user-reported Ubuntu execution on 2026-10-16; live LLM and RPG still NOT_TESTED**.
 
 ## Исследовательский вопрос
 
@@ -23,7 +23,7 @@ Status: **RESEARCHED / candidate prepared; Ubuntu probe NOT_RUN**.
 
 Коммит PR основан на `f0947723`, а `main=a4e6966` отличается от него только одним коммитом markdownlint для Windows fixture README. PR #96 содержит 10 новых коммитов и изменяет 43 файла. Это **малое расхождение исходной базы**, но не гарантия готовности PR.
 
-Реальный Codex CLI у оператора обнаружен в PATH. Его версия, авторизация и flags пока **не проверены**. Sandbox bypass в PR #96 включается только явной переменной `CMIND_CODEX_BYPASS_SANDBOX`; лаборатория запрещает её при проверках. `--approve-for-me` не тождественен полному отказу от sandbox.
+Реальный Codex CLI у оператора обнаружен в PATH. `codex --version` и `codex exec --approve-for-me --ephemeral --skip-git-repo-check --help` завершились успешно в структурном smoke, однако значение версии и действительная поддержка параметров при **модельном вызове** в переданном выводе не видны; авторизация не проверена. Sandbox bypass в PR #96 включается только явной переменной `CMIND_CODEX_BYPASS_SANDBOX`; лаборатория запрещает её при проверках. `--approve-for-me` не тождественен полному отказу от sandbox.
 
 ## Безопасная структурная проверка на Ubuntu
 
@@ -35,7 +35,7 @@ make cmind-codex-smoke
 
 Скрипт устанавливает **только candidate SHA** в **новое отдельное** `uv` venv под `~/.cache/agentic-checker-lab/venvs/cmind-codex-pr96`, проверяет wheel provenance; парсит CLI flags без model call; создаёт scratch workspace **вне репозитория**; проверяет создание skills/MCP config/backend и непосредственный Python-контракт CodexSessionManager, не запуская real LLM. Evidence/outputs и stderr — в отдельном per-run каталоге. Не делает `cmind init .` на Checker repo; не затрагивает main/hooks/AGENTS.md. Повторный запуск использует venv без удаления.
 
-**Ожидаемый статус при успешной структурной проверке:** `STRUCTURAL_PASS_LIVE_AGENT_NOT_TESTED`. Не путать с подтверждённой авторизацией Codex, созданием RPG или codegen.
+**Полученный результат структурной проверки:** `STRUCTURAL_PASS_LIVE_AGENT_NOT_TESTED` по успешному завершению последовательности и проверкам скрипта. Скрипт сохраняет этот JSON в `summary.json`; предыдущая версия не печатала его в терминал. Не путать с подтверждённой авторизацией Codex, созданием RPG или codegen.
 
 ## Дополнительные проверки до принятия кандидата
 
@@ -48,3 +48,26 @@ make cmind-codex-smoke
 ## Go/no-go
 
 **USE AS CANDIDATE** прямо сейчас: да. **PROMOTE TO CANONICAL TOOLCHAIN**: пока нет (модельный и кодогенерационный E2E не подтверждены в нашей лаборатории). Если smoke провалится — записать точную причину; не переключать runtime/сбросить pin без мотивированного решения.
+
+## Evidence: operator execution (2026-10-16)
+
+Владелец проекта выполнил `make check` и `make cmind-codex-smoke` в Ubuntu, ветка `tooling/task-003-codex-pr96-spike`. `make check` выдал `Repository check PASS: 23 Markdown files checked`. Последовательно и **без ошибок** завершились:
+
+```text
+Running: install
+Running: provenance
+Running: codex-version
+Running: codex-flags
+Running: cmind-version
+Running: cmind-scripts
+Running: init
+Running: active-backend
+Running: session-path
+Running: assertions
+Complete. Local evidence: ~/.cache/agentic-checker-lab/runs/codex-pr96.fkqjWi
+No model invocation, no generated RPG and no changes to project hooks/source.
+```
+
+**Достоверно из выполненных assertions:** совпадение source commit кандидата `3303a222eaec42c6a178bddd46ad63d9026ab8fa`; в synthetic workspace выбран `codex exec`; созданы 15 skills; MCP `rpg-tools` → `cmind-mcp`; CodexSessionManager посылает входной текст через stdin и использует ожидаемые аргументы без sandbox bypass. Raw stdout/stderr/summary.json существуют **только на машине оператора** и непосредственно нами не прочитаны. На одном запуске повторно-используемое venv ещё не проверено. Объяснение симптома «нет JSON в терминале»: `run_step assertions` записывал stdout в `assertions.stdout`, не выводя на экран; в этой же ветке исправлен вывод `summary.json` после успеха.
+
+Это подтверждает **структурный контракт**, не реальную авторизацию CLI, стабильность `codex exec` при запросе к модели или генерацию RPG. Следующая отдельная задача должна ограниченно проверить живой LLM-контракт, затем независимый синтетический граф и security constraints.
