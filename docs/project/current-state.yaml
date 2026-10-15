@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P1_HARNESS_AND_CMIND_CLI_SMOKE_VERIFIED_BY_OPERATOR
+status: P1_SYNTHETIC_FEATURE_TREE_GENERATED_OPERATOR_REPORTED
 phase: P1
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
@@ -20,6 +20,7 @@ verified:
   - Codex executable present in operator PATH; live authentication and exact model response verified by operator
   - Operator reported structural CoderMind Codex PR96 smoke PASS, including package source SHA, scratch skills/MCP and session stdin
   - Operator reported CoderMind LLMClient -> CodexSessionManager -> Codex CLI exact model-response PASS
+  - Operator reported synthetic RPG Phase 1 completed: feature_spec, feature_build and feature_tree files exist
 evidence:
   harness_smoke: docs/research/p1-harness-spike.md
   observed_harness_sha: 442db854c3a736a5e500b4a41664b80981b0d94c
@@ -31,12 +32,14 @@ evidence:
   codex_pr96_run_directory: ~/.cache/agentic-checker-lab/runs/codex-pr96.fkqjWi
   codex_live_probe: docs/research/p1-codex-live.md
   codex_live_run_directory: ~/.cache/agentic-checker-lab/runs/codex-live.Vzhj33
+  synthetic_rpg_phase1: docs/research/p1-synthetic-rpg.md
 observed_rule_gaps:
   - Required status checks rule exists but has an empty required_status_checks list as inspected; add repository/check in Settings
 not_verified:
   - Independent inspection of Harness smoke raw JSON in the operator environment
   - Two consecutive successful runs of the corrected Harness script
-  - CoderMind RPG generation through Codex and reproducible graph export
+  - Semantic verification of synthetic feature tree against R-SYN-01..06
+  - CoderMind initial RPG generation through Codex and reproducible graph export
   - RPG generation and versioned export
   - Accepted target Checker specification and oracle
   - Checker implementation

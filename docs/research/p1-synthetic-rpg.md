@@ -1,10 +1,33 @@
 # P1: first forward RPG from synthetic requirements
 
-Status: **PREPARED / NOT RUN IN UBUNTU**.
+Status: **PHASE 1 COMPLETED — operator-reported on Ubuntu, 2026-10-16. Initial RPG generation NOT_RUN. Semantic review PENDING.**
 
 This stage deliberately verifies **requirements → feature specification → feature tree → skeleton → initial RPG**, not the existing-code RPG encoder, full Phase 2 or Checker code generation.
 
 Source of truth for this probe: [synthetic requirements](../../tooling/fixtures/rpg-synthetic/requirements.md), which are *not* accepted Checker requirements. CoderMind reference: [forward pipeline and commands](https://github.com/microsoft/RPG-ZeroRepo/blob/3303a222eaec42c6a178bddd46ad63d9026ab8fa/CoderMind/docs/commands.md).
+
+## Phase 1 — зафиксированный результат (16 октября 2026)
+
+Оператор выполнил `make cmind-rpg-phase1` и `make cmind-rpg-status` на Ubuntu. **Источник — предоставленный терминальный вывод; сырые JSON пока доступны только в локальном хранилище оператора.**
+
+- `feature_spec.py`: успешно получил вход из `docs/` (один документ), провёл проверку `FeatureSpecOutput`, создал `feature_spec.json`. В отчёте: `word-count-lab`, 3 top-level features, 2 background items, 4 NFR items.
+- `feature_construct.py`: проверил и пропустил уже актуальную спецификацию; успешно завершил `feature_build` (58.6 с) и `feature_refactor` (36.7 с). Суммарная вторая команда 95.3 с.
+- `status`: `initialized=true`, `feature_spec=true`, `feature_build=true`, `feature_tree=true`, `skeleton=false`, `rpg=false`.
+- Файлы CoderMind: `~/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-rpg-synthetic-v1-workspace/data/`.
+- Локальные логи runner: `~/.cache/agentic-checker-lab/runs/rpg-synthetic-v1/`.
+
+**Проверено:** успешное выполнение первого прохода CoderMind через Codex и наличие выходных файлов. **Не проверено:** содержательная точность декомпозиции, покрытие `R-SYN-01..06`, отсутствие посторонних требований, создание `rpg.json`, экспорт и репозиторная фиксация. Следующая команда `cmind-rpg-skeleton` — это отдельная стадия с новыми модельными вызовами.
+
+### Просмотр результатов перед построением RPG
+
+Выполнить локально:
+
+```bash
+DATA="$HOME/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-rpg-synthetic-v1-workspace/data"
+python3 -m json.tool "$DATA/feature_tree.json" | less
+```
+
+При проверке искать смысловые функции чтения UTF-8 файла, ASCII-only распознавания слов, нормализации регистра, детерминированного JSON, ошибок ввода. Не считать просто три верхнеуровневые группы доказательством покрытия.
 
 ## Staged commands
 
