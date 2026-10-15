@@ -22,3 +22,4 @@ jobs:
           bash -n tools/harness_smoke.sh
           bash -n tools/cmind_preflight.sh
           bash -n tools/cmind_codex_pr96_smoke.sh
+          bash -n tools/cmind_codex_live_probe.sh
