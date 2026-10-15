@@ -16,7 +16,7 @@ sources:
     pull_request: https://github.com/microsoft/RPG-ZeroRepo/pull/96
     revision: 3303a222eaec42c6a178bddd46ad63d9026ab8fa
     status: OPEN_UPSTREAM_PR
-    adoption: CANDIDATE_SPIKE_ONLY
+    adoption: SYNTHETIC_FORWARD_RPG_VERIFIED_CANDIDATE_ONLY
     installation: OPERATOR_REPORTED_LIVE_LLM_CLIENT_PASS
   coding_agent_cli:
     chosen: UNDECIDED
@@ -31,6 +31,6 @@ sources:
   uv:
     actual: UNKNOWN
 reproducibility:
-  snapshot_export: NOT_VERIFIED
+  snapshot_export: SYNTHETIC_RPG_HASHES_VERIFIED_COMMIT_b20a93b
   clean_checkout: NOT_RUN
   model_and_cost_metadata: NOT_COLLECTED

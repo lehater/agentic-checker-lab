@@ -1,6 +1,6 @@
 # P1: first forward RPG from synthetic requirements
 
-Status: **INITIAL RPG EXPORTED TO OPERATOR WORKING TREE — operator-reported on Ubuntu, 2026-10-16; structural and semantic review PENDING.**
+Status: **INITIAL RPG REVIEWED — P1 PASS WITH LIMITATIONS (2026-10-16)**.
 
 This stage deliberately verifies **requirements → feature specification → feature tree → skeleton → initial RPG**, not the existing-code RPG encoder, full Phase 2 or Checker code generation.
 
@@ -91,3 +91,7 @@ The explicit export creates `experiments/runs/rpg-synthetic-v1` with five JSON f
 **Security:** no sandbox bypass allowed; scripts run only on an isolated test workspace; no real network device data, no Checker implementation, no Git hooks. Model calls are made *only* when the phase1/skeleton targets are explicitly launched. The user-installed global Codex configuration is not overridden.
 
 **Completion criterion:** operator-reported working forward RPG, structural validation, saved artifacts for review, and explicit caveats. Full interfaces/tasks/code generation belongs to a later, separately gated phase.
+
+## Независимый итог
+
+Пять артефактов выгружены в Git, повторно прочитаны и проверены по SHA-256; проведён структурный и ограниченный смысловой аудит. [Подробный отчёт](p1-synthetic-rpg-review.md). Это окончание узкой проверки initial forward RPG, **не** завершение полного планирования и кодогенерации CoderMind.
