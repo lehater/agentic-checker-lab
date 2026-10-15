@@ -11,13 +11,20 @@ sources:
     revision: a4e6966c4ff59d84299bc56d6a47ae1f4f7b2885
     component: CoderMind
     installation: OPERATOR_REPORTED_PREFLIGHT_PASS
+  rpg_codex_pr96_candidate:
+    repository: https://github.com/microsoft/RPG-ZeroRepo
+    pull_request: https://github.com/microsoft/RPG-ZeroRepo/pull/96
+    revision: 3303a222eaec42c6a178bddd46ad63d9026ab8fa
+    status: OPEN_UPSTREAM_PR
+    adoption: CANDIDATE_SPIKE_ONLY
+    installation: OPERATOR_REPORTED_STRUCTURAL_PASS
   coding_agent_cli:
     chosen: UNDECIDED
     executable_observed: codex
     claude_present: false
     copilot_present: false
     authentication: NOT_VERIFIED
-    compatibility_check: NOT_RUN
+    compatibility_check: STRUCTURAL_PASS_LIVE_NOT_TESTED
   python:
     minimum_for_cmind: "3.12"
     actual: 3.12.15_OPERATOR_REPORTED

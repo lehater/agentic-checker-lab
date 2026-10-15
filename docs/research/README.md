@@ -9,3 +9,5 @@
 - [CoderMind operator preflight](p1-cmind-preflight.md) — pinned CLI PASS, Codex compatibility open.
 
 Новые исследования получают тему-имя и статус HYPOTHESIS/VERIFIED с доказательствами и ограничениями. Подтверждённые решения переходят в соответствующий канонический владеющий документ; исследовательский отчёт остаётся evidence, но не создаёт вторую текущую истину.
+
+- [CoderMind PR #96 Codex candidate](p1-codex-pr96.md) — research, risks and evidence required before adoption.
