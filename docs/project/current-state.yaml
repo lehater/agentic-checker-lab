@@ -1,11 +1,11 @@
 schema: agentic-checker-lab/current-state/v1
-status: FOUNDATION_CI_PASSED_TOOLCHAIN_PREPARATION
-phase: P0
+status: P1_HARNESS_SMOKE_VERIFIED_BY_OPERATOR
+phase: P1
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
-next_task: TASK-002
+next_task: TASK-003
 accepted:
   - Independent repo and documentation-as-truth approach
   - One bounded checker scenario as first laboratory example
@@ -13,18 +13,22 @@ accepted:
 verified:
   - Initial documentation structure committed to main
   - Initial repository CI on main completed successfully
-  - Main repository ruleset active, pull-request allowed merge method squash, branch deletion and non-fast-forward protections
+  - Main ruleset active with pull request and squash-only, deletion and non-fast-forward protection
+  - Administrator ruleset bypass now disabled (inspected 2026-10-16)
+  - Operator reported Harness synthetic smoke PASS (pinned SHA; READY/CREATE; zero doctor errors)
+evidence:
+  harness_smoke: docs/research/p1-harness-spike.md
+  observed_harness_sha: 442db854c3a736a5e500b4a41664b80981b0d94c
+  observed_run_directory: ~/.cache/agentic-checker-lab/runs/harness-smoke.Wjk5zq
 observed_rule_gaps:
-  - No required CI status check in main ruleset as inspected
-  - Administrator bypass still allowed by ruleset
-toolchain_prepared:
-  - Synthetic Harness Graph/Core fixture and Ubuntu smoke script proposed in TASK-002 branch
+  - Required status checks rule exists but has an empty required_status_checks list as inspected; add repository/check in Settings
 not_verified:
-  - Tooling smoke actually run on user Ubuntu
+  - Independent inspection of Harness smoke raw JSON in the operator environment
+  - Two consecutive successful runs of the corrected Harness script
   - CoderMind setup and supported coding-agent CLI
   - RPG generation and versioned export
   - Accepted target Checker specification and oracle
   - Checker implementation
   - Four-arm comparative evaluation
-git_branch_protection: RULESET_ACTIVE_WITH_GAPS
+git_branch_protection: RULESET_ACTIVE_NO_BYPASS_REQUIRED_CHECKS_NOT_CONFIGURED
 toolchain: tooling/versions.yaml
