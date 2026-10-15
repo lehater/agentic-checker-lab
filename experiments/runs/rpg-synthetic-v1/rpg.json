@@ -1,0 +1,490 @@
+{
+  "repo_name": "word-count-lab",
+  "repo_info": "Provide an independent Python 3.12 CLI that counts ASCII words in a local UTF-8 text file and emits deterministic JSON. Serve as a compact fixture for constructing a forward RPG from explicit requirements.",
+  "excluded_files": [],
+  "repo_node_id": "word-count-lab_L0",
+  "root": {
+    "id": "word-count-lab_L0",
+    "name": "word-count-lab",
+    "node_type": "repo",
+    "level": 0,
+    "meta": {
+      "type_name": "directory",
+      "path": ".",
+      "content": "",
+      "description": "",
+      "generator": "build_skeleton",
+      "language": "python"
+    },
+    "children": [
+      {
+        "id": "Запуск CLI и получение текста_99a63b7c",
+        "name": "Запуск CLI и получение текста",
+        "node_type": "functional_area",
+        "level": 1,
+        "meta": {
+          "type_name": "directory",
+          "path": "src/word_count_lab/cli",
+          "content": "",
+          "description": "",
+          "generator": "build_skeleton",
+          "language": null
+        },
+        "children": [
+          {
+            "id": "запуск приложения_4676cb0d",
+            "name": "запуск приложения",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "execute python312 cli_43e27fcf",
+                "name": "execute python312 cli",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/cli/main.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "контракт запуска_3f53f5ae",
+            "name": "контракт запуска",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "parse input file path_6ac9649c",
+                "name": "parse input file path",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/cli/main.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "validate argument count_7aaf2ec2",
+                "name": "validate argument count",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/cli/main.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "загрузка текста_fb4c2794",
+            "name": "загрузка текста",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "read local file bytes_5905b059",
+                "name": "read local file bytes",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/cli/input.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "decode utf8 content_93960a6b",
+                "name": "decode utf8 content",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/cli/input.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "завершение с ошибкой_cae8673f",
+            "name": "завершение с ошибкой",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "return nonzero exit status_6bdcc5e9",
+                "name": "return nonzero exit status",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/cli/main.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "write input error message_08eaaa6f",
+                "name": "write input error message",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/cli/main.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "suppress failure stdout_5a9f6e5e",
+                "name": "suppress failure stdout",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/cli/main.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "автономность приложения_a14bc9f5",
+            "name": "автономность приложения",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "verify standard library dependencies_27a15dbe",
+                "name": "verify standard library dependencies",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/cli/main.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "verify local file isolation_c5b76564",
+                "name": "verify local file isolation",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/cli/input.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Подсчёт ASCII-слов_14e764a9",
+        "name": "Подсчёт ASCII-слов",
+        "node_type": "functional_area",
+        "level": 1,
+        "meta": {
+          "type_name": "directory",
+          "path": "src/word_count_lab/counting",
+          "content": "",
+          "description": "",
+          "generator": "build_skeleton",
+          "language": null
+        },
+        "children": [
+          {
+            "id": "выделение нормализованных слов_d48869b1",
+            "name": "выделение нормализованных слов",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "extract ascii words_077859a9",
+                "name": "extract ascii words",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/counting/words.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "lowercase recognized words_6894139f",
+                "name": "lowercase recognized words",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/counting/words.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "статистика слов_e97d43ae",
+            "name": "статистика слов",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "calculate total words_167d69dd",
+                "name": "calculate total words",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/counting/words.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "count normalized occurrences_5531ea52",
+                "name": "count normalized occurrences",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/counting/words.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Детерминированный JSON-вывод_e3a4d72b",
+        "name": "Детерминированный JSON-вывод",
+        "node_type": "functional_area",
+        "level": 1,
+        "meta": {
+          "type_name": "directory",
+          "path": "src/word_count_lab/output",
+          "content": "",
+          "description": "",
+          "generator": "build_skeleton",
+          "language": null
+        },
+        "children": [
+          {
+            "id": "подготовка JSON-объекта_7e0e4385",
+            "name": "подготовка JSON-объекта",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "construct count result_9bac773c",
+                "name": "construct count result",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/output/json_output.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "sort frequency keys_c2816fe4",
+                "name": "sort frequency keys",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/output/json_output.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "публикация результата_22dbba04",
+            "name": "публикация результата",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "serialize deterministic result_4b807678",
+                "name": "serialize deterministic result",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/output/json_output.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "print result object_3dfd4b72",
+                "name": "print result object",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": null,
+                  "path": "src/word_count_lab/output/json_output.py",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [],
+  "_dep_to_rpg_map": {},
+  "_dep_graph_code_dir": "",
+  "dep_graph_file": null,
+  "_feature_to_dep_map": {},
+  "meta": {}
+}

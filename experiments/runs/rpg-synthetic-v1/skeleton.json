@@ -1,0 +1,147 @@
+{
+  "repository_name": "word-count-lab",
+  "repository_purpose": "Provide an independent Python 3.12 CLI that counts ASCII words in a local UTF-8 text file and emits deterministic JSON. Serve as a compact fixture for constructing a forward RPG from explicit requirements.",
+  "meta": {
+    "primary_language": "python",
+    "target_languages": [
+      "python"
+    ]
+  },
+  "root": {
+    "type": "directory",
+    "name": "project_root",
+    "path": ".",
+    "children": [
+      {
+        "type": "directory",
+        "name": "src",
+        "path": "src",
+        "children": [
+          {
+            "type": "directory",
+            "name": "word_count_lab",
+            "path": "src/word_count_lab",
+            "children": [
+              {
+                "type": "directory",
+                "name": "cli",
+                "path": "src/word_count_lab/cli",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "main.py",
+                    "path": "src/word_count_lab/cli/main.py",
+                    "feature_paths": [
+                      "Запуск CLI и получение текста/запуск приложения/execute python312 cli",
+                      "Запуск CLI и получение текста/контракт запуска/parse input file path",
+                      "Запуск CLI и получение текста/контракт запуска/validate argument count",
+                      "Запуск CLI и получение текста/завершение с ошибкой/return nonzero exit status",
+                      "Запуск CLI и получение текста/завершение с ошибкой/write input error message",
+                      "Запуск CLI и получение текста/завершение с ошибкой/suppress failure stdout",
+                      "Запуск CLI и получение текста/автономность приложения/verify standard library dependencies"
+                    ],
+                    "component": "Запуск CLI и получение текста"
+                  },
+                  {
+                    "type": "file",
+                    "name": "input.py",
+                    "path": "src/word_count_lab/cli/input.py",
+                    "feature_paths": [
+                      "Запуск CLI и получение текста/загрузка текста/read local file bytes",
+                      "Запуск CLI и получение текста/загрузка текста/decode utf8 content",
+                      "Запуск CLI и получение текста/автономность приложения/verify local file isolation"
+                    ],
+                    "component": "Запуск CLI и получение текста"
+                  },
+                  {
+                    "type": "file",
+                    "name": "__init__.py",
+                    "path": "src/word_count_lab/cli/__init__.py",
+                    "feature_paths": []
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "counting",
+                "path": "src/word_count_lab/counting",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "words.py",
+                    "path": "src/word_count_lab/counting/words.py",
+                    "feature_paths": [
+                      "Подсчёт ASCII-слов/выделение нормализованных слов/extract ascii words",
+                      "Подсчёт ASCII-слов/выделение нормализованных слов/lowercase recognized words",
+                      "Подсчёт ASCII-слов/статистика слов/calculate total words",
+                      "Подсчёт ASCII-слов/статистика слов/count normalized occurrences"
+                    ],
+                    "component": "Подсчёт ASCII-слов"
+                  },
+                  {
+                    "type": "file",
+                    "name": "__init__.py",
+                    "path": "src/word_count_lab/counting/__init__.py",
+                    "feature_paths": []
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "output",
+                "path": "src/word_count_lab/output",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "json_output.py",
+                    "path": "src/word_count_lab/output/json_output.py",
+                    "feature_paths": [
+                      "Детерминированный JSON-вывод/подготовка JSON-объекта/construct count result",
+                      "Детерминированный JSON-вывод/подготовка JSON-объекта/sort frequency keys",
+                      "Детерминированный JSON-вывод/публикация результата/serialize deterministic result",
+                      "Детерминированный JSON-вывод/публикация результата/print result object"
+                    ],
+                    "component": "Детерминированный JSON-вывод"
+                  },
+                  {
+                    "type": "file",
+                    "name": "__init__.py",
+                    "path": "src/word_count_lab/output/__init__.py",
+                    "feature_paths": []
+                  }
+                ]
+              },
+              {
+                "type": "file",
+                "name": "__init__.py",
+                "path": "src/word_count_lab/__init__.py",
+                "feature_paths": []
+              }
+            ]
+          },
+          {
+            "type": "file",
+            "name": "__init__.py",
+            "path": "src/__init__.py",
+            "feature_paths": []
+          }
+        ]
+      }
+    ]
+  },
+  "statistics": {
+    "total_components": 3,
+    "total_features": 18,
+    "total_files": 9,
+    "total_directories": 6,
+    "rpg_nodes": 31,
+    "rpg_edges": 0,
+    "llm_calls_made": 4,
+    "validation_retries": 0
+  },
+  "component_directories": {
+    "Запуск CLI и получение текста": "src/word_count_lab/cli",
+    "Подсчёт ASCII-слов": "src/word_count_lab/counting",
+    "Детерминированный JSON-вывод": "src/word_count_lab/output"
+  }
+}

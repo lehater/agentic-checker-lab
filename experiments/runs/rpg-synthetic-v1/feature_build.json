@@ -1,0 +1,351 @@
+{
+  "repository_name": "word-count-lab",
+  "repository_purpose": "Provide an independent Python 3.12 CLI that counts ASCII words in a local UTF-8 text file and emits deterministic JSON. Serve as a compact fixture for constructing a forward RPG from explicit requirements.",
+  "repository_specification": "{\n  \"meta\": {\n    \"project_types\": [\n      \"CLI\"\n    ],\n    \"project_notes\": \"Independent tooling fixture named word-count-lab; implementation is limited to the explicit word-counter requirements and does not include Checker or legacy systems.\",\n    \"generated_at\": \"2026-10-16\",\n    \"source_documents\": [\n      \"requirements.md\"\n    ],\n    \"primary_language\": \"python\",\n    \"target_languages\": [\n      \"python\"\n    ]\n  },\n  \"background_and_overview\": [\n    {\n      \"id\": \"BG-001\",\n      \"title\": \"Tooling Fixture Scope\",\n      \"description\": \"This independent fixture checks whether CoderMind constructs a meaningful forward RPG from explicit accepted requirements. It does not authorize implementing Checker or recreating Product, SSSR, NAPMS, or legacy systems.\",\n      \"evidence\": [\n        {\n          \"id\": \"requirements-BG-001\",\n          \"source\": \"requirements.md\",\n          \"line_start\": 1,\n          \"line_end\": 3\n        },\n        {\n          \"id\": \"requirements-BG-002\",\n          \"source\": \"requirements.md\",\n          \"line_start\": 22,\n          \"line_end\": 22\n        }\n      ]\n    },\n    {\n      \"id\": \"BG-002\",\n      \"title\": \"Word Counter CLI\",\n      \"description\": \"word-count-lab is a small independent command-line application that counts words in a local UTF-8 plain-text file and prints one JSON object to stdout.\",\n      \"evidence\": [\n        {\n          \"id\": \"requirements-BG-003\",\n          \"source\": \"requirements.md\",\n          \"line_start\": 5,\n          \"line_end\": 5\n        }\n      ]\n    }\n  ],\n  \"non_functional_requirements\": [\n    {\n      \"id\": \"NFR-001\",\n      \"title\": \"Python Runtime\",\n      \"description\": \"The application must use Python 3.12.\",\n      \"evidence\": [\n        {\n          \"id\": \"requirements-NFR-001\",\n          \"source\": \"requirements.md\",\n          \"line_start\": 5,\n          \"line_end\": 5\n        }\n      ]\n    },\n    {\n      \"id\": \"NFR-002\",\n      \"title\": \"Local Interaction Boundary\",\n      \"description\": \"The application must operate only on local files. Network, database, GUI, service, and device interactions are outside its scope.\",\n      \"evidence\": [\n        {\n          \"id\": \"requirements-NFR-002\",\n          \"source\": \"requirements.md\",\n          \"line_start\": 9,\n          \"line_end\": 9\n        }\n      ]\n    },\n    {\n      \"id\": \"NFR-003\",\n      \"title\": \"Standard Library Dependencies\",\n      \"description\": \"The application must use only the Python standard library.\",\n      \"evidence\": [\n        {\n          \"id\": \"requirements-NFR-003\",\n          \"source\": \"requirements.md\",\n          \"line_start\": 14,\n          \"line_end\": 14\n        }\n      ]\n    },\n    {\n      \"id\": \"NFR-004\",\n      \"title\": \"Deterministic CLI Behavior\",\n      \"description\": \"The application must provide a deterministic CLI entry point with identical JSON output for identical valid input content.\",\n      \"evidence\": [\n        {\n          \"id\": \"requirements-NFR-004\",\n          \"source\": \"requirements.md\",\n          \"line_start\": 11,\n          \"line_end\": 14\n        }\n      ]\n    }\n  ],\n  \"functional_requirements\": [\n    {\n      \"id\": \"FT-001\",\n      \"name\": \"Input Handling\",\n      \"description\": \"The application accepts a local input file with defined failure behavior.\",\n      \"evidence\": [],\n      \"children\": [\n        {\n          \"id\": \"FT-001-001\",\n          \"name\": \"Accept File Path\",\n          \"description\": \"Accept one positional argument identifying the local input file.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-001\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 9,\n              \"line_end\": 9\n            }\n          ],\n          \"children\": []\n        },\n        {\n          \"id\": \"FT-001-002\",\n          \"name\": \"Read Input File\",\n          \"description\": \"Read the specified local file, treating a missing or unreadable file as an input failure.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-002\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 5,\n              \"line_end\": 5\n            },\n            {\n              \"id\": \"requirements-FR-003\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 13,\n              \"line_end\": 13\n            }\n          ],\n          \"children\": []\n        },\n        {\n          \"id\": \"FT-001-003\",\n          \"name\": \"Decode Input Text\",\n          \"description\": \"Decode the file content as UTF-8, treating invalid encoding as an input failure.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-004\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 5,\n              \"line_end\": 5\n            },\n            {\n              \"id\": \"requirements-FR-005\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 13,\n              \"line_end\": 13\n            }\n          ],\n          \"children\": []\n        },\n        {\n          \"id\": \"FT-001-004\",\n          \"name\": \"Return Failure Status\",\n          \"description\": \"Exit with a nonzero status when the input file is missing, unreadable, or invalid UTF-8.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-006\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 13,\n              \"line_end\": 13\n            }\n          ],\n          \"children\": []\n        },\n        {\n          \"id\": \"FT-001-005\",\n          \"name\": \"Report Input Failure\",\n          \"description\": \"Emit an explanatory stderr message when the input file is missing, unreadable, or invalid UTF-8.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-007\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 13,\n              \"line_end\": 13\n            }\n          ],\n          \"children\": []\n        },\n        {\n          \"id\": \"FT-001-006\",\n          \"name\": \"Suppress Failure JSON\",\n          \"description\": \"Emit no stdout JSON when the input file is missing, unreadable, or invalid UTF-8.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-008\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 13,\n              \"line_end\": 13\n            }\n          ],\n          \"children\": []\n        }\n      ]\n    },\n    {\n      \"id\": \"FT-002\",\n      \"name\": \"Word Counting\",\n      \"description\": \"The application derives normalized word frequencies from the input text.\",\n      \"evidence\": [],\n      \"children\": [\n        {\n          \"id\": \"FT-002-001\",\n          \"name\": \"Recognize ASCII Words\",\n          \"description\": \"Recognize each maximal non-empty contiguous sequence of ASCII letters A-Z or a-z as a word, treating every other character as a separator.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-009\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 10,\n              \"line_end\": 10\n            },\n            {\n              \"id\": \"requirements-FR-010\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 18,\n              \"line_end\": 20\n            }\n          ],\n          \"children\": []\n        },\n        {\n          \"id\": \"FT-002-002\",\n          \"name\": \"Normalize Word Case\",\n          \"description\": \"Convert every recognized word to lowercase.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-011\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 10,\n              \"line_end\": 10\n            },\n            {\n              \"id\": \"requirements-FR-012\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 18,\n              \"line_end\": 20\n            }\n          ],\n          \"children\": []\n        },\n        {\n          \"id\": \"FT-002-003\",\n          \"name\": \"Calculate Word Total\",\n          \"description\": \"Calculate the total number of recognized words as a nonnegative integer.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-013\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 11,\n              \"line_end\": 12\n            },\n            {\n              \"id\": \"requirements-FR-014\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 18,\n              \"line_end\": 20\n            }\n          ],\n          \"children\": []\n        },\n        {\n          \"id\": \"FT-002-004\",\n          \"name\": \"Count Word Occurrences\",\n          \"description\": \"Calculate a positive integer occurrence count for each distinct lowercase word.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-015\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 11,\n              \"line_end\": 11\n            },\n            {\n              \"id\": \"requirements-FR-016\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 18,\n              \"line_end\": 20\n            }\n          ],\n          \"children\": []\n        }\n      ]\n    },\n    {\n      \"id\": \"FT-003\",\n      \"name\": \"JSON Output\",\n      \"description\": \"The application presents the word-count result as deterministic JSON.\",\n      \"evidence\": [],\n      \"children\": [\n        {\n          \"id\": \"FT-003-001\",\n          \"name\": \"Construct Result Object\",\n          \"description\": \"Construct a JSON result containing exactly total and counts, with total equal to zero and counts empty for empty input or input without recognized words.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-017\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 11,\n              \"line_end\": 12\n            },\n            {\n              \"id\": \"requirements-FR-018\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 18,\n              \"line_end\": 20\n            }\n          ],\n          \"children\": []\n        },\n        {\n          \"id\": \"FT-003-002\",\n          \"name\": \"Sort Count Keys\",\n          \"description\": \"Order the counts mapping keys lexicographically in the emitted JSON.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-019\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 11,\n              \"line_end\": 11\n            }\n          ],\n          \"children\": []\n        },\n        {\n          \"id\": \"FT-003-003\",\n          \"name\": \"Print Result JSON\",\n          \"description\": \"Print one JSON result object to stdout for valid input.\",\n          \"evidence\": [\n            {\n              \"id\": \"requirements-FR-020\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 5,\n              \"line_end\": 5\n            },\n            {\n              \"id\": \"requirements-FR-021\",\n              \"source\": \"requirements.md\",\n              \"line_start\": 11,\n              \"line_end\": 12\n            }\n          ],\n          \"children\": []\n        }\n      ]\n    }\n  ],\n  \"repository_name\": \"word-count-lab\",\n  \"repository_purpose\": \"Provide an independent Python 3.12 CLI that counts ASCII words in a local UTF-8 text file and emits deterministic JSON. Serve as a compact fixture for constructing a forward RPG from explicit requirements.\"\n}",
+  "meta": {
+    "project_types": [
+      "CLI"
+    ],
+    "project_notes": "Independent tooling fixture named word-count-lab; implementation is limited to the explicit word-counter requirements and does not include Checker or legacy systems.",
+    "generated_at": "2026-10-16",
+    "source_documents": [
+      "requirements.md"
+    ],
+    "primary_language": "python",
+    "target_languages": [
+      "python"
+    ]
+  },
+  "feature_tree": {
+    "cli": {
+      "input handling": {
+        "positional arguments": [
+          {
+            "name": "parse input file path",
+            "description": "FT-001-001, BG-002: извлечь путь локального входного файла из позиционного аргумента."
+          },
+          {
+            "name": "validate argument count",
+            "description": "Поддержка FT-001-001: отклонить вызов, в котором передано не ровно одно позиционное значение пути."
+          }
+        ],
+        "file access": [
+          {
+            "name": "read local file bytes",
+            "description": "FT-001-002, BG-002: прочитать содержимое указанного локального файла; отсутствие файла или невозможность чтения передать как ошибку ввода."
+          }
+        ],
+        "text decoding": [
+          {
+            "name": "decode utf8 content",
+            "description": "FT-001-003: преобразовать байты файла в текст UTF-8 со строгой проверкой кодировки."
+          }
+        ],
+        "failure responses": [
+          {
+            "name": "return nonzero exit status",
+            "description": "FT-001-004: завершить процесс с ненулевым кодом при отсутствии файла, невозможности чтения или некорректном UTF-8."
+          },
+          {
+            "name": "write input error message",
+            "description": "FT-001-005: вывести в stderr объяснение ошибки доступа к файлу или декодирования."
+          },
+          {
+            "name": "suppress failure stdout",
+            "description": "FT-001-006: оставить stdout пустым при ошибке входного файла."
+          }
+        ]
+      },
+      "word counting": {
+        "token recognition": [
+          {
+            "name": "extract ascii words",
+            "description": "FT-002-001: выделить максимальные непустые последовательности букв A-Z или a-z, считая все остальные символы разделителями."
+          }
+        ],
+        "case normalization": [
+          {
+            "name": "lowercase recognized words",
+            "description": "FT-002-002: преобразовать каждое распознанное слово в нижний регистр."
+          }
+        ],
+        "count aggregation": [
+          {
+            "name": "calculate total words",
+            "description": "FT-002-003: вернуть общее число распознанных слов как неотрицательное целое число."
+          },
+          {
+            "name": "count normalized occurrences",
+            "description": "FT-002-004: построить отображение различных слов в нижнем регистре в положительные целые количества их появлений."
+          }
+        ]
+      },
+      "json output": {
+        "result structure": [
+          {
+            "name": "construct count result",
+            "description": "FT-003-001: сформировать объект ровно с полями total и counts. Для пустого текста или текста без ASCII-слов вернуть total равным нулю и пустое counts."
+          }
+        ],
+        "key ordering": [
+          {
+            "name": "sort frequency keys",
+            "description": "FT-003-002: упорядочить ключи counts лексикографически для последующего вывода."
+          }
+        ],
+        "json serialization": [
+          {
+            "name": "serialize deterministic result",
+            "description": "NFR-004, FT-003: преобразовать результат в JSON с фиксированными правилами форматирования и порядка полей, обеспечивая одинаковый вывод для одинакового корректного содержимого."
+          }
+        ],
+        "standard output": [
+          {
+            "name": "print result object",
+            "description": "FT-003-003, BG-002: вывести один сериализованный JSON-объект в stdout при корректном вводе."
+          }
+        ]
+      },
+      "runtime support": {
+        "application entry": [
+          {
+            "name": "execute python312 cli",
+            "description": "NFR-001, NFR-004: предоставить запускаемую через Python 3.12 точку входа, возвращающую код завершения приложения."
+          }
+        ]
+      },
+      "scope compliance": {
+        "interaction boundaries": [
+          {
+            "name": "verify local file isolation",
+            "description": "NFR-002, BG-001: проверить, что приложение взаимодействует только с локальными файлами и стандартными потоками CLI, без сетевых, серверных, графических, аппаратных интеграций или баз данных."
+          }
+        ],
+        "dependency boundaries": [
+          {
+            "name": "verify standard library dependencies",
+            "description": "NFR-003: проверить, что для запуска приложения используются только модули стандартной библиотеки Python."
+          }
+        ]
+      }
+    }
+  },
+  "previous_feature_tree": {},
+  "iteration_logs": [
+    {
+      "iteration": 1,
+      "status": "complete",
+      "new_paths": [
+        {
+          "path": "cli/input handling/positional arguments/parse input file path",
+          "description": "FT-001-001, BG-002: извлечь путь локального входного файла из позиционного аргумента."
+        },
+        {
+          "path": "cli/input handling/positional arguments/validate argument count",
+          "description": "Поддержка FT-001-001: отклонить вызов, в котором передано не ровно одно позиционное значение пути."
+        },
+        {
+          "path": "cli/input handling/file access/read local file bytes",
+          "description": "FT-001-002, BG-002: прочитать содержимое указанного локального файла; отсутствие файла или невозможность чтения передать как ошибку ввода."
+        },
+        {
+          "path": "cli/input handling/text decoding/decode utf8 content",
+          "description": "FT-001-003: преобразовать байты файла в текст UTF-8 со строгой проверкой кодировки."
+        },
+        {
+          "path": "cli/input handling/failure responses/return nonzero exit status",
+          "description": "FT-001-004: завершить процесс с ненулевым кодом при отсутствии файла, невозможности чтения или некорректном UTF-8."
+        },
+        {
+          "path": "cli/input handling/failure responses/write input error message",
+          "description": "FT-001-005: вывести в stderr объяснение ошибки доступа к файлу или декодирования."
+        },
+        {
+          "path": "cli/input handling/failure responses/suppress failure stdout",
+          "description": "FT-001-006: оставить stdout пустым при ошибке входного файла."
+        },
+        {
+          "path": "cli/word counting/token recognition/extract ascii words",
+          "description": "FT-002-001: выделить максимальные непустые последовательности букв A-Z или a-z, считая все остальные символы разделителями."
+        },
+        {
+          "path": "cli/word counting/case normalization/lowercase recognized words",
+          "description": "FT-002-002: преобразовать каждое распознанное слово в нижний регистр."
+        },
+        {
+          "path": "cli/word counting/count aggregation/calculate total words",
+          "description": "FT-002-003: вернуть общее число распознанных слов как неотрицательное целое число."
+        },
+        {
+          "path": "cli/word counting/count aggregation/count normalized occurrences",
+          "description": "FT-002-004: построить отображение различных слов в нижнем регистре в положительные целые количества их появлений."
+        },
+        {
+          "path": "cli/json output/result structure/construct count result",
+          "description": "FT-003-001: сформировать объект ровно с полями total и counts. Для пустого текста или текста без ASCII-слов вернуть total равным нулю и пустое counts."
+        },
+        {
+          "path": "cli/json output/key ordering/sort frequency keys",
+          "description": "FT-003-002: упорядочить ключи counts лексикографически для последующего вывода."
+        },
+        {
+          "path": "cli/json output/json serialization/serialize deterministic result",
+          "description": "NFR-004, FT-003: преобразовать результат в JSON с фиксированными правилами форматирования и порядка полей, обеспечивая одинаковый вывод для одинакового корректного содержимого."
+        },
+        {
+          "path": "cli/json output/standard output/print result object",
+          "description": "FT-003-003, BG-002: вывести один сериализованный JSON-объект в stdout при корректном вводе."
+        },
+        {
+          "path": "cli/runtime support/application entry/execute python312 cli",
+          "description": "NFR-001, NFR-004: предоставить запускаемую через Python 3.12 точку входа, возвращающую код завершения приложения."
+        },
+        {
+          "path": "cli/scope compliance/interaction boundaries/verify local file isolation",
+          "description": "NFR-002, BG-001: проверить, что приложение взаимодействует только с локальными файлами и стандартными потоками CLI, без сетевых, серверных, графических, аппаратных интеграций или баз данных."
+        },
+        {
+          "path": "cli/scope compliance/dependency boundaries/verify standard library dependencies",
+          "description": "NFR-003: проверить, что для запуска приложения используются только модули стандартной библиотеки Python."
+        }
+      ],
+      "paths_count": 18,
+      "is_complete": true,
+      "completion_reason": "Предложенные пути покрывают все функциональные требования, реализуемые возможности background_and_overview и все нефункциональные ограничения; границы независимого CLI сохранены.",
+      "think": "Покрытие сопоставлено со всеми разделами спецификации: FT-001 — аргумент пути, чтение, декодирование и обработка ошибок; FT-002 — выделение ASCII-слов, нормализация и подсчёт; FT-003 — структура результата, сортировка и вывод. BG-002 отражён в файловом вводе и CLI. BG-001 ограничивает область приложения и не требует реализации сторонних систем.\n\nNFR-001 отражён в запуске CLI через Python 3.12; NFR-002 — в проверке локального файлового взаимодействия; NFR-003 — в проверке зависимостей; NFR-004 — в детерминированной сериализации. Источники каждого пути указаны в описаниях. Дополнительно предусмотрена проверка количества аргументов как необходимая поддержка позиционного ввода.\n\nТекущее дерево пустое; все предлагаемые имена листьев уникальны. Каждый путь содержит четыре сегмента, каждый лист описывает отдельное проверяемое действие. Непокрытых требований нет.",
+      "current_tree": {
+        "cli": {
+          "input handling": {
+            "positional arguments": [
+              {
+                "name": "parse input file path",
+                "description": "FT-001-001, BG-002: извлечь путь локального входного файла из позиционного аргумента."
+              },
+              {
+                "name": "validate argument count",
+                "description": "Поддержка FT-001-001: отклонить вызов, в котором передано не ровно одно позиционное значение пути."
+              }
+            ],
+            "file access": [
+              {
+                "name": "read local file bytes",
+                "description": "FT-001-002, BG-002: прочитать содержимое указанного локального файла; отсутствие файла или невозможность чтения передать как ошибку ввода."
+              }
+            ],
+            "text decoding": [
+              {
+                "name": "decode utf8 content",
+                "description": "FT-001-003: преобразовать байты файла в текст UTF-8 со строгой проверкой кодировки."
+              }
+            ],
+            "failure responses": [
+              {
+                "name": "return nonzero exit status",
+                "description": "FT-001-004: завершить процесс с ненулевым кодом при отсутствии файла, невозможности чтения или некорректном UTF-8."
+              },
+              {
+                "name": "write input error message",
+                "description": "FT-001-005: вывести в stderr объяснение ошибки доступа к файлу или декодирования."
+              },
+              {
+                "name": "suppress failure stdout",
+                "description": "FT-001-006: оставить stdout пустым при ошибке входного файла."
+              }
+            ]
+          },
+          "word counting": {
+            "token recognition": [
+              {
+                "name": "extract ascii words",
+                "description": "FT-002-001: выделить максимальные непустые последовательности букв A-Z или a-z, считая все остальные символы разделителями."
+              }
+            ],
+            "case normalization": [
+              {
+                "name": "lowercase recognized words",
+                "description": "FT-002-002: преобразовать каждое распознанное слово в нижний регистр."
+              }
+            ],
+            "count aggregation": [
+              {
+                "name": "calculate total words",
+                "description": "FT-002-003: вернуть общее число распознанных слов как неотрицательное целое число."
+              },
+              {
+                "name": "count normalized occurrences",
+                "description": "FT-002-004: построить отображение различных слов в нижнем регистре в положительные целые количества их появлений."
+              }
+            ]
+          },
+          "json output": {
+            "result structure": [
+              {
+                "name": "construct count result",
+                "description": "FT-003-001: сформировать объект ровно с полями total и counts. Для пустого текста или текста без ASCII-слов вернуть total равным нулю и пустое counts."
+              }
+            ],
+            "key ordering": [
+              {
+                "name": "sort frequency keys",
+                "description": "FT-003-002: упорядочить ключи counts лексикографически для последующего вывода."
+              }
+            ],
+            "json serialization": [
+              {
+                "name": "serialize deterministic result",
+                "description": "NFR-004, FT-003: преобразовать результат в JSON с фиксированными правилами форматирования и порядка полей, обеспечивая одинаковый вывод для одинакового корректного содержимого."
+              }
+            ],
+            "standard output": [
+              {
+                "name": "print result object",
+                "description": "FT-003-003, BG-002: вывести один сериализованный JSON-объект в stdout при корректном вводе."
+              }
+            ]
+          },
+          "runtime support": {
+            "application entry": [
+              {
+                "name": "execute python312 cli",
+                "description": "NFR-001, NFR-004: предоставить запускаемую через Python 3.12 точку входа, возвращающую код завершения приложения."
+              }
+            ]
+          },
+          "scope compliance": {
+            "interaction boundaries": [
+              {
+                "name": "verify local file isolation",
+                "description": "NFR-002, BG-001: проверить, что приложение взаимодействует только с локальными файлами и стандартными потоками CLI, без сетевых, серверных, графических, аппаратных интеграций или баз данных."
+              }
+            ],
+            "dependency boundaries": [
+              {
+                "name": "verify standard library dependencies",
+                "description": "NFR-003: проверить, что для запуска приложения используются только модули стандартной библиотеки Python."
+              }
+            ]
+          }
+        }
+      },
+      "response": "<think>\nПокрытие сопоставлено со всеми разделами спецификации: FT-001 — аргумент пути, чтение, декодирование и обработка ошибок; FT-002 — выделение ASCII-слов, нормализация и подсчёт; FT-003 — структура результата, сортировка и вывод. BG-002 отражён в файловом вводе и CLI. BG-001 ограничивает область приложения и не требует реализации сторонних систем.\n\nNFR-001 отражён в запуске CLI через Python 3.12; NFR-002 — в проверке локального файлового взаимодействия; NFR-003 — в проверке зависимостей; NFR-004 — в детерминированной сериализации. Источники каждого пути указаны в описаниях. Дополнительно предусмотрена проверка количества аргументов как необходимая поддержка позиционного ввода.\n\nТекущее дерево пустое; все предлагаемые имена листьев уникальны. Каждый путь содержит четыре сегмента, каждый лист описывает отдельное проверяемое действие. Непокрытых требований нет.\n</think>\n<result_json>\n{\n  \"add_new_feature_paths\": [\n    {\n      \"path\": \"cli/input handling/positional arguments/parse input file path\",\n      \"description\": \"FT-001-001, BG-002: извлечь путь локального входного файла из позиционного аргумента.\"\n    },\n    {\n      \"path\": \"cli/input handling/positional arguments/validate argument count\",\n      \"description\": \"Поддержка FT-001-001: отклонить вызов, в котором передано не ровно одно позиционное значение пути.\"\n    },\n    {\n      \"path\": \"cli/input handling/file access/read local file bytes\",\n      \"description\": \"FT-001-002, BG-002: прочитать содержимое указанного локального файла; отсутствие файла или невозможность чтения передать как ошибку ввода.\"\n    },\n    {\n      \"path\": \"cli/input handling/text decoding/decode utf8 content\",\n      \"description\": \"FT-001-003: преобразовать байты файла в текст UTF-8 со строгой проверкой кодировки.\"\n    },\n    {\n      \"path\": \"cli/input handling/failure responses/return nonzero exit status\",\n      \"description\": \"FT-001-004: завершить процесс с ненулевым кодом при отсутствии файла, невозможности чтения или некорректном UTF-8.\"\n    },\n    {\n      \"path\": \"cli/input handling/failure responses/write input error message\",\n      \"description\": \"FT-001-005: вывести в stderr объяснение ошибки доступа к файлу или декодирования.\"\n    },\n    {\n      \"path\": \"cli/input handling/failure responses/suppress failure stdout\",\n      \"description\": \"FT-001-006: оставить stdout пустым при ошибке входного файла.\"\n    },\n    {\n      \"path\": \"cli/word counting/token recognition/extract ascii words\",\n      \"description\": \"FT-002-001: выделить максимальные непустые последовательности букв A-Z или a-z, считая все остальные символы разделителями.\"\n    },\n    {\n      \"path\": \"cli/word counting/case normalization/lowercase recognized words\",\n      \"description\": \"FT-002-002: преобразовать каждое распознанное слово в нижний регистр.\"\n    },\n    {\n      \"path\": \"cli/word counting/count aggregation/calculate total words\",\n      \"description\": \"FT-002-003: вернуть общее число распознанных слов как неотрицательное целое число.\"\n    },\n    {\n      \"path\": \"cli/word counting/count aggregation/count normalized occurrences\",\n      \"description\": \"FT-002-004: построить отображение различных слов в нижнем регистре в положительные целые количества их появлений.\"\n    },\n    {\n      \"path\": \"cli/json output/result structure/construct count result\",\n      \"description\": \"FT-003-001: сформировать объект ровно с полями total и counts. Для пустого текста или текста без ASCII-слов вернуть total равным нулю и пустое counts.\"\n    },\n    {\n      \"path\": \"cli/json output/key ordering/sort frequency keys\",\n      \"description\": \"FT-003-002: упорядочить ключи counts лексикографически для последующего вывода.\"\n    },\n    {\n      \"path\": \"cli/json output/json serialization/serialize deterministic result\",\n      \"description\": \"NFR-004, FT-003: преобразовать результат в JSON с фиксированными правилами форматирования и порядка полей, обеспечивая одинаковый вывод для одинакового корректного содержимого.\"\n    },\n    {\n      \"path\": \"cli/json output/standard output/print result object\",\n      \"description\": \"FT-003-003, BG-002: вывести один сериализованный JSON-объект в stdout при корректном вводе.\"\n    },\n    {\n      \"path\": \"cli/runtime support/application entry/execute python312 cli\",\n      \"description\": \"NFR-001, NFR-004: предоставить запускаемую через Python 3.12 точку входа, возвращающую код завершения приложения.\"\n    },\n    {\n      \"path\": \"cli/scope compliance/interaction boundaries/verify local file isolation\",\n      \"description\": \"NFR-002, BG-001: проверить, что приложение взаимодействует только с локальными файлами и стандартными потоками CLI, без сетевых, серверных, графических, аппаратных интеграций или баз данных.\"\n    },\n    {\n      \"path\": \"cli/scope compliance/dependency boundaries/verify standard library dependencies\",\n      \"description\": \"NFR-003: проверить, что для запуска приложения используются только модули стандартной библиотеки Python.\"\n    }\n  ],\n  \"is_complete\": true,\n  \"completion_reason\": \"Предложенные пути покрывают все функциональные требования, реализуемые возможности background_and_overview и все нефункциональные ограничения; границы независимого CLI сохранены.\"\n}\n</result_json>"
+    }
+  ],
+  "review_logs": [
+    {
+      "review_iteration": 1,
+      "status": "threshold_met",
+      "coverage_percentage": 100.0,
+      "has_gaps": false,
+      "missing_functionalities": [],
+      "suggested_paths": [],
+      "invalid_leaf_nodes": [],
+      "suggested_replacements": [],
+      "duplicate_leaf_renames": [],
+      "renames_applied": 0,
+      "paths_applied": 0,
+      "think": "Проверка покрытия по предоставленной спецификации:\n\n1. Функциональные требования — покрыты 13 из 13:\n- FT-001-001: cli/input handling/positional arguments/parse input file path и validate argument count — один позиционный аргумент пути.\n- FT-001-002: cli/input handling/file access/read local file bytes — чтение файла, обработка отсутствия и невозможности чтения.\n- FT-001-003: cli/input handling/text decoding/decode utf8 content — строгое декодирование UTF-8.\n- FT-001-004: cli/input handling/failure responses/return nonzero exit status — ненулевой статус для всех предусмотренных ошибок ввода.\n- FT-001-005: cli/input handling/failure responses/write input error message — объяснение ошибки в stderr.\n- FT-001-006: cli/input handling/failure responses/suppress failure stdout — отсутствие JSON в stdout при ошибке.\n- FT-002-001: cli/word counting/token recognition/extract ascii words — максимальные непустые последовательности ASCII-букв; остальные символы являются разделителями.\n- FT-002-002: cli/word counting/case normalization/lowercase recognized words — нижний регистр.\n- FT-002-003: cli/word counting/count aggregation/calculate total words — неотрицательное целое общее количество слов.\n- FT-002-004: cli/word counting/count aggregation/count normalized occurrences — положительные целые частоты различных нормализованных слов.\n- FT-003-001: cli/json output/result structure/construct count result — ровно total и counts, включая нулевой результат для пустого текста или текста без слов.\n- FT-003-002: cli/json output/key ordering/sort frequency keys — лексикографический порядок ключей counts в сочетании с сериализацией результата.\n- FT-003-003: cli/json output/standard output/print result object — один JSON-объект в stdout при корректном вводе.\n\n2. Контекст и обзор — покрыты 2 из 2:\n- BG-001: cli/scope compliance/interaction boundaries/verify local file isolation и предметная область дерева соответствуют независимой локальной утилите. Checker, Product, SSSR, NAPMS и legacy-системы не представлены как разрешённые возможности. Цель проверки построения RPG является контекстом фикстуры, а не требованием реализовать генератор RPG.\n- BG-002: пути чтения локального файла, декодирования UTF-8, подсчёта слов и печати результата совместно покрывают описанный CLI.\n\n3. Нефункциональные требования — покрыты 4 из 4:\n- NFR-001: cli/runtime support/application entry/execute python312 cli — Python 3.12.\n- NFR-002: cli/scope compliance/interaction boundaries/verify local file isolation — ограничение локальными файлами и стандартными потоками, исключение внешних взаимодействий.\n- NFR-003: cli/scope compliance/dependency boundaries/verify standard library dependencies — только стандартная библиотека Python.\n- NFR-004: cli/runtime support/application entry/execute python312 cli и cli/json output/json serialization/serialize deterministic result — точка входа CLI и одинаковый JSON для одинакового корректного содержимого.\n\n4. MIU: все 19 листьев имеют проверяемый результат или наблюдаемое поведение. Распознавание, нормализация, агрегация, сортировка и проверки ограничений допустимы. Чистых внутренних шагов цикла или рекурсии без результата нет. Оснований для удаления листьев нет.\n\n5. Повторяющихся имён листьев нет; переименования не требуются.\n\n6. Методика: единица учёта — каждое конечное функциональное требование и каждый элемент BG/NFR. Составные условия проверены внутри соответствующих единиц; родительские разделы и повторяющиеся формулировки отдельно не учитываются. Покрытие: (13 + 2 + 4) / 19 × 100 = 100%. Это оценка полноты дерева, а не проверка реализации.",
+      "response": "<think>\nПроверка покрытия по предоставленной спецификации:\n\n1. Функциональные требования — покрыты 13 из 13:\n- FT-001-001: cli/input handling/positional arguments/parse input file path и validate argument count — один позиционный аргумент пути.\n- FT-001-002: cli/input handling/file access/read local file bytes — чтение файла, обработка отсутствия и невозможности чтения.\n- FT-001-003: cli/input handling/text decoding/decode utf8 content — строгое декодирование UTF-8.\n- FT-001-004: cli/input handling/failure responses/return nonzero exit status — ненулевой статус для всех предусмотренных ошибок ввода.\n- FT-001-005: cli/input handling/failure responses/write input error message — объяснение ошибки в stderr.\n- FT-001-006: cli/input handling/failure responses/suppress failure stdout — отсутствие JSON в stdout при ошибке.\n- FT-002-001: cli/word counting/token recognition/extract ascii words — максимальные непустые последовательности ASCII-букв; остальные символы являются разделителями.\n- FT-002-002: cli/word counting/case normalization/lowercase recognized words — нижний регистр.\n- FT-002-003: cli/word counting/count aggregation/calculate total words — неотрицательное целое общее количество слов.\n- FT-002-004: cli/word counting/count aggregation/count normalized occurrences — положительные целые частоты различных нормализованных слов.\n- FT-003-001: cli/json output/result structure/construct count result — ровно total и counts, включая нулевой результат для пустого текста или текста без слов.\n- FT-003-002: cli/json output/key ordering/sort frequency keys — лексикографический порядок ключей counts в сочетании с сериализацией результата.\n- FT-003-003: cli/json output/standard output/print result object — один JSON-объект в stdout при корректном вводе.\n\n2. Контекст и обзор — покрыты 2 из 2:\n- BG-001: cli/scope compliance/interaction boundaries/verify local file isolation и предметная область дерева соответствуют независимой локальной утилите. Checker, Product, SSSR, NAPMS и legacy-системы не представлены как разрешённые возможности. Цель проверки построения RPG является контекстом фикстуры, а не требованием реализовать генератор RPG.\n- BG-002: пути чтения локального файла, декодирования UTF-8, подсчёта слов и печати результата совместно покрывают описанный CLI.\n\n3. Нефункциональные требования — покрыты 4 из 4:\n- NFR-001: cli/runtime support/application entry/execute python312 cli — Python 3.12.\n- NFR-002: cli/scope compliance/interaction boundaries/verify local file isolation — ограничение локальными файлами и стандартными потоками, исключение внешних взаимодействий.\n- NFR-003: cli/scope compliance/dependency boundaries/verify standard library dependencies — только стандартная библиотека Python.\n- NFR-004: cli/runtime support/application entry/execute python312 cli и cli/json output/json serialization/serialize deterministic result — точка входа CLI и одинаковый JSON для одинакового корректного содержимого.\n\n4. MIU: все 19 листьев имеют проверяемый результат или наблюдаемое поведение. Распознавание, нормализация, агрегация, сортировка и проверки ограничений допустимы. Чистых внутренних шагов цикла или рекурсии без результата нет. Оснований для удаления листьев нет.\n\n5. Повторяющихся имён листьев нет; переименования не требуются.\n\n6. Методика: единица учёта — каждое конечное функциональное требование и каждый элемент BG/NFR. Составные условия проверены внутри соответствующих единиц; родительские разделы и повторяющиеся формулировки отдельно не учитываются. Покрытие: (13 + 2 + 4) / 19 × 100 = 100%. Это оценка полноты дерева, а не проверка реализации.\n</think>\n\n<result_json>\n{\n  \"coverage_percentage\": 100.0,\n  \"has_gaps\": false,\n  \"missing_functionalities\": [],\n  \"suggested_paths\": [],\n  \"invalid_leaf_nodes\": [],\n  \"suggested_replacements\": [],\n  \"duplicate_leaf_renames\": []\n}\n</result_json>"
+    }
+  ],
+  "expansion_directions": []
+}
