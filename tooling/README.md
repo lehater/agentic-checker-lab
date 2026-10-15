@@ -19,3 +19,7 @@ P1 — последовательность:
 
 
 [Результат CoderMind preflight](../docs/research/p1-cmind-preflight.md): установленный Codex CLI найден, но авторизация и выполнение pipeline не проверены. Следующее исследование — проверить `codex exec` и CoderMind LLMClient на отдельном scratch workspace, без изменения корня лаборатории.
+
+## Кандидат Codex из Microsoft PR #96
+
+Подготовлена отдельная [проверка кандидата](../docs/research/p1-codex-pr96.md): `make cmind-codex-smoke` в ветке `tooling/task-003-codex-pr96-spike`. Использует SHA `3303a222...` из поля `rpg_codex_pr96_candidate`, не заменяя уже проверенную версию CoderMind `a4e6966...` и не меняя приложение. Проверяет Codex CLI и запуск адаптера **без реального обращения к модели**.

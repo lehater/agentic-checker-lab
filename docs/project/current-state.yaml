@@ -5,7 +5,7 @@ date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
-next_task: TASK-003-CODEX-SPIKE
+next_task: TASK-003-CODEX-PR96-SPIKE
 accepted:
   - Independent repo and documentation-as-truth approach
   - One bounded checker scenario as first laboratory example
@@ -37,3 +37,6 @@ not_verified:
   - Four-arm comparative evaluation
 git_branch_protection: RULESET_ACTIVE_NO_BYPASS_REQUIRED_CHECKS_NOT_CONFIGURED
 toolchain: tooling/versions.yaml
+
+experimental_candidates:
+  - microsoft/RPG-ZeroRepo#96 at 3303a222eaec42c6a178bddd46ad63d9026ab8fa (open, not validated in operator Ubuntu)
