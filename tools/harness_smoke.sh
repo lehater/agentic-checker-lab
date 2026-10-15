@@ -46,7 +46,17 @@ if [[ "$ACTUAL" != "$PIN" ]]; then
   exit 3
 fi
 
-uv venv --python python3 "$VENV"
+# Re-running the smoke test must not prompt for replacement or delete a working venv.
+# uv venv may prompt or fail on an existing environment, depending on uv version.
+if [[ -f "$VENV/pyvenv.cfg" && -x "$VENV/bin/python" ]]; then
+  echo "Reusing Harness virtual environment: $VENV"
+elif [[ -e "$VENV" ]]; then
+  echo "ERROR: Incomplete/non-venv path: $VENV; inspect or remove that path explicitly." >&2
+  exit 2
+else
+  uv venv --python python3 "$VENV"
+fi
+"$VENV/bin/python" -c 'import sys; assert sys.version_info >= (3, 10), "Harness requires Python >=3.10"'
 uv pip install --quiet --python "$VENV/bin/python" "PyYAML==6.0.3"
 PYTHON="$VENV/bin/python"
 export PYTHONPATH="$CHECKOUT/src"
