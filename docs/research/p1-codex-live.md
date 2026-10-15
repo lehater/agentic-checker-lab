@@ -1,6 +1,6 @@
 # P1 — Codex via CoderMind: one actual model call
 
-Status: **PREPARED / awaiting operator run**.
+Status: **LIVE LLM CLIENT PASS — user-reported Ubuntu run, 2026-10-16; RPG NOT_TESTED**.
 
 Purpose: close the gap between the structural `CodexSessionManager` test and actual model execution. This task does **not** attempt Checker requirements, RPG creation or agent code generation.
 
@@ -19,3 +19,23 @@ Outputs, run details and errors are written to `~/.cache/agentic-checker-lab/run
 Success: `LIVE_LLM_CLIENT_PASS_RPG_NOT_TESTED`, expected exact response, preserved repo, pinned SHA. Failure: record the actual CLI stderr (e.g. invalid option/authentication/sandbox), not substitute a direct Codex call; the wrapper itself is under test. After PASS, use **another task** to create and serialize a tiny real RPG in a fresh workspace, independently validate it and decide when to promote PR #96 to the canonical tool pin.
 
 Important: `codex exec ... --help` passing during the structural probe does not guarantee all flags work in an actual invocation. A failure here is valuable diagnostic evidence; it does not retroactively invalidate the earlier structural results.
+
+## Результат испытания (2026-10-16)
+
+Владелец проекта передал следующий вывод реального запуска `make cmind-codex-live` на своей Ubuntu:
+
+```json
+{
+  "status": "LIVE_LLM_CLIENT_PASS_RPG_NOT_TESTED",
+  "cmind_sha": "3303a222eaec42c6a178bddd46ad63d9026ab8fa",
+  "codex_session_manager": "PASS",
+  "single_cli_call": true,
+  "model_output_matches": true,
+  "rpg_generation": "NOT_TESTED",
+  "checker_implemented": false
+}
+```
+
+Путь к локальному evidence: `/home/alex/.cache/agentic-checker-lab/runs/codex-live.Vzhj33/`. Скрипт подтвердил точное совпадение возвращённого токена. Полный набор локальных stdout/stderr, число токенов и стоимость не получены в этой переписке. Это **operator-reported evidence**, не независимый запуск с нашей стороны.
+
+Таким образом, принятый PR #96 адаптер доказал не только наличие CLI и передачу prompt, но и реальный путь `CoderMind LLMClient → CodexSessionManager → codex exec → ответ модели`. В результате не создавался RPG и не реализован Checker. Следующий проверяемый вопрос — графовая генерация и экспорт.
