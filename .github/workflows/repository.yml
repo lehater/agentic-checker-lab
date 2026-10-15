@@ -18,4 +18,6 @@ jobs:
       - name: Validate documentation map and required files
         run: python3 tools/check_repository.py
       - name: Check Ubuntu smoke script syntax
-        run: bash -n tools/harness_smoke.sh
+        run: |
+          bash -n tools/harness_smoke.sh
+          bash -n tools/cmind_preflight.sh

@@ -34,7 +34,7 @@ REQUIRED = (
     ".github/pull_request_template.md",
     ".github/workflows/repository.yml",
 )
-LINK = re.compile(r"(?<!!)[[][^]]+[]][(]([^ )]+)[)]")
+LINK = re.compile(r"(?<!!)\[[^\]]+\]\(([^)\s]+)\)")
 SCHEMES = ("http:", "https:", "mailto:", "data:", "sandbox:")
 
 
