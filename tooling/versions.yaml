@@ -1,0 +1,25 @@
+schema: agentic-checker-lab/tooling-v1
+status: TARGET_PINS_NOT_VALIDATED
+os: Ubuntu
+sources:
+  harness:
+    repository: https://github.com/lehater/harness
+    revision: 442db854c3a736a5e500b4a41664b80981b0d94c
+    installation: NOT_RUN
+  rpg_zerorepo:
+    repository: https://github.com/microsoft/RPG-ZeroRepo
+    revision: a4e6966c4ff59d84299bc56d6a47ae1f4f7b2885
+    component: CoderMind
+    installation: NOT_RUN
+  coding_agent_cli:
+    chosen: UNDECIDED
+    compatibility_check: NOT_RUN
+  python:
+    minimum_for_cmind: "3.12"
+    actual: UNKNOWN
+  uv:
+    actual: UNKNOWN
+reproducibility:
+  snapshot_export: NOT_VERIFIED
+  clean_checkout: NOT_RUN
+  model_and_cost_metadata: NOT_COLLECTED

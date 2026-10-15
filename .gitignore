@@ -1,0 +1,24 @@
+.venv/
+venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+node_modules/
+dist/
+build/
+coverage/
+.env
+.env.*
+!.env.example
+.idea/
+.vscode/
+.codex/
+.claude/
+.cmind/
+*.sqlite3
+*.db
+*.log
+.DS_Store
+# Accepted run manifests and sanitized graph snapshots under experiments/ are versioned explicitly.

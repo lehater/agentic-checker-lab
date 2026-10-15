@@ -1,0 +1,21 @@
+schema: agentic-checker-lab/current-state/v1
+status: FOUNDATION_DRAFTED
+phase: P0
+date: 2026-10-16
+purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
+strategy: docs/project/strategy.md
+roadmap: docs/project/roadmap.md
+next_task: TASK-001
+accepted:
+  - Independent repo and documentation-as-truth approach
+  - One bounded checker scenario as first laboratory example
+  - Development in task branches, pull requests and squash into main after initial authorized bootstrap
+not_verified:
+  - Ubuntu Harness installation and evaluation
+  - CoderMind setup and compatible coding-agent CLI
+  - RPG generation and versioned export
+  - Accepted target Checker specification and oracle
+  - Checker implementation
+  - Four-arm comparative evaluation
+git_branch_protection: OWNER_CONFIGURATION_PENDING
+toolchain: tooling/versions.yaml
