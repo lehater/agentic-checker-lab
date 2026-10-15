@@ -1,11 +1,11 @@
 schema: agentic-checker-lab/current-state/v1
-status: P1_HARNESS_SMOKE_VERIFIED_BY_OPERATOR
+status: P1_HARNESS_AND_CMIND_CLI_SMOKE_VERIFIED_BY_OPERATOR
 phase: P1
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
-next_task: TASK-003
+next_task: TASK-003-CODEX-SPIKE
 accepted:
   - Independent repo and documentation-as-truth approach
   - One bounded checker scenario as first laboratory example
@@ -16,16 +16,21 @@ verified:
   - Main ruleset active with pull request and squash-only, deletion and non-fast-forward protection
   - Administrator ruleset bypass now disabled (inspected 2026-10-16)
   - Operator reported Harness synthetic smoke PASS (pinned SHA; READY/CREATE; zero doctor errors)
+  - Operator reported pinned CoderMind installation, version, script listing and scratch init PASS; no RPG/codegen attempted
+  - Codex executable present in operator PATH; authentication and integration not established
 evidence:
   harness_smoke: docs/research/p1-harness-spike.md
   observed_harness_sha: 442db854c3a736a5e500b4a41664b80981b0d94c
   observed_run_directory: ~/.cache/agentic-checker-lab/runs/harness-smoke.Wjk5zq
+  cmind_preflight: docs/research/p1-cmind-preflight.md
+  observed_cmind_sha: a4e6966c4ff59d84299bc56d6a47ae1f4f7b2885
+  cmind_run_directory: ~/.cache/agentic-checker-lab/runs/cmind-preflight.BeK5yl
 observed_rule_gaps:
   - Required status checks rule exists but has an empty required_status_checks list as inspected; add repository/check in Settings
 not_verified:
   - Independent inspection of Harness smoke raw JSON in the operator environment
   - Two consecutive successful runs of the corrected Harness script
-  - CoderMind setup and supported coding-agent CLI
+  - Codex CLI authentication and CoderMind end-to-end compatibility
   - RPG generation and versioned export
   - Accepted target Checker specification and oracle
   - Checker implementation

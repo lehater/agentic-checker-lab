@@ -1,22 +1,26 @@
 schema: agentic-checker-lab/tooling-v1
-status: TARGET_PINS_NOT_VALIDATED
+status: PINNED_CLI_PREFLIGHT_OPERATOR_REPORTED
 os: Ubuntu
 sources:
   harness:
     repository: https://github.com/lehater/harness
     revision: 442db854c3a736a5e500b4a41664b80981b0d94c
-    installation: NOT_RUN
+    installation: OPERATOR_REPORTED_SMOKE_PASS
   rpg_zerorepo:
     repository: https://github.com/microsoft/RPG-ZeroRepo
     revision: a4e6966c4ff59d84299bc56d6a47ae1f4f7b2885
     component: CoderMind
-    installation: NOT_RUN
+    installation: OPERATOR_REPORTED_PREFLIGHT_PASS
   coding_agent_cli:
     chosen: UNDECIDED
+    executable_observed: codex
+    claude_present: false
+    copilot_present: false
+    authentication: NOT_VERIFIED
     compatibility_check: NOT_RUN
   python:
     minimum_for_cmind: "3.12"
-    actual: UNKNOWN
+    actual: 3.12.15_OPERATOR_REPORTED
   uv:
     actual: UNKNOWN
 reproducibility:
