@@ -1,6 +1,6 @@
 # P1: first forward RPG from synthetic requirements
 
-Status: **INITIAL RPG FILES PRESENT — operator-reported on Ubuntu, 2026-10-16. Export, independent structural and semantic review PENDING.**
+Status: **INITIAL RPG EXPORTED TO OPERATOR WORKING TREE — operator-reported on Ubuntu, 2026-10-16; structural and semantic review PENDING.**
 
 This stage deliberately verifies **requirements → feature specification → feature tree → skeleton → initial RPG**, not the existing-code RPG encoder, full Phase 2 or Checker code generation.
 
@@ -34,6 +34,21 @@ python3 -m json.tool "$DATA/feature_tree.json" | less
 Оператор передал вывод `make cmind-rpg-status` после этапа skeleton: `initialized=true`, все пять `files` равны `true`, в том числе `skeleton` и `rpg`. Это подтверждает **наличие файлов по операторскому статусу**, но не их валидность, число узлов, происхождение содержимого, полноту требований или успешность выполнения `check_skeleton.py`: сам журнал skeleton пока не предъявлен. Не помечать `RPG_STRUCTURAL_PASS` до экспорта и независимой проверки.
 
 Следующие ворота: экспорт пяти JSON, SHA256 manifest и чтение графа из Git; только затем семантический аудит против [R-SYN-01..06](../../tooling/fixtures/rpg-synthetic/requirements.md). Ранний `status=false` для skeleton/rpg в блоке Phase 1 — исторический, не текущий.
+
+## 2026-10-16 — Export succeeded, Make audit wrapper defect
+
+Оператор выполнил `make cmind-rpg-export` и получил `EXPORTED_FOR_REVIEW`. Все пять JSON и `manifest.json` скопированы в локальную рабочую директорию `experiments/runs/rpg-synthetic-v1/`; артефакты **ещё не отправлены в GitHub**, их семантика не оценивалась.
+
+Первый запуск `make cmind-rpg-audit > /tmp/rpg-synthetic-audit.json` перенаправил **stdout команды GNU Make вместе с JSON**. Последующее чтение `json.load` завершилось `JSONDecodeError`. Это ошибка отсутствующего `@` перед командой в Makefile, а не результат проверки RPG. Рецепт исправлен так, чтобы вывод содержал исключительно JSON; добавлен регрессионный тест Make target на синтетическом минимальном графе.
+
+**Повторять экспорт или генерацию RPG не требуется.** После обновления ветки:
+
+```bash
+make cmind-rpg-audit > /tmp/rpg-synthetic-audit.json
+python3 -m json.tool /tmp/rpg-synthetic-audit.json | head -60
+```
+
+Пока результат аудита не показан, `STRUCTURE_PASS` остаётся **NOT_VERIFIED**.
 
 ## Staged commands
 

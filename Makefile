@@ -34,5 +34,6 @@ cmind-rpg-export:
 	bash tools/cmind_synthetic_rpg.sh export
 
 # Read-only independent graph structure audit, after explicit artifact export.
+RPG_AUDIT_DIR ?= experiments/runs/rpg-synthetic-v1
 cmind-rpg-audit:
-	python3 tools/audit_synthetic_rpg.py experiments/runs/rpg-synthetic-v1
+	@python3 tools/audit_synthetic_rpg.py "$(RPG_AUDIT_DIR)"
