@@ -1,6 +1,6 @@
 # P1: first forward RPG from synthetic requirements
 
-Status: **PHASE 1 COMPLETED — operator-reported on Ubuntu, 2026-10-16. Initial RPG generation NOT_RUN. Semantic review PENDING.**
+Status: **INITIAL RPG FILES PRESENT — operator-reported on Ubuntu, 2026-10-16. Export, independent structural and semantic review PENDING.**
 
 This stage deliberately verifies **requirements → feature specification → feature tree → skeleton → initial RPG**, not the existing-code RPG encoder, full Phase 2 or Checker code generation.
 
@@ -16,7 +16,7 @@ Source of truth for this probe: [synthetic requirements](../../tooling/fixtures/
 - Файлы CoderMind: `~/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-rpg-synthetic-v1-workspace/data/`.
 - Локальные логи runner: `~/.cache/agentic-checker-lab/runs/rpg-synthetic-v1/`.
 
-**Проверено:** успешное выполнение первого прохода CoderMind через Codex и наличие выходных файлов. **Не проверено:** содержательная точность декомпозиции, покрытие `R-SYN-01..06`, отсутствие посторонних требований, создание `rpg.json`, экспорт и репозиторная фиксация. Следующая команда `cmind-rpg-skeleton` — это отдельная стадия с новыми модельными вызовами.
+**Проверено:** успешное выполнение первого прохода CoderMind через Codex и наличие выходных файлов. **Не проверено на этой стадии:** содержательная точность декомпозиции, покрытие `R-SYN-01..06`, отсутствие посторонних требований, экспорт и репозиторная фиксация. **Обновление ниже:** файлы RPG/skeleton позже появились по статусу оператора.
 
 ### Просмотр результатов перед построением RPG
 
@@ -28,6 +28,12 @@ python3 -m json.tool "$DATA/feature_tree.json" | less
 ```
 
 При проверке искать смысловые функции чтения UTF-8 файла, ASCII-only распознавания слов, нормализации регистра, детерминированного JSON, ошибок ввода. Не считать просто три верхнеуровневые группы доказательством покрытия.
+
+## Initial RPG — факт наличия файлов (16 октября 2026)
+
+Оператор передал вывод `make cmind-rpg-status` после этапа skeleton: `initialized=true`, все пять `files` равны `true`, в том числе `skeleton` и `rpg`. Это подтверждает **наличие файлов по операторскому статусу**, но не их валидность, число узлов, происхождение содержимого, полноту требований или успешность выполнения `check_skeleton.py`: сам журнал skeleton пока не предъявлен. Не помечать `RPG_STRUCTURAL_PASS` до экспорта и независимой проверки.
+
+Следующие ворота: экспорт пяти JSON, SHA256 manifest и чтение графа из Git; только затем семантический аудит против [R-SYN-01..06](../../tooling/fixtures/rpg-synthetic/requirements.md). Ранний `status=false` для skeleton/rpg в блоке Phase 1 — исторический, не текущий.
 
 ## Staged commands
 
@@ -65,7 +71,7 @@ To prepare graph artifacts for repository evidence (modifies only the current ta
 make cmind-rpg-export
 ```
 
-The explicit export creates `experiments/runs/rpg-synthetic-v1` with five JSON files and a SHA256 manifest; it **does not commit or push**. Review generated content, privacy and scope before committing the result in this task branch. For reproducibility, keep the PR #96 source SHA, original requirements checksum, and export hashes. The developer must separately assess generated nodes, relationships, required behavior and unforeseen extra features; a parseable graph is not a verified graph.
+The explicit export creates `experiments/runs/rpg-synthetic-v1` with five JSON files and a SHA256 manifest; it **does not commit or push**. Выполнять только в ветке `tooling/task-003-synthetic-rpg`. Review generated content, privacy and scope before committing the result in this task branch. For reproducibility, keep the PR #96 source SHA, original requirements checksum, and export hashes. После экспорта выполнить `python3 tools/audit_synthetic_rpg.py experiments/runs/rpg-synthetic-v1 > /tmp/rpg-synthetic-audit.json` и проверить `status` в JSON. Скрипт читает nested `root`, уникальность ID и endpoint-и non-containment `edges`; он **не может** определить семантическое покрытие требований. The developer must separately assess generated nodes, relationships, required behavior and unforeseen extra features; a parseable graph is not a verified graph.
 
 **Security:** no sandbox bypass allowed; scripts run only on an isolated test workspace; no real network device data, no Checker implementation, no Git hooks. Model calls are made *only* when the phase1/skeleton targets are explicitly launched. The user-installed global Codex configuration is not overridden.
 

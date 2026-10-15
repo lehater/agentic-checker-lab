@@ -1,4 +1,4 @@
-.PHONY: check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export
+.PHONY: check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit
 
 check:
 	python3 tools/check_repository.py
@@ -32,3 +32,7 @@ cmind-rpg-status:
 
 cmind-rpg-export:
 	bash tools/cmind_synthetic_rpg.sh export
+
+# Read-only independent graph structure audit, after explicit artifact export.
+cmind-rpg-audit:
+	python3 tools/audit_synthetic_rpg.py experiments/runs/rpg-synthetic-v1
