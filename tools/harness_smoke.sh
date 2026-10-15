@@ -64,11 +64,44 @@ RUN="$(mktemp -d "$CACHE/runs/harness-smoke.XXXXXX")"
 GRAPH="$ROOT/tooling/fixtures/harness-smoke/engineering-graph.yaml"
 CORE="$ROOT/tooling/fixtures/harness-smoke/core.yaml"
 
-"$PYTHON" -m harness.project_model.engineering_graph validate "$GRAPH" >"$RUN/validate.json"
-"$PYTHON" -m harness.project_model.engineering_graph profile "$GRAPH" TOOLCHAIN-SMOKE >"$RUN/profile.json"
-"$PYTHON" -m harness.project_model.engineering_graph evaluate "$GRAPH" TOOLCHAIN-SMOKE "$CORE" >"$RUN/evaluate.json"
-"$PYTHON" -m harness.application.graph_doctor "$GRAPH" \
-  --core-model "$CORE" --target TOOLCHAIN-SMOKE --source-root "$ROOT" --json >"$RUN/doctor.json"
+# Never swallow Harness diagnostics in redirected JSON output.
+# Keep all evidence locally, print the failed step, and summarize structured doctor findings.
+run_step() {
+  local name="$1" target="$2" exit_code=0
+  shift 2
+  echo "Running: $name"
+  "$@" >"$RUN/$target.json" 2>"$RUN/$target.stderr" || exit_code=$?
+  if (( exit_code != 0 )); then
+    printf 'FAIL: %s (exit %s)\n' "$name" "$exit_code" >&2
+    if [[ -s "$RUN/$target.stderr" ]]; then
+      echo "Harness stderr:" >&2
+      tail -n 50 "$RUN/$target.stderr" >&2
+    fi
+    if [[ "$target" == "doctor" && -s "$RUN/doctor.json" ]]; then
+      "$PYTHON" - "$RUN/doctor.json" <<'PYERR' >&2 || true
+import json
+import sys
+try:
+    report = json.load(open(sys.argv[1], encoding="utf-8"))
+    print("Graph Doctor summary:", report.get("summary"))
+    for row in report.get("findings", []):
+        if row.get("severity") in ("ERROR", "WARN"):
+            print(f"  {row.get('severity')} {row.get('code')}: {row.get('message')}")
+except (OSError, ValueError) as exc:
+    print("Graph Doctor output is not valid JSON:", exc)
+PYERR
+    fi
+    printf 'Diagnostic files: %s\n' "$RUN" >&2
+    return "$exit_code"
+  fi
+}
+
+run_step "Engineering Graph validation" validate "$PYTHON" -m harness.project_model.engineering_graph validate "$GRAPH"
+run_step "Consumer profile" profile "$PYTHON" -m harness.project_model.engineering_graph profile "$GRAPH" TOOLCHAIN-SMOKE
+run_step "Core realization evaluation" evaluate "$PYTHON" -m harness.project_model.engineering_graph evaluate "$GRAPH" TOOLCHAIN-SMOKE "$CORE"
+run_step "Graph Doctor" doctor "$PYTHON" -m harness.application.graph_doctor "$GRAPH" \
+  --core-model "$CORE" --target TOOLCHAIN-SMOKE --source-root "$ROOT" --json
+
 
 "$PYTHON" - "$RUN" "$PIN" <<'PY'
 import json

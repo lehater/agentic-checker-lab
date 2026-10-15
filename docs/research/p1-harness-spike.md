@@ -31,6 +31,12 @@ Smoke-скрипт **повторно использует** исправное 
 
 **Регрессионный критерий:** запустить `make harness-smoke` дважды подряд; оба запуска должны закончиться `PASS` без интерактивного вопроса о замене virtual environment. При втором запуске должно выводиться `Reusing Harness virtual environment: ...`.
 
+## Обнаруженный дефект smoke fixture (исправлен в этом PR)
+
+Первоначальная `core.yaml` содержала только `artifacts` и `questions`, но не `authorities`. Операция `engineering_graph evaluate` может вывести Authorities из Engineering Graph в realised Core; `graph_doctor` проверяет исходную модель и возвращает `CORE_MODEL_INVALID` на несуществующего владельца `DISCOVERY`. Из-за перенаправления JSON в файл и `set -e` причина не показывалась в терминале. Теперь Authorities объявлены явно, каждый шаг называет себя, а ошибка сопровождается exit status, stderr, findings и путём сохранённых JSON.
+
+Это вывод из чтения зафиксированного Harness `src/harness/project_model/core.py` и `src/harness/application/graph_doctor.py`. Пользовательское подтверждение успешного реального smoke пока не получено.
+
 ## Ожидаемый oracle
 
 - `validate.json`: `valid=true`.
