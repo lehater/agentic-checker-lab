@@ -1,8 +1,10 @@
-.PHONY: check harness-smoke
+.PHONY: check harness-smoke cmind-preflight
 
 check:
 	python3 tools/check_repository.py
 
-# Optional explicit network/tooling operation; never run as part of documentation CI.
 harness-smoke:
 	bash tools/harness_smoke.sh
+
+cmind-preflight:
+	bash tools/cmind_preflight.sh
