@@ -23,3 +23,8 @@ jobs:
           bash -n tools/cmind_preflight.sh
           bash -n tools/cmind_codex_pr96_smoke.sh
           bash -n tools/cmind_codex_live_probe.sh
+          bash -n tools/cmind_synthetic_rpg.sh
+      - name: Check RPG audit syntax
+        run: |
+          python3 -m py_compile tools/audit_synthetic_rpg.py
+          python3 tools/test_audit_synthetic_rpg.py

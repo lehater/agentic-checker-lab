@@ -13,3 +13,7 @@
 - [CoderMind PR #96 Codex candidate](p1-codex-pr96.md) — research, risks and evidence required before adoption.
 
 - [CoderMind Codex live LLM probe](p1-codex-live.md) — one controlled model invocation, no RPG generation.
+
+- [Synthetic RPG from requirements](p1-synthetic-rpg.md) — staged forward planning; no Checker codegen.
+
+- [Independent RPG snapshot review](p1-synthetic-rpg-review.md) — SHA-256 integrity, R-SYN mapping and architectural limitations.

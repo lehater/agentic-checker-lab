@@ -1,0 +1,362 @@
+{
+  "meta": {
+    "project_types": [
+      "CLI"
+    ],
+    "project_notes": "Independent tooling fixture named word-count-lab; implementation is limited to the explicit word-counter requirements and does not include Checker or legacy systems.",
+    "generated_at": "2026-10-16",
+    "source_documents": [
+      "requirements.md"
+    ],
+    "primary_language": "python",
+    "target_languages": [
+      "python"
+    ]
+  },
+  "background_and_overview": [
+    {
+      "id": "BG-001",
+      "title": "Tooling Fixture Scope",
+      "description": "This independent fixture checks whether CoderMind constructs a meaningful forward RPG from explicit accepted requirements. It does not authorize implementing Checker or recreating Product, SSSR, NAPMS, or legacy systems.",
+      "evidence": [
+        {
+          "id": "requirements-BG-001",
+          "source": "requirements.md",
+          "line_start": 1,
+          "line_end": 3
+        },
+        {
+          "id": "requirements-BG-002",
+          "source": "requirements.md",
+          "line_start": 22,
+          "line_end": 22
+        }
+      ]
+    },
+    {
+      "id": "BG-002",
+      "title": "Word Counter CLI",
+      "description": "word-count-lab is a small independent command-line application that counts words in a local UTF-8 plain-text file and prints one JSON object to stdout.",
+      "evidence": [
+        {
+          "id": "requirements-BG-003",
+          "source": "requirements.md",
+          "line_start": 5,
+          "line_end": 5
+        }
+      ]
+    }
+  ],
+  "non_functional_requirements": [
+    {
+      "id": "NFR-001",
+      "title": "Python Runtime",
+      "description": "The application must use Python 3.12.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-001",
+          "source": "requirements.md",
+          "line_start": 5,
+          "line_end": 5
+        }
+      ]
+    },
+    {
+      "id": "NFR-002",
+      "title": "Local Interaction Boundary",
+      "description": "The application must operate only on local files. Network, database, GUI, service, and device interactions are outside its scope.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-002",
+          "source": "requirements.md",
+          "line_start": 9,
+          "line_end": 9
+        }
+      ]
+    },
+    {
+      "id": "NFR-003",
+      "title": "Standard Library Dependencies",
+      "description": "The application must use only the Python standard library.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-003",
+          "source": "requirements.md",
+          "line_start": 14,
+          "line_end": 14
+        }
+      ]
+    },
+    {
+      "id": "NFR-004",
+      "title": "Deterministic CLI Behavior",
+      "description": "The application must provide a deterministic CLI entry point with identical JSON output for identical valid input content.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-004",
+          "source": "requirements.md",
+          "line_start": 11,
+          "line_end": 14
+        }
+      ]
+    }
+  ],
+  "functional_requirements": [
+    {
+      "id": "FT-001",
+      "name": "Input Handling",
+      "description": "The application accepts a local input file with defined failure behavior.",
+      "evidence": [],
+      "children": [
+        {
+          "id": "FT-001-001",
+          "name": "Accept File Path",
+          "description": "Accept one positional argument identifying the local input file.",
+          "evidence": [
+            {
+              "id": "requirements-FR-001",
+              "source": "requirements.md",
+              "line_start": 9,
+              "line_end": 9
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-001-002",
+          "name": "Read Input File",
+          "description": "Read the specified local file, treating a missing or unreadable file as an input failure.",
+          "evidence": [
+            {
+              "id": "requirements-FR-002",
+              "source": "requirements.md",
+              "line_start": 5,
+              "line_end": 5
+            },
+            {
+              "id": "requirements-FR-003",
+              "source": "requirements.md",
+              "line_start": 13,
+              "line_end": 13
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-001-003",
+          "name": "Decode Input Text",
+          "description": "Decode the file content as UTF-8, treating invalid encoding as an input failure.",
+          "evidence": [
+            {
+              "id": "requirements-FR-004",
+              "source": "requirements.md",
+              "line_start": 5,
+              "line_end": 5
+            },
+            {
+              "id": "requirements-FR-005",
+              "source": "requirements.md",
+              "line_start": 13,
+              "line_end": 13
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-001-004",
+          "name": "Return Failure Status",
+          "description": "Exit with a nonzero status when the input file is missing, unreadable, or invalid UTF-8.",
+          "evidence": [
+            {
+              "id": "requirements-FR-006",
+              "source": "requirements.md",
+              "line_start": 13,
+              "line_end": 13
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-001-005",
+          "name": "Report Input Failure",
+          "description": "Emit an explanatory stderr message when the input file is missing, unreadable, or invalid UTF-8.",
+          "evidence": [
+            {
+              "id": "requirements-FR-007",
+              "source": "requirements.md",
+              "line_start": 13,
+              "line_end": 13
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-001-006",
+          "name": "Suppress Failure JSON",
+          "description": "Emit no stdout JSON when the input file is missing, unreadable, or invalid UTF-8.",
+          "evidence": [
+            {
+              "id": "requirements-FR-008",
+              "source": "requirements.md",
+              "line_start": 13,
+              "line_end": 13
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "FT-002",
+      "name": "Word Counting",
+      "description": "The application derives normalized word frequencies from the input text.",
+      "evidence": [],
+      "children": [
+        {
+          "id": "FT-002-001",
+          "name": "Recognize ASCII Words",
+          "description": "Recognize each maximal non-empty contiguous sequence of ASCII letters A-Z or a-z as a word, treating every other character as a separator.",
+          "evidence": [
+            {
+              "id": "requirements-FR-009",
+              "source": "requirements.md",
+              "line_start": 10,
+              "line_end": 10
+            },
+            {
+              "id": "requirements-FR-010",
+              "source": "requirements.md",
+              "line_start": 18,
+              "line_end": 20
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-002-002",
+          "name": "Normalize Word Case",
+          "description": "Convert every recognized word to lowercase.",
+          "evidence": [
+            {
+              "id": "requirements-FR-011",
+              "source": "requirements.md",
+              "line_start": 10,
+              "line_end": 10
+            },
+            {
+              "id": "requirements-FR-012",
+              "source": "requirements.md",
+              "line_start": 18,
+              "line_end": 20
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-002-003",
+          "name": "Calculate Word Total",
+          "description": "Calculate the total number of recognized words as a nonnegative integer.",
+          "evidence": [
+            {
+              "id": "requirements-FR-013",
+              "source": "requirements.md",
+              "line_start": 11,
+              "line_end": 12
+            },
+            {
+              "id": "requirements-FR-014",
+              "source": "requirements.md",
+              "line_start": 18,
+              "line_end": 20
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-002-004",
+          "name": "Count Word Occurrences",
+          "description": "Calculate a positive integer occurrence count for each distinct lowercase word.",
+          "evidence": [
+            {
+              "id": "requirements-FR-015",
+              "source": "requirements.md",
+              "line_start": 11,
+              "line_end": 11
+            },
+            {
+              "id": "requirements-FR-016",
+              "source": "requirements.md",
+              "line_start": 18,
+              "line_end": 20
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "FT-003",
+      "name": "JSON Output",
+      "description": "The application presents the word-count result as deterministic JSON.",
+      "evidence": [],
+      "children": [
+        {
+          "id": "FT-003-001",
+          "name": "Construct Result Object",
+          "description": "Construct a JSON result containing exactly total and counts, with total equal to zero and counts empty for empty input or input without recognized words.",
+          "evidence": [
+            {
+              "id": "requirements-FR-017",
+              "source": "requirements.md",
+              "line_start": 11,
+              "line_end": 12
+            },
+            {
+              "id": "requirements-FR-018",
+              "source": "requirements.md",
+              "line_start": 18,
+              "line_end": 20
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-003-002",
+          "name": "Sort Count Keys",
+          "description": "Order the counts mapping keys lexicographically in the emitted JSON.",
+          "evidence": [
+            {
+              "id": "requirements-FR-019",
+              "source": "requirements.md",
+              "line_start": 11,
+              "line_end": 11
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-003-003",
+          "name": "Print Result JSON",
+          "description": "Print one JSON result object to stdout for valid input.",
+          "evidence": [
+            {
+              "id": "requirements-FR-020",
+              "source": "requirements.md",
+              "line_start": 5,
+              "line_end": 5
+            },
+            {
+              "id": "requirements-FR-021",
+              "source": "requirements.md",
+              "line_start": 11,
+              "line_end": 12
+            }
+          ],
+          "children": []
+        }
+      ]
+    }
+  ],
+  "repository_name": "word-count-lab",
+  "repository_purpose": "Provide an independent Python 3.12 CLI that counts ASCII words in a local UTF-8 text file and emits deterministic JSON. Serve as a compact fixture for constructing a forward RPG from explicit requirements."
+}

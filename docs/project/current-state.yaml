@@ -1,11 +1,11 @@
 schema: agentic-checker-lab/current-state/v1
-status: P1_HARNESS_AND_CMIND_CLI_SMOKE_VERIFIED_BY_OPERATOR
-phase: P1
+status: P1_SYNTHETIC_RPG_ACCEPTED_WITH_LIMITATIONS
+phase: P2
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
-next_task: TASK-003-RPG-SYNTHETIC
+next_task: TASK-004
 accepted:
   - Independent repo and documentation-as-truth approach
   - One bounded checker scenario as first laboratory example
@@ -20,6 +20,11 @@ verified:
   - Codex executable present in operator PATH; live authentication and exact model response verified by operator
   - Operator reported structural CoderMind Codex PR96 smoke PASS, including package source SHA, scratch skills/MCP and session stdin
   - Operator reported CoderMind LLMClient -> CodexSessionManager -> Codex CLI exact model-response PASS
+  - Operator reported synthetic RPG Phase 1 completed: feature_spec, feature_build and feature_tree files exist
+  - Operator reported synthetic skeleton.json and rpg.json files exist; content and skeleton checker logs not independently examined
+  - Operator reported local export of five RPG artifacts and checksum manifest; pushed at b20a93b
+  - Independently verified five JSON SHA256 hashes and source requirements hash against manifest
+  - Independently reconciled 31 RPG nodes and all 18 leaf assignments; six source requirements represented as design intent, not executable contracts
 evidence:
   harness_smoke: docs/research/p1-harness-spike.md
   observed_harness_sha: 442db854c3a736a5e500b4a41664b80981b0d94c
@@ -31,13 +36,19 @@ evidence:
   codex_pr96_run_directory: ~/.cache/agentic-checker-lab/runs/codex-pr96.fkqjWi
   codex_live_probe: docs/research/p1-codex-live.md
   codex_live_run_directory: ~/.cache/agentic-checker-lab/runs/codex-live.Vzhj33
+  synthetic_rpg_phase1: docs/research/p1-synthetic-rpg.md
+  synthetic_rpg_data_dir: ~/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-rpg-synthetic-v1-workspace/data
+  synthetic_rpg_export_dir: experiments/runs/rpg-synthetic-v1
+  synthetic_rpg_independent_review: docs/research/p1-synthetic-rpg-review.md
+  synthetic_rpg_snapshot_commit: b20a93b7377471fc553298128b613ee38726f8b9
 observed_rule_gaps:
   - Required status checks rule exists but has an empty required_status_checks list as inspected; add repository/check in Settings
 not_verified:
   - Independent inspection of Harness smoke raw JSON in the operator environment
   - Two consecutive successful runs of the corrected Harness script
-  - CoderMind RPG generation through Codex and reproducible graph export
-  - RPG generation and versioned export
+  - Independent executable behavior for R-SYN-01..06 (no code exists)
+  - CoderMind data-flow/interface/task-planning and code generation stages
+  - Standalone typed requirement-to-RPG provenance and test links
   - Accepted target Checker specification and oracle
   - Checker implementation
   - Four-arm comparative evaluation
@@ -45,4 +56,4 @@ git_branch_protection: RULESET_ACTIVE_NO_BYPASS_REQUIRED_CHECKS_NOT_CONFIGURED
 toolchain: tooling/versions.yaml
 
 experimental_candidates:
-  - microsoft/RPG-ZeroRepo#96 at 3303a222eaec42c6a178bddd46ad63d9026ab8fa (open, operator-reported STRUCTURAL_PASS; live LLMClient model-response PASS; RPG not tested)
+  - microsoft/RPG-ZeroRepo#96 at 3303a222eaec42c6a178bddd46ad63d9026ab8fa (open, live model call and initial synthetic forward RPG accepted with limitations)

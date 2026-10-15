@@ -1,0 +1,14 @@
+{
+  "schema": "synthetic-forward-rpg/v1",
+  "status": "EXPORTED_UNREVIEWED",
+  "cmind_revision": "3303a222eaec42c6a178bddd46ad63d9026ab8fa",
+  "repository_revision_at_export": "6448295318e68dff33890cd174fce800dd8b9c4a",
+  "fixture_sha256": "6d172e26c975ee3af3d1914cc56bcb7bbe799e9f8c68dda021e7bdfc8b5e9585",
+  "files": {
+    "feature_build.json": "758f785634aa229a254611b0c92bf397a090b6d42757250a616fd118e0638cde",
+    "feature_spec.json": "1e3342fc7779451f5925465b48784155a112b3cad85ad1c002e7a9467ce35be5",
+    "feature_tree.json": "fa93a6bfaebee315d81865580471a79185889f04ae1810acffedd66fae8dcb55",
+    "rpg.json": "d27a0cffdacf9e2abcba75b0213418caf1a49c5690fea781382d7796a64e9061",
+    "skeleton.json": "41adb12b9bf56740568f8eaacacee7490a46a9773173d44b7c5d236ace8f7d07"
+  }
+}
