@@ -17,14 +17,14 @@ sources:
     revision: 3303a222eaec42c6a178bddd46ad63d9026ab8fa
     status: OPEN_UPSTREAM_PR
     adoption: CANDIDATE_SPIKE_ONLY
-    installation: OPERATOR_REPORTED_STRUCTURAL_PASS
+    installation: OPERATOR_REPORTED_LIVE_LLM_CLIENT_PASS
   coding_agent_cli:
     chosen: UNDECIDED
     executable_observed: codex
     claude_present: false
     copilot_present: false
-    authentication: NOT_VERIFIED
-    compatibility_check: STRUCTURAL_PASS_LIVE_NOT_TESTED
+    authentication: OPERATOR_REPORTED_SUCCESSFUL_MODEL_CALL
+    compatibility_check: OPERATOR_REPORTED_LIVE_LLM_CLIENT_PASS
   python:
     minimum_for_cmind: "3.12"
     actual: 3.12.15_OPERATOR_REPORTED

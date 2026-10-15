@@ -1,4 +1,4 @@
-.PHONY: check harness-smoke cmind-preflight cmind-codex-smoke
+.PHONY: check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live
 
 check:
 	python3 tools/check_repository.py
@@ -12,3 +12,7 @@ cmind-preflight:
 # Explicit isolated Codex PR #96 compatibility probe (no model calls).
 cmind-codex-smoke:
 	bash tools/cmind_codex_pr96_smoke.sh
+
+# Explicit: one live model invocation; never part of CI.
+cmind-codex-live:
+	bash tools/cmind_codex_live_probe.sh

@@ -11,3 +11,5 @@
 Новые исследования получают тему-имя и статус HYPOTHESIS/VERIFIED с доказательствами и ограничениями. Подтверждённые решения переходят в соответствующий канонический владеющий документ; исследовательский отчёт остаётся evidence, но не создаёт вторую текущую истину.
 
 - [CoderMind PR #96 Codex candidate](p1-codex-pr96.md) — research, risks and evidence required before adoption.
+
+- [CoderMind Codex live LLM probe](p1-codex-live.md) — one controlled model invocation, no RPG generation.
