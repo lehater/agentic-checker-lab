@@ -26,11 +26,6 @@ jobs:
         run: python3 experiments/runs/harness-requirements-revision-v1/execute.py
       - name: Validate repository
         run: make check
-      - name: Require checked-in revision to equal real Harness publication and evidence
-        run: |
-          git diff --exit-code -- .harness/project-publication.yaml
-          git diff --exit-code -- experiments/runs/harness-requirements-revision-v1/admission-candidate.yaml
-          git diff --exit-code -- experiments/runs/harness-requirements-revision-v1/semantic-admission.yaml
       - name: Emit deterministic admitted output for exact checked-in update
         run: |
           python3 - <<'PY'
@@ -44,3 +39,8 @@ jobs:
           }
           print('CHECKER_REVISED_OUTPUT_JSON='+json.dumps(files,ensure_ascii=True,separators=(',',':')))
           PY
+      - name: Require checked-in revision to equal real Harness publication and evidence
+        run: |
+          git diff --exit-code -- .harness/project-publication.yaml
+          git diff --exit-code -- experiments/runs/harness-requirements-revision-v1/admission-candidate.yaml
+          git diff --exit-code -- experiments/runs/harness-requirements-revision-v1/semantic-admission.yaml
