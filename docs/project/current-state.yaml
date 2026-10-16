@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_CHECKER_PROBLEM_CURRENT_PRODUCT_AUTHORIZATION_PENDING
+status: P2_CHECKER_PRODUCT_REQUIREMENTS_AUTHORIZED_PRODUCTION_PENDING
 phase: P2
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
@@ -11,10 +11,11 @@ accepted:
   - One bounded checker scenario as first laboratory example
   - Checker problem framing PDEC-CHECKER-001 confirmed by owner; not full Harness semantic admission or target requirements
   - Scoped PDEC-CHECKER-002: DISCOVERY produces checker.problem; engineering agent may perform genuine semantic review/admission and conditional atomic publication (other Authorities and product semantics remain unaccepted)
+  - PDEC-CHECKER-003: owner-authorized PRODUCT-REQUIREMENTS for checker.requirements, direct prerequisite checker.problem, delegated bounded agent production/review/admission/conditional publication; no actual product requirements accepted yet
   - Task branches, PR and squash into main following authorized bootstrap
 verified:
   - Bounded reconciliation verified all 16 Frontier work items; technical Discovery Consumer is not product scope; no accepted product Consumer exists
-  - Next proposed capability checker.requirements under PRODUCT-REQUIREMENTS requires owner assignment/delegation Q-REC-001; subject completeness Q-REC-002 remains open
+  - Reconciliation proposed checker.requirements under PRODUCT-REQUIREMENTS; Q-REC-001 authorization later resolved by PDEC-CHECKER-003; subject completeness Q-REC-002 remains open
   - Reconciliation preserves checker.problem CURRENT and the exact accepted publication; no new Authorities or NOT_APPLICABLE dispositions
   - TASK-004 strict pinned Harness admission ACCEPTED; checker.problem published CURRENT with coherent Core/evaluation/lifecycle and atomic CAS
   - Scoped Decision Roadmap and Semantic Closure COMPLETE; Engineering Coverage remains incomplete (15 concerns, 16 work items); Project Frontier READY for reconciliation
@@ -39,6 +40,7 @@ verified:
   - Independent review of raw Harness outputs confirms target READY (CREATE checker.problem; 4 PENDING), 21 activated coverage concerns, completion_ready false, 23 Authorities UNASSESSED and no full Project Frontier
 evidence:
   checker_scope_reconciliation: docs/scenario/checker-scope-reconciliation.yaml
+  checker_product_requirements_delegation: docs/scenario/product-requirements-delegation.md
   harness_reconciliation_run: experiments/runs/harness-reconcile-v1/README.md
   checker_problem_current_run: experiments/runs/harness-current-v1/run-report.md
   checker_problem_publication: .harness/project-publication.yaml
