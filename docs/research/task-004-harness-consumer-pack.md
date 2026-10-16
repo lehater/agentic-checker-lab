@@ -1,6 +1,6 @@
 # TASK-004 — штатный Harness Consumer Pack: внедрение и probe
 
-Статус: **PREPARED / OPERATOR EXECUTION NOT_YET_REPORTED**.
+Статус: **OPERATOR-REPORTED CONSUMER_PACK_PREFLIGHT_PASS_ONLY (2026-10-16)**.
 
 После успешного пробного разрешения восьми маршрутов из *полного исходного checkout* Harness, нужен отдельный тест **дистрибутива Consumer Pack**. Это официальный способ установки агентных процедур в целевой проект: [source contract](https://github.com/lehater/harness/blob/442db854c3a736a5e500b4a41664b80981b0d94c/docs/design/harness-consumer-pack-v1.md), [wrapper contract](https://github.com/lehater/harness/blob/442db854c3a736a5e500b4a41664b80981b0d94c/docs/design/harness-consumer-wrapper-v1.md).
 
@@ -29,3 +29,16 @@ make harness-pack-preflight
 ## Граница свидетельства
 
 CLI `validate-pack` подтверждает целостность дистрибутива; route probe — корректность процедурного входа. Ни то, ни другое не подтверждает семантическую приёмку, полный жизненный цикл Harness, полноту Consumer, работоспособность CoderMind bridge или правильность будущего Checker. Не повышать статус без следующего живого agent run.
+
+## Реальный результат на Ubuntu — 2026-10-16
+
+Оператор передал итоговый JSON `make harness-pack-preflight`:
+
+- `status=CONSUMER_PACK_PREFLIGHT_PASS_ONLY`, `consumer_api=v1`;
+- pinned `harness_sha=442db854c3a736a5e500b4a41664b80981b0d94c`;
+- локальный путь к Pack: `/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c`;
+- все **9/9** ожидаемых Consumer operation/artifact routes распознаны, включая `project-bootstrap-reconcile`, `design-profile`, `decision-pipeline`, `project-engineering-status`, `problem-evidence`, `product-requirements`, `verification-strategy`, `test-design`, `implementation-design`;
+- `maintainer_route_unavailable=true`;
+- `checker_problem_accepted=false`, `agent_workflow_executed=false`, `model_calls=0`.
+
+**Граница доказательства:** статус — результат оператора, а не независимое чтение локального JSON или воспроизведение Pack в CI. Предыдущий `make check` и статические GitHub CI проверяют репозиторий, но не agent-driven workflow. Пакет теперь доказан доступным как Consumer distribution; **Project Bootstrap, Decision/Project Frontier, Problem Evidence и semantic acceptance по-прежнему NOT_RUN**.
