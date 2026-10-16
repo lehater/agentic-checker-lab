@@ -1,66 +1,27 @@
 schema: agentic-checker-lab/current-state/v1
-status: P1_SYNTHETIC_RPG_ACCEPTED_WITH_LIMITATIONS
+status: P2_RESTARTED_NO_CHECKER_ADMISSIONS
 phase: P2
 date: 2026-10-16
-purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
+purpose: Develop and evaluate agentic engineering methodology with Harness and RPG
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
 next_task: TASK-004
 accepted:
-  - Independent repo and documentation-as-truth approach
-  - One bounded checker scenario as first laboratory example
-  - Task branches, PR and squash into main following authorized bootstrap
+  - Laboratory strategy and Git governance as defined in canonical project docs
+  - Owner problem brief as input evidence, not accepted Harness requirements
 verified:
-  - Initial documentation structure committed to main
-  - Initial repository CI on main completed successfully
-  - Main ruleset active with pull request and squash-only, deletion and non-fast-forward protection
-  - Administrator ruleset bypass now disabled (inspected 2026-10-16)
-  - Operator reported Harness synthetic smoke PASS (pinned SHA; READY/CREATE; zero doctor errors)
-  - Operator reported pinned CoderMind installation, version, script listing and scratch init PASS; no RPG/codegen attempted
-  - Codex executable present in operator PATH; live authentication and exact model response verified by operator
-  - Operator reported structural CoderMind Codex PR96 smoke PASS, including package source SHA, scratch skills/MCP and session stdin
-  - Operator reported CoderMind LLMClient -> CodexSessionManager -> Codex CLI exact model-response PASS
-  - Operator reported synthetic RPG Phase 1 completed: feature_spec, feature_build and feature_tree files exist
-  - Operator reported synthetic skeleton.json and rpg.json files exist; content and skeleton checker logs not independently examined
-  - Operator reported local export of five RPG artifacts and checksum manifest; pushed at b20a93b
-  - Independently verified five JSON SHA256 hashes and source requirements hash against manifest
-  - Independently reconciled 31 RPG nodes and all 18 leaf assignments; six source requirements represented as design intent, not executable contracts
-  - Operator-reported Harness Consumer routing preflight PASS on pinned SHA; 3 public operations and 5 artifact skills resolve; no workflow or model call
-  - Operator-reported Harness Consumer Pack v1 validated at pinned SHA; all nine operation/artifact routes resolve; Maintainer route unavailable; no agent workflow or model call
-evidence:
-  harness_smoke: docs/research/p1-harness-spike.md
-  harness_consumer_routing_preflight: docs/research/task-004-harness-consumer-preflight.md
-  harness_consumer_pack_preflight: docs/research/task-004-harness-consumer-pack.md
-  harness_consumer_pack_local_path: ~/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c
-  harness_consumer_routing_run_directory: ~/.cache/agentic-checker-lab/runs/harness-consumer-routing.VC4o2g
-  observed_harness_sha: 442db854c3a736a5e500b4a41664b80981b0d94c
-  observed_run_directory: ~/.cache/agentic-checker-lab/runs/harness-smoke.Wjk5zq
-  cmind_preflight: docs/research/p1-cmind-preflight.md
-  observed_cmind_sha: a4e6966c4ff59d84299bc56d6a47ae1f4f7b2885
-  cmind_run_directory: ~/.cache/agentic-checker-lab/runs/cmind-preflight.BeK5yl
-  codex_pr96_smoke: docs/research/p1-codex-pr96.md
-  codex_pr96_run_directory: ~/.cache/agentic-checker-lab/runs/codex-pr96.fkqjWi
-  codex_live_probe: docs/research/p1-codex-live.md
-  codex_live_run_directory: ~/.cache/agentic-checker-lab/runs/codex-live.Vzhj33
-  synthetic_rpg_phase1: docs/research/p1-synthetic-rpg.md
-  synthetic_rpg_data_dir: ~/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-rpg-synthetic-v1-workspace/data
-  synthetic_rpg_export_dir: experiments/runs/rpg-synthetic-v1
-  synthetic_rpg_independent_review: docs/research/p1-synthetic-rpg-review.md
-  synthetic_rpg_snapshot_commit: b20a93b7377471fc553298128b613ee38726f8b9
-observed_rule_gaps:
-  - Required status checks rule exists but has an empty required_status_checks list as inspected; add repository/check in Settings
+  - Rewound main to pre-Discovery Consumer Pack preflight commit 6fc0a88c05f53b779be8d3560e1d481f410424df
+  - Prior Checker state saved at archive/checker-pre-blind-restart-20261016
+  - Harness Consumer binding pinned to 1c31054a8c4af223dc1bb003175c1fbe3f0538d6
+  - New owner problem statement published to docs/scenario/owner-problem-brief.md
+  - Previous checker.problem and checker.requirements CURRENT publications absent from restarted tree
 not_verified:
-  - Independent inspection of Harness smoke raw JSON in the operator environment
-  - Two consecutive successful runs of the corrected Harness script
-  - Independent executable behavior for R-SYN-01..06 (no code exists)
-  - CoderMind data-flow/interface/task-planning and code generation stages
-  - Standalone typed requirement-to-RPG provenance and test links
-  - Accepted target Checker specification and oracle
-  - Checker implementation
-  - Four-arm comparative evaluation
-  - Agent-operated Harness project-bootstrap-reconcile, Project Frontier, source-bounded Problem Evidence and semantic acceptance
-git_branch_protection: RULESET_ACTIVE_NO_BYPASS_REQUIRED_CHECKS_NOT_CONFIGURED
+  - Consumer Pack sync and validation against new Harness pin on Ubuntu
+  - New agent-operated Harness Discovery and semantic admissions
+  - Harness to RPG transfer, Checker implementation and independent tests
+  - Full isolation of developer from all research documents in shared repository
+evidence:
+  owner_problem: docs/scenario/owner-problem-brief.md
+  harness_binding: .harness/harness-binding.json
+git_branch_protection: TEMPORARILY_DISABLED_BY_OWNER_FOR_RESET
 toolchain: tooling/versions.yaml
-
-experimental_candidates:
-  - microsoft/RPG-ZeroRepo#96 at 3303a222eaec42c6a178bddd46ad63d9026ab8fa (open, live model call and initial synthetic forward RPG accepted with limitations)
