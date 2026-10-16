@@ -136,7 +136,7 @@ content:
   - Универсальный Permit/Deny не обязателен; scoped interpretation требует собственного
     явно принятого контракта.
   downstream_open_decisions:
-  - Independent expected match/non-match cases and the corresponding oracle are Verification Design obligations formerly misclassified as REQ-CHECKER-028; they remain pending Q-DV-002.
+  - Independent expected match/non-match cases and their oracle belong to Verification Design and remain pending Q-DV-002.
   - Точная ACL syntax и matching semantics должны быть конкретизированы и независимо
     проверены до реализации соответствующего поведения; алгоритм этим документом не
     выбирается.
