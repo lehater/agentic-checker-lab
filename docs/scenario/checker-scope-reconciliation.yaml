@@ -1,6 +1,6 @@
 version: 1
 kind: checker-project-scope-reconciliation
-status: RECONCILED_WITH_OWNER_GATES
+status: RECONCILED_PRODUCT_AUTHORIZED_REQUIREMENTS_PENDING
 basis:
   - docs/project/strategy.md
   - docs/project/roadmap.md
@@ -24,19 +24,21 @@ technical_scope:
   subject: CHECKER-PROBLEM
   meaning: Checks only the admitted Discovery provider; not an implementation Consumer, product boundary, or inventory of Checker subjects.
 next_step:
-  status: OWNER_AUTHORIZATION_REQUIRED
+  status: OWNER_AUTHORIZED_EXECUTION_PENDING
   question: Q-REC-001
+  authorization: docs/scenario/product-requirements-delegation.md
   authority: PRODUCT-REQUIREMENTS
   proposed_capability: checker.requirements
   knowledge_kind: product-requirements
   proposed_requires: [checker.problem]
-  adopted_in_graph: false
+  adopted_in_graph: false # Graph production to be installed by authorized Requirements execution, not this decision
   purpose: Establish product scope, observable behavior and atomic acceptance expectations; route unknown product choices as Questions.
   excludes: [new Discovery artifact, mandatory user-needs intermediate artifact, domain model, architecture, code generation]
 questions:
   - id: Q-REC-001
     owner: project owner
-    state: OPEN
+    state: RESOLVED
+    resolution: PDEC-CHECKER-003, docs/scenario/product-requirements-delegation.md; authorization accepted, production and admission not yet executed
     text: Assign PRODUCT-REQUIREMENTS to checker.requirements and authorize the proposed checker.problem prerequisite plus agent production/review/strict admission and conditional publication, or name the reviewer/acceptor who will own those operations.
     evidence: PDEC-CHECKER-002 delegates only DISCOVERY; no Product delegation or accepted product production contract exists.
     resolution_required_before: Adopting checker.requirements production contract or executing its artifact skill.
