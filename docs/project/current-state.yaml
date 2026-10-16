@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_CHECKER_REQUIREMENTS_OWNER_ANSWERS_CONFIRMED_CORE_RECONCILIATION_PENDING
+status: P2_CHECKER_FIRST_SLICE_REQUIREMENTS_CURRENT_COVERAGE_OPEN
 phase: P2
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
@@ -11,13 +11,16 @@ accepted:
   - One bounded checker scenario as first laboratory example
   - Checker problem framing PDEC-CHECKER-001 confirmed by owner; not full Harness semantic admission or target requirements
   - Scoped PDEC-CHECKER-002: DISCOVERY produces checker.problem; engineering agent may perform genuine semantic review/admission and conditional atomic publication (other Authorities and product semantics remain unaccepted)
-  - PDEC-CHECKER-003: owner-authorized PRODUCT-REQUIREMENTS for checker.requirements, direct prerequisite checker.problem, delegated bounded agent production/review/admission/conditional publication; no actual product requirements accepted yet
-  - PDEC-CHECKER-004: owner confirmed the first IPv4 TCP/UDP Checker slice, provided policy contexts and ACL snapshots, and observable treatment of missing/incomplete/stale evidence; Core Q-PR-001/002 remain published blockers until valid resolution and admission
+  - PDEC-CHECKER-003: owner-authorized PRODUCT-REQUIREMENTS for checker.requirements, direct prerequisite checker.problem, delegated bounded agent production/review/admission/conditional publication; actual first-slice requirements admission recorded below
+  - PDEC-CHECKER-004: owner confirmed the first IPv4 TCP/UDP Checker slice, provided policy contexts and ACL snapshots, and observable treatment of missing/incomplete/stale evidence; executed Core resolution/admission recorded below
   - Task branches, PR and squash into main following authorized bootstrap
 verified:
-  - Authorized CREATE checker.requirements executed; managed candidate schema VALID; strict semantic admission REJECTED on incomplete observable product scope/evidence policy
-  - Real Q-PR-001 and Q-PR-002 addressed to PRODUCT-REQUIREMENTS block only checker.requirements; BLOCKED outcome atomically published and read back
-  - checker.problem CURRENT with unchanged provider, acceptance identity and policy; requirements has no accepted provider or lifecycle row
+  - Continued REQ-CHECKER-001..007 with stable statements and accepted REQ-CHECKER-008..028 from PDEC-CHECKER-004; managed first-slice product requirements VALID and strict admission ACCEPTED
+  - checker.requirements CURRENT; Q-PR-001/002 resolved by Core.resolve_question with matching accepted requirements identity and ABSENT prior acceptance, atomically CAS published and read back
+  - checker.problem remains CURRENT with unchanged accepted evaluation and lifecycle; scoped Roadmap and Semantic Closure COMPLETE, whole-product Coverage remains incomplete
+  - Historical PR18 attempt before PDEC-004 - authorized CREATE checker.requirements executed; managed candidate schema VALID; strict semantic admission REJECTED on incomplete observable product scope/evidence policy
+  - Historical PR18 blockers before PDEC-004 - real Q-PR-001 and Q-PR-002 addressed to PRODUCT-REQUIREMENTS block only checker.requirements; BLOCKED outcome atomically published and read back
+  - Historical PR18 - checker.problem CURRENT; requirements had no accepted provider or lifecycle row
   - Bounded reconciliation verified all 16 Frontier work items; technical Discovery Consumer is not product scope; no accepted product Consumer exists
   - Reconciliation proposed checker.requirements under PRODUCT-REQUIREMENTS; Q-REC-001 authorization later resolved by PDEC-CHECKER-003; subject completeness Q-REC-002 remains open
   - Reconciliation preserves checker.problem CURRENT and the exact accepted publication; no new Authorities or NOT_APPLICABLE dispositions
@@ -43,6 +46,9 @@ verified:
   - Operator-reported first agent Harness intake run produced candidate evidence/graph/core/questions; independently reviewed from GitHub commit 4a82dbe; research run PASS WITH LIMITATIONS, no semantic acceptance or Checker implementation
   - Independent review of raw Harness outputs confirms target READY (CREATE checker.problem; 4 PENDING), 21 activated coverage concerns, completion_ready false, 23 Authorities UNASSESSED and no full Project Frontier
 evidence:
+  checker_requirements_current_run: experiments/runs/harness-requirements-current-v1/README.md
+  checker_requirements_canonical: .harness/knowledge/checker-requirements.yaml
+  checker_current_publication_revision: sha256:94bc167d0108b5b4b90dcea6cefd0af3f5ba5132091f0ee20756163127da9852
   checker_first_slice_owner_decision: docs/scenario/first-slice-product-decision.md
   checker_requirements_run: experiments/runs/harness-requirements-v1/README.md
   checker_requirements_blocked_publication_revision: sha256:b252cfbe6ef33d213aa0c6919a463fa31e891075a1ba0e7d191a8ae2ad010fb8

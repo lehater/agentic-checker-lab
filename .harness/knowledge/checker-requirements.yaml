@@ -1,0 +1,277 @@
+version: 1
+kind: harness-knowledge-artifact
+artifact: CHECKER-REQUIREMENTS
+title: Checker — accepted first-slice Product Requirements
+schema: product-requirements/v1
+content:
+  purpose: 'Первый ограниченный Checker: объяснимое исследование IPv4 TCP/UDP потока
+    по предоставленным policy contexts и сохранённым ACL snapshots; не полный scope
+    будущего продукта.'
+  requirements:
+  - id: REQ-CHECKER-001
+    statement: Показывать оператору релевантные места применения политики для исследуемого
+      сетевого потока.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-outcome
+    - docs/scenario/problem-framing-decision.md
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - Для переданных релевантных policy contexts/placements результат показывает соответствующие
+      места применения; самостоятельное построение маршрута не является условием успеха.
+  - id: REQ-CHECKER-002
+    statement: Показывать оператору подходящие сохранённые ACL-правила для исследуемого
+      сетевого потока.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-outcome
+    - docs/scenario/problem-framing-decision.md
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - Для независимо размеченного примера подходящих правил из предоставленного ACL
+      snapshot результат показывает подходящие сохранённые правила. Семантика конкретного
+      поддерживаемого matching должна быть подтверждена независимо, не выведена из
+      алгоритма или legacy SQL.
+  - id: REQ-CHECKER-003
+    statement: Сохранять порядок обработки показываемых подходящих ACL-правил.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-outcome
+    - docs/scenario/problem-framing-decision.md
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - Два отображаемых правила с известным порядком обработки сохраняют относительный
+      порядок в своём policy context. Глобальный порядок разных contexts не требуется.
+  - id: REQ-CHECKER-004
+    statement: Предоставлять оператору сведения о достоверности источников используемых
+      свидетельств.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-outcome
+    - docs/scenario/problem-framing-decision.md
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Результат позволяет отличить подтверждённые сведения от неопределённости; неизвестные
+      источник/date/completeness не выглядят подтверждёнными. Конкретные обязательства
+      метаданных заданы REQ-CHECKER-015..019.
+  - id: REQ-CHECKER-005
+    statement: Формирование единого универсального Permit/Deny не является обязательным
+      результатом Checker.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-verdict-boundary
+    - docs/scenario/problem-framing-decision.md
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Отсутствие универсального Permit/Deny не проваливает приёмку первой версии.
+      Требование не запрещает специфичный diagnostic verdict по другому явно принятому
+      контракту.
+  - id: REQ-CHECKER-006
+    statement: Не превращать отсутствие совпадающего правила само по себе в DENY или
+      ALLOW.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-verdict-boundary
+    - docs/scenario/problem-framing-decision.md
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Ни no-match в полном снимке, ни missing snapshot, ни unknown completeness сами
+      по себе не представлены как универсальный DENY/ALLOW.
+  - id: REQ-CHECKER-007
+    statement: Не выводить общесистемный эффективный verdict из одного лишь факта
+      наличия подходящего правила.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-verdict-boundary
+    - docs/scenario/problem-framing-decision.md
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - Показ подходящего Permit/Deny ACL-правила не является сам по себе доказанным
+      общесистемным effective verdict.
+  - id: REQ-CHECKER-008
+    statement: Поддерживать IPv4-адреса источника и назначения исследуемого потока.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - Пример потока содержит конкретные source/destination IPv4; первый slice не требует
+      IPv6.
+  - id: REQ-CHECKER-009
+    statement: Поддерживать исследуемые потоки TCP и UDP.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - Независимые примеры охватывают TCP и UDP; ICMP не нужен для приёмки первого
+      slice.
+  - id: REQ-CHECKER-010
+    statement: Учитывать предоставленный порт источника исследуемого TCP/UDP потока.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - Порт источника является частью входного потока; произвольный исторический default
+      вместо него не вводится.
+  - id: REQ-CHECKER-011
+    statement: Учитывать предоставленный порт назначения исследуемого TCP/UDP потока.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - Порт назначения является частью входного потока; точное interface representation
+      не задаётся.
+  - id: REQ-CHECKER-012
+    statement: Принимать релевантные policy contexts и места применения политики как
+      предоставленные входные сведения.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - Для входного набора contexts не требуется самостоятельное обнаружение маршрута/placements;
+      алгоритм маршрутизации не является oracle.
+  - id: REQ-CHECKER-013
+    statement: Использовать заранее предоставленные snapshots сохранённых ACL-правил
+      для входных policy contexts.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - В примере ACL snapshot связан с входным context; доступ к реальному устройству
+      для получения результата не требуется.
+  - id: REQ-CHECKER-014
+    statement: Указывать соответствующий policy context для показываемых ACL-правил.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - При нескольких входных contexts у показываемого правила различима принадлежность
+      к своему context; представление UI/API не предписывается.
+  - id: REQ-CHECKER-015
+    statement: Представлять происхождение каждого использованного источника свидетельств.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Оператор может различить происхождение использованных источников и связать показанные
+      правила с источником; неизвестное происхождение обозначено неизвестным, не выдумано.
+  - id: REQ-CHECKER-016
+    statement: Представлять известную дату снимка каждого использованного источника.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Предоставленная известная snapshot date видна в результате без подмены временем
+      исполнения.
+  - id: REQ-CHECKER-017
+    statement: Явно обозначать неизвестную дату снимка использованного источника.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Источник без snapshot date показан с неизвестной датой, не с фиктивной датой.
+  - id: REQ-CHECKER-018
+    statement: Представлять известный статус полноты каждого использованного источника.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Предоставленные известные complete/incomplete сведения сохранены в результате.
+  - id: REQ-CHECKER-019
+    statement: Явно обозначать неизвестную полноту использованного источника.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Отсутствующий completeness metadata не заменён предположением complete.
+  - id: REQ-CHECKER-020
+    statement: Допускать частичный объяснимый результат при недостаточных, неполных
+      или устаревших свидетельствах.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Частичный результат не считается ошибкой лишь из-за частичности, если соблюдены
+      REQ-CHECKER-021/022; обязанность всегда возвращать частичный результат не вводится.
+  - id: REQ-CHECKER-021
+    statement: Показывать оператору ограничения частичного результата.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - В примере с известной неполнотой/недостаточностью или обоснованной устарелостью
+      видны ограничения; результат не обозначен достоверным полным выводом.
+  - id: REQ-CHECKER-022
+    statement: Показывать оператору неустановленные факты частичного результата.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - В примере отсутствующих данных соответствующие факты остаются явно неустановленными,
+      а не заполняются предположением.
+  - id: REQ-CHECKER-023
+    statement: Различать отсутствие подходящих правил в полном известном snapshot
+      и отсутствие нужного snapshot/данных.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Два независимых примера complete no-match и missing snapshot дают различимые
+      состояния; оба сохраняют REQ-CHECKER-006.
+  - id: REQ-CHECKER-024
+    statement: Различать отсутствие подходящих правил в полном известном snapshot
+      и неизвестную полноту snapshot.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Наблюдаемый no-match complete отличается от unknown completeness; unknown не
+      считается complete empty.
+  - id: REQ-CHECKER-025
+    statement: Обозначать свидетельства устаревшими только при подтверждённом основании.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Внешняя известная stale classification может служить основанием; неизвестное
+      основание не позволяет объявить stale самостоятельно.
+  - id: REQ-CHECKER-026
+    statement: Не определять просрочку свидетельств по придуманному числовому TTL.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - В требованиях и результате нет созданного агентом порога свежести; будущий TTL
+      требует отдельного принятого решения.
+  - id: REQ-CHECKER-027
+    statement: Не считать свидетельства с неизвестной датой актуальными на основании
+      отсутствия даты.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+    acceptance_criteria:
+    - Пример unknown snapshot date не выдаётся за fresh/current.
+  - id: REQ-CHECKER-028
+    statement: Обеспечить проверяемость поддерживаемых совпадений ACL на независимых
+      примерах.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+    acceptance_criteria:
+    - Каждый заявленный поддерживаемый matching contract должен иметь независимо заданные
+      примеры expected match/non-match; выбранный алгоритм и историческая реализация
+      Product не принимаются как нормативный oracle.
+  non_goals:
+  - Первый slice не включает работу с реальными устройствами.
+  - ICMP и IPv6 вне поддерживаемого первого slice.
+  - Автоматическое определение маршрута и NAT вне поддерживаемого первого slice.
+  - Эти ограничения не запрещают расширение в будущем.
+  - Универсальный Permit/Deny не обязателен; scoped interpretation требует собственного
+    явно принятого контракта.
+  downstream_open_decisions:
+  - Точная ACL syntax и matching semantics должны быть конкретизированы и независимо
+    проверены до реализации соответствующего поведения; алгоритм этим документом не
+    выбирается.
+  - CLI/API, architecture, data model, runtime и независимый oracle принадлежат последующим
+    решениям; новые Authority здесь не назначаются.
+  scope_boundary: Только первый slice PDEC-CHECKER-004; этот requirements artifact
+    не доказывает полноту всего будущего Checker.

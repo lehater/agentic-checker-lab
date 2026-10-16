@@ -34,3 +34,5 @@
 - [TASK-004: bounded Project Reconciliation и следующий owner gate](../../experiments/runs/harness-reconcile-v1/README.md)
 
 - [TASK-004: CREATE checker.requirements — BLOCKED на Product Questions](../../experiments/runs/harness-requirements-v1/README.md)
+
+- [TASK-004: first-slice checker.requirements CURRENT](../../experiments/runs/harness-requirements-current-v1/README.md)

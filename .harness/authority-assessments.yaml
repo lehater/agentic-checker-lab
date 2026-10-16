@@ -12,18 +12,17 @@ assessments:
   reopening_conditions:
   - canonical ownership/evidence changes
 - authority_id: PRODUCT-REQUIREMENTS
-  applicability: UNRESOLVED
+  applicability: REQUIRED
   evidence:
+  - core:authority:PRODUCT-REQUIREMENTS
   - docs/scenario/product-requirements-delegation.md
-  - core:question:Q-PR-001
-  - core:question:Q-PR-002
-  rationale: Delegated production with unresolved product scope/acceptance questions;
-    no canonical requirements provider yet.
+  rationale: Accepted first-slice product requirements provider owned by PRODUCT-REQUIREMENTS;
+    Q-PR-001/002 resolved with matching accepted identity.
   depends_on_evidence:
-  - Q-PR-001
-  - Q-PR-002
+  - core:authority:PRODUCT-REQUIREMENTS
   reopening_conditions:
-  - Questions resolved via admitted product provider
+  - canonical ownership/evidence changes
+  - product scope changes
 - authority_id: DOMAIN-STRATEGY
   applicability: UNASSESSED
 - authority_id: MODEL-CONTEXT-STRATEGY

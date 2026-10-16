@@ -1,6 +1,6 @@
 version: 1
 kind: checker-project-scope-reconciliation
-status: RECONCILED_REQUIREMENTS_BLOCKED_PRODUCT_QUESTIONS
+status: FIRST_SLICE_REQUIREMENTS_CURRENT_SUBJECT_COVERAGE_OPEN
 basis:
   - docs/project/strategy.md
   - docs/project/roadmap.md
@@ -14,24 +14,25 @@ project_scope:
   purpose: Standalone application supporting the operator evidence/explanation scenario of PDEC-CHECKER-001; laboratory vehicle for evaluating agentic engineering.
   accepted_problem: checker.problem
   accepted_product_consumer: null
-  accepted_atomic_requirements: []
-  subject_inventory_status: QUESTION
+  accepted_first_slice_artifact: .harness/knowledge/checker-requirements.yaml
+  accepted_atomic_requirements: [REQ-CHECKER-001, REQ-CHECKER-002, REQ-CHECKER-003, REQ-CHECKER-004, REQ-CHECKER-005, REQ-CHECKER-006, REQ-CHECKER-007, REQ-CHECKER-008, REQ-CHECKER-009, REQ-CHECKER-010, REQ-CHECKER-011, REQ-CHECKER-012, REQ-CHECKER-013, REQ-CHECKER-014, REQ-CHECKER-015, REQ-CHECKER-016, REQ-CHECKER-017, REQ-CHECKER-018, REQ-CHECKER-019, REQ-CHECKER-020, REQ-CHECKER-021, REQ-CHECKER-022, REQ-CHECKER-023, REQ-CHECKER-024, REQ-CHECKER-025, REQ-CHECKER-026, REQ-CHECKER-027, REQ-CHECKER-028]
+  subject_inventory_status: REQUIRED_NOT_YET_CLASSIFIED
   question: Q-REC-002
-  unresolved: [product boundary, traffic representation, matching semantics, completeness/freshness policy, interface, independent oracle]
-  warning: Empty accepted_atomic_requirements records absent accepted requirements; it does not assert an empty product scope.
+  unresolved: [subject-obligation classification, exact ACL matching semantics, interface, independent oracle, future-product scope]
+  warning: Accepted atoms describe only PDEC-CHECKER-004 first slice; full product coverage is not claimed.
 technical_scope:
   consumer: CHECKER-PROBLEM-ADMISSION
   subject: CHECKER-PROBLEM
   meaning: Checks only the admitted Discovery provider; not an implementation Consumer, product boundary, or inventory of Checker subjects.
 next_step:
-  status: BLOCKED_PRODUCT_QUESTIONS
+  status: REQUIREMENTS_CURRENT_COVERAGE_OPEN
   question: Q-REC-001
   authorization: docs/scenario/product-requirements-delegation.md
   authority: PRODUCT-REQUIREMENTS
   proposed_capability: checker.requirements
   knowledge_kind: product-requirements
   proposed_requires: [checker.problem]
-  adopted_in_graph: true # Installed by authorized Requirements execution; no accepted provider yet
+  adopted_in_graph: true # Accepted first-slice requirements provider now CURRENT
   purpose: Establish product scope, observable behavior and atomic acceptance expectations; route unknown product choices as Questions.
   excludes: [new Discovery artifact, mandatory user-needs intermediate artifact, domain model, architecture, code generation]
 questions:
@@ -67,3 +68,11 @@ frontier_dispositions:
   - {concern: specialized.ai, timing: OWNER_DECISION, reason: Agentic development method is established; AI in Checker runtime is not. Do not equate the lab and the target product.}
   - {concern: specialized.regulated, timing: OWNER_DECISION, reason: Sector obligations are unknown; network policy context alone is insufficient evidence.}
   - {concern: specialized.safety, timing: OWNER_DECISION, reason: Assess intended operational reliance and harm; no live mutation permission is not proof of no harm.}
+
+current_execution:
+  evidence: experiments/runs/harness-requirements-current-v1/README.md
+  Q-PR-001: RESOLVED
+  Q-PR-002: RESOLVED
+  resolution_artifact: CHECKER-REQUIREMENTS
+  acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
+  inventory_note: Q-REC-002 remains open for subject classification and full product coverage.

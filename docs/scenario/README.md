@@ -28,3 +28,7 @@
 RELEVANT FIREWALL ≠ MATCHING RULE ≠ PERMIT. Stored snapshot ≠ live operational truth. NO_MATCH ≠ DENY. UNKNOWN ≠ EMPTY POLICY. All matching permit/deny ACL rules retain their order.
 
 Исторические evidence: [SCN-006 extraction](../research/legacy-checker.md). Принятые target requirement IDs, ownership, actor, contracts и oracle **пока не определены**; подготовить в P2 до codegen.
+
+## Принятое состояние первого slice
+
+После PDEC-CHECKER-004 принят [канонический first-slice requirements artifact](../../.harness/knowledge/checker-requirements.yaml): `REQ-CHECKER-001..028`, `checker.requirements CURRENT`. [Исполнение и ограничения](../../experiments/runs/harness-requirements-current-v1/README.md). Предыдущий предполагаемый вертикальный срез выше — историческое исследовательское предложение; он не расширяет принятые requirements. Точная ACL/matching-семантика и downstream realization не утверждены этим принятием; полнота subject inventory всего Checker не доказана.

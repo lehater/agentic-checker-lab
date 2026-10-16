@@ -1,0 +1,73 @@
+{
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        "/home/alex/projects/myown/agentic-checker-lab/experiments/runs/harness-requirements-current-v1/execute.py"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"CURRENT\", \"revision\": \"sha256:94bc167d0108b5b4b90dcea6cefd0af3f5ba5132091f0ee20756163127da9852\", \"acceptance_id\": \"task-004-requirements-3219d4ef86d53466a04bb4e9\", \"lifecycle\": {\"checker.problem\": {\"state\": \"CURRENT\", \"capability\": \"checker.problem\", \"artifact\": \"CHECKER-PROBLEM-EVIDENCE\", \"acceptance_id\": \"task-004-checker-problem-aa7cd410ffb83daf218e\"}, \"checker.requirements\": {\"state\": \"CURRENT\", \"capability\": \"checker.requirements\", \"artifact\": \"CHECKER-REQUIREMENTS\", \"acceptance_id\": \"task-004-requirements-3219d4ef86d53466a04bb4e9\"}}}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "make",
+        "check"
+      ],
+      "exit_code": 0,
+      "stdout": "python3 tools/check_repository.py\nRepository check PASS: 38 Markdown files checked\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "second_replay": {
+    "argv": [
+      "python3",
+      "/home/alex/projects/myown/agentic-checker-lab/experiments/runs/harness-requirements-current-v1/execute.py"
+    ],
+    "exit_code": 0
+  },
+  "negative_checks": {
+    "stale_cas": {
+      "result": "PASS",
+      "error": "project publication compare-and-swap failed: expected sha256:b252cfbe6ef33d213aa0c6919a463fa31e891075a1ba0e7d191a8ae2ad010fb8, current sha256:94bc167d0108b5b4b90dcea6cefd0af3f5ba5132091f0ee20756163127da9852"
+    },
+    "mixed_admission_lifecycle_identity": {
+      "result": "PASS",
+      "error": "publication acceptance identity mismatch for checker.requirements"
+    },
+    "wrong_resolution_authority": {
+      "result": "PASS",
+      "error": "resolution artifact CHECKER-PROBLEM-EVIDENCE is not owned by addressed authority PRODUCT-REQUIREMENTS"
+    },
+    "same_superseded_acceptance": {
+      "result": "PASS",
+      "error": "resolution acceptance_id must differ from supersedes_acceptance_id"
+    }
+  },
+  "question_admission_lifecycle_identities_match": true,
+  "replay_identical": true,
+  "publication_bytes_stable": true,
+  "discovery_preserved": true,
+  "publication_revision": "sha256:94bc167d0108b5b4b90dcea6cefd0af3f5ba5132091f0ee20756163127da9852"
+}
