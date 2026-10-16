@@ -1,0 +1,197 @@
+axes:
+- axis: slice-boundaries
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: split-slice
+    challenge: Can layer batching improve independent checks?
+    alternatives:
+    - vertical
+    - layered
+    decision_points:
+    - slices
+  - strategy: dependency-order-perturbation
+    challenge: Would coding before independent expectations hide mistakes?
+    alternatives:
+    - vertical
+    - layered
+    decision_points:
+    - slices
+  decision_points:
+  - id: slices
+    alternatives:
+    - id: vertical
+      difference: One bounded whole CLI slice with pre-code tests.
+      material_effects:
+        slice-granularity: one-query
+        dependency-order: accepted-contracts-tests-code
+        ownership-alignment: whole-query
+    - id: layered
+      difference: Separate matcher, use case and adapter batches.
+      material_effects:
+        slice-granularity: per-layer
+        dependency-order: domain-application-cli
+        ownership-alignment: layer
+- axis: repository-realization
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: boundary-remap
+    challenge: Do physical modules preserve accepted responsibility boundaries?
+    alternatives:
+    - package
+    - src
+    decision_points:
+    - repository
+  - strategy: composition-root-shift
+    challenge: Would installed entry point improve this local prototype?
+    alternatives:
+    - package
+    - src
+    decision_points:
+    - repository
+  decision_points:
+  - id: repository
+    alternatives:
+    - id: package
+      difference: Root checker package with domain/application/outer modules and separate
+        tests.
+      material_effects:
+        module-boundary: checker-package
+        composition-root: checker.__main__
+        generated-source-placement: reviewed-repo-source
+    - id: src
+      difference: Installed src-layout package.
+      material_effects:
+        module-boundary: src-checker-package
+        composition-root: installed-entrypoint
+        generated-source-placement: src-tree
+- axis: dependency-tooling
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: tool-substitution
+    challenge: Does schema library reduce enough complexity for this small JSON contract?
+    alternatives:
+    - stdlib
+    - validation-lib
+    decision_points:
+    - tooling
+  - strategy: remove-tool
+    challenge: Can standard library enforce the accepted schema without install?
+    alternatives:
+    - stdlib
+    - validation-lib
+    decision_points:
+    - tooling
+  decision_points:
+  - id: tooling
+    alternatives:
+    - id: stdlib
+      difference: Python standard library runtime and unittest acceptance, CoderMind
+        only for development.
+      material_effects:
+        tool-family: python-stdlib
+        enforcement-point: local-and-ci
+        runtime-footprint: stdlib-only
+    - id: validation-lib
+      difference: Third-party validation library for input schema.
+      material_effects:
+        tool-family: python-validation-package
+        enforcement-point: model-validation
+        runtime-footprint: runtime-package
+- axis: verification-enforcement
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: manual-vs-automated
+    challenge: Can fixed expectations run reproducibly without human replay?
+    alternatives:
+    - automated
+    - manual
+    decision_points:
+    - verification
+  - strategy: gate-failure-perturbation
+    challenge: Would manual pass records catch a future broken action/order?
+    alternatives:
+    - automated
+    - manual
+    decision_points:
+    - verification
+  decision_points:
+  - id: verification
+    alternatives:
+    - id: automated
+      difference: Public subprocess acceptance, import checks and test-realization
+        conformance in versioned checks.
+      material_effects:
+        verification-layer: public-and-structural
+        automation-boundary: deterministic-tests
+        failure-gate: ci
+    - id: manual
+      difference: Manual scenario runs with review checklist.
+      material_effects:
+        verification-layer: operator-manual
+        automation-boundary: review
+        failure-gate: human-checklist
+- axis: delivery-gates
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: local-vs-ci
+    challenge: Which gate observes the exact proposed revision?
+    alternatives:
+    - ci
+    - local
+    decision_points:
+    - delivery
+  - strategy: reproducibility-perturbation
+    challenge: Can another clone run the same checks without tool caches?
+    alternatives:
+    - ci
+    - local
+    decision_points:
+    - delivery
+  decision_points:
+  - id: delivery
+    alternatives:
+    - id: ci
+      difference: One authoritative pull-request CI check; same local make check.
+      material_effects:
+        gate-location: pull-request-ci
+        authority: repository-check
+        reproducibility: versioned-command
+    - id: local
+      difference: Local-only check and reviewer inspection.
+      material_effects:
+        gate-location: workstation
+        authority: operator
+        reproducibility: local-environment
+- axis: migration-transition
+  applicability: NOT_APPLICABLE
+  exploration_level: EXPLORE
+  applicability_evidence:
+  - problem
+  - requirements
+  - architecture
+  rationale: 'Fresh synthetic prototype: no existing production code/data, deployed
+    users or migration target. Git branch publication only; reconsider before production
+    transition.'
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - impact-and-reversal-frontier-check
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - slices
+  - repository
+  - tooling
+  - verification
+  - delivery
+  open_gaps: []
+  rationale: Considered language/runtime from IF-1 Python CLI, dependency footprint,
+    physical boundaries, code generation provenance, test gates and greenfield migration
+    absence. No deployment/merge authorization created.

@@ -1,0 +1,133 @@
+version: 1
+kind: harness-decision-exploration-evaluation
+capability: checker.implementation
+knowledge_kind: implementation-design
+status: ACCEPTED
+findings: []
+axes:
+- axis: slice-boundaries
+  applicability: APPLICABLE
+  exploration: EXPLORE
+  probe_strategies:
+  - dependency-order-perturbation
+  - split-slice
+  decision_points:
+  - id: slices
+    alternatives:
+    - vertical
+    - layered
+    subjects: []
+    scoped_probe_strategies:
+    - dependency-order-perturbation
+    - split-slice
+    alternative_material_effects:
+      vertical:
+        slice-granularity: one-query
+        dependency-order: accepted-contracts-tests-code
+        ownership-alignment: whole-query
+      layered:
+        slice-granularity: per-layer
+        dependency-order: domain-application-cli
+        ownership-alignment: layer
+- axis: repository-realization
+  applicability: APPLICABLE
+  exploration: EXPLORE
+  probe_strategies:
+  - boundary-remap
+  - composition-root-shift
+  decision_points:
+  - id: repository
+    alternatives:
+    - package
+    - src
+    subjects: []
+    scoped_probe_strategies:
+    - boundary-remap
+    - composition-root-shift
+    alternative_material_effects:
+      package:
+        module-boundary: checker-package
+        composition-root: checker.__main__
+        generated-source-placement: reviewed-repo-source
+      src:
+        module-boundary: src-checker-package
+        composition-root: installed-entrypoint
+        generated-source-placement: src-tree
+- axis: dependency-tooling
+  applicability: APPLICABLE
+  exploration: EXPLORE
+  probe_strategies:
+  - remove-tool
+  - tool-substitution
+  decision_points:
+  - id: tooling
+    alternatives:
+    - stdlib
+    - validation-lib
+    subjects: []
+    scoped_probe_strategies:
+    - remove-tool
+    - tool-substitution
+    alternative_material_effects:
+      stdlib:
+        tool-family: python-stdlib
+        enforcement-point: local-and-ci
+        runtime-footprint: stdlib-only
+      validation-lib:
+        tool-family: python-validation-package
+        enforcement-point: model-validation
+        runtime-footprint: runtime-package
+- axis: migration-transition
+  applicability: NOT_APPLICABLE
+  exploration: EXPLORE
+  decision_points: []
+- axis: verification-enforcement
+  applicability: APPLICABLE
+  exploration: EXPLORE
+  probe_strategies:
+  - gate-failure-perturbation
+  - manual-vs-automated
+  decision_points:
+  - id: verification
+    alternatives:
+    - automated
+    - manual
+    subjects: []
+    scoped_probe_strategies:
+    - gate-failure-perturbation
+    - manual-vs-automated
+    alternative_material_effects:
+      automated:
+        verification-layer: public-and-structural
+        automation-boundary: deterministic-tests
+        failure-gate: ci
+      manual:
+        verification-layer: operator-manual
+        automation-boundary: review
+        failure-gate: human-checklist
+- axis: delivery-gates
+  applicability: APPLICABLE
+  exploration: EXPLORE
+  probe_strategies:
+  - local-vs-ci
+  - reproducibility-perturbation
+  decision_points:
+  - id: delivery
+    alternatives:
+    - ci
+    - local
+    subjects: []
+    scoped_probe_strategies:
+    - local-vs-ci
+    - reproducibility-perturbation
+    alternative_material_effects:
+      ci:
+        gate-location: pull-request-ci
+        authority: repository-check
+        reproducibility: versioned-command
+      local:
+        gate-location: workstation
+        authority: operator
+        reproducibility: local-environment
+explorer_request_id: sha256:31fbe25d4814dff08956a1bca478ce2c01b453e6f9d1957f8a50766cbf6cef80
+decision_space_review: ACCEPTED

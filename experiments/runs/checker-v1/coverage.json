@@ -6,19 +6,21 @@
   "consumer": "CHECKER-PROTOTYPE",
   "scope": "CHECKER-PROTOTYPE",
   "scope_roots": [],
-  "completion_ready": true,
-  "activated_count": 26,
-  "remaining_work_count": 0,
-  "work_item_count": 0,
+  "completion_ready": false,
+  "activated_count": 29,
+  "remaining_work_count": 3,
+  "work_item_count": 3,
   "question_frontier_count": 0,
   "summary": {
     "states": {
       "COVERED": 21,
+      "MISSING": 3,
       "DEFERRED": 2,
       "NOT_APPLICABLE": 3
     },
     "actions": {
-      "NONE": 26
+      "NONE": 26,
+      "MODEL_PRODUCTION_CONTRACT": 3
     }
   },
   "authority_roles": {
@@ -37,6 +39,9 @@
       ],
       "ENGINEERING-POLICY": [
         "engineering"
+      ],
+      "IMPLEMENTATION-DESIGN": [
+        "delivery"
       ],
       "MACHINE-INTERFACE-DESIGN": [
         "interface"
@@ -67,6 +72,9 @@
       "ENGINEERING-POLICY": [
         "STANDARD_ID"
       ],
+      "IMPLEMENTATION-DESIGN": [
+        "STANDARD_ID"
+      ],
       "MACHINE-INTERFACE-DESIGN": [
         "STANDARD_ID"
       ],
@@ -90,6 +98,7 @@
       "checker.architecture",
       "checker.components",
       "checker.domain",
+      "checker.implementation",
       "checker.interface",
       "checker.policy",
       "checker.problem",
@@ -104,6 +113,7 @@
       "component-design",
       "domain-use-case",
       "engineering-policy",
+      "implementation-design",
       "interface-contract",
       "problem-evidence",
       "product-requirements",
@@ -116,6 +126,7 @@
       "DISCOVERY",
       "DOMAIN-USE-CASE-DESIGN",
       "ENGINEERING-POLICY",
+      "IMPLEMENTATION-DESIGN",
       "MACHINE-INTERFACE-DESIGN",
       "PRODUCT-REQUIREMENTS",
       "SYSTEM-ARCHITECTURE",
@@ -125,6 +136,7 @@
     "authority_roles": [
       "application",
       "architecture",
+      "delivery",
       "engineering",
       "interface",
       "product",
@@ -184,6 +196,52 @@
       ]
     },
     {
+      "concern": "delivery.release",
+      "state": "MISSING",
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "accepted_semantic_claims": [
+        "engineering.delivery.release"
+      ],
+      "routes": {
+        "engineering.delivery.release": [
+          "IMPLEMENTATION-DESIGN"
+        ]
+      },
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "delivery.rollback",
+      "state": "MISSING",
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "accepted_semantic_claims": [
+        "engineering.delivery.rollback"
+      ],
+      "routes": {
+        "engineering.delivery.rollback": [
+          "IMPLEMENTATION-DESIGN"
+        ]
+      },
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ]
+        }
+      ]
+    },
+    {
       "concern": "engineering.code-quality",
       "state": "COVERED",
       "action": "NONE",
@@ -193,6 +251,13 @@
         ]
       },
       "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ]
+        },
         {
           "source": "RULE",
           "rule": "MODULAR-COMPONENT-DESIGN",
@@ -214,6 +279,13 @@
         ]
       },
       "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ]
+        },
         {
           "source": "RULE",
           "rule": "MODULAR-COMPONENT-DESIGN",
@@ -251,6 +323,13 @@
         ]
       },
       "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ]
+        },
         {
           "source": "RULE",
           "rule": "MODULAR-COMPONENT-DESIGN",
@@ -501,6 +580,30 @@
       ]
     },
     {
+      "concern": "transition.revalidation",
+      "state": "MISSING",
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "accepted_semantic_claims": [
+        "engineering.transition.revalidation"
+      ],
+      "routes": {
+        "engineering.transition.revalidation": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ]
+        }
+      ]
+    },
+    {
       "concern": "verification.architecture",
       "state": "COVERED",
       "action": "NONE",
@@ -610,7 +713,110 @@
     "remaining_work": [],
     "completion_ready": true
   },
-  "remaining_work": [],
-  "work_items": [],
+  "remaining_work": [
+    {
+      "concern": "delivery.release",
+      "state": "MISSING",
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "accepted_semantic_claims": [
+        "engineering.delivery.release"
+      ],
+      "routes": {
+        "engineering.delivery.release": [
+          "IMPLEMENTATION-DESIGN"
+        ]
+      },
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "delivery.rollback",
+      "state": "MISSING",
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "accepted_semantic_claims": [
+        "engineering.delivery.rollback"
+      ],
+      "routes": {
+        "engineering.delivery.rollback": [
+          "IMPLEMENTATION-DESIGN"
+        ]
+      },
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "transition.revalidation",
+      "state": "MISSING",
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "accepted_semantic_claims": [
+        "engineering.transition.revalidation"
+      ],
+      "routes": {
+        "engineering.transition.revalidation": [
+          "TEST-DESIGN",
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ]
+        }
+      ]
+    }
+  ],
+  "work_items": [
+    {
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "concern": "delivery.release",
+      "candidate_authorities": [
+        "IMPLEMENTATION-DESIGN"
+      ],
+      "accepted_semantic_claims": [
+        "engineering.delivery.release"
+      ]
+    },
+    {
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "concern": "delivery.rollback",
+      "candidate_authorities": [
+        "IMPLEMENTATION-DESIGN"
+      ],
+      "accepted_semantic_claims": [
+        "engineering.delivery.rollback"
+      ]
+    },
+    {
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "concern": "transition.revalidation",
+      "candidate_authorities": [
+        "TEST-DESIGN",
+        "VERIFICATION-DESIGN"
+      ],
+      "accepted_semantic_claims": [
+        "engineering.transition.revalidation"
+      ]
+    }
+  ],
   "question_frontier": []
 }

@@ -4,8 +4,8 @@ os: Ubuntu
 sources:
   harness:
     repository: https://github.com/lehater/harness
-    revision: 442db854c3a736a5e500b4a41664b80981b0d94c
-    installation: OPERATOR_REPORTED_SMOKE_PASS
+    revision: 1c31054a8c4af223dc1bb003175c1fbe3f0538d6
+    installation: CONSUMER_PACK_SYNC_AND_ADMISSION_VERIFIED_CHECKER_V1
   rpg_zerorepo:
     repository: https://github.com/microsoft/RPG-ZeroRepo
     revision: a4e6966c4ff59d84299bc56d6a47ae1f4f7b2885
@@ -26,7 +26,7 @@ sources:
     authentication: OPERATOR_REPORTED_SUCCESSFUL_MODEL_CALL
     compatibility_check: OPERATOR_REPORTED_LIVE_LLM_CLIENT_PASS
   python:
-    minimum_for_cmind: "3.12"
+    minimum_for_cmind: '3.12'
     actual: 3.12.15_OPERATOR_REPORTED
   uv:
     actual: UNKNOWN

@@ -91,6 +91,8 @@ class CheckerAcceptance(unittest.TestCase):
             ('snapshots.0.rules.0.source_ports', [5, 4]),
             ('snapshots.0.rules.0.destination_ports', [0, 65536]),
             ('snapshots.0.rules.0.action', 'maybe'),
+            ('snapshots.0.rules.0.source_ports', [True, 50000]),
+            ('snapshots.2.placements.0.global', 1),
             ('snapshots.0.rules.0.protocol', 'icmp'),
             ('snapshots.0.placements.0.direction', 'sideways'),
             ('snapshots.0.placements.0.extra', True),
