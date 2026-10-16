@@ -1,0 +1,9 @@
+{
+  "version": 1,
+  "kind": "harness-consumer-binding",
+  "consumer_api": "v1",
+  "source": {
+    "repository": "https://github.com/lehater/harness.git",
+    "revision": "442db854c3a736a5e500b4a41664b80981b0d94c"
+  }
+}

@@ -25,6 +25,9 @@ jobs:
           bash -n tools/cmind_codex_live_probe.sh
           bash -n tools/cmind_synthetic_rpg.sh
           bash -n tools/harness_consumer_preflight.sh
+          bash -n tools/harness_pack_preflight.sh
+          python3 -m py_compile .harness/harnessw.py
+          python3 -m json.tool .harness/harness-binding.json > /dev/null
       - name: Check RPG audit syntax
         run: |
           python3 -m py_compile tools/audit_synthetic_rpg.py
