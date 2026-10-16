@@ -1,0 +1,1487 @@
+{
+  "pending": [
+    {
+      "action": "PENDING",
+      "authority": "SYSTEM-ARCHITECTURE",
+      "capability": "checker.architecture",
+      "depends_on": [
+        "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "action": "PENDING",
+      "authority": "IMPLEMENTATION-DESIGN",
+      "capability": "checker.implementation",
+      "depends_on": [
+        "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+        "E-CHECKER-VERIFICATION-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-IMPLEMENTATION-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "action": "PENDING",
+      "authority": "PRODUCT-REQUIREMENTS",
+      "capability": "checker.requirements",
+      "depends_on": [
+        "E-CHECKER-PROBLEM-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "action": "PENDING",
+      "authority": "VERIFICATION-DESIGN",
+      "capability": "checker.verification",
+      "depends_on": [
+        "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+        "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-VERIFICATION-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    }
+  ],
+  "routed": [
+    {
+      "authority": "DISCOVERY",
+      "capabilities": [
+        "checker.problem"
+      ],
+      "expectations": [
+        "E-CHECKER-PROBLEM-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "instruction_contracts": [
+        "docs/design/agent-instruction-architecture-v0.md",
+        "docs/design/process-simplicity-and-efficiency-v0.md"
+      ],
+      "knowledge_kind": "problem-evidence",
+      "skill": "skills/artifacts/problem-evidence/SKILL.md",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    }
+  ],
+  "target_status": "READY",
+  "unrouted": [],
+  "wait": []
+}
+valid: true
+errors: []
+{
+  "exposure": "public",
+  "instruction_contracts": [
+    "docs/design/agent-instruction-architecture-v0.md",
+    "docs/design/process-simplicity-and-efficiency-v0.md"
+  ],
+  "route_class": "operation",
+  "route_key": "project-bootstrap-reconcile",
+  "skill": "skills/agent/project-bootstrap-reconcile/SKILL.md",
+  "surface": "consumer"
+}
+{
+  "activated_count": 21,
+  "activation_signals": {
+    "authorities": [
+      "DISCOVERY",
+      "IMPLEMENTATION-DESIGN",
+      "PRODUCT-REQUIREMENTS",
+      "SYSTEM-ARCHITECTURE",
+      "VERIFICATION-DESIGN"
+    ],
+    "authority_roles": [
+      "architecture",
+      "delivery",
+      "product",
+      "verification"
+    ],
+    "capabilities": [
+      "checker.architecture",
+      "checker.implementation",
+      "checker.problem",
+      "checker.requirements",
+      "checker.verification"
+    ],
+    "consumers": [
+      "CHECKER-IMPLEMENTATION"
+    ],
+    "knowledge_kinds": [
+      "implementation-design",
+      "problem-evidence",
+      "product-requirements",
+      "system-architecture",
+      "verification-strategy"
+    ]
+  },
+  "authority_roles": {
+    "bindings": {
+      "DISCOVERY": [
+        "product"
+      ],
+      "IMPLEMENTATION-DESIGN": [
+        "delivery"
+      ],
+      "PRODUCT-REQUIREMENTS": [
+        "product"
+      ],
+      "SYSTEM-ARCHITECTURE": [
+        "architecture"
+      ],
+      "VERIFICATION-DESIGN": [
+        "verification"
+      ]
+    },
+    "kind": "harness-derived-authority-role-bindings",
+    "project": "CHECKER-DISCOVERY-CANDIDATE",
+    "provenance": {
+      "DISCOVERY": [
+        "STANDARD_ID"
+      ],
+      "IMPLEMENTATION-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "PRODUCT-REQUIREMENTS": [
+        "STANDARD_ID"
+      ],
+      "SYSTEM-ARCHITECTURE": [
+        "STANDARD_ID"
+      ],
+      "VERIFICATION-DESIGN": [
+        "STANDARD_ID"
+      ]
+    },
+    "unresolved_authorities": [],
+    "version": 1
+  },
+  "completion_ready": false,
+  "consumer": "CHECKER-IMPLEMENTATION",
+  "kind": "harness-engineering-coverage-evaluation",
+  "project": "CHECKER-DISCOVERY-CANDIDATE",
+  "question_frontier": [],
+  "question_frontier_count": 0,
+  "remaining_work": [
+    {
+      "accepted_semantic_claims": [
+        "engineering.application.failures"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "application.failures",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.architecture.boundaries"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "architecture.boundaries",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.architecture.boundaries": [
+          "SYSTEM-ARCHITECTURE"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.architecture.structure"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "architecture.structure",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.architecture.structure": [
+          "SYSTEM-ARCHITECTURE"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.delivery.release"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "delivery.release",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.delivery.release": [
+          "IMPLEMENTATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.delivery.rollback"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "delivery.rollback",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.delivery.rollback": [
+          "IMPLEMENTATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.code-quality"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "engineering.code-quality",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.components"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "engineering.components",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.error-handling"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "engineering.error-handling",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.principles"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "engineering.principles",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.governance.external-obligations"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Legal/regulatory/contractual applicability cannot be inferred safely from generic software topology alone.",
+          "source": "MANUAL_ACTIVATION_CLASS"
+        }
+      ],
+      "concern": "governance.external-obligations",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.governance.privacy"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Personal/sensitive-data applicability requires explicit project evidence or classification.",
+          "source": "MANUAL_ACTIVATION_CLASS"
+        }
+      ],
+      "concern": "governance.privacy",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.intent.behavior"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "intent.behavior",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.intent.behavior": [
+          "DISCOVERY",
+          "PRODUCT-REQUIREMENTS"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.intent.scope"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "intent.scope",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.intent.scope": [
+          "DISCOVERY",
+          "PRODUCT-REQUIREMENTS"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "action": "MODEL_PROOF_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "AI/ML/agentic behavior requires explicit project classification.",
+          "source": "MANUAL_ACTIVATION_CLASS"
+        }
+      ],
+      "concern": "specialized.ai",
+      "reason": "concern has no accepted semantic-claim proof contract",
+      "state": "BLOCKED"
+    },
+    {
+      "action": "MODEL_PROOF_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Sector regulation requires explicit project classification.",
+          "source": "MANUAL_ACTIVATION_CLASS"
+        }
+      ],
+      "concern": "specialized.regulated",
+      "reason": "concern has no accepted semantic-claim proof contract",
+      "state": "BLOCKED"
+    },
+    {
+      "action": "MODEL_PROOF_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Harm potential requires domain/risk assessment.",
+          "source": "MANUAL_ACTIVATION_CLASS"
+        }
+      ],
+      "concern": "specialized.safety",
+      "reason": "concern has no accepted semantic-claim proof contract",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.transition.revalidation"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "transition.revalidation",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.transition.revalidation": [
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.architecture"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.architecture",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.architecture": [
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.functional"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.functional",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.functional": [
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.requirement-traceability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.requirement-traceability",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.requirement-traceability": [
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.strategy"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.strategy",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.strategy": [
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "action": "DECLARE_SUBJECT_INVENTORY",
+      "concern": "meta.subject-inventory",
+      "reason": "Coverage cannot prove subject/scope completeness without either a subject-obligation contract or an explicit subject-inventory disposition",
+      "state": "MISSING",
+      "subject": "__accepted_scope__"
+    }
+  ],
+  "remaining_work_count": 22,
+  "rows": [
+    {
+      "accepted_semantic_claims": [
+        "engineering.application.failures"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "application.failures",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.architecture.boundaries"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "architecture.boundaries",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.architecture.boundaries": [
+          "SYSTEM-ARCHITECTURE"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.architecture.structure"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "architecture.structure",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.architecture.structure": [
+          "SYSTEM-ARCHITECTURE"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.delivery.release"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "delivery.release",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.delivery.release": [
+          "IMPLEMENTATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.delivery.rollback"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "delivery.rollback",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.delivery.rollback": [
+          "IMPLEMENTATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.code-quality"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "engineering.code-quality",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.components"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "engineering.components",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.error-handling"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "engineering.error-handling",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.principles"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "rule": "SOFTWARE-IMPLEMENTATION-STRUCTURE",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "engineering.principles",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.governance.external-obligations"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Legal/regulatory/contractual applicability cannot be inferred safely from generic software topology alone.",
+          "source": "MANUAL_ACTIVATION_CLASS"
+        }
+      ],
+      "concern": "governance.external-obligations",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.governance.privacy"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Personal/sensitive-data applicability requires explicit project evidence or classification.",
+          "source": "MANUAL_ACTIVATION_CLASS"
+        }
+      ],
+      "concern": "governance.privacy",
+      "reason": "project has no Authority bound to a role that can produce an accepted semantic claim",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.intent.behavior"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "intent.behavior",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.intent.behavior": [
+          "DISCOVERY",
+          "PRODUCT-REQUIREMENTS"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.intent.scope"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "intent.scope",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.intent.scope": [
+          "DISCOVERY",
+          "PRODUCT-REQUIREMENTS"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "action": "MODEL_PROOF_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "AI/ML/agentic behavior requires explicit project classification.",
+          "source": "MANUAL_ACTIVATION_CLASS"
+        }
+      ],
+      "concern": "specialized.ai",
+      "reason": "concern has no accepted semantic-claim proof contract",
+      "state": "BLOCKED"
+    },
+    {
+      "action": "MODEL_PROOF_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Sector regulation requires explicit project classification.",
+          "source": "MANUAL_ACTIVATION_CLASS"
+        }
+      ],
+      "concern": "specialized.regulated",
+      "reason": "concern has no accepted semantic-claim proof contract",
+      "state": "BLOCKED"
+    },
+    {
+      "action": "MODEL_PROOF_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Harm potential requires domain/risk assessment.",
+          "source": "MANUAL_ACTIVATION_CLASS"
+        }
+      ],
+      "concern": "specialized.safety",
+      "reason": "concern has no accepted semantic-claim proof contract",
+      "state": "BLOCKED"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.transition.revalidation"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "rule": "RELEASE-DELIVERY",
+          "signals": [
+            "knowledge_kind:implementation-design"
+          ],
+          "source": "RULE"
+        }
+      ],
+      "concern": "transition.revalidation",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.transition.revalidation": [
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.architecture"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.architecture",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.architecture": [
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.functional"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.functional",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.functional": [
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.requirement-traceability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.requirement-traceability",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.requirement-traceability": [
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.strategy"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "activation_provenance": [
+        {
+          "policy": "software-engineering-concern-activation/v1",
+          "source": "BASELINE"
+        }
+      ],
+      "concern": "verification.strategy",
+      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
+      "routes": {
+        "engineering.verification.strategy": [
+          "VERIFICATION-DESIGN"
+        ]
+      },
+      "state": "MISSING"
+    }
+  ],
+  "scope": "CHECKER-OFFLINE-CANDIDATE",
+  "scope_roots": [],
+  "status": "canonical",
+  "subject_obligation_evaluation": {
+    "completion_ready": false,
+    "consumer": "CHECKER-IMPLEMENTATION",
+    "kind": "harness-derived-subject-obligation-evaluation",
+    "remaining_work": [
+      {
+        "action": "DECLARE_SUBJECT_INVENTORY",
+        "concern": "meta.subject-inventory",
+        "reason": "Coverage cannot prove subject/scope completeness without either a subject-obligation contract or an explicit subject-inventory disposition",
+        "state": "MISSING",
+        "subject": "__accepted_scope__"
+      }
+    ],
+    "rows": [
+      {
+        "action": "DECLARE_SUBJECT_INVENTORY",
+        "concern": "meta.subject-inventory",
+        "reason": "Coverage cannot prove subject/scope completeness without either a subject-obligation contract or an explicit subject-inventory disposition",
+        "state": "MISSING",
+        "subject": "__accepted_scope__"
+      }
+    ],
+    "scope": "CHECKER-OFFLINE-CANDIDATE",
+    "source_validation": null
+  },
+  "subject_obligation_rows": [
+    {
+      "action": "DECLARE_SUBJECT_INVENTORY",
+      "concern": "meta.subject-inventory",
+      "reason": "Coverage cannot prove subject/scope completeness without either a subject-obligation contract or an explicit subject-inventory disposition",
+      "state": "MISSING",
+      "subject": "__accepted_scope__"
+    }
+  ],
+  "summary": {
+    "actions": {
+      "ASSIGN_AUTHORITY": 7,
+      "MODEL_PRODUCTION_CONTRACT": 11,
+      "MODEL_PROOF_CONTRACT": 3
+    },
+    "states": {
+      "BLOCKED": 10,
+      "MISSING": 11
+    }
+  },
+  "version": 1,
+  "work_item_count": 22,
+  "work_items": [
+    {
+      "accepted_semantic_claims": [
+        "engineering.application.failures"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "application.failures"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.architecture.boundaries"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "SYSTEM-ARCHITECTURE"
+      ],
+      "concern": "architecture.boundaries"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.architecture.structure"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "SYSTEM-ARCHITECTURE"
+      ],
+      "concern": "architecture.structure"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.delivery.release"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "IMPLEMENTATION-DESIGN"
+      ],
+      "concern": "delivery.release"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.delivery.rollback"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "IMPLEMENTATION-DESIGN"
+      ],
+      "concern": "delivery.rollback"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.code-quality"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "engineering.code-quality"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.components"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "engineering.components"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.error-handling"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "engineering.error-handling"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.engineering.principles"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "engineering.principles"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.governance.external-obligations"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "governance.external-obligations"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.governance.privacy"
+      ],
+      "action": "ASSIGN_AUTHORITY",
+      "concern": "governance.privacy"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.intent.behavior"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "DISCOVERY",
+        "PRODUCT-REQUIREMENTS"
+      ],
+      "concern": "intent.behavior"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.intent.scope"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "DISCOVERY",
+        "PRODUCT-REQUIREMENTS"
+      ],
+      "concern": "intent.scope"
+    },
+    {
+      "action": "MODEL_PROOF_CONTRACT",
+      "concern": "specialized.ai"
+    },
+    {
+      "action": "MODEL_PROOF_CONTRACT",
+      "concern": "specialized.regulated"
+    },
+    {
+      "action": "MODEL_PROOF_CONTRACT",
+      "concern": "specialized.safety"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.transition.revalidation"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "VERIFICATION-DESIGN"
+      ],
+      "concern": "transition.revalidation"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.architecture"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "VERIFICATION-DESIGN"
+      ],
+      "concern": "verification.architecture"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.functional"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "VERIFICATION-DESIGN"
+      ],
+      "concern": "verification.functional"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.requirement-traceability"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "VERIFICATION-DESIGN"
+      ],
+      "concern": "verification.requirement-traceability"
+    },
+    {
+      "accepted_semantic_claims": [
+        "engineering.verification.strategy"
+      ],
+      "action": "MODEL_PRODUCTION_CONTRACT",
+      "candidate_authorities": [
+        "VERIFICATION-DESIGN"
+      ],
+      "concern": "verification.strategy"
+    },
+    {
+      "action": "DECLARE_SUBJECT_INVENTORY",
+      "concern": "meta.subject-inventory",
+      "reason": "Coverage cannot prove subject/scope completeness without either a subject-obligation contract or an explicit subject-inventory disposition",
+      "subject": "__accepted_scope__"
+    }
+  ]
+}
+?? experiments/runs/harness-intake-v1/
+{
+  "valid": true
+}
+{
+  "instruction_contracts": [
+    "docs/design/agent-instruction-architecture-v0.md",
+    "docs/design/process-simplicity-and-efficiency-v0.md"
+  ],
+  "route_class": "artifact-production",
+  "route_key": "problem-evidence",
+  "skill": "skills/artifacts/problem-evidence/SKILL.md",
+  "surface": "consumer"
+}
+{
+  "expectations": [
+    {
+      "authority": "SYSTEM-ARCHITECTURE",
+      "capability": "checker.architecture",
+      "depends_on": [
+        "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "id": "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "authority": "IMPLEMENTATION-DESIGN",
+      "capability": "checker.implementation",
+      "depends_on": [
+        "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+        "E-CHECKER-VERIFICATION-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "id": "E-CHECKER-IMPLEMENTATION-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "authority": "DISCOVERY",
+      "capability": "checker.problem",
+      "id": "E-CHECKER-PROBLEM-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "authority": "PRODUCT-REQUIREMENTS",
+      "capability": "checker.requirements",
+      "depends_on": [
+        "E-CHECKER-PROBLEM-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "id": "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "authority": "VERIFICATION-DESIGN",
+      "capability": "checker.verification",
+      "depends_on": [
+        "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+        "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "id": "E-CHECKER-VERIFICATION-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    }
+  ],
+  "id": "CHECKER-DISCOVERY-CANDIDATE-CHECKER-IMPLEMENTATION",
+  "kind": "harness-design-profile",
+  "version": 1
+}
+version: 1
+kind: harness-project-engineering-status
+rows:
+- authority: DISCOVERY
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: PRODUCT-REQUIREMENTS
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: DOMAIN-STRATEGY
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: MODEL-CONTEXT-STRATEGY
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: DOMAIN-USE-CASE-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: TACTICAL-DOMAIN-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: APPLICATION-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: SYSTEM-ARCHITECTURE
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: CONCURRENCY-CONSISTENCY-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: SECURITY-ARCHITECTURE
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: MACHINE-INTERFACE-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: HUMAN-INTERFACE-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: DATA-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: QUALITY-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: SECURITY-ANALYSIS
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: OBLIGATION-ANALYSIS
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: CHANGE-TRANSITION-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: OPERABILITY-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: ENGINEERING-POLICY
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: COMPONENT-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: TEST-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: IMPLEMENTATION-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: VERIFICATION-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+Repository check PASS: 31 Markdown files checked
+{
+  "exposure": "public",
+  "instruction_contracts": [
+    "docs/design/agent-instruction-architecture-v0.md",
+    "docs/design/process-simplicity-and-efficiency-v0.md"
+  ],
+  "route_class": "operation",
+  "route_key": "project-engineering-status",
+  "skill": "skills/agent/project-engineering-status/SKILL.md",
+  "surface": "consumer"
+}
+{
+  "create": [
+    {
+      "action": "CREATE",
+      "authority": "DISCOVERY",
+      "capability": "checker.problem",
+      "expectation": "E-CHECKER-PROBLEM-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    }
+  ],
+  "implementation_consumer": true,
+  "pending": [
+    {
+      "action": "PENDING",
+      "authority": "SYSTEM-ARCHITECTURE",
+      "capability": "checker.architecture",
+      "depends_on": [
+        "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "action": "PENDING",
+      "authority": "IMPLEMENTATION-DESIGN",
+      "capability": "checker.implementation",
+      "depends_on": [
+        "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+        "E-CHECKER-VERIFICATION-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-IMPLEMENTATION-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "action": "PENDING",
+      "authority": "PRODUCT-REQUIREMENTS",
+      "capability": "checker.requirements",
+      "depends_on": [
+        "E-CHECKER-PROBLEM-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "action": "PENDING",
+      "authority": "VERIFICATION-DESIGN",
+      "capability": "checker.verification",
+      "depends_on": [
+        "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+        "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-VERIFICATION-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    }
+  ],
+  "profile": {
+    "expectations": [
+      {
+        "authority": "SYSTEM-ARCHITECTURE",
+        "capability": "checker.architecture",
+        "depends_on": [
+          "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE"
+        ],
+        "id": "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+        "subject": "CHECKER-OFFLINE-CANDIDATE"
+      },
+      {
+        "authority": "IMPLEMENTATION-DESIGN",
+        "capability": "checker.implementation",
+        "depends_on": [
+          "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+          "E-CHECKER-VERIFICATION-CHECKER-OFFLINE-CANDIDATE"
+        ],
+        "id": "E-CHECKER-IMPLEMENTATION-CHECKER-OFFLINE-CANDIDATE",
+        "subject": "CHECKER-OFFLINE-CANDIDATE"
+      },
+      {
+        "authority": "DISCOVERY",
+        "capability": "checker.problem",
+        "id": "E-CHECKER-PROBLEM-CHECKER-OFFLINE-CANDIDATE",
+        "subject": "CHECKER-OFFLINE-CANDIDATE"
+      },
+      {
+        "authority": "PRODUCT-REQUIREMENTS",
+        "capability": "checker.requirements",
+        "depends_on": [
+          "E-CHECKER-PROBLEM-CHECKER-OFFLINE-CANDIDATE"
+        ],
+        "id": "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE",
+        "subject": "CHECKER-OFFLINE-CANDIDATE"
+      },
+      {
+        "authority": "VERIFICATION-DESIGN",
+        "capability": "checker.verification",
+        "depends_on": [
+          "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+          "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE"
+        ],
+        "id": "E-CHECKER-VERIFICATION-CHECKER-OFFLINE-CANDIDATE",
+        "subject": "CHECKER-OFFLINE-CANDIDATE"
+      }
+    ],
+    "id": "CHECKER-DISCOVERY-CANDIDATE-CHECKER-IMPLEMENTATION",
+    "kind": "harness-design-profile",
+    "version": 1
+  },
+  "satisfied": [],
+  "status": "READY",
+  "target": "CHECKER-IMPLEMENTATION",
+  "wait": []
+}
+{"status": "VALID", "consumer_api": "v1"}
+{"status": "VALID", "consumer_api": "v1"}
+3.12.15 (main, Oct 14 2026, 01:05:27) [Clang 23.1.3 ]
+PyYAML 6.0.3
+Linux-6.8.0-138-generic-x86_64-with-glibc2.35

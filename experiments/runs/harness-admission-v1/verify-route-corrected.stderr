@@ -1,0 +1,12 @@
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c/src/harness/application/skill_router.py", line 286, in <module>
+    raise SystemExit(main())
+  File "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c/src/harness/application/skill_router.py", line 263, in main
+    result = route_operation(
+  File "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c/src/harness/application/skill_router.py", line 170, in route_operation
+    raise CoreError(
+harness.project_model.core.CoreError: consumer operation registry is not available in this distribution

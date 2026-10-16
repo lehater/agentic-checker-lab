@@ -1,0 +1,21 @@
+version: 1
+kind: harness-engineering-graph
+id: CHECKER-PROBLEM
+default_subject: CHECKER-PROBLEM
+authorities:
+- id: DISCOVERY
+  responsibility: Project-owned Discovery problem evidence under PDEC-CHECKER-002,
+    TASK-004 only.
+  boundary:
+    semantic_cohesion: One class of problem-evidence knowledge.
+    independent_change: problem-evidence knowledge has its own revision boundary.
+    public_contract: Provide checker.problem; no downstream product or design authority.
+  produces:
+  - capability: checker.problem
+    knowledge_kind: problem-evidence
+    requires: []
+consumers:
+- id: CHECKER-PROBLEM-ADMISSION
+  purpose: TASK-004 Discovery admission only; not an implementation Consumer.
+  requires:
+  - capability: checker.problem

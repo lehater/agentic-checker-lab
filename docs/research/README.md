@@ -28,3 +28,5 @@
 - [First agent-operated Harness Discovery pilot](task-004-harness-agent-pilot.md) — pinned source snapshots, bounded Codex agent run, output/acceptance boundaries. **RUN EXECUTED; SEE INDEPENDENT AUDIT BELOW**.
 
 - [Independent audit of first Harness agent Discovery run](task-004-harness-agent-review.md) — real CLI/routing/coverage, source provenance and limits; research run **PASS WITH LIMITATIONS**, knowledge NOT ACCEPTED.
+
+- [TASK-004: strict admission и CURRENT publication](../../experiments/runs/harness-current-v1/run-report.md)

@@ -1,0 +1,93 @@
+version: 1
+kind: harness-project-frontier
+target: CHECKER-PROBLEM-ADMISSION
+status: READY
+next_actions:
+- source: ENGINEERING_COVERAGE
+  action: ASSIGN_AUTHORITY
+  concern: application.failures
+  accepted_semantic_claims:
+  - engineering.application.failures
+- source: ENGINEERING_COVERAGE
+  action: ASSIGN_AUTHORITY
+  concern: architecture.boundaries
+  accepted_semantic_claims:
+  - engineering.architecture.boundaries
+- source: ENGINEERING_COVERAGE
+  action: ASSIGN_AUTHORITY
+  concern: architecture.structure
+  accepted_semantic_claims:
+  - engineering.architecture.structure
+- source: ENGINEERING_COVERAGE
+  action: ASSIGN_AUTHORITY
+  concern: engineering.error-handling
+  accepted_semantic_claims:
+  - engineering.engineering.error-handling
+- source: ENGINEERING_COVERAGE
+  action: ASSIGN_AUTHORITY
+  concern: governance.external-obligations
+  accepted_semantic_claims:
+  - engineering.governance.external-obligations
+- source: ENGINEERING_COVERAGE
+  action: ASSIGN_AUTHORITY
+  concern: governance.privacy
+  accepted_semantic_claims:
+  - engineering.governance.privacy
+- source: ENGINEERING_COVERAGE
+  action: ASSIGN_AUTHORITY
+  concern: verification.architecture
+  accepted_semantic_claims:
+  - engineering.verification.architecture
+- source: ENGINEERING_COVERAGE
+  action: ASSIGN_AUTHORITY
+  concern: verification.functional
+  accepted_semantic_claims:
+  - engineering.verification.functional
+- source: ENGINEERING_COVERAGE
+  action: ASSIGN_AUTHORITY
+  concern: verification.requirement-traceability
+  accepted_semantic_claims:
+  - engineering.verification.requirement-traceability
+- source: ENGINEERING_COVERAGE
+  action: ASSIGN_AUTHORITY
+  concern: verification.strategy
+  accepted_semantic_claims:
+  - engineering.verification.strategy
+- source: ENGINEERING_COVERAGE
+  action: DECLARE_SUBJECT_INVENTORY
+  concern: meta.subject-inventory
+  subject: __accepted_scope__
+  reason: Coverage cannot prove subject/scope completeness without either a subject-obligation
+    contract or an explicit subject-inventory disposition
+- source: ENGINEERING_COVERAGE
+  action: MODEL_PRODUCTION_CONTRACT
+  concern: intent.behavior
+  candidate_authorities:
+  - DISCOVERY
+  accepted_semantic_claims:
+  - engineering.intent.behavior
+- source: ENGINEERING_COVERAGE
+  action: MODEL_PRODUCTION_CONTRACT
+  concern: intent.scope
+  candidate_authorities:
+  - DISCOVERY
+  accepted_semantic_claims:
+  - engineering.intent.scope
+- source: ENGINEERING_COVERAGE
+  action: MODEL_PROOF_CONTRACT
+  concern: specialized.ai
+- source: ENGINEERING_COVERAGE
+  action: MODEL_PROOF_CONTRACT
+  concern: specialized.regulated
+- source: ENGINEERING_COVERAGE
+  action: MODEL_PROOF_CONTRACT
+  concern: specialized.safety
+failed_validation: []
+blocked: []
+waiting: []
+gaps: []
+source_status:
+  decision: COMPLETE
+  semantic: COMPLETE
+  structural: COMPLETE
+  coverage_completion_ready: false

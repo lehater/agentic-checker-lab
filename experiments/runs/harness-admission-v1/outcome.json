@@ -1,0 +1,25 @@
+{
+  "status": "BLOCKED",
+  "source_head": "7d7439ced2bd61798bbdf45e7d0f040032a88295",
+  "pack_revision": "442db854c3a736a5e500b4a41664b80981b0d94c",
+  "pack_valid": true,
+  "semantic_admission_accepted": false,
+  "semantic_admission_executed": false,
+  "project_publication_written": false,
+  "checker_implemented": false,
+  "cli_version": "codex-cli 0.162.1",
+  "model": null,
+  "model_version": null,
+  "tokens": null,
+  "cost": null,
+  "blocker": "Q-ADMISSION-001: no adopted project-owned DISCOVERY producer/subject scope and semantic reviewer delegation for checker.problem",
+  "repository_check": {
+    "exit_code": 0,
+    "stdout": "Repository check PASS: 34 Markdown files checked\n"
+  },
+  "git_status_final": "?? experiments/runs/harness-admission-v1/\n",
+  "immutable_intake_and_fixtures_unchanged": true,
+  "verification_source_hashes_match": true,
+  "initial_status_current_session": "?? experiments/runs/harness-admission-v1/\n",
+  "verification_log_prefix": "verify-"
+}

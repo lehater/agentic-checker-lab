@@ -1,0 +1,230 @@
+{
+  "AGENTS.md": {
+    "sha256": "74337064ff6d34c916ad66413ca00b41117e7ceed1bcfc57e417dee1d7ec1105",
+    "git_blob": "a82a6113b2e8b6bc14b3af978c6ce577e81e3b91"
+  },
+  ".harness/harness-binding.json": {
+    "sha256": "7a9dfabdb25599d7f4b484e57a577da42cb73d19813c3accc3bb94071f458566",
+    "git_blob": "fa3e6ff0c99f35f4e48367e7cd561842d063509c"
+  },
+  "docs/project/strategy.md": {
+    "sha256": "ac4bf9d2e078b8b21b5dcb96671ad95b4e849842e5844fe63aa831610e5586fe",
+    "git_blob": "65418d0d453b0bcdf605540040df70483db7a4c5"
+  },
+  "docs/project/experiment-design.md": {
+    "sha256": "53238cff9616c464b5eb3f7d2cf41f51d83aa6dfeaa3f47f797c4880838d90ea",
+    "git_blob": "032d6c6042dbddfeeddf843676e8b8cd1e2242f7"
+  },
+  "docs/project/roadmap.md": {
+    "sha256": "5a39fb27ee858feb8b933d5fbcc5dd27565f460ab065ffc7e5e473a3b1ae6962",
+    "git_blob": "9f220000ed57b0af73e699692395e8be74c1d116"
+  },
+  "docs/project/success-criteria.md": {
+    "sha256": "322a138b22b415875585ca7515644ce51056c6f3e6081423f8c5f747701901ea",
+    "git_blob": "5c50cb870ed4c939c6d566efd3f02efc86620497"
+  },
+  "docs/project/current-state.yaml": {
+    "sha256": "2d9c76e9749a959c6bcdb1c229ca69c060b8229645ff294df92c1140218524be",
+    "git_blob": "2e35e534c6a851a96d39cd2fb31a62df1865cea3"
+  },
+  "docs/project/governance.md": {
+    "sha256": "8b74a3b492b56747a10f2d9b201f375495a2f6ade45d0f70037abfc3753b763e",
+    "git_blob": "dc3fcf31ff6e6deef17cc500542d6d300737b7bf"
+  },
+  "docs/scenario/problem-framing-decision.md": {
+    "sha256": "c22d584eb894607709cfbec3816e9918d7d8c82b6e0b92fb93269371dfc40e8e",
+    "git_blob": "913b3f2d9d036969bccd4d733f3c47738d04ba52"
+  },
+  "docs/research/task-004-problem-semantic-admission.md": {
+    "sha256": "109411628dda9a56a2bc82c33eeaafce243376aa093e5f042d44990484b5a67c",
+    "git_blob": "6bd971aa5df1cf929039b9cec5d043f3ce503679"
+  },
+  "docs/research/task-004-harness-agent-review.md": {
+    "sha256": "e891fba9f7d1bfe3c9f37b910cd7406689905aeada6c128f146c6e41f8febe04",
+    "git_blob": "4e5b983bf5568316de6e036a36a8fa2fe464e2b8"
+  },
+  "tooling/fixtures/checker-intake/README.md": {
+    "sha256": "3c8fa0fccf178db5cbde9ac1a652bf4fccfaa8951b3c6bdcb23e09711c5541e3",
+    "git_blob": "dbdd78f50d47546d5797d086d0ba1a9bcf0ed2ae"
+  },
+  "tooling/fixtures/checker-intake/sssr-scn-006.md": {
+    "sha256": "1d05af1e653ba85351dc62b78e3df20690d75df5def8a6a511a03f6e96e4e26b",
+    "git_blob": "c434c0e7b0fe43561d4b7a543688f3ced9a9c619"
+  },
+  "tooling/fixtures/checker-intake/product-access-as-is.md": {
+    "sha256": "e5774dd705786e99a25341c7e0db8a6f537e24130ef3c62698300f913d27aeee",
+    "git_blob": "220d37864a6bbd4e111a62eaa43c16320a38e32d"
+  },
+  "experiments/runs/harness-intake-v1/run-pilot.py": {
+    "sha256": "418ff48749c10134626313521398ea0e8b46f980cc9a26fa6fbd898b7d1ae1c0",
+    "git_blob": "41aebfc2c8c3fafe6ee3e458d9b12bec03336f31"
+  },
+  "experiments/runs/harness-intake-v1/engineering-graph-candidate.yaml": {
+    "sha256": "c03618756751d270da958f8a2009ed4ff4fc2c11df6d89bcfd149ed7977999c9",
+    "git_blob": "98ef2f1a119be5dc4ca1727d0e21e3246821bef6"
+  },
+  "experiments/runs/harness-intake-v1/graph-validation.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/problem-route.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/validate-binding.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/project-status.stdout": {
+    "sha256": "29fcf8a00ae33d0d5d20d775bf1ffedb7883032bb431e8cf9b31cb2422c841ea",
+    "git_blob": "b75b4eb859ca9ca3ac3516b6ac2d44fbed210bbf"
+  },
+  "experiments/runs/harness-intake-v1/target-evaluation.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/problem-evidence-candidate.md": {
+    "sha256": "88585f812c364dfdcb6acd0de21a23926a6facd8cce8899aa1750d4321e29ea6",
+    "git_blob": "9aa0f418f5c3b7f11de15f4f05b98f02628a52a6"
+  },
+  "experiments/runs/harness-intake-v1/agent-routing.stdout": {
+    "sha256": "15857ac8e88e37a57794f271d71c272f09fd79b779b210e3ba70a81bdb1003e3",
+    "git_blob": "3d8de3baff272202629f852a1f3de01b60985484"
+  },
+  "experiments/runs/harness-intake-v1/target-evaluation.stdout": {
+    "sha256": "346d59c13fed7e9fcc7d8bf7992e46d15e22f5097c876714c05a224dee5510f0",
+    "git_blob": "1f29e235240f4d9484e859f8f483a617df5e8047"
+  },
+  "experiments/runs/harness-intake-v1/authority-assessments-candidate.yaml": {
+    "sha256": "25bdec4dd70a8f6e90376d422e9493a7d0476a31e85cdd1e2ef562301ed8a18d",
+    "git_blob": "c0b46059af590192b92a6ec50eb108f354c1e0c6"
+  },
+  "experiments/runs/harness-intake-v1/status-route.stdout": {
+    "sha256": "f9c5f5029cddb8fc12b7508b348cda4fce526d38881c8ed180459293e247cb5e",
+    "git_blob": "c30ea7bee5653714e4df9b0703491e71fd71d985"
+  },
+  "experiments/runs/harness-intake-v1/graph-validation.stdout": {
+    "sha256": "ff965d1b75e95c9b936295f68f0dbeb21fa38dce342feaed073ffa6bef3cfc9a",
+    "git_blob": "39be44763c5bed6add4a5fdc079a60c797a2c92a"
+  },
+  "experiments/runs/harness-intake-v1/bootstrap-route.stdout": {
+    "sha256": "168dddbfbb60073e66428ea2462f0bde5c134de73d4677c91d743d5ad2d14f9e",
+    "git_blob": "381c8dabf39c8ab288e5916063e58f3431f2f82d"
+  },
+  "experiments/runs/harness-intake-v1/agent-routing.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/git-status.stdout": {
+    "sha256": "faf68fc406f20b90a84b5f0ece8f56b4fc3f25b88deafde74c009d7410d4db1a",
+    "git_blob": "38c09e7bf72f961acd992b1f993d60999979c047"
+  },
+  "experiments/runs/harness-intake-v1/project-status.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/authority-reconcile.stdout": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/status-route.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/validate-binding.stdout": {
+    "sha256": "100311e0301e008f31a45cf0a97ddf36ba113125f61aa3d094f1e04302096692",
+    "git_blob": "e41aa301732a48a49616a2b3f690c6c372e0afd4"
+  },
+  "experiments/runs/harness-intake-v1/run-report.md": {
+    "sha256": "d2897d2b82d60aa7a55d050a260dea65a237102357e09c26702938818459005f",
+    "git_blob": "8cf8d89a739651aab4cbaa4f0c1cef4d0941cd87"
+  },
+  "experiments/runs/harness-intake-v1/authority-validation.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/validate-pack.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/source-hashes.json": {
+    "sha256": "bbf70f7b432d5b43410198c6121b5be0f62453133d5676eb75df112253307b94",
+    "git_blob": "1beffa56614fcccbc7cb98d66bd770d951bba4f1"
+  },
+  "experiments/runs/harness-intake-v1/core-candidate.yaml": {
+    "sha256": "c193f95c4e56d8ff107218cbe72e3dfbb6dad7d7bb20015958dde16ede7e1173",
+    "git_blob": "04deef4693b50d58cb8ffa0536755c31f2870e43"
+  },
+  "experiments/runs/harness-intake-v1/versions.stdout": {
+    "sha256": "40649b26dc27ff95b0bfbb97edc7a148b983e11d552b3c353e4bc899852de48e",
+    "git_blob": "ac52ebc99d77acf0eb179619fb4d330355870ed7"
+  },
+  "experiments/runs/harness-intake-v1/engineering-coverage.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/commands.jsonl": {
+    "sha256": "c9216587317ed44d47172745d0bf3e126e4af575e52269f03d680ea2ce6284c8",
+    "git_blob": "fa34bf159cd4c3a05d349856dc41ae837b7d89b9"
+  },
+  "experiments/runs/harness-intake-v1/problem-route-corrected.stdout": {
+    "sha256": "39f425f971810797dbede0ff27c59f2c52a281fdda3bb80f2cebe605a6e0e45e",
+    "git_blob": "901ae4890c8af9433de6b4df46cb24075d5d6d3a"
+  },
+  "experiments/runs/harness-intake-v1/problem-route.stderr": {
+    "sha256": "cf7f3e5ac1802d1e77a2c150abdbd655501491083a9193171c641ba0415cc446",
+    "git_blob": "c0f98b4d6af7bec4b359a3bb5edba36cce5d1dcf"
+  },
+  "experiments/runs/harness-intake-v1/engineering-coverage.stdout": {
+    "sha256": "1d3240db185a5746436a4b7b8f34ed6a7d64e92dd35308c90423f6ca93969aa1",
+    "git_blob": "20b0ccab3208b60f3068027b576cc110c9185755"
+  },
+  "experiments/runs/harness-intake-v1/repository-check.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/problem-route-corrected.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/questions.md": {
+    "sha256": "6e1e5509a9570a45c010a0f91e1b084f9b93ca417c6ec7c657c812cf661a9626",
+    "git_blob": "76f49a6930a39c6076375e664b27329c61471104"
+  },
+  "experiments/runs/harness-intake-v1/authority-validation.stdout": {
+    "sha256": "992345b0911715d8bba5e8c896d35913dd04fa38d4fea27b4a0f2f69a2eb6a9c",
+    "git_blob": "87f776e2fa4ea4a6fdba4f3eda539177b21ef202"
+  },
+  "experiments/runs/harness-intake-v1/versions.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/profile.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/outcome.json": {
+    "sha256": "b66e6cfefe25fbc3ba53d9f9dda49735c6ece5a80502981f7904268b568c7ff1",
+    "git_blob": "035f609ba369b6fa656585b6a7984483ba84a30d"
+  },
+  "experiments/runs/harness-intake-v1/profile.stdout": {
+    "sha256": "a80148fb9a3d013231da05aa097799d38143e7f2ea8883993007eba4b5b00a22",
+    "git_blob": "15779e5c4a697ab0ee0a90d5bc439c22379f1d71"
+  },
+  "experiments/runs/harness-intake-v1/bootstrap-route.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  },
+  "experiments/runs/harness-intake-v1/repository-check.stdout": {
+    "sha256": "3a8b08c57074b3aa9d1cc5f8c73d77bf33e48451d76611da08a6c91b02ad926a",
+    "git_blob": "5a662f3038054ac8eb1f10ec52d54ff491cca694"
+  },
+  "experiments/runs/harness-intake-v1/validate-pack.stdout": {
+    "sha256": "100311e0301e008f31a45cf0a97ddf36ba113125f61aa3d094f1e04302096692",
+    "git_blob": "e41aa301732a48a49616a2b3f690c6c372e0afd4"
+  },
+  "experiments/runs/harness-intake-v1/authority-reconcile.stderr": {
+    "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "git_blob": "e69de29bb2d1d6434b8b29ae775ad8c2e48c5391"
+  }
+}

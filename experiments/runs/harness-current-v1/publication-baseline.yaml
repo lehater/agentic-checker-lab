@@ -1,0 +1,21 @@
+version: 1
+kind: harness-project-publication
+revision: sha256:4ea5a8d94da6879287d390c3862e8fbff6e3cff607deb29e5b6c2d0ec212f93e
+parent_revision: null
+state:
+  core_model:
+    artifacts: []
+    questions: []
+  semantic_evaluations:
+    version: 1
+    kind: harness-semantic-evaluation-set
+    semantic_evaluations: []
+    derivation_evaluations: []
+  lifecycle:
+    version: 1
+    kind: harness-capability-lifecycle
+    providers: []
+  decision_failures:
+    version: 1
+    kind: harness-decision-failure-set
+    failures: []

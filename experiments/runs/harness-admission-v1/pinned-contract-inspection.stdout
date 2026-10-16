@@ -1,0 +1,1675 @@
+version: 1
+kind: harness-knowledge-kind-semantic-contracts
+id: knowledge-kind-semantic-contracts/v1
+status: canonical
+
+defaults:
+  requires_assertion_authority: true
+  requires_source_authority: true
+  requires_semantic_review: true
+  required_review_checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+
+contracts:
+  - knowledge_kind: problem-evidence
+    required_review_checks: [evidence-not-solution]
+  - knowledge_kind: user-needs
+    owned_assertion_kinds:
+      - user-actor
+      - context-of-use
+      - user-goal
+      - user-need
+      - need-evidence
+    obligations:
+      - id: actors
+        kind: user-actor
+      - id: context-of-use
+        kind: context-of-use
+      - id: goals
+        kind: user-goal
+      - id: needs-for-goals
+        kind: user-need
+        subjects_from_kind: user-goal
+      - id: evidence-for-needs
+        kind: need-evidence
+        subjects_from_kind: user-need
+    required_review_checks: [need-not-normative-solution]
+  - knowledge_kind: product-requirements
+    required_review_checks:
+      - observable-product-level
+      - no-downstream-design-promotion
+  - knowledge_kind: domain-strategy
+    required_review_checks: [domain-strategy-not-model-context-or-tactical]
+  - knowledge_kind: model-context-strategy
+    required_review_checks: [model-context-not-domain-investment-or-tactical]
+  - knowledge_kind: concurrency-consistency-design
+    required_review_checks: [consistency-not-domain-or-topology-owner]
+  - knowledge_kind: domain-use-case
+    required_review_checks: [behavior-not-tactical]
+  - knowledge_kind: application-design
+    required_review_checks: [orchestration-not-domain-reownership]
+  - knowledge_kind: application-process-design
+    owned_assertion_kinds:
+      - application-process-boundary
+      - application-process-work-reference
+      - application-process-composition
+      - application-process-continuation
+      - application-process-recovery
+      - application-process-progress
+      - application-process-completion
+    obligations:
+      - {id: process-boundary, kind: application-process-boundary}
+      - {id: referenced-work, kind: application-process-work-reference}
+      - {id: composition, kind: application-process-composition}
+      - {id: completion, kind: application-process-completion}
+    required_review_checks:
+      - process-boundary-complete
+      - process-references-not-reowned
+      - process-composition-explicit
+      - process-continuation-explicit-when-material
+      - process-recovery-explicit-when-material
+      - process-progress-semantic-only
+      - process-completion-explicit
+      - process-not-runtime-topology
+  - knowledge_kind: task-model
+    owned_assertion_kinds:
+      - task-goal
+      - task
+      - task-goal-ref
+      - task-responsibility
+      - task-information
+      - task-decision-input
+      - task-outcome
+      - task-system-support
+      - task-recovery
+    obligations:
+      - id: goals
+        kind: task-goal
+      - id: tasks
+        kind: task
+      - id: goal-ref-per-task
+        kind: task-goal-ref
+        subjects_from_kind: task
+      - id: responsibility-per-task
+        kind: task-responsibility
+        subjects_from_kind: task
+      - id: information-per-task
+        kind: task-information
+        subjects_from_kind: task
+      - id: decision-input-per-task
+        kind: task-decision-input
+        subjects_from_kind: task
+      - id: outcome-per-task
+        kind: task-outcome
+        subjects_from_kind: task
+      - id: system-support-per-task
+        kind: task-system-support
+        subjects_from_kind: task
+      - id: recovery-per-task
+        kind: task-recovery
+        subjects_from_kind: task
+    required_review_checks: [task-not-screen-design]
+  - knowledge_kind: user-journey-design
+    required_review_checks:
+      - journey-not-screen-design
+      - independent-obligation-granularity
+  - knowledge_kind: quality-design
+    required_review_checks: [no-invented-quality-target]
+  - knowledge_kind: system-architecture
+    required_review_checks:
+      - architecture-not-product-requirement
+      - dependency-topology-explicit-where-material
+  - knowledge_kind: security-architecture
+    required_review_checks: [security-architecture-not-product-policy]
+  - knowledge_kind: interface-contract
+    required_review_checks: [preserve-upstream-semantics]
+  - knowledge_kind: conceptual-interface-model
+    required_review_checks: [conceptual-interface-not-domain-model]
+  - knowledge_kind: information-architecture-design
+    required_review_checks: [information-structure-not-screen-layout]
+  - knowledge_kind: interaction-design
+    required_review_checks:
+      - interaction-not-product-requirement
+      - independent-obligation-granularity
+      - interaction-role-coherence
+      - observable-realization-applicability
+  - knowledge_kind: interface-topology-design
+    required_review_checks:
+      - topology-not-screen-composition
+      - view-boundary-semantics
+  - knowledge_kind: human-interface-design
+    required_review_checks: [interaction-not-product-requirement]
+  - knowledge_kind: presentation-system-design
+    required_review_checks:
+      - presentation-not-domain-semantics
+      - independent-obligation-granularity
+      - representation-selection-applicability
+  - knowledge_kind: screen-view-design
+    required_review_checks:
+      - screen-not-product-semantics
+      - independent-obligation-granularity
+      - representation-selection-applicability
+  - knowledge_kind: data-design
+    required_review_checks: [storage-not-semantic-owner]
+  - knowledge_kind: operability-design
+    required_review_checks: [evidence-not-semantic-owner]
+  - knowledge_kind: security-analysis
+    required_review_checks: [analysis-not-architecture-owner]
+  - knowledge_kind: engineering-policy
+    required_review_checks:
+      - policy-not-product-domain-owner
+      - obligations-concrete-and-reviewable
+      - optional-patterns-not-defaults
+  - knowledge_kind: component-design
+    required_review_checks:
+      - component-not-upstream-owner
+      - implementation-facing-boundaries-complete-for-scope
+  - knowledge_kind: test-design
+    required_review_checks: [test-not-semantic-owner]
+  - knowledge_kind: implementation-design
+    required_review_checks:
+      - implementation-not-upstream-owner
+      - implementation-slices-explicit
+      - repository-realization-derived-from-accepted-boundaries
+  - knowledge_kind: acceptance-scenarios
+    required_review_checks: [scenario-not-semantic-owner]
+  - knowledge_kind: domain-model
+    required_review_checks: [domain-model-authority-boundary]
+  - knowledge_kind: verification-strategy
+    required_review_checks: [verification-not-semantic-owner]
+  - knowledge_kind: pinned-source-entity-set
+    required_review_checks: [exact-pinned-source]
+  - knowledge_kind: source-classification-registry
+    required_review_checks: [classification-not-heuristic]
+  - knowledge_kind: source-coverage-audit
+    required_review_checks: [source-disposition-complete]
+version: 1
+kind: harness-semantic-acceptance-contract
+id: artifact-semantic-acceptance/v1
+status: canonical
+
+purpose: >-
+  Define the minimal generated evidence boundary between candidate artifact
+  production and canonical capability realization. This is not a Core entity and
+  not a universal artifact ontology.
+
+contract:
+  input:
+    production:
+      required:
+        - authority
+        - capability
+      optional:
+        - semantic_claims
+        - owned_assertion_kinds
+        - obligations
+        - compatibility_obligations
+        - requires_semantic_review
+        - required_semantic_review_checks
+        - allowed_source_authorities
+        - requires_source_authority
+        - requires_assertion_authority
+    obligations:
+      fields:
+        id: required
+        kind: optional
+        subject: optional
+        subjects: optional
+        min_count: optional
+        required_values: optional
+      rule: >-
+        Artifact skills derive finite obligations from accepted upstream scope.
+        Subject sets are used whenever completeness applies to multiple semantic
+        instances.
+    candidate_assertions:
+      fields:
+        id: required
+        kind: required
+        subject: optional
+        semantic_value: optional
+        derived_from: optional
+        decision_authority: optional
+        source_artifact: optional-for-source-assertions
+      rule: >-
+        Only material assertions establishing the capability need machine
+        addressability. Arbitrary prose sentences do not.
+    semantic_review:
+      interaction_role_requirements: >-
+        Semantic applicability judgement for cross-context roles. A REQUIRED
+        requirement references at least two stable role ids and may name material
+        role facets/transitions that deterministic admission must find in the
+        candidate interaction_roles contract.
+      observable_realization_obligations: >-
+        Semantic applicability/category judgement for user-facing source
+        assertions. Entries classify an assertion as ACTION, STATE or DISTINCTION
+        and as REQUIRED, NOT_APPLICABLE or QUESTION.
+    source_assertions:
+      fields:
+        decision_authority: conditionally-required
+      rule: >-
+        Use bounded accepted prerequisite closure; implementation code and legacy
+        documents are not semantic authority unless explicitly selected as
+        canonical inputs. When requires_source_authority is true, every referenced
+        source assertion must identify its decision Authority. When
+        allowed_source_authorities is non-empty, a candidate may derive semantics
+        only from assertions owned by one of those Authorities. This prevents a
+        downstream design decision from being promoted into upstream truth merely
+        by restating it.
+
+  evaluation:
+    kind: harness-artifact-semantic-evaluation
+    required:
+      - artifact
+      - capability
+      - status
+      - obligations
+      - findings
+      - semantic_claims
+    statuses: [ACCEPTED, REJECTED]
+    acceptance_rule: >-
+      ACCEPTED requires all machine-addressable obligations satisfied, no
+      deterministic provenance/ownership/consistency finding, and accepted
+      semantic review when the production contract requires one.
+    claim_rule: >-
+      Only semantic claims explicitly listed under semantic_claims.accepted are
+      usable as Engineering Coverage proof.
+
+  findings:
+    deterministic:
+      - MISSING_OBLIGATION
+      - MISSING_SUBJECTS
+      - MISSING_VALUES
+      - UNKNOWN_PROVENANCE
+      - UNKNOWN_SOURCE_AUTHORITY
+      - SOURCE_AUTHORITY_VIOLATION
+      - INVENTED_ASSERTION
+      - MISSING_DECISION_AUTHORITY
+      - WRONG_AUTHORITY_OWNERSHIP
+      - CROSS_AUTHORITY_OWNERSHIP_CONFLICT
+      - SOURCE_FIDELITY_VIOLATION
+      - INTERNAL_CONTRADICTION
+      - CROSS_ARTIFACT_CONTRADICTION
+      - INCOMPATIBLE_CONSUMER_CONTRACT
+      - SEMANTIC_REVIEW_REQUIRED
+      - SEMANTIC_REVIEW_CHECKS_MISSING
+      - SEMANTIC_REVIEW_REJECTED
+      - INTERACTION_ROLE_REVIEW_REQUIRED
+      - INVALID_INTERACTION_ROLES
+      - INVALID_INTERACTION_ROLE
+      - INTERACTION_ROLE_FIELD_REQUIRED
+      - INTERACTION_ROLE_FIELD_INVALID
+      - INVALID_INTERACTION_ROLE_TRANSITION
+      - INVALID_INTERACTION_ROLE_REQUIREMENT
+      - INTERACTION_ROLE_QUESTION
+      - INTERACTION_ROLE_REQUIRED_ROLE_MISSING
+      - INTERACTION_ROLE_CONCEPT_MISMATCH
+      - INVALID_INTERACTION_ROLE_REQUIRED_FACETS
+      - INTERACTION_ROLE_REQUIRED_FACET_MISSING
+      - INVALID_INTERACTION_ROLE_REQUIRED_TRANSITIONS
+      - INTERACTION_ROLE_REQUIRED_TRANSITION_MISSING
+      - OBSERVABLE_REALIZATION_REVIEW_REQUIRED
+      - INVALID_OBSERVABLE_REALIZATION_REVIEW
+      - OBSERVABLE_REALIZATION_QUESTION
+
+integration:
+  legacy_mode: >-
+    A capability with no semantic-evaluation evidence may retain pre-existing
+    structural realization behavior during migration, but it cannot satisfy the
+    strict semantic/currentness closure used to claim full engineering closure.
+  opt_in_rule: >-
+    Once evaluation evidence exists for an artifact/capability, REJECTED evidence
+    prevents that provider from realizing the capability.
+  current_snapshot_rule: >-
+    A harness-semantic-evaluation-set is the current semantic-evidence snapshot,
+    not an append-only history. It may contain at most one artifact semantic
+    evaluation for each (artifact, capability) identity and at most one semantic
+    derivation evaluation for each (source_capability, target_capability) edge.
+    Superseded evaluations may be retained by project-native history, but they
+    must not be replayed into the current set. Duplicate current identities fail
+    closed rather than being selected by list order.
+  invalidation_rule: >-
+    A semantically invalid capability invalidates dependent produced capabilities
+    through Engineering Graph prerequisites until revalidation succeeds.
+  authority_direction_rule: >-
+    When an artifact production contract opts into source-Authority checking,
+    unknown or disallowed source ownership rejects the candidate capability.
+    Stakeholder confirmation does not change which Authority owns the meaning of
+    a statement; a downstream decision must stay downstream unless Product
+    Requirements independently accepts an observable product choice.
+  strict_admission_rule: >-
+    Routed artifact production must use the strict semantic-admission path when
+    full engineering closure is claimed. That path derives admissible source
+    Authorities from Engineering Graph prerequisites, validates canonical
+    read/write provenance, and accepts canonical semantic source assertions only
+    from the lifecycle-selected provider artifacts of declared prerequisite
+    capabilities. Read access, including same-Authority supporting closure, does
+    not by itself authorize semantic provenance. The path requires the
+    knowledge-kind semantic review contract,
+    composes the Harness-generated candidate-free Decision Explorer Request,
+    request-bound pre-choice Decision Exploration and Decision Governance for
+    participating knowledge kinds, and records a capability acceptance identity
+    plus prerequisite baseline.
+  decision_governance_rule: >-
+    When a target project supplies a decision policy and a knowledge kind has a
+    required decision contract, admission fails closed unless exploration is
+    bound to the exact Harness-generated Explorer Request and both exploration
+    and governance are accepted. Exploration proves the required search protocol
+    over a candidate-free authorized input manifest; governance proves Authority
+    and autonomy disposition over exactly that explored alternative set. Neither
+    proves exhaustive discovery of every possible solution or physical LLM
+    context isolation. Unresolved non-delegated decisions remain Core Questions.
+  coverage_rule: >-
+    Engineering Coverage may use a semantic claim only from an ACCEPTED
+    evaluation that explicitly accepts that claim.
+  core_rule: >-
+    Harness Core remains unchanged. Semantic evaluation is generated evidence
+    above Core; unresolved decisions continue to be represented as Questions.
+
+non_goals:
+  - universal engineering ontology
+  - formal proof of arbitrary natural-language entailment
+  - independent verification of external scientific/legal/source truth
+  - mandatory assertion IDs for every prose sentence
+#!/usr/bin/env python3
+"""Strict semantic admission for one Engineering Graph capability.
+
+This composes Authority execution context, source provenance/direction,
+artifact-specific semantic review and capability lifecycle baselines before a
+provider may be treated as accepted semantic knowledge.
+"""
+from __future__ import annotations
+
+import argparse
+import json
+from pathlib import Path
+from typing import Any
+
+import yaml
+
+from harness.assurance.acceptance_policy import build_acceptance_policy_baseline
+from .agent_router import validate_skill_registry
+from .authority_context import build_authority_context, validate_extracted_references
+from harness.assurance.capability_lifecycle import lifecycle_index, lifecycle_states
+from harness.decision.decision_execution_assurance import (
+    effective_execution_assurance,
+    evaluate_execution_assurance,
+)
+from harness.decision.decision_exploration import evaluate_decision_exploration
+from .decision_explorer_request import build_decision_explorer_request
+from .decision_preflight import evaluate_decision_preflight
+from harness.decision.decision_governance import (
+    axis_policies,
+    decision_contract_index,
+    evaluate_decision_governance,
+)
+from harness.project_model.engineering_graph import producer_index, production_index, validate_realization
+from harness.project_model.core import CoreError
+from harness.assurance.semantic_acceptance import evaluate_artifact
+from harness.assurance.semantic_fingerprint import semantic_assertion_fingerprints
+from .semantic_questions import questions_from_semantic_evaluation
+
+__all__ = ['Any',
+ 'CoreError',
+ 'Path',
+ 'admit_artifact',
+ 'annotations',
+ 'argparse',
+ 'axis_policies',
+ 'build_acceptance_policy_baseline',
+ 'build_authority_context',
+ 'build_decision_explorer_request',
+ 'decision_contract_index',
+ 'derive_acceptance_policy_baseline',
+ 'derive_acceptance_policy_fingerprints',
+ 'effective_execution_assurance',
+ 'effective_knowledge_contract',
+ 'evaluate_artifact',
+ 'evaluate_decision_exploration',
+ 'evaluate_decision_governance',
+ 'evaluate_execution_assurance',
+ 'json',
+ 'knowledge_contract_index',
+ 'lifecycle_index',
+ 'lifecycle_states',
+ 'load_yaml',
+ 'main',
+ 'producer_index',
+ 'production_index',
+ 'questions_from_semantic_evaluation',
+ 'semantic_assertion_fingerprints',
+ 'validate_extracted_references',
+ 'validate_realization',
+ 'validate_skill_registry',
+ 'yaml']
+
+
+def load_yaml(path: str | Path) -> dict[str, Any]:
+    value = yaml.safe_load(Path(path).read_text(encoding="utf-8"))
+    if not isinstance(value, dict):
+        raise CoreError(f"{path} must contain a mapping")
+    return value
+
+
+def knowledge_contract_index(document: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    if document.get("version") != 1:
+        raise CoreError("knowledge-kind semantic contract version must be 1")
+    if document.get("kind") != "harness-knowledge-kind-semantic-contracts":
+        raise CoreError("unexpected knowledge-kind semantic contract kind")
+
+    defaults = document.get("defaults", {}) or {}
+    if not isinstance(defaults, dict):
+        raise CoreError("knowledge-kind semantic contract defaults must be a mapping")
+
+    result: dict[str, dict[str, Any]] = {}
+    for item in document.get("contracts", []) or []:
+        if not isinstance(item, dict):
+            raise CoreError("knowledge-kind semantic contract must be a mapping")
+        knowledge_kind = item.get("knowledge_kind")
+        if not isinstance(knowledge_kind, str) or not knowledge_kind:
+            raise CoreError("knowledge-kind semantic contract requires knowledge_kind")
+        if knowledge_kind in result:
+            raise CoreError(
+                f"duplicate knowledge-kind semantic contract: {knowledge_kind}"
+            )
+        merged = dict(defaults)
+        default_checks = list(defaults.get("required_review_checks", []) or [])
+        item_checks = list(item.get("required_review_checks", []) or [])
+        merged.update(item)
+        merged["required_review_checks"] = sorted(
+            set(default_checks + item_checks)
+        )
+        result[knowledge_kind] = merged
+    return result
+
+
+def _merge_named_items(
+    base: list[dict[str, Any]],
+    overlay: list[dict[str, Any]],
+) -> list[dict[str, Any]]:
+    result = {
+        item["id"]: dict(item)
+        for item in base
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    }
+    order = [
+        item["id"]
+        for item in base
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    ]
+    for item in overlay:
+        if not isinstance(item, dict) or not isinstance(item.get("id"), str):
+            raise CoreError("semantic contract overlay items require id")
+        item_id = item["id"]
+        if item_id not in result:
+            order.append(item_id)
+        result[item_id] = dict(item)
+    return [result[item_id] for item_id in order]
+
+
+def effective_knowledge_contract(
+    base: dict[str, Any],
+    knowledge_kind: str,
+    overlays: list[dict[str, Any]] | None,
+) -> dict[str, Any]:
+    result = dict(base)
+    for document in overlays or []:
+        if document.get("version") != 1:
+            raise CoreError("knowledge-kind semantic overlay version must be 1")
+        if document.get("kind") != "harness-knowledge-kind-semantic-overlay":
+            raise CoreError("unexpected knowledge-kind semantic overlay kind")
+        matches = [
+            item
+            for item in document.get("contracts", []) or []
+            if isinstance(item, dict)
+            and item.get("knowledge_kind") == knowledge_kind
+        ]
+        if len(matches) > 1:
+            raise CoreError(
+                f"duplicate semantic overlay knowledge_kind: {knowledge_kind}"
+            )
+        if not matches:
+            continue
+        item = matches[0]
+        for field in (
+            "requires_source_authority",
+            "requires_assertion_authority",
+            "requires_semantic_review",
+        ):
+            if field in item:
+                result[field] = item[field]
+        for field in ("required_review_checks", "owned_assertion_kinds"):
+            result[field] = sorted(
+                set(result.get(field, []) or []) | set(item.get(field, []) or [])
+            )
+        for field in ("obligations", "compatibility_obligations"):
+            result[field] = _merge_named_items(
+                list(result.get(field, []) or []),
+                list(item.get(field, []) or []),
+            )
+    return result
+
+
+def derive_acceptance_policy_baseline(
+    *,
+    knowledge_kind: str,
+    knowledge_contracts: dict[str, Any],
+    knowledge_contract_overlays: list[dict[str, Any]] | None = None,
+    decision_contracts: dict[str, Any] | None = None,
+    decision_policy: dict[str, Any] | None = None,
+) -> dict[str, Any]:
+    semantic_contracts = knowledge_contract_index(knowledge_contracts)
+    kind_contract = semantic_contracts.get(knowledge_kind)
+    if kind_contract is None:
+        raise CoreError(
+            f"knowledge_kind {knowledge_kind} has no semantic admission contract"
+        )
+    effective_semantic = effective_knowledge_contract(
+        kind_contract,
+        knowledge_kind,
+        knowledge_contract_overlays,
+    )
+    if decision_contracts is None:
+        decision_contracts = load_yaml(
+            Path(__file__).resolve().parents[3]
+            / "spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml"
+        )
+    decision_contract = decision_contract_index(decision_contracts).get(
+        knowledge_kind
+    )
+    decision_axis_policies = axis_policies(
+        decision_contract,
+        decision_policy,
+    )
+    return build_acceptance_policy_baseline(
+        knowledge_kind=knowledge_kind,
+        semantic_contract=effective_semantic,
+        decision_contract=decision_contract,
+        decision_axis_policies=decision_axis_policies,
+        execution_assurance=effective_execution_assurance(
+            decision_policy,
+            knowledge_kind,
+        ),
+    )
+
+
+def derive_acceptance_policy_fingerprints(
+    *,
+    graph: dict[str, Any],
+    knowledge_contracts: dict[str, Any],
+    knowledge_contract_overlays: list[dict[str, Any]] | None = None,
+    decision_contracts: dict[str, Any] | None = None,
+    decision_policy: dict[str, Any] | None = None,
+) -> dict[str, str]:
+    if decision_contracts is None:
+        decision_contracts = load_yaml(
+            Path(__file__).resolve().parents[3]
+            / "spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml"
+        )
+    semantic_contracts = knowledge_contract_index(knowledge_contracts)
+    result: dict[str, str] = {}
+    for capability, production in production_index(graph).items():
+        knowledge_kind = production.get("knowledge_kind")
+        if (
+            not isinstance(knowledge_kind, str)
+            or knowledge_kind not in semantic_contracts
+        ):
+            continue
+        baseline = derive_acceptance_policy_baseline(
+            knowledge_kind=knowledge_kind,
+            knowledge_contracts=knowledge_contracts,
+            knowledge_contract_overlays=knowledge_contract_overlays,
+            decision_contracts=decision_contracts,
+            decision_policy=decision_policy,
+        )
+        result[capability] = baseline["fingerprint"]
+    return result
+
+
+def _artifact_index(model: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    return {
+        item["id"]: item
+        for item in model.get("artifacts", []) or []
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    }
+
+
+def _validate_candidate_write_set(
+    model: dict[str, Any],
+    context: dict[str, Any],
+    candidate: dict[str, Any],
+) -> list[str]:
+    candidate_id = candidate.get("id")
+    candidate_path = candidate.get("path")
+    if not isinstance(candidate_id, str) or not candidate_id:
+        raise CoreError("semantic admission candidate id is required")
+    if not isinstance(candidate_path, str) or not candidate_path:
+        raise CoreError("semantic admission candidate path is required")
+
+    artifacts = _artifact_index(model)
+    for artifact_id, artifact in artifacts.items():
+        if artifact_id == candidate_id:
+            if artifact["authority"] != context["authority"]:
+                raise CoreError(
+                    f"candidate {candidate_id} belongs to {artifact['authority']}, "
+                    f"not {context['authority']}"
+                )
+            if artifact["path"] != candidate_path:
+                raise CoreError(
+                    f"candidate {candidate_id} path mismatch: "
+                    f"{candidate_path} != {artifact['path']}"
+                )
+        elif artifact.get("path") == candidate_path:
+            raise CoreError(
+                f"candidate path already belongs to another canonical artifact: "
+                f"{candidate_path}"
+            )
+
+    changed_paths = candidate.get("changed_paths", [candidate_path])
+    if not isinstance(changed_paths, list) or any(
+        not isinstance(value, str) or not value for value in changed_paths
+    ):
+        raise CoreError("candidate changed_paths must be non-empty strings")
+
+    allowed = set(context["access"]["write"])
+    allowed.add(candidate_path)
+    outside = sorted(set(changed_paths) - allowed)
+    if outside:
+        raise CoreError(
+            f"Authority {context['authority']} may not write outside admitted "
+            f"canonical artifacts: {outside}"
+        )
+    return sorted(set(changed_paths))
+
+
+def _validate_source_assertion_artifacts(
+    model: dict[str, Any],
+    context: dict[str, Any],
+    sources: dict[str, Any],
+    candidate: dict[str, Any],
+    prerequisite_artifact_ids: set[str],
+) -> None:
+    artifacts = _artifact_index(model)
+    allowed_paths = set(context["access"]["read"])
+    allowed_semantic_source_artifacts = set(prerequisite_artifact_ids)
+    candidate_capability = candidate.get("capability")
+
+    source_by_id = {
+        item["id"]: item
+        for item in sources.get("semantic_assertions", []) or []
+        if isinstance(item, dict) and isinstance(item.get("id"), str)
+    }
+
+    for assertion in candidate.get("semantic_assertions", []) or []:
+        for source_id in assertion.get("derived_from", []) or []:
+            source = source_by_id.get(source_id)
+            if source is None:
+                continue
+            source_artifact = source.get("source_artifact")
+            if not isinstance(source_artifact, str) or not source_artifact:
+                raise CoreError(
+                    f"source assertion {source_id} requires source_artifact "
+                    "under strict semantic admission"
+                )
+            artifact = artifacts.get(source_artifact)
+            if artifact is None:
+                raise CoreError(
+                    f"source assertion {source_id} references unknown canonical "
+                    f"artifact: {source_artifact}"
+                )
+            if artifact["path"] not in allowed_paths:
+                raise CoreError(
+                    f"source assertion {source_id} comes from canonical artifact "
+                    f"outside Authority read boundary: {source_artifact}"
+                )
+            if source_artifact not in allowed_semantic_source_artifacts:
+                raise CoreError(
+                    f"source assertion {source_id} uses canonical artifact "
+                    f"{source_artifact} outside declared production prerequisites "
+                    f"for {candidate_capability}"
+                )
+            source_authority = source.get("decision_authority")
+            if source_authority != artifact["authority"]:
+                raise CoreError(
+                    f"source assertion {source_id} Authority {source_authority} "
+                    f"does not match canonical artifact owner {artifact['authority']}"
+                )
+
+
+
+
+def _accepted_prerequisite_semantics(
+    *,
+    capability: str,
+    prerequisite_capabilities: list[str],
+    derivation_evaluations: list[dict[str, Any]] | None,
+) -> dict[str, dict[str, Any]]:
+    if not derivation_evaluations:
+        return {}
+
+    allowed = set(prerequisite_capabilities)
+    result: dict[str, dict[str, Any]] = {}
+    for evaluation in derivation_evaluations:
+        if not isinstance(evaluation, dict):
+            raise CoreError("derivation evaluation must be a mapping")
+        if evaluation.get("kind") != "harness-semantic-derivation-evaluation":
+            raise CoreError("unexpected derivation evaluation kind")
+        if evaluation.get("status") != "ACCEPTED":
+            raise CoreError(
+                f"derivation evaluation for {capability} must be ACCEPTED"
+            )
+        if evaluation.get("target_capability") != capability:
+            raise CoreError(
+                f"derivation evaluation target mismatch for {capability}"
+            )
+        source_capability = evaluation.get("source_capability")
+        if source_capability not in allowed:
+            raise CoreError(
+                f"derivation evaluation source {source_capability} is not a "
+                f"prerequisite of {capability}"
+            )
+        if source_capability in result:
+            raise CoreError(
+                f"duplicate derivation lifecycle baseline for {source_capability}"
+            )
+        dependency = evaluation.get("lifecycle_dependency")
+        if (
+            not isinstance(dependency, dict)
+            or dependency.get("capability") != source_capability
+            or dependency.get("exhaustive") is not True
+            or not isinstance(dependency.get("semantic_atoms"), dict)
+            or not dependency["semantic_atoms"]
+            or any(
+                not isinstance(atom_id, str)
+                or not atom_id
+                or not isinstance(fingerprint, str)
+                or not fingerprint
+                for atom_id, fingerprint in dependency["semantic_atoms"].items()
+            )
+            or not isinstance(dependency.get("source_surface_fingerprints"), dict)
+            or not dependency["source_surface_fingerprints"]
+            or any(
+                not isinstance(atom_id, str)
+                or not atom_id
+                or not isinstance(fingerprint, str)
+                or not fingerprint
+                for atom_id, fingerprint
+                in dependency["source_surface_fingerprints"].items()
+            )
+        ):
+            raise CoreError(
+                f"lifecycle dependency evidence for {source_capability} must be exhaustive and contain consumed semantic atoms plus the complete source surface"
+            )
+        result[source_capability] = {
+            "exhaustive": True,
+            "semantic_atoms": dict(dependency["semantic_atoms"]),
+            "source_surface_fingerprints": dict(
+                dependency["source_surface_fingerprints"]
+            ),
+        }
+    return result
+
+
+
+def _decision_preflight_rejection_evaluation(
+    semantic_contract: dict[str, Any],
+    candidate: dict[str, Any],
+) -> dict[str, Any]:
+    """Return the semantic-evaluation envelope without running artifact review."""
+    expected = [
+        item["id"]
+        for item in semantic_contract.get("obligations", []) or []
+        if isinstance(item, dict)
+        and isinstance(item.get("id"), str)
+        and item["id"]
+    ]
+    return {
+        "version": 1,
+        "kind": "harness-artifact-semantic-evaluation",
+        "artifact": candidate.get("id"),
+        "capability": candidate.get("capability"),
+        "status": "REJECTED",
+        "obligations": {
+            "expected": expected,
+            "satisfied": [],
+            "dispositions": [],
+        },
+        "findings": [],
+        "semantic_claims": {"accepted": []},
+    }
+
+def admit_artifact(
+    *,
+    graph: dict[str, Any],
+    model: dict[str, Any],
+    skill_registry: dict[str, Any],
+    knowledge_contracts: dict[str, Any],
+    knowledge_contract_overlays: list[dict[str, Any]] | None = None,
+    decision_contracts: dict[str, Any] | None = None,
+    decision_policy: dict[str, Any] | None = None,
+    decision_exploration: dict[str, Any] | None = None,
+    derivation_evaluations: list[dict[str, Any]] | None = None,
+    capability: str,
+    sources: dict[str, Any],
+    candidate: dict[str, Any],
+    acceptance_id: str,
+    lifecycle: dict[str, Any] | None = None,
+    decision_request_mode: str = "CREATE",
+) -> dict[str, Any]:
+    validate_skill_registry(skill_registry)
+    realized = validate_realization(graph, model)
+    producers = producer_index(graph)
+    productions = production_index(graph)
+
+    if capability not in productions:
+        raise CoreError(f"unknown produced capability: {capability}")
+    authority = producers[capability]
+    production = productions[capability]
+
+    if candidate.get("capability") != capability:
+        raise CoreError(
+            f"candidate capability mismatch: {candidate.get('capability')} != {capability}"
+        )
+    if not isinstance(acceptance_id, str) or not acceptance_id:
+        raise CoreError("semantic admission acceptance_id is required")
+
+    knowledge_kind = production.get("knowledge_kind")
+    if not isinstance(knowledge_kind, str) or not knowledge_kind:
+        raise CoreError(
+            f"capability {capability} has no knowledge_kind; strict semantic "
+            "admission cannot select an artifact contract"
+        )
+
+    route_by_kind = {
+        item["knowledge_kind"]: item["skill"]
+        for item in skill_registry.get("routes", []) or []
+    }
+    if knowledge_kind not in route_by_kind:
+        raise CoreError(
+            f"capability {capability} knowledge_kind {knowledge_kind} has no "
+            "registered artifact skill"
+        )
+
+    contracts = knowledge_contract_index(knowledge_contracts)
+    kind_contract = contracts.get(knowledge_kind)
+    if kind_contract is None:
+        raise CoreError(
+            f"knowledge_kind {knowledge_kind} has no semantic admission contract"
+        )
+
+    kind_contract = effective_knowledge_contract(
+        kind_contract,
+        knowledge_kind,
+        knowledge_contract_overlays,
+    )
+
+    if decision_contracts is None:
+        decision_contracts = load_yaml(
+            Path(__file__).resolve().parents[3]
+            / "spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml"
+        )
+    decision_contract = decision_contract_index(decision_contracts).get(
+        knowledge_kind
+    )
+    decision_axis_policies = axis_policies(
+        decision_contract,
+        decision_policy,
+    )
+    acceptance_policy = build_acceptance_policy_baseline(
+        knowledge_kind=knowledge_kind,
+        semantic_contract=kind_contract,
+        decision_contract=decision_contract,
+        decision_axis_policies=decision_axis_policies,
+        execution_assurance=effective_execution_assurance(
+            decision_policy,
+            knowledge_kind,
+        ),
+    )
+    current_policy_fingerprints = derive_acceptance_policy_fingerprints(
+        graph=graph,
+        knowledge_contracts=knowledge_contracts,
+        knowledge_contract_overlays=knowledge_contract_overlays,
+        decision_contracts=decision_contracts,
+        decision_policy=decision_policy,
+    )
+
+    context = build_authority_context(
+        graph, realized, authority, [capability]
+    )
+    if context["status"] not in {"ROOT", "READY"}:
+        raise CoreError(
+            f"Authority {authority} cannot admit {capability}: "
+            f"context status {context['status']}"
+        )
+
+    prerequisite_capabilities = [
+        item["capability"] for item in production.get("requires", []) or []
+    ]
+
+    changed_paths = _validate_candidate_write_set(realized, context, candidate)
+    references = candidate.get("canonical_references", []) or []
+    if not isinstance(references, list):
+        raise CoreError("candidate canonical_references must be a list")
+    validate_extracted_references(context, references)
+
+    allowed_source_authorities = {authority}
+    for prerequisite in prerequisite_capabilities:
+        allowed_source_authorities.add(producers[prerequisite])
+
+    baseline: dict[str, str] = {}
+    prerequisite_artifact_ids: set[str] = set()
+    if prerequisite_capabilities:
+        if lifecycle is None:
+            raise CoreError(
+                f"capability {capability} has prerequisites and requires a "
+                "capability lifecycle projection for semantic admission"
+            )
+        states = lifecycle_states(
+            graph,
+            realized,
+            lifecycle,
+            current_acceptance_policy_fingerprints=current_policy_fingerprints,
+        )
+        index = lifecycle_index(lifecycle)
+        for prerequisite in prerequisite_capabilities:
+            if states[prerequisite]["state"] != "CURRENT":
+                raise CoreError(
+                    f"capability {capability} prerequisite {prerequisite} is "
+                    f"{states[prerequisite]['state']}, not CURRENT"
+                )
+            baseline[prerequisite] = index[prerequisite]["acceptance_id"]
+            prerequisite_artifact_ids.add(index[prerequisite]["artifact"])
+
+    _validate_source_assertion_artifacts(
+        realized,
+        context,
+        sources,
+        candidate,
+        prerequisite_artifact_ids,
+    )
+
+    semantic_baseline = _accepted_prerequisite_semantics(
+        capability=capability,
+        prerequisite_capabilities=prerequisite_capabilities,
+        derivation_evaluations=derivation_evaluations,
+    )
+
+    semantic_contract = {
+        "authority": authority,
+        "semantic_claims": [
+            item["claim"] if isinstance(item, dict) else item
+            for item in production.get("semantic_claims", []) or []
+        ],
+        "owned_assertion_kinds": list(
+            kind_contract.get("owned_assertion_kinds", []) or []
+        ),
+        "obligations": list(kind_contract.get("obligations", []) or []),
+        "compatibility_obligations": list(
+            kind_contract.get("compatibility_obligations", []) or []
+        ),
+        "allowed_source_authorities": sorted(allowed_source_authorities),
+        "requires_source_authority": bool(
+            kind_contract.get("requires_source_authority", True)
+        ),
+        "requires_assertion_authority": bool(
+            kind_contract.get("requires_assertion_authority", True)
+        ),
+        "requires_semantic_review": bool(
+            kind_contract.get("requires_semantic_review", True)
+        ),
+        "required_semantic_review_checks": list(
+            kind_contract.get("required_review_checks", []) or []
+        ),
+    }
+
+    current_provider_baseline = None
+    if decision_request_mode in {"REVISION", "REDO"}:
+        if lifecycle is None:
+            raise CoreError(
+                f"{decision_request_mode} semantic admission requires lifecycle evidence"
+            )
+        lifecycle_by_capability = lifecycle_index(lifecycle)
+        provider = lifecycle_by_capability.get(capability)
+        if provider is None:
+            raise CoreError(
+                f"{decision_request_mode} semantic admission requires current provider"
+            )
+        artifact_id = provider["artifact"]
+        matches = [
+            item
+            for item in realized.get("artifacts", []) or []
+            if item.get("id") == artifact_id
+        ]
+        if len(matches) != 1:
+            raise CoreError(
+                f"{decision_request_mode} semantic admission cannot resolve current provider {artifact_id}"
+            )
+        current_provider_baseline = matches[0]
+
+    explorer_request = build_decision_explorer_request(
+        capability=capability,
+        knowledge_kind=knowledge_kind,
+        authority=authority,
+        authority_context=context,
+        contract=decision_contract,
+        axis_policies=decision_axis_policies,
+        prerequisite_baseline=baseline,
+        model=realized,
+        mode=decision_request_mode,
+        current_provider_baseline=current_provider_baseline,
+    )
+
+    preflight = evaluate_decision_preflight(
+        contract=decision_contract,
+        policy=decision_policy,
+        axis_policies=decision_axis_policies,
+        explorer_request=explorer_request,
+        capability=capability,
+        knowledge_kind=knowledge_kind,
+        authority=authority,
+        exploration_evidence=decision_exploration,
+        candidate=candidate,
+        model=realized,
+    )
+    exploration_evaluation = preflight["decision_exploration"]
+    execution_evaluation = preflight["decision_execution_assurance"]
+    decision_evaluation = preflight["decision_governance"]
+
+    # Decision evidence is cheaper than artifact semantic review. A rejected
+    # deterministic preflight therefore stops before evaluate_artifact rather
+    # than discovering the same blocker after the expensive boundary.
+    if preflight["status"] == "REJECTED":
+        evaluation = _decision_preflight_rejection_evaluation(
+            semantic_contract,
+            candidate,
+        )
+    else:
+        evaluation = evaluate_artifact(semantic_contract, sources, candidate)
+
+    if exploration_evaluation["status"] != "NOT_REQUIRED":
+        evaluation["decision_exploration"] = exploration_evaluation
+        evaluation["decision_execution_assurance"] = execution_evaluation
+        evaluation["decision_governance"] = decision_evaluation
+        if preflight["status"] == "REJECTED":
+            evaluation["findings"].extend(preflight["findings"])
+            evaluation["semantic_claims"]["accepted"] = []
+
+    evaluation["question_proposals"] = (
+        questions_from_semantic_evaluation(
+            graph=graph,
+            capability=capability,
+            evaluation=evaluation,
+        )
+        if evaluation["status"] != "ACCEPTED"
+        else []
+    )
+
+    evaluation["admission"] = {
+        "status": evaluation["status"],
+        "knowledge_kind": knowledge_kind,
+        "skill": route_by_kind[knowledge_kind],
+        "acceptance_id": acceptance_id,
+        "authority": authority,
+        "allowed_source_authorities": sorted(allowed_source_authorities),
+        "changed_paths": changed_paths,
+        "canonical_references": references,
+        "accepted_prerequisites": baseline,
+        "accepted_prerequisite_semantics": semantic_baseline,
+        "semantic_contract": "knowledge-kind-semantic-contracts/v1",
+        "acceptance_policy": acceptance_policy,
+        "acceptance_policy_fingerprint": acceptance_policy["fingerprint"],
+        "decision_exploration": exploration_evaluation["status"],
+        "decision_explorer_request_id": (
+            explorer_request.get("request_id")
+            if isinstance(explorer_request, dict)
+            else None
+        ),
+        "decision_execution_assurance": execution_evaluation["status"],
+        "decision_governance": decision_evaluation["status"],
+        "decision_request_mode": decision_request_mode,
+    }
+    if evaluation["status"] == "ACCEPTED":
+        evaluation["lifecycle_assertion"] = {
+            "artifact": candidate["id"],
+            "capability": capability,
+            "acceptance_id": acceptance_id,
+            "acceptance_policy_fingerprint": acceptance_policy["fingerprint"],
+            "accepted_prerequisites": baseline,
+            **(
+                {"accepted_prerequisite_semantics": semantic_baseline}
+                if semantic_baseline
+                else {}
+            ),
+            "semantic_atom_fingerprints": semantic_assertion_fingerprints(candidate),
+        }
+    return evaluation
+
+
+def main() -> int:
+    parser = argparse.ArgumentParser(description="Strict artifact semantic admission")
+    parser.add_argument("graph")
+    parser.add_argument("model")
+    parser.add_argument("capability")
+    parser.add_argument("sources")
+    parser.add_argument("candidate")
+    parser.add_argument("acceptance_id")
+    parser.add_argument("--lifecycle")
+    parser.add_argument(
+        "--skill-registry",
+        default="skills/artifact-skill-registry-v0.yaml",
+    )
+    parser.add_argument(
+        "--knowledge-contracts",
+        default="spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml",
+    )
+    parser.add_argument(
+        "--knowledge-contract-overlay",
+        action="append",
+        default=[],
+    )
+    parser.add_argument(
+        "--decision-contracts",
+        default="spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml",
+    )
+    parser.add_argument("--decision-policy")
+    parser.add_argument("--decision-exploration")
+    parser.add_argument(
+        "--derivation-evaluation",
+        action="append",
+        default=[],
+    )
+    parser.add_argument(
+        "--decision-request-mode",
+        choices=["CREATE", "REVISION", "REDO"],
+        default="CREATE",
+    )
+    args = parser.parse_args()
+
+    result = admit_artifact(
+        graph=load_yaml(args.graph),
+        model=load_yaml(args.model),
+        skill_registry=load_yaml(args.skill_registry),
+        knowledge_contracts=load_yaml(args.knowledge_contracts),
+        knowledge_contract_overlays=[
+            load_yaml(path) for path in args.knowledge_contract_overlay
+        ],
+        decision_contracts=load_yaml(args.decision_contracts),
+        decision_policy=load_yaml(args.decision_policy) if args.decision_policy else None,
+        decision_exploration=(
+            load_yaml(args.decision_exploration)
+            if args.decision_exploration
+            else None
+        ),
+        derivation_evaluations=[
+            load_yaml(path) for path in args.derivation_evaluation
+        ],
+        capability=args.capability,
+        sources=load_yaml(args.sources),
+        candidate=load_yaml(args.candidate),
+        acceptance_id=args.acceptance_id,
+        lifecycle=load_yaml(args.lifecycle) if args.lifecycle else None,
+        decision_request_mode=args.decision_request_mode,
+    )
+    print(yaml.safe_dump(result, sort_keys=False, allow_unicode=True))
+    return 0 if result["status"] == "ACCEPTED" else 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
+# Project Publication v0
+
+Status: canonical.
+
+## Purpose
+
+A Capability completion may change several coordinated Harness views at once:
+Core realization, semantic evaluations, capability lifecycle evidence, Core
+Questions and Decision Pipeline failure evidence.
+
+Those facts must become visible as one logical project revision. A reader must
+observe either the previously published revision or the complete next revision,
+never a mixture assembled from partially persisted components.
+
+Project Publication is an Application/Integration boundary. It is not a Core
+entity, workflow state, approval, task or second source of engineering truth.
+
+## Logical snapshot
+
+The canonical logical envelope is:
+
+```yaml
+version: 1
+kind: harness-project-publication
+revision: sha256:...
+parent_revision: sha256:... | null
+state:
+  core_model: {...}
+  semantic_evaluations:
+    version: 1
+    kind: harness-semantic-evaluation-set
+    semantic_evaluations: [...]
+    derivation_evaluations: [...]
+  lifecycle:
+    version: 1
+    kind: harness-capability-lifecycle
+    providers: [...]
+  decision_failures:
+    version: 1
+    kind: harness-decision-failure-set
+    failures: [...]
+```
+
+`revision` is a deterministic digest of `parent_revision + state`. It is an
+integration identity for one coherent published snapshot. It does not replace
+Capability acceptance identities.
+
+The component documents retain their existing semantic owners. The publication
+only binds which versions are visible together. The semantic-evaluation component
+is the current snapshot defined by the semantic-acceptance contract: duplicate
+artifact identities `(artifact, capability)` and duplicate derivation-edge
+identities `(source_capability, target_capability)` fail closed before a
+publication revision is accepted.
+
+## Invariants
+
+1. **Single visibility boundary.** Read models participating in the strict agent
+   loop consume components from one validated publication revision.
+2. **Coherent acceptance.** When a lifecycle row and semantic evaluation exist
+   for the same artifact/capability, accepted admission identity and lifecycle
+   acceptance identity agree.
+3. **No partial mutation.** Editing one component without recomputing and
+   publishing the complete envelope invalidates the publication revision.
+4. **Compare-and-swap.** A transition names the revision it was prepared
+   against. Publication fails if another writer has already changed the current
+   revision.
+5. **Terminal outcome validation.**
+   - `CURRENT` requires a Core provider, matching ACCEPTED semantic admission,
+     matching lifecycle assertion, no Core blocker and no persisted failure for
+     the Capability.
+   - `BLOCKED` requires an unresolved Core blocker affecting the Capability or
+     one of its providers.
+   - `FAILED_VALIDATION` requires current Decision Pipeline failure evidence for
+     the Capability.
+6. **Idempotence.** Re-applying the same complete state against its current
+   revision is a no-op.
+7. **No hidden persistence owner.** Harness validates and prepares the logical
+   transition. The project integration owns durable storage.
+
+## Transition
+
+```text
+published revision R
+        ↓
+agent forms terminal Capability result
+        ↓
+prepare complete next Core/evaluation/lifecycle/failure state
+        ↓
+validate terminal outcome + cross-component coherence
+        ↓
+CAS(expected=R)
+        ↓
+atomic publish R'
+        ↓
+recompute Decision Roadmap / Semantic Closure / Project Frontier from R'
+```
+
+A coordinator must not publish Core, lifecycle, semantic evaluation or failure
+files one by one and then recompute between writes.
+
+Question resolution is part of the next Core realization. A CURRENT transition
+therefore becomes visible together with the accepted evaluation/lifecycle state
+that justifies the resolved semantic identity.
+
+## Direct declaration
+
+A direct Harness-managed integration may persist one
+`.harness/project-publication.yaml` and use
+`project_publication.publish_project_publication`.
+
+The helper takes an inter-process publication lock, re-reads the current
+revision under that lock, checks the expected revision, writes a validated
+temporary file in the destination directory, flushes it, then atomically
+replaces the published path. A crash before replace leaves the previous revision
+visible; concurrent writers serialize before the compare-and-swap check. After
+replace, readers validate the revision before consuming the state.
+
+The publication revision is defined over the decoded logical state, not over a
+particular YAML spelling. The direct-file writer may therefore use lossless
+serialization-level deduplication such as YAML anchors/aliases for repeated
+fingerprint maps. Reading that file must reconstruct the same logical mapping,
+and representational deduplication must not change revision, acceptance,
+currentness or terminal-outcome semantics. Serialization aliases must not leak
+shared mutable container identity into the decoded logical publication; equal
+mapping occurrences remain independently mutable after read.
+
+Separate convenience files such as `core.yaml` may still exist as generated or
+migration views, but they must not be independently treated as the authoritative
+strict-pipeline publication boundary.
+
+## Adapter projection
+
+A project-native adapter does not need to store the Harness YAML envelope.
+It must provide equivalent semantics:
+
+- one project-native snapshot/transaction identity;
+- atomic visibility of all state needed to derive the four logical components;
+- compare-and-swap or equivalent optimistic concurrency against the revision
+  used to prepare the transition;
+- reconstruction of one valid `harness-project-publication` view for Harness
+  readers.
+
+A database transaction, immutable repository commit, content-addressed snapshot
+plus atomic pointer, or another project-owned mechanism is valid when it
+satisfies those semantics.
+
+Harness must not duplicate an existing project transaction/version system merely
+to obtain its own persistence format.
+
+## Recovery
+
+After interruption, restart from the last valid published revision.
+
+Temporary/staged files and uncommitted project-native transaction state are not
+Harness truth. The coordinator recomputes the frontier from the last valid
+publication and may retry the transition.
+
+A mismatched digest, stale expected revision, mixed acceptance identity or
+invalid terminal outcome fails closed before the new state is consumed.
+
+## Migration
+
+Legacy/static integrations remain readable through the existing individual
+Core/lifecycle/semantic inputs.
+
+They may not claim crash-consistent Decision Pipeline completion until their
+agent execution path adopts this publication boundary or an equivalent
+project-native atomic snapshot adapter.
+
+This is an additive Application/Integration contract. It does not change Core
+v0 entities or require a universal storage backend.
+version: 1
+kind: harness-knowledge-kind-decision-contracts
+id: knowledge-kind-decision-contracts/v1
+status: experimental
+
+policy_defaults:
+  exploration: EXPLORE
+  autonomy: CONSERVATIVE
+
+contracts:
+  - knowledge_kind: domain-model
+    required: true
+    minimum_exploration: EXPLORE
+    axes:
+      - id: semantic-identity
+        delegation_requires: MAXIMUM
+        minimum_probes: 2
+        material_dimensions: [identity-basis, continuity, merge-split]
+        challenge_strategies: [identity-substitution, merge-vs-split, lifecycle-perturbation]
+      - id: invariants
+        delegation_requires: MAXIMUM
+        minimum_probes: 2
+        material_dimensions: [valid-state-space, enforcement-owner, exception-policy]
+        challenge_strategies: [relax-invariant, strengthen-invariant, move-enforcement-owner]
+      - id: lifecycle
+        delegation_requires: MAXIMUM
+        minimum_probes: 2
+        material_dimensions: [state-set, transition-ownership, terminality]
+        challenge_strategies: [state-split, state-merge, transition-perturbation]
+      - id: relationships
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [relation-vs-entity, directionality, cardinality]
+        challenge_strategies: [entity-vs-relation, reverse-direction, cardinality-perturbation]
+      - id: responsibility-boundaries
+        delegation_requires: MAXIMUM
+        minimum_probes: 2
+        material_dimensions: [semantic-owner, boundary-placement, downstream-freedom]
+        challenge_strategies: [move-owner-upstream, move-owner-downstream, split-responsibility]
+
+  - knowledge_kind: application-design
+    required: true
+    minimum_exploration: EXPLORE
+    axes:
+      - id: operation-boundaries
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [operation-granularity, mutation-owner, query-write-split]
+        challenge_strategies: [split-operation, merge-operations, command-query-perturbation]
+      - id: orchestration
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [orchestration-owner, ordering, sync-async]
+        challenge_strategies: [move-orchestrator, reorder-steps, sync-vs-async]
+      - id: failure-semantics
+        delegation_requires: MAXIMUM
+        minimum_probes: 2
+        material_dimensions: [failure-classification, recovery-owner, retry-policy]
+        challenge_strategies: [fail-vs-recover, retry-vs-no-retry, move-recovery-owner]
+      - id: partial-results
+        delegation_requires: MAXIMUM
+        minimum_probes: 2
+        material_dimensions: [all-or-nothing, partial-validity, continuation]
+        challenge_strategies: [all-or-nothing-vs-partial, drop-partial-result, resumability-perturbation]
+      - id: continuation-currentness
+        delegation_requires: MAXIMUM
+        minimum_probes: 2
+        material_dimensions: [snapshot-vs-live, staleness-policy, continuation-token]
+        challenge_strategies: [recompute-vs-materialize, stale-vs-refresh, continuation-token-perturbation]
+
+  - knowledge_kind: application-process-design
+    required: true
+    minimum_exploration: EXPLORE
+    axes:
+      - id: occurrence-boundary
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [scope, entry, occurrence-identity, completion-boundary]
+        challenge_strategies: [narrow-vs-widen-scope, merge-vs-split-occurrence, entry-boundary-perturbation]
+      - id: composition
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [ordering, choice, concurrency, decomposition]
+        challenge_strategies: [reorder-constraints, imperative-vs-declarative, split-vs-compose]
+      - id: continuation
+        delegation_requires: MAXIMUM
+        minimum_probes: 2
+        material_dimensions: [wait-condition, continuation-identity, correlation-semantics]
+        challenge_strategies: [wait-vs-no-wait, continuation-identity-perturbation, correlation-boundary-shift]
+      - id: completion-recovery
+        delegation_requires: MAXIMUM
+        minimum_probes: 2
+        material_dimensions: [completion-outcomes, cancellation, recovery, compensation]
+        challenge_strategies: [completion-outcome-perturbation, recover-vs-terminate, compensate-vs-no-compensation]
+
+  - knowledge_kind: system-architecture
+    required: true
+    minimum_exploration: EXPLORE
+    axes:
+      - id: runtime-boundaries
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [runtime-count, process-boundary, independent-deployment]
+        challenge_strategies: [merge-vs-split, boundary-shift, independent-deployment-perturbation]
+      - id: deployment-topology
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [deployable-count, colocation, scaling-boundary]
+        challenge_strategies: [co-locate-vs-separate, scaling-perturbation, deployment-boundary-shift]
+      - id: interaction-model
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [sync-async, protocol-boundary, coupling]
+        challenge_strategies: [sync-vs-async, adapter-substitution, transport-boundary-shift]
+      - id: state-placement
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [source-of-truth, state-locality, replication]
+        challenge_strategies: [move-source-of-truth, cache-vs-canonical, replication-perturbation]
+      - id: dependency-direction
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [dependency-owner, inversion-boundary, framework-coupling]
+        challenge_strategies: [reverse-dependency, invert-port, framework-coupling-perturbation]
+      - id: failure-isolation
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [failure-domain, containment-boundary, fallback]
+        challenge_strategies: [collapse-failure-boundary, isolate-failure-boundary, dependency-outage-perturbation]
+
+  - knowledge_kind: interface-topology-design
+    required: true
+    minimum_exploration: EXPLORE
+    axes:
+      - id: view-boundaries
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        subject_scope: view-boundary
+        material_dimensions:
+          - goal-continuity
+          - information-dependency
+          - working-state-continuity
+          - commit-recovery-boundary
+          - mode-authority-boundary
+          - independent-addressability
+        challenge_strategies:
+          - merge-vs-separate-view
+          - persistent-context-vs-navigation
+          - contextual-surface-vs-destination
+
+  - knowledge_kind: presentation-system-design
+    required: true
+    minimum_exploration: EXPLORE
+    axes:
+      - id: application-surface
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [surface-archetype, viewport-ownership, navigation-persistence, overflow-ownership]
+        challenge_strategies: [document-vs-bounded-workspace, workspace-vs-step-flow, page-scroll-vs-region-overflow, persistent-vs-contextual-navigation]
+      - id: knowledge-representation
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [representation-form, spatial-dimensionality, relation-encoding]
+        challenge_strategies: [graph-vs-nongraph, 2d-vs-3d, single-vs-mixed]
+      - id: information-density
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [simultaneous-context, detail-disclosure, label-density]
+        challenge_strategies: [dense-vs-progressive, focus-context-shift, always-visible-vs-on-demand]
+      - id: control-surface
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [control-persistence, direct-manipulation, keyboard-equivalence]
+        challenge_strategies: [inline-vs-dedicated-controls, direct-manipulation-vs-command, pointer-vs-keyboard]
+      - id: representation-selection
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        subject_scope: representation-subject
+        material_dimensions:
+          - cross-entity-alignment
+          - record-scan-structure
+          - selection-mechanics
+          - relation-encoding
+          - detail-context-preservation
+          - responsive-semantic-preservation
+        challenge_strategies:
+          - independent-vs-aligned-records
+          - repeated-vs-structured-collection
+          - overview-vs-progressive-detail
+          - spatial-vs-nonspatial
+          - selection-mechanic-perturbation
+          - responsive-representation-perturbation
+
+  - knowledge_kind: screen-view-design
+    required: true
+    minimum_exploration: EXPLORE
+    axes:
+      - id: view-composition
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [primary-region, secondary-context, task-colocation]
+        challenge_strategies: [region-vs-pane, co-locate-vs-disclose, region-priority-shift]
+      - id: detail-edit-placement
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [detail-placement, edit-placement, context-preservation]
+        challenge_strategies: [inline-vs-overlay, local-detail-vs-disclosure, context-preservation-perturbation]
+      - id: responsive-composition
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [narrow-layout, disclosure, projection-priority]
+        challenge_strategies: [collapse-vs-reflow, persistent-vs-disclosed, primary-surface-perturbation]
+      - id: representation-selection
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        subject_scope: representation-subject
+        material_dimensions:
+          - cross-entity-alignment
+          - record-scan-structure
+          - selection-mechanics
+          - relation-encoding
+          - detail-context-preservation
+          - responsive-semantic-preservation
+        challenge_strategies:
+          - independent-vs-aligned-records
+          - repeated-vs-structured-collection
+          - overview-vs-progressive-detail
+          - spatial-vs-nonspatial
+          - selection-mechanic-perturbation
+          - responsive-representation-perturbation
+
+  - knowledge_kind: component-design
+    required: true
+    minimum_exploration: EXPLORE
+    axes:
+      - id: responsibility-boundaries
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [boundary-granularity, ownership-basis, cross-feature-sharing]
+        challenge_strategies: [split-vs-merge, feature-vs-technical, local-vs-shared]
+      - id: provider-seams
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [seam-location, provider-leakage, substitution-scope]
+        challenge_strategies: [direct-vs-port, wrapper-scope-perturbation, provider-substitution]
+      - id: state-ownership
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [state-owner, sharing-scope, lifecycle]
+        challenge_strategies: [local-vs-global, server-vs-client-owner, lifecycle-perturbation]
+
+  - knowledge_kind: implementation-design
+    required: true
+    minimum_exploration: EXPLORE
+    axes:
+      - id: slice-boundaries
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [slice-granularity, dependency-order, ownership-alignment]
+        challenge_strategies: [split-slice, merge-slices, dependency-order-perturbation]
+      - id: repository-realization
+        delegation_requires: CONSERVATIVE
+        minimum_probes: 2
+        material_dimensions: [module-boundary, composition-root, generated-source-placement]
+        challenge_strategies: [boundary-remap, composition-root-shift, generated-source-perturbation]
+      - id: dependency-tooling
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [tool-family, enforcement-point, runtime-footprint]
+        challenge_strategies: [tool-substitution, enforcement-point-shift, remove-tool]
+      - id: migration-transition
+        delegation_requires: MAXIMUM
+        minimum_probes: 2
+        material_dimensions: [transition-mode, rollback, compatibility]
+        challenge_strategies: [in-place-vs-parallel, rollback-perturbation, compatibility-window]
+      - id: verification-enforcement
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [verification-layer, automation-boundary, failure-gate]
+        challenge_strategies: [move-verification-layer, manual-vs-automated, gate-failure-perturbation]
+      - id: delivery-gates
+        delegation_requires: BROAD
+        minimum_probes: 2
+        material_dimensions: [gate-location, authority, reproducibility]
+        challenge_strategies: [local-vs-ci, gate-owner-shift, reproducibility-perturbation]

@@ -1,0 +1,300 @@
+version: 1
+kind: harness-engineering-coverage-evaluation
+status: canonical
+project: CHECKER-PROBLEM
+consumer: CHECKER-PROBLEM-ADMISSION
+scope: CHECKER-PROBLEM
+scope_roots: []
+completion_ready: false
+activated_count: 15
+remaining_work_count: 16
+work_item_count: 16
+question_frontier_count: 0
+summary:
+  states:
+    BLOCKED: 13
+    MISSING: 2
+  actions:
+    ASSIGN_AUTHORITY: 10
+    MODEL_PRODUCTION_CONTRACT: 2
+    MODEL_PROOF_CONTRACT: 3
+authority_roles:
+  version: 1
+  kind: harness-derived-authority-role-bindings
+  project: CHECKER-PROBLEM
+  bindings:
+    DISCOVERY:
+    - product
+  provenance:
+    DISCOVERY:
+    - STANDARD_ID
+  unresolved_authorities: []
+activation_signals:
+  capabilities:
+  - checker.problem
+  knowledge_kinds:
+  - problem-evidence
+  authorities:
+  - DISCOVERY
+  authority_roles:
+  - product
+  consumers:
+  - CHECKER-PROBLEM-ADMISSION
+rows:
+- &id002
+  concern: application.failures
+  state: BLOCKED
+  action: ASSIGN_AUTHORITY
+  accepted_semantic_claims: &id017
+  - engineering.application.failures
+  reason: project has no Authority bound to a role that can produce an accepted semantic
+    claim
+  activation_provenance:
+  - source: BASELINE
+    policy: software-engineering-concern-activation/v1
+- &id003
+  concern: architecture.boundaries
+  state: BLOCKED
+  action: ASSIGN_AUTHORITY
+  accepted_semantic_claims: &id018
+  - engineering.architecture.boundaries
+  reason: project has no Authority bound to a role that can produce an accepted semantic
+    claim
+  activation_provenance:
+  - source: BASELINE
+    policy: software-engineering-concern-activation/v1
+- &id004
+  concern: architecture.structure
+  state: BLOCKED
+  action: ASSIGN_AUTHORITY
+  accepted_semantic_claims: &id019
+  - engineering.architecture.structure
+  reason: project has no Authority bound to a role that can produce an accepted semantic
+    claim
+  activation_provenance:
+  - source: BASELINE
+    policy: software-engineering-concern-activation/v1
+- &id005
+  concern: engineering.error-handling
+  state: BLOCKED
+  action: ASSIGN_AUTHORITY
+  accepted_semantic_claims: &id020
+  - engineering.engineering.error-handling
+  reason: project has no Authority bound to a role that can produce an accepted semantic
+    claim
+  activation_provenance:
+  - source: BASELINE
+    policy: software-engineering-concern-activation/v1
+- &id006
+  concern: governance.external-obligations
+  state: BLOCKED
+  action: ASSIGN_AUTHORITY
+  accepted_semantic_claims: &id021
+  - engineering.governance.external-obligations
+  reason: project has no Authority bound to a role that can produce an accepted semantic
+    claim
+  activation_provenance:
+  - source: MANUAL_ACTIVATION_CLASS
+    policy: software-engineering-concern-activation/v1
+    reason: Legal/regulatory/contractual applicability cannot be inferred safely from
+      generic software topology alone.
+- &id007
+  concern: governance.privacy
+  state: BLOCKED
+  action: ASSIGN_AUTHORITY
+  accepted_semantic_claims: &id022
+  - engineering.governance.privacy
+  reason: project has no Authority bound to a role that can produce an accepted semantic
+    claim
+  activation_provenance:
+  - source: MANUAL_ACTIVATION_CLASS
+    policy: software-engineering-concern-activation/v1
+    reason: Personal/sensitive-data applicability requires explicit project evidence
+      or classification.
+- &id008
+  concern: intent.behavior
+  state: MISSING
+  action: MODEL_PRODUCTION_CONTRACT
+  accepted_semantic_claims: &id023
+  - engineering.intent.behavior
+  routes:
+    engineering.intent.behavior:
+    - DISCOVERY
+  reason: A capable Authority role exists, but no in-scope Capability declares an
+    accepted semantic claim for this concern.
+  activation_provenance:
+  - source: BASELINE
+    policy: software-engineering-concern-activation/v1
+- &id009
+  concern: intent.scope
+  state: MISSING
+  action: MODEL_PRODUCTION_CONTRACT
+  accepted_semantic_claims: &id024
+  - engineering.intent.scope
+  routes:
+    engineering.intent.scope:
+    - DISCOVERY
+  reason: A capable Authority role exists, but no in-scope Capability declares an
+    accepted semantic claim for this concern.
+  activation_provenance:
+  - source: BASELINE
+    policy: software-engineering-concern-activation/v1
+- &id010
+  concern: specialized.ai
+  state: BLOCKED
+  action: MODEL_PROOF_CONTRACT
+  reason: concern has no accepted semantic-claim proof contract
+  activation_provenance:
+  - source: MANUAL_ACTIVATION_CLASS
+    policy: software-engineering-concern-activation/v1
+    reason: AI/ML/agentic behavior requires explicit project classification.
+- &id011
+  concern: specialized.regulated
+  state: BLOCKED
+  action: MODEL_PROOF_CONTRACT
+  reason: concern has no accepted semantic-claim proof contract
+  activation_provenance:
+  - source: MANUAL_ACTIVATION_CLASS
+    policy: software-engineering-concern-activation/v1
+    reason: Sector regulation requires explicit project classification.
+- &id012
+  concern: specialized.safety
+  state: BLOCKED
+  action: MODEL_PROOF_CONTRACT
+  reason: concern has no accepted semantic-claim proof contract
+  activation_provenance:
+  - source: MANUAL_ACTIVATION_CLASS
+    policy: software-engineering-concern-activation/v1
+    reason: Harm potential requires domain/risk assessment.
+- &id013
+  concern: verification.architecture
+  state: BLOCKED
+  action: ASSIGN_AUTHORITY
+  accepted_semantic_claims: &id025
+  - engineering.verification.architecture
+  reason: project has no Authority bound to a role that can produce an accepted semantic
+    claim
+  activation_provenance:
+  - source: BASELINE
+    policy: software-engineering-concern-activation/v1
+- &id014
+  concern: verification.functional
+  state: BLOCKED
+  action: ASSIGN_AUTHORITY
+  accepted_semantic_claims: &id026
+  - engineering.verification.functional
+  reason: project has no Authority bound to a role that can produce an accepted semantic
+    claim
+  activation_provenance:
+  - source: BASELINE
+    policy: software-engineering-concern-activation/v1
+- &id015
+  concern: verification.requirement-traceability
+  state: BLOCKED
+  action: ASSIGN_AUTHORITY
+  accepted_semantic_claims: &id027
+  - engineering.verification.requirement-traceability
+  reason: project has no Authority bound to a role that can produce an accepted semantic
+    claim
+  activation_provenance:
+  - source: BASELINE
+    policy: software-engineering-concern-activation/v1
+- &id016
+  concern: verification.strategy
+  state: BLOCKED
+  action: ASSIGN_AUTHORITY
+  accepted_semantic_claims: &id028
+  - engineering.verification.strategy
+  reason: project has no Authority bound to a role that can produce an accepted semantic
+    claim
+  activation_provenance:
+  - source: BASELINE
+    policy: software-engineering-concern-activation/v1
+subject_obligation_rows:
+- &id001
+  concern: meta.subject-inventory
+  subject: __accepted_scope__
+  state: MISSING
+  action: DECLARE_SUBJECT_INVENTORY
+  reason: Coverage cannot prove subject/scope completeness without either a subject-obligation
+    contract or an explicit subject-inventory disposition
+subject_obligation_evaluation:
+  kind: harness-derived-subject-obligation-evaluation
+  consumer: CHECKER-PROBLEM-ADMISSION
+  scope: CHECKER-PROBLEM
+  source_validation: null
+  rows:
+  - *id001
+  remaining_work:
+  - *id001
+  completion_ready: false
+remaining_work:
+- *id002
+- *id003
+- *id004
+- *id005
+- *id006
+- *id007
+- *id008
+- *id009
+- *id010
+- *id011
+- *id012
+- *id013
+- *id014
+- *id015
+- *id016
+- *id001
+work_items:
+- action: ASSIGN_AUTHORITY
+  concern: application.failures
+  accepted_semantic_claims: *id017
+- action: ASSIGN_AUTHORITY
+  concern: architecture.boundaries
+  accepted_semantic_claims: *id018
+- action: ASSIGN_AUTHORITY
+  concern: architecture.structure
+  accepted_semantic_claims: *id019
+- action: ASSIGN_AUTHORITY
+  concern: engineering.error-handling
+  accepted_semantic_claims: *id020
+- action: ASSIGN_AUTHORITY
+  concern: governance.external-obligations
+  accepted_semantic_claims: *id021
+- action: ASSIGN_AUTHORITY
+  concern: governance.privacy
+  accepted_semantic_claims: *id022
+- action: MODEL_PRODUCTION_CONTRACT
+  concern: intent.behavior
+  candidate_authorities:
+  - DISCOVERY
+  accepted_semantic_claims: *id023
+- action: MODEL_PRODUCTION_CONTRACT
+  concern: intent.scope
+  candidate_authorities:
+  - DISCOVERY
+  accepted_semantic_claims: *id024
+- action: MODEL_PROOF_CONTRACT
+  concern: specialized.ai
+- action: MODEL_PROOF_CONTRACT
+  concern: specialized.regulated
+- action: MODEL_PROOF_CONTRACT
+  concern: specialized.safety
+- action: ASSIGN_AUTHORITY
+  concern: verification.architecture
+  accepted_semantic_claims: *id025
+- action: ASSIGN_AUTHORITY
+  concern: verification.functional
+  accepted_semantic_claims: *id026
+- action: ASSIGN_AUTHORITY
+  concern: verification.requirement-traceability
+  accepted_semantic_claims: *id027
+- action: ASSIGN_AUTHORITY
+  concern: verification.strategy
+  accepted_semantic_claims: *id028
+- action: DECLARE_SUBJECT_INVENTORY
+  concern: meta.subject-inventory
+  subject: __accepted_scope__
+  reason: Coverage cannot prove subject/scope completeness without either a subject-obligation
+    contract or an explicit subject-inventory disposition
+question_frontier: []

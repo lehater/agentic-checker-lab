@@ -1,0 +1,10 @@
+usage: skill_router.py operation [-h] --surface {maintainer,consumer}
+                                 --operation OPERATION
+                                 [--invoked-by INVOKED_BY] [--root ROOT]
+
+options:
+  -h, --help            show this help message and exit
+  --surface {maintainer,consumer}
+  --operation OPERATION
+  --invoked-by INVOKED_BY
+  --root ROOT
