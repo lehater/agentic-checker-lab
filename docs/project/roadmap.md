@@ -40,9 +40,11 @@
 ## First-slice Domain / Verification после PDEC-CHECKER-005
 
 Оба направления доведены до обоснованного BLOCKED: [run и evidence](../../experiments/runs/harness-domain-verification-v1/README.md).
-Сначала владелец проекта обеспечивает accepted Strategic Domain ownership
-(Q-DV-001), затем DOMAIN-USE-CASE-DESIGN принимает минимальный matching contract
-с независимыми match/non-match labels (Q-DV-002). После этого завершаются
+После исправления Harness #224 требование предварительной Domain Strategy снято:
+для выбранного first slice её самостоятельное знание не потребляется.
+Следующее предметное препятствие — Q-DV-002: DOMAIN-USE-CASE-DESIGN должен
+получить и принять минимальный matching contract с независимо обоснованными
+match/non-match labels. После этого завершаются
 Verification Strategy, admission и acceptance scenarios. Восемь metadata/empty-set
 scenario drafts были подготовлены до исправления классификации; повторно использовать их можно только после приведения ссылок к текущим 13 требованиям.
 
