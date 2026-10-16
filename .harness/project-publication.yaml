@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:8f5dc04d1b76ce6c347b63c796935465b84db72bb1b3623969c90ae7a89af2f5
-parent_revision: sha256:f38832e09ce67f6713d26e1a06ab04d1af786d5cbd148e6e702181201c938334
+revision: sha256:0bd03134218117e5230683b6e50bb3e80b3d66813036479cd8da91aad2a92d6d
+parent_revision: sha256:8f5dc04d1b76ce6c347b63c796935465b84db72bb1b3623969c90ae7a89af2f5
 state:
   core_model:
     artifacts:
@@ -31,8 +31,8 @@ state:
       answer_from: []
       resolution:
         artifact: CHECKER-REQUIREMENTS
-        acceptance_id: task-004-requirements-revised-508d09a81929c4b2257bb8fa
-        supersedes_acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
+        acceptance_id: task-004-requirements-revised-e6b9bb836bc43b75a26fcebc
+        supersedes_acceptance_id: task-004-requirements-revised-508d09a81929c4b2257bb8fa
     - id: Q-PR-002
       authority: PRODUCT-REQUIREMENTS
       text: Как оператор должен различать надёжные, неизвестные, неполные или устаревшие
@@ -45,8 +45,8 @@ state:
       answer_from: []
       resolution:
         artifact: CHECKER-REQUIREMENTS
-        acceptance_id: task-004-requirements-revised-508d09a81929c4b2257bb8fa
-        supersedes_acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
+        acceptance_id: task-004-requirements-revised-e6b9bb836bc43b75a26fcebc
+        supersedes_acceptance_id: task-004-requirements-revised-508d09a81929c4b2257bb8fa
     - id: Q-DV-001
       authority: DOMAIN-USE-CASE-DESIGN
       text: 'Владелец проекта: обеспечьте accepted Strategic Domain ownership для
@@ -141,7 +141,7 @@ state:
         status: ACCEPTED
         knowledge_kind: product-requirements
         skill: skills/artifacts/product-requirements/SKILL.md
-        acceptance_id: task-004-requirements-revised-508d09a81929c4b2257bb8fa
+        acceptance_id: task-004-requirements-revised-e6b9bb836bc43b75a26fcebc
         authority: PRODUCT-REQUIREMENTS
         allowed_source_authorities:
         - DISCOVERY
@@ -168,7 +168,7 @@ state:
       lifecycle_assertion:
         artifact: CHECKER-REQUIREMENTS
         capability: checker.requirements
-        acceptance_id: task-004-requirements-revised-508d09a81929c4b2257bb8fa
+        acceptance_id: task-004-requirements-revised-e6b9bb836bc43b75a26fcebc
         acceptance_policy_fingerprint: sha256:2fb4620d32987bf389ecb0ed8935193a2cfe6eda9c4a8259083da3792a0f1847
         accepted_prerequisites: *id001
         semantic_atom_fingerprints: &id003
@@ -198,7 +198,7 @@ state:
       semantic_atom_fingerprints: *id002
     - artifact: CHECKER-REQUIREMENTS
       capability: checker.requirements
-      acceptance_id: task-004-requirements-revised-508d09a81929c4b2257bb8fa
+      acceptance_id: task-004-requirements-revised-e6b9bb836bc43b75a26fcebc
       acceptance_policy_fingerprint: sha256:2fb4620d32987bf389ecb0ed8935193a2cfe6eda9c4a8259083da3792a0f1847
       accepted_prerequisites:
         checker.problem: task-004-checker-problem-aa7cd410ffb83daf218e
