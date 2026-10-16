@@ -1,6 +1,6 @@
 version: 1
 kind: checker-project-scope-reconciliation
-status: RECONCILED_PRODUCT_AUTHORIZED_REQUIREMENTS_PENDING
+status: RECONCILED_REQUIREMENTS_BLOCKED_PRODUCT_QUESTIONS
 basis:
   - docs/project/strategy.md
   - docs/project/roadmap.md
@@ -24,14 +24,14 @@ technical_scope:
   subject: CHECKER-PROBLEM
   meaning: Checks only the admitted Discovery provider; not an implementation Consumer, product boundary, or inventory of Checker subjects.
 next_step:
-  status: OWNER_AUTHORIZED_EXECUTION_PENDING
+  status: BLOCKED_PRODUCT_QUESTIONS
   question: Q-REC-001
   authorization: docs/scenario/product-requirements-delegation.md
   authority: PRODUCT-REQUIREMENTS
   proposed_capability: checker.requirements
   knowledge_kind: product-requirements
   proposed_requires: [checker.problem]
-  adopted_in_graph: false # Graph production to be installed by authorized Requirements execution, not this decision
+  adopted_in_graph: true # Installed by authorized Requirements execution; no accepted provider yet
   purpose: Establish product scope, observable behavior and atomic acceptance expectations; route unknown product choices as Questions.
   excludes: [new Discovery artifact, mandatory user-needs intermediate artifact, domain model, architecture, code generation]
 questions:
@@ -45,6 +45,8 @@ questions:
   - id: Q-REC-002
     owner: project owner / subsequently authorized PRODUCT-REQUIREMENTS
     state: OPEN
+    refined_by_core_questions: [Q-PR-001, Q-PR-002]
+    execution_evidence: experiments/runs/harness-requirements-v1/README.md
     text: Establish the bounded Checker product scope and machine-addressable accepted atoms before declaring a complete product subject inventory.
     evidence: PDEC-CHECKER-001 leaves product detail open; historical fixtures and proposed vertical slice are not accepted target requirements.
     resolution_required_before: Claiming product subject completeness; not a reason to recreate Discovery or pre-answer every product choice before starting authorized requirements work.

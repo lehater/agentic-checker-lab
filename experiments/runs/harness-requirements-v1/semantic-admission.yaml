@@ -1,0 +1,46 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: CHECKER-REQUIREMENTS
+capability: checker.requirements
+status: REJECTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings:
+- code: SEMANTIC_REVIEW_REQUIRED
+- code: SEMANTIC_REVIEW_REJECTED
+  reason: Supported intent subset reviewed, but no accepted supported traffic/placement/match
+    scope or observable credibility/partial-evidence acceptance policy. Q-PR-001 and
+    Q-PR-002 prevent complete requirements acceptance.
+semantic_claims:
+  accepted: []
+question_proposals: []
+admission:
+  status: REJECTED
+  knowledge_kind: product-requirements
+  skill: skills/artifacts/product-requirements/SKILL.md
+  acceptance_id: task-004-requirements-attempt-90a05d47ad1eaed5abf0
+  authority: PRODUCT-REQUIREMENTS
+  allowed_source_authorities:
+  - DISCOVERY
+  - PRODUCT-REQUIREMENTS
+  changed_paths:
+  - experiments/runs/harness-requirements-v1/requirements-candidate.yaml
+  canonical_references:
+  - referenced_path: docs/scenario/problem-framing-decision.md
+  accepted_prerequisites:
+    checker.problem: task-004-checker-problem-aa7cd410ffb83daf218e
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+  acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE

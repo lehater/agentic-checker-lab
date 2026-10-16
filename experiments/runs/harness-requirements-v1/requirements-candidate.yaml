@@ -1,0 +1,87 @@
+version: 1
+kind: harness-knowledge-artifact
+artifact: CHECKER-REQUIREMENTS
+title: Checker — source-supported intent subset, incomplete requirements candidate
+schema: product-requirements/v1
+disposition: CANDIDATE_BLOCKED_NOT_CORE_PROVIDER
+status_semantics: Row ACCEPTED denotes individually reviewed normative intent under
+  PDEC-003; the entire artifact has REJECTED semantic review and is not admitted or
+  published as canonical product knowledge.
+content:
+  purpose: Объяснимое исследование сетевого потока оператором в рамках PDEC-CHECKER-001;
+    набор недостаточен для завершённой product acceptance.
+  requirements:
+  - id: REQ-CHECKER-001
+    statement: Показывать оператору релевантные места применения политики для исследуемого
+      сетевого потока.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-outcome
+    - docs/scenario/problem-framing-decision.md
+    acceptance_criteria:
+    - Для потока и независимо установленного релевантного placement проверить, что
+      результат представляет этот placement; критерий выбора поддерживаемых потоков/placements
+      ожидает Q-PR-001.
+  - id: REQ-CHECKER-002
+    statement: Показывать оператору подходящие сохранённые ACL-правила для исследуемого
+      сетевого потока.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-outcome
+    - docs/scenario/problem-framing-decision.md
+    acceptance_criteria:
+    - При известных подходящих сохранённых правилах результат содержит сведения о
+      правилах; критерий подходящего правила и полноты набора ожидает Q-PR-001.
+  - id: REQ-CHECKER-003
+    statement: Сохранять порядок обработки показываемых подходящих ACL-правил.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-outcome
+    - docs/scenario/problem-framing-decision.md
+    acceptance_criteria:
+    - Для двух показываемых правил с установленным порядком обработки результат сохраняет
+      этот порядок; общий порядок между разными policy contexts не придумывается.
+  - id: REQ-CHECKER-004
+    statement: Предоставлять оператору сведения о достоверности источников используемых
+      свидетельств.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-outcome
+    - docs/scenario/problem-framing-decision.md
+    acceptance_criteria:
+    - Результат позволяет оценить достоверность источников; конкретное значение достоверности
+      и поведение при неизвестных данных требуют Q-PR-002.
+  - id: REQ-CHECKER-005
+    statement: Формирование единого универсального Permit/Deny не является обязательным
+      результатом Checker.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-verdict-boundary
+    - docs/scenario/problem-framing-decision.md
+    acceptance_criteria:
+    - Отсутствие универсального verdict само по себе не является провалом приёмки;
+      специфичная интерпретация не запрещена и не становится обязательной.
+  - id: REQ-CHECKER-006
+    statement: Не превращать отсутствие совпадающего правила само по себе в DENY или
+      ALLOW.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-verdict-boundary
+    - docs/scenario/problem-framing-decision.md
+    acceptance_criteria:
+    - При одном лишь отсутствии совпадения результат не утверждает DENY/ALLOW на этом
+      основании; формат no-match output этим требованием не задаётся.
+  - id: REQ-CHECKER-007
+    statement: Не выводить общесистемный эффективный verdict из одного лишь факта
+      наличия подходящего правила.
+    status: ACCEPTED
+    source_refs:
+    - checker.problem#problem-verdict-boundary
+    - docs/scenario/problem-framing-decision.md
+    acceptance_criteria:
+    - Наличие подходящего Permit или Deny правила само по себе не представлено как
+      доказанный общесистемный эффективный verdict.
+  non_goals:
+  - Универсальный Permit/Deny не обязателен; это не запрет любой специфичной интерпретации.
+  - Этот кандидат не принимает offline-only, автоматический route discovery, live
+    diagnostics, UI/API, конкретный tuple, matching algorithm, architecture или runtime.

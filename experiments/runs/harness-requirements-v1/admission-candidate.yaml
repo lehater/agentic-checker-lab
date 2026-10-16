@@ -1,0 +1,74 @@
+id: CHECKER-REQUIREMENTS
+path: experiments/runs/harness-requirements-v1/requirements-candidate.yaml
+capability: checker.requirements
+canonical_references:
+- referenced_path: docs/scenario/problem-framing-decision.md
+semantic_assertions:
+- id: REQ-CHECKER-001
+  kind: product-requirement
+  subject: REQ-CHECKER-001
+  semantic_value: Показывать оператору релевантные места применения политики для исследуемого
+    сетевого потока.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-outcome
+- id: REQ-CHECKER-002
+  kind: product-requirement
+  subject: REQ-CHECKER-002
+  semantic_value: Показывать оператору подходящие сохранённые ACL-правила для исследуемого
+    сетевого потока.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-outcome
+- id: REQ-CHECKER-003
+  kind: product-requirement
+  subject: REQ-CHECKER-003
+  semantic_value: Сохранять порядок обработки показываемых подходящих ACL-правил.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-outcome
+- id: REQ-CHECKER-004
+  kind: product-requirement
+  subject: REQ-CHECKER-004
+  semantic_value: Предоставлять оператору сведения о достоверности источников используемых
+    свидетельств.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-outcome
+- id: REQ-CHECKER-005
+  kind: product-requirement
+  subject: REQ-CHECKER-005
+  semantic_value: Формирование единого универсального Permit/Deny не является обязательным
+    результатом Checker.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-verdict-boundary
+- id: REQ-CHECKER-006
+  kind: product-requirement
+  subject: REQ-CHECKER-006
+  semantic_value: Не превращать отсутствие совпадающего правила само по себе в DENY
+    или ALLOW.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-verdict-boundary
+- id: REQ-CHECKER-007
+  kind: product-requirement
+  subject: REQ-CHECKER-007
+  semantic_value: Не выводить общесистемный эффективный verdict из одного лишь факта
+    наличия подходящего правила.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-verdict-boundary
+semantic_review:
+  status: REJECTED
+  checks:
+  - source-discipline
+  - authority-boundary
+  - no-invention
+  - observable-product-level
+  - no-downstream-design-promotion
+  reason: Supported intent subset reviewed, but no accepted supported traffic/placement/match
+    scope or observable credibility/partial-evidence acceptance policy. Q-PR-001 and
+    Q-PR-002 prevent complete requirements acceptance.
+  reviewer: Acting engineering agent delegated by PDEC-CHECKER-003
+  record: experiments/runs/harness-requirements-v1/review.md
