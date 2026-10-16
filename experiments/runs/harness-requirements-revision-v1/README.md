@@ -16,7 +16,7 @@ The requirements provider and Q-PR-001/002 resolutions must be replaced by a gen
 
 New Harness skill implements source statement ownership classification and product obligation grouping, informed by INCOSE/IREB and the Spec Kit requirements-quality versus implementation-test distinction. New semantic gate checks explicit machine-addressable review dispositions, not whether a model's judgment is true. This review was independently performed against all accepted product sources.
 
-The command `experiments/runs/harness-requirements-revision-v1/execute.py` must produce canonical semantic evaluation, lifecycle and publication through pinned official Harness Consumer Pack. Do not hand-edit their acceptance_id, fingerprint, or CAS revision.
+The command `experiments/runs/harness-requirements-revision-v1/execute.py` ran through the pinned Harness Consumer Pack in GitHub Actions, returned a real REVISION **ACCEPTED**, and atomically produced an identical checked-in publication via CAS. Acceptance evidence/candidate were captured verbatim from the run. New revision: `sha256:8f5dc04d1b76ce6c347b63c796935465b84db72bb1b3623969c90ae7a89af2f5`; parent: `sha256:f38832e09ce67f6713d26e1a06ab04d1af786d5cbd148e6e702181201c938334`. First-slice Product CURRENT; Domain/Verification BLOCKED, existing Questions intact.
 
 ## Boundaries
 
