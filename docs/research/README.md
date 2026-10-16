@@ -17,3 +17,5 @@
 - [Synthetic RPG from requirements](p1-synthetic-rpg.md) — staged forward planning; no Checker codegen.
 
 - [Independent RPG snapshot review](p1-synthetic-rpg-review.md) — SHA-256 integrity, R-SYN mapping and architectural limitations.
+
+- [Audit Harness × RPG × Agent strategy (2026-10-16)](methodology-integration-audit-2026-10.md) — primary-source responsibilities, critical gaps, proposed gates and experimental redesign; **not accepted strategy**.
