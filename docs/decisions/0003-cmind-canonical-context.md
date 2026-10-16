@@ -24,3 +24,10 @@ Native feature edit сообщает MODIFY, но сравнение relevant se
 native checks требуют отдельной сверки DOM/IF и независимых исполняемых проверок.
 Если исправленный контекст не сохранит контракты, результат BLOCKED, а не кодирование
 по противоречащему плану. Harness/CoderMind не входят в runtime Checker.
+
+Consumer `CHECKER-CODEGEN-INPUT` потребляет принятые контракты для производства
+кандидата кода. `CHECKER-PROTOTYPE` дополнительно требует implementation readiness
+с фактическими tests/conformance. Готовность входов не равна готовности продукта;
+проверка готового кода не может быть prerequisite его первоначального создания.
+Оба профиля используют одну coverage policy и одни canonical providers; новой
+предметной истины или отдельного workflow-state Core это не создаёт.

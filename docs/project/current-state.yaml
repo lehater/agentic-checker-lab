@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P4_RPG_SEMANTIC_CONTEXT_REPAIR
+status: P4_NATIVE_CODEGEN_IN_PROGRESS
 phase: P4
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology with Harness and RPG
@@ -29,10 +29,19 @@ verified:
   review REJECTED known DOM/IF drift
 - Native feature edit reported MODIFY but semantic-input diff is a no-op; corrected-context
   native replanning is running
+- Corrected-context native RPG pipeline completed all five stages in 1118.8s; second
+  semantic review accepted it as candidate-code input
+- CHECKER-CODEGEN-INPUT has COMPLETE closure and Coverage; separate CHECKER-PROTOTYPE
+  readiness remains INCOMPLETE
+- Native init_codebase completed and autonomous TDD/file-merge loop started; early
+  batches post-verified, no product acceptance claim
 not_verified:
-- Checker RPG planning and code generation completion
+- Completion of native code generation, final native tests/global review and independent
+  product acceptance
 - Executable Checker behavior and test-realization conformance
 - Whole-product or production readiness
+- 'Blind isolation from historical research: initial local archival branch documents
+  were read before fetching restarted main; no blinded experimental claim'
 evidence:
   owner_problem: docs/scenario/owner-problem-brief.md
   harness_binding: .harness/harness-binding.json
@@ -41,5 +50,8 @@ evidence:
   checker_bridge: experiments/runs/checker-v1/bridge.json
   checker_rpg_review: experiments/runs/checker-v1/rpg-semantic-review-1.yaml
   checker_context_decision: docs/decisions/0003-cmind-canonical-context.md
+  checker_rpg_corrected: experiments/runs/checker-v1/rpg-context-1/manifest.json
+  checker_rpg_review_corrected: experiments/runs/checker-v1/rpg-semantic-review-2.yaml
+  checker_trace: experiments/runs/checker-v1/traceability.json
 git_branch_protection: TEMPORARILY_DISABLED_BY_OWNER_FOR_RESET
 toolchain: tooling/versions.yaml

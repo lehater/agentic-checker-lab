@@ -1,0 +1,6 @@
+{
+  "base_bridge_sha256": "f118044fa056a01e312cffaa1b47b6f7fb827ffb4a78b79c0279ee26e410605a",
+  "context_instruction_sha256": "d70395f575e49638bf3e7b017c4455b5f44a00b65eb7505d1fa8c0b9de43d134",
+  "decision": "docs/decisions/0003-cmind-canonical-context.md",
+  "execution": "native cmind plan.py --force from stable workspace root; no tool source patches"
+}

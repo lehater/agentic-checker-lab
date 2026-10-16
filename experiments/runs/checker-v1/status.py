@@ -1,22 +1,46 @@
-import sys,json,yaml
+"""Derive scope-specific status from the single published snapshot."""
+import copy
+import json
 from pathlib import Path
-r=Path.cwd();p=Path.home()/'.cache/harness/v1'/json.loads((r/'.harness/harness-binding.json').read_text())['source']['revision'];sys.path.insert(0,str(p/'src'))
+import sys
+import yaml
+
+ROOT = Path.cwd()
+RUN = ROOT / 'experiments/runs/checker-v1'
+PIN = json.loads((ROOT / '.harness/harness-binding.json').read_text())['source']['revision']
+PACK = Path.home() / '.cache/harness/v1' / PIN
+sys.path.insert(0, str(PACK / 'src'))
 from harness.coverage.engineering_coverage import evaluate_with_repository_policy
-g=yaml.safe_load((r/'.harness/engineering-graph.yaml').read_text());s=yaml.safe_load((r/'.harness/project-publication.yaml').read_text())['state']
-c=evaluate_with_repository_policy(graph=g,realization=s['core_model'],consumer='CHECKER-PROTOTYPE',scope='CHECKER-PROTOTYPE',semantic_evaluations=s['semantic_evaluations'],project_overlay=yaml.safe_load((r/'.harness/coverage-overlay.yaml').read_text()))
-(r/'experiments/runs/checker-v1/coverage.json').write_text(json.dumps(c,indent=2))
 from harness.application.semantic_closure import evaluate_semantic_closure
 from harness.application.decision_pipeline import derive_decision_roadmap
 from harness.application.project_frontier import compose_project_frontier
-load=lambda f:yaml.safe_load(Path(f).read_text())
-policy=load(r/'.harness/decision-policy.yaml')
-args=dict(graph=g,model=s['core_model'],target='CHECKER-PROTOTYPE',lifecycle=s['lifecycle'],decision_contracts=load(p/'spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml'),decision_policy=policy)
-closure=evaluate_semantic_closure(**args,skill_registry=load(p/'skills/artifact-skill-registry-v0.yaml'),semantic_evaluations=s['semantic_evaluations'],knowledge_contracts=load(p/'spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml'))
-road=derive_decision_roadmap(**args,decision_failures=s['decision_failures'])
-front=compose_project_frontier(target='CHECKER-PROTOTYPE',decision_roadmap=road,semantic_closure=closure,engineering_coverage=c)
-for name,value in [('closure',closure),('roadmap',road),('frontier',front)]:
- (r/('experiments/runs/checker-v1/'+name+'.json')).write_text(json.dumps(value,indent=2))
-print('Coverage:',c['completion_ready'],'Closure:',closure['status'],'Roadmap:',road['frontier_status'],'Frontier:',front['status'])
-if '--require-complete' in sys.argv:
- assert c['completion_ready'] and closure['status']=='COMPLETE' and road['frontier_status']=='COMPLETE'
+from harness.application.project_publication import read_project_publication
 
+
+def load(path):
+    return yaml.safe_load(Path(path).read_text())
+
+
+target = 'CHECKER-CODEGEN-INPUT' if '--codegen-input' in sys.argv else 'CHECKER-PROTOTYPE'
+prefix = 'codegen-' if '--codegen-input' in sys.argv else ''
+graph = load(ROOT / '.harness/engineering-graph.yaml')
+state = read_project_publication(ROOT / '.harness/project-publication.yaml', graph=graph)['state']
+overlay = copy.deepcopy(load(ROOT / '.harness/coverage-overlay.yaml'))
+overlay['consumer'] = target
+coverage = evaluate_with_repository_policy(graph=graph, realization=state['core_model'], consumer=target,
+    scope='CHECKER-PROTOTYPE', semantic_evaluations=state['semantic_evaluations'], project_overlay=overlay)
+args = dict(graph=graph, model=state['core_model'], target=target, lifecycle=state['lifecycle'],
+    decision_contracts=load(PACK / 'spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml'),
+    decision_policy=load(ROOT / '.harness/decision-policy.yaml'))
+closure = evaluate_semantic_closure(**args, skill_registry=load(PACK / 'skills/artifact-skill-registry-v0.yaml'),
+    semantic_evaluations=state['semantic_evaluations'],
+    knowledge_contracts=load(PACK / 'spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml'))
+roadmap = derive_decision_roadmap(**args, decision_failures=state['decision_failures'])
+frontier = compose_project_frontier(target=target, decision_roadmap=roadmap,
+                                  semantic_closure=closure, engineering_coverage=coverage)
+for name, value in [('coverage', coverage), ('closure', closure), ('roadmap', roadmap), ('frontier', frontier)]:
+    (RUN / (prefix + name + '.json')).write_text(json.dumps(value, indent=2) + '\n')
+print(target, 'Coverage:', coverage['completion_ready'], 'Closure:', closure['status'],
+      'Roadmap:', roadmap['frontier_status'], 'Frontier:', frontier['status'])
+if '--require-complete' in sys.argv:
+    assert coverage['completion_ready'] and closure['status'] == 'COMPLETE' and roadmap['frontier_status'] == 'COMPLETE'

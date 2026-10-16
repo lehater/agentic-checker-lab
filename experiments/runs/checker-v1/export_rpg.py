@@ -24,7 +24,8 @@ for name in names:
 DEST.mkdir()
 for name in names:
     shutil.copyfile(DATA / (name + '.json'), DEST / (name + '.json'))
-for name in ['feature-construct.stdout', 'feature-construct.stderr', 'plan.stdout', 'plan.stderr']:
+log_prefix = sys.argv[2] if len(sys.argv) > 2 else 'plan'
+for name in ['feature-construct.stdout', 'feature-construct.stderr', log_prefix + '.stdout', log_prefix + '.stderr']:
     shutil.copyfile(WORKSPACE.parent / name, DEST / name)
 provenance = json.loads(distribution('cmind-cli').read_text('direct_url.json'))['vcs_info']['commit_id']
 manifest = dict(status='EXPORTED_FOR_SEMANTIC_REVIEW', cmind_revision=provenance,

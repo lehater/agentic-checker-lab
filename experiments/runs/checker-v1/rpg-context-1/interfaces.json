@@ -1,0 +1,1327 @@
+{
+  "meta": {
+    "primary_language": "python",
+    "target_languages": [
+      "python"
+    ]
+  },
+  "subtrees": {
+    "Приём и валидация запроса": {
+      "files_order": [
+        "src/acl_checker/input/document.py",
+        "src/acl_checker/input/validation.py"
+      ],
+      "interfaces": {
+        "src/acl_checker/input/document.py": {
+          "units": [
+            "function load_request_document"
+          ],
+          "units_to_features": {
+            "function load_request_document": [
+              "Приём и валидация запроса/document intake/load request document"
+            ]
+          },
+          "units_to_code": {
+            "function load_request_document": "import json\nfrom pathlib import Path\n\nfrom src.acl_checker.input.types import ExpectedInputFailure, ValidatedInvocation\nfrom src.acl_checker.input.validation import validate_document\n\n\ndef load_request_document(path: Path) -> ValidatedInvocation:\n    \"\"\"Прочитать локальный JSON-файл и вернуть проверенный запрос.\n\n    Args:\n        path: Явный путь входного файла из обязательного CLI --input.\n            Относительный путь разрешается относительно рабочего каталога.\n            Значение '-' не означает stdin; неявного источника ввода нет.\n\n    Returns:\n        ValidatedInvocation: Результат validate_document после чтения UTF-8\n            и разбора JSON; готов для внешнего вызова check с его тремя полями.\n\n    Raises:\n        ExpectedInputFailure: Ошибка чтения OSError, некорректный UTF-8,\n            ошибка разбора JSON или отказ validate_document. reason содержит\n            понятную причину; исходная причина сохраняется через chaining.\n            Нестандартные JSON-константы NaN и Infinity отвергаются.\n\n    Файл открывается только для чтения. Значения не исполняются; сетевые\n    запросы, запись файлов и чтение stdin не выполняются. Проверка схемы\n    полностью делегируется validate_document. Перехватываются только\n    ожидаемые ошибки границы; blanket except Exception запрещён.\n    Функция не печатает и не завершает процесс: внешний CLI преобразует\n    ExpectedInputFailure в exit 2, пустой stdout и stderr\n    'Checker error: <reason>'.\n    \"\"\"\n    ..."
+          },
+          "file_code": "import json\nfrom pathlib import Path\n\nfrom src.acl_checker.input.types import ExpectedInputFailure, ValidatedInvocation\nfrom src.acl_checker.input.validation import validate_document\n\n\ndef load_request_document(path: Path) -> ValidatedInvocation:\n    \"\"\"Прочитать локальный JSON-файл и вернуть проверенный запрос.\n\n    Args:\n        path: Явный путь входного файла из обязательного CLI --input.\n            Относительный путь разрешается относительно рабочего каталога.\n            Значение '-' не означает stdin; неявного источника ввода нет.\n\n    Returns:\n        ValidatedInvocation: Результат validate_document после чтения UTF-8\n            и разбора JSON; готов для внешнего вызова check с его тремя полями.\n\n    Raises:\n        ExpectedInputFailure: Ошибка чтения OSError, некорректный UTF-8,\n            ошибка разбора JSON или отказ validate_document. reason содержит\n            понятную причину; исходная причина сохраняется через chaining.\n            Нестандартные JSON-константы NaN и Infinity отвергаются.\n\n    Файл открывается только для чтения. Значения не исполняются; сетевые\n    запросы, запись файлов и чтение stdin не выполняются. Проверка схемы\n    полностью делегируется validate_document. Перехватываются только\n    ожидаемые ошибки границы; blanket except Exception запрещён.\n    Функция не печатает и не завершает процесс: внешний CLI преобразует\n    ExpectedInputFailure в exit 2, пустой stdout и stderr\n    'Checker error: <reason>'.\n    \"\"\"\n    ..."
+        },
+        "src/acl_checker/input/validation.py": {
+          "units": [
+            "function validate_document"
+          ],
+          "units_to_features": {
+            "function validate_document": [
+              "Приём и валидация запроса/document intake/reject unknown fields",
+              "Приём и валидация запроса/document intake/validate request envelope",
+              "Приём и валидация запроса/flow constraints/validate flow addresses",
+              "Приём и валидация запроса/flow constraints/validate flow ports",
+              "Приём и валидация запроса/flow constraints/validate flow protocol",
+              "Приём и валидация запроса/rule constraints/validate address predicates",
+              "Приём и валидация запроса/rule constraints/validate inclusive port ranges",
+              "Приём и валидация запроса/rule constraints/validate rule action",
+              "Приём и валидация запроса/rule constraints/validate rule protocol",
+              "Приём и валидация запроса/rule constraints/validate rule structure",
+              "Приём и валидация запроса/saved evidence integrity/reject duplicate rule identifiers",
+              "Приём и валидация запроса/saved evidence integrity/reject duplicate snapshot pairs",
+              "Приём и валидация запроса/saved evidence integrity/validate placement entries",
+              "Приём и валидация запроса/saved evidence integrity/validate snapshot structure",
+              "Приём и валидация запроса/selection constraints/validate relevance entries"
+            ]
+          },
+          "units_to_code": {
+            "function validate_document": "from ipaddress import IPv4Address, IPv4Network\n\nfrom src.acl_checker.application.types import (\n    DeviceAclPair,\n    ExpectedApplicationFailure,\n    Placement,\n    RelevanceSource,\n    Snapshot,\n    SnapshotSource,\n)\nfrom src.acl_checker.domain.types import Flow, OriginalRule\nfrom src.acl_checker.input.types import ExpectedInputFailure, ValidatedInvocation\n\n\ndef validate_document(document: object) -> ValidatedInvocation:\n    \"\"\"Проверить весь документ v1 и подготовить источники одного запуска.\n\n    Args:\n        document: Недоверенное разобранное JSON-значение; object требует\n            проверки типов до доступа к полям и не предполагает корректную схему.\n\n    Returns:\n        ValidatedInvocation: Проверенный Flow и узкие RelevanceSource,\n            SnapshotSource для передачи в check(flow, relevance, snapshot).\n            Источники замыкают локальные проверенные данные без глобального кеша.\n\n    Raises:\n        ExpectedInputFailure: Любое нарушение описанной ниже схемы.\n            Проверяются все снимки, включая нерелевантные; частичного\n            результата при ошибке нет. reason содержит понятную причину\n            и место нарушения.\n\n    Корневой объект содержит ровно version, flow, relevance, snapshots.\n    version — int со значением 1, не bool. Все поля вложенных объектов\n    обязательны; неизвестные поля отвергаются на каждом уровне.\n    relevance_records и неподдержанные предикаты не допускаются.\n\n    Flow содержит ровно source, destination, protocol, source_port,\n    destination_port. Адреса — строки IPv4 без CIDR; protocol — tcp или udp.\n    Оба порта обязательны: int в пределах 0..65535, исключая bool.\n\n    relevance — список объектов ровно с device и acl, непустыми строками.\n    Повторные пары допустимы; источник возвращает уникальные пары в порядке\n    первого появления. Пустой список допустим. Его source и destination —\n    IPv4-строки проверенного потока; предоставленная релевантность относится\n    только к этому потоку и не является универсальным адресным индексом.\n\n    snapshots — список объектов ровно с device, acl, placements, rules.\n    Пары device/acl уникальны, обе строки непустые. placements — список\n    объектов ровно {interface, direction}, где interface — непустая строка,\n    direction — in или out, либо ровно {global: true}, где true — bool.\n    Пустые placements и rules допустимы.\n\n    Каждое правило содержит ровно id, source, destination, protocol,\n    source_ports, destination_ports, action. id — непустая строка,\n    уникальная внутри снимка. Адресные строки — IPv4 hosts либо canonical\n    IPv4 CIDR с нулевыми host bits; значения не нормализуются.\n    protocol — tcp, udp или any; action — permit или deny.\n    Каждый портовый предикат — список ровно из двух int, не bool,\n    с 0 <= lower <= upper <= 65535; обе границы включительны.\n    Скалярные порты, None, IPv6 и неподдержанные формы отвергаются.\n\n    Исходный документ не изменяется. Полные значения правил, placements\n    и порядок правил сохраняются. SnapshotSource возвращает снимок по\n    точной паре и поднимает ExpectedApplicationFailure при его отсутствии,\n    никогда не возвращая None. Только запрошенные приложением релевантные\n    снимки участвуют в отчёте. Источники не выполняют matching, файловый\n    ввод-вывод или сетевые операции и не изменяют сохранённые значения.\n    \"\"\"\n    ..."
+          },
+          "file_code": "from ipaddress import IPv4Address, IPv4Network\n\nfrom src.acl_checker.application.types import (\n    DeviceAclPair,\n    ExpectedApplicationFailure,\n    Placement,\n    RelevanceSource,\n    Snapshot,\n    SnapshotSource,\n)\nfrom src.acl_checker.domain.types import Flow, OriginalRule\nfrom src.acl_checker.input.types import ExpectedInputFailure, ValidatedInvocation\n\n\ndef validate_document(document: object) -> ValidatedInvocation:\n    \"\"\"Проверить весь документ v1 и подготовить источники одного запуска.\n\n    Args:\n        document: Недоверенное разобранное JSON-значение; object требует\n            проверки типов до доступа к полям и не предполагает корректную схему.\n\n    Returns:\n        ValidatedInvocation: Проверенный Flow и узкие RelevanceSource,\n            SnapshotSource для передачи в check(flow, relevance, snapshot).\n            Источники замыкают локальные проверенные данные без глобального кеша.\n\n    Raises:\n        ExpectedInputFailure: Любое нарушение описанной ниже схемы.\n            Проверяются все снимки, включая нерелевантные; частичного\n            результата при ошибке нет. reason содержит понятную причину\n            и место нарушения.\n\n    Корневой объект содержит ровно version, flow, relevance, snapshots.\n    version — int со значением 1, не bool. Все поля вложенных объектов\n    обязательны; неизвестные поля отвергаются на каждом уровне.\n    relevance_records и неподдержанные предикаты не допускаются.\n\n    Flow содержит ровно source, destination, protocol, source_port,\n    destination_port. Адреса — строки IPv4 без CIDR; protocol — tcp или udp.\n    Оба порта обязательны: int в пределах 0..65535, исключая bool.\n\n    relevance — список объектов ровно с device и acl, непустыми строками.\n    Повторные пары допустимы; источник возвращает уникальные пары в порядке\n    первого появления. Пустой список допустим. Его source и destination —\n    IPv4-строки проверенного потока; предоставленная релевантность относится\n    только к этому потоку и не является универсальным адресным индексом.\n\n    snapshots — список объектов ровно с device, acl, placements, rules.\n    Пары device/acl уникальны, обе строки непустые. placements — список\n    объектов ровно {interface, direction}, где interface — непустая строка,\n    direction — in или out, либо ровно {global: true}, где true — bool.\n    Пустые placements и rules допустимы.\n\n    Каждое правило содержит ровно id, source, destination, protocol,\n    source_ports, destination_ports, action. id — непустая строка,\n    уникальная внутри снимка. Адресные строки — IPv4 hosts либо canonical\n    IPv4 CIDR с нулевыми host bits; значения не нормализуются.\n    protocol — tcp, udp или any; action — permit или deny.\n    Каждый портовый предикат — список ровно из двух int, не bool,\n    с 0 <= lower <= upper <= 65535; обе границы включительны.\n    Скалярные порты, None, IPv6 и неподдержанные формы отвергаются.\n\n    Исходный документ не изменяется. Полные значения правил, placements\n    и порядок правил сохраняются. SnapshotSource возвращает снимок по\n    точной паре и поднимает ExpectedApplicationFailure при его отсутствии,\n    никогда не возвращая None. Только запрошенные приложением релевантные\n    снимки участвуют в отчёте. Источники не выполняют matching, файловый\n    ввод-вывод или сетевые операции и не изменяют сохранённые значения.\n    \"\"\"\n    ..."
+        }
+      }
+    },
+    "Исследование совпадений ACL": {
+      "files_order": [
+        "src/acl_checker/domain/application/check.py",
+        "src/acl_checker/domain/matching.py"
+      ],
+      "interfaces": {
+        "src/acl_checker/domain/application/check.py": {
+          "units": [
+            "function collect_matching_evidence",
+            "function determine_evidence_status",
+            "function build_evidence_group",
+            "function check"
+          ],
+          "units_to_features": {
+            "function collect_matching_evidence": [
+              "Исследование совпадений ACL/evidence assembly/collect matching evidence"
+            ],
+            "function determine_evidence_status": [
+              "Исследование совпадений ACL/evidence assembly/determine evidence status"
+            ],
+            "function build_evidence_group": [
+              "Исследование совпадений ACL/evidence assembly/build evidence group"
+            ],
+            "function check": [
+              "Исследование совпадений ACL/investigation execution/check traffic evidence"
+            ]
+          },
+          "units_to_code": {
+            "function collect_matching_evidence": "from collections.abc import Sequence\n\nfrom src.acl_checker.domain.matching import matches\nfrom src.acl_checker.domain.types import Flow, OriginalRule\n\n\ndef collect_matching_evidence(\n    flow: Flow,\n    rules: Sequence[OriginalRule],\n) -> list[OriginalRule]:\n    \"\"\"Собрать все совпавшие правила в порядке предоставленной последовательности.\n\n    Args:\n        flow: Предварительно проверенный конкретный IPv4-поток.\n        rules: Проверенные полные правила одного снимка в исходном порядке.\n\n    Returns:\n        list[OriginalRule]: Новый список всех правил, для которых matches\n            возвращает True; исходные объекты и все их поля сохраняются.\n            Пустая последовательность или отсутствие совпадений дают [].\n\n    Вызывается build_evidence_group. Проверяет каждое правило ровно один раз,\n    включая правила после первого совпадения. Не сортирует, не удаляет\n    совпадения по action и не синтезирует implicit deny.\n    Поток, последовательность правил и вложенные значения не изменяются.\n    \"\"\"\n    ...\n",
+            "function determine_evidence_status": "from collections.abc import Sequence\nfrom typing import Literal\n\nfrom src.acl_checker.domain.types import OriginalRule\n\n\ndef determine_evidence_status(\n    matching_rules: Sequence[OriginalRule],\n) -> Literal['MATCHES', 'NO_MATCH']:\n    \"\"\"Определить статус группы по уже собранным совпадениям.\n\n    Args:\n        matching_rules: Полная последовательность совпавших правил одного\n            корректного полученного снимка; значения не изменяются.\n\n    Returns:\n        Literal['MATCHES', 'NO_MATCH']: MATCHES для непустой\n            последовательности, иначе NO_MATCH.\n\n    Вызывается build_evidence_group. Статус не зависит от action и не является\n    общим permit/deny verdict. Ошибки источников и отсутствие снимка нельзя\n    представлять пустой последовательностью для получения NO_MATCH.\n    \"\"\"\n    ...\n",
+            "function build_evidence_group": "from src.acl_checker.application.types import ReportGroup, Snapshot\nfrom src.acl_checker.domain.types import Flow\n\n\ndef build_evidence_group(flow: Flow, snapshot: Snapshot) -> ReportGroup:\n    \"\"\"Собрать одну группу свидетельств для предоставленного снимка ACL.\n\n    Args:\n        flow: Предварительно проверенный конкретный IPv4-поток.\n        snapshot: Корректный снимок выбранной пары device/acl с placements\n            и полным упорядоченным списком правил.\n\n    Returns:\n        ReportGroup: Группа ровно с полями device, acl, placements, status,\n            rules. Контекст и placements берутся из snapshot; rules содержит\n            полные совпавшие исходные объекты в порядке снимка.\n\n    Вызывается check. Делегирует отбор collect_matching_evidence, а статус —\n    determine_evidence_status. Пустой список правил даёт NO_MATCH.\n    Пустые placements допустимы; они не означают отсутствие сетевых привязок.\n    Места применения не создают копий правил. Входные и вложенные значения\n    не изменяются. Общий verdict и синтетические правила не добавляются.\n    \"\"\"\n    ...\n",
+            "function check": "from src.acl_checker.application.types import (\n    ExpectedApplicationFailure,\n    RelevanceSource,\n    ReportGroups,\n    SnapshotSource,\n)\nfrom src.acl_checker.domain.types import Flow\n\n\ndef check(\n    flow: Flow,\n    relevance: RelevanceSource,\n    snapshot: SnapshotSource,\n) -> ReportGroups:\n    \"\"\"Исследовать сохранённые правила всех уникальных релевантных ACL.\n\n    Args:\n        flow: Проверенный конкретный IPv4-поток без допуска None-портов.\n        relevance: Внедрённый callable(source: str, destination: str),\n            возвращающий список проверенных DeviceAclPair для адресов flow.\n        snapshot: Внедрённый callable(device: str, acl: str), возвращающий\n            проверенный Snapshot запрошенной пары или поднимающий\n            ExpectedApplicationFailure при отсутствии требуемого снимка.\n\n    Returns:\n        ReportGroups: Полный список групп в порядке первых появлений\n            уникальных пар relevance. Пустая релевантность возвращает [].\n            Для каждой пары включена группа, даже если совпадений нет.\n\n    Raises:\n        ExpectedApplicationFailure: Ожидаемый отказ любого источника,\n            включая отсутствие необходимого снимка; отказ распространяется\n            вызывающему коду без успешного частичного результата.\n\n    Публичная точка входа для внешней CLI-композиции и интеграционных тестов.\n    Вызывает relevance ровно один раз с двумя адресами flow; дедуплицирует\n    пары по обоим полям с сохранением первого появления; вызывает snapshot\n    ровно один раз для каждой уникальной пары и build_evidence_group для\n    полученного снимка. Нерелевантные снимки не запрашивает.\n    Источники предоставляются внешней композицией после проверки всего ввода.\n    Функция не импортирует адаптеры, не валидирует JSON, не сериализует и\n    не печатает результат. Нет retry, fallback, подавления ошибок\n    программиста, общего verdict или мутаций переданных данных.\n    \"\"\"\n    ...\n"
+          },
+          "file_code": "from collections.abc import Sequence\n\nfrom src.acl_checker.domain.matching import matches\nfrom src.acl_checker.domain.types import Flow, OriginalRule\n\n\ndef collect_matching_evidence(\n    flow: Flow,\n    rules: Sequence[OriginalRule],\n) -> list[OriginalRule]:\n    \"\"\"Собрать все совпавшие правила в порядке предоставленной последовательности.\n\n    Args:\n        flow: Предварительно проверенный конкретный IPv4-поток.\n        rules: Проверенные полные правила одного снимка в исходном порядке.\n\n    Returns:\n        list[OriginalRule]: Новый список всех правил, для которых matches\n            возвращает True; исходные объекты и все их поля сохраняются.\n            Пустая последовательность или отсутствие совпадений дают [].\n\n    Вызывается build_evidence_group. Проверяет каждое правило ровно один раз,\n    включая правила после первого совпадения. Не сортирует, не удаляет\n    совпадения по action и не синтезирует implicit deny.\n    Поток, последовательность правил и вложенные значения не изменяются.\n    \"\"\"\n    ...\n\nfrom collections.abc import Sequence\nfrom typing import Literal\n\nfrom src.acl_checker.domain.types import OriginalRule\n\n\ndef determine_evidence_status(\n    matching_rules: Sequence[OriginalRule],\n) -> Literal['MATCHES', 'NO_MATCH']:\n    \"\"\"Определить статус группы по уже собранным совпадениям.\n\n    Args:\n        matching_rules: Полная последовательность совпавших правил одного\n            корректного полученного снимка; значения не изменяются.\n\n    Returns:\n        Literal['MATCHES', 'NO_MATCH']: MATCHES для непустой\n            последовательности, иначе NO_MATCH.\n\n    Вызывается build_evidence_group. Статус не зависит от action и не является\n    общим permit/deny verdict. Ошибки источников и отсутствие снимка нельзя\n    представлять пустой последовательностью для получения NO_MATCH.\n    \"\"\"\n    ...\n\nfrom src.acl_checker.application.types import ReportGroup, Snapshot\nfrom src.acl_checker.domain.types import Flow\n\n\ndef build_evidence_group(flow: Flow, snapshot: Snapshot) -> ReportGroup:\n    \"\"\"Собрать одну группу свидетельств для предоставленного снимка ACL.\n\n    Args:\n        flow: Предварительно проверенный конкретный IPv4-поток.\n        snapshot: Корректный снимок выбранной пары device/acl с placements\n            и полным упорядоченным списком правил.\n\n    Returns:\n        ReportGroup: Группа ровно с полями device, acl, placements, status,\n            rules. Контекст и placements берутся из snapshot; rules содержит\n            полные совпавшие исходные объекты в порядке снимка.\n\n    Вызывается check. Делегирует отбор collect_matching_evidence, а статус —\n    determine_evidence_status. Пустой список правил даёт NO_MATCH.\n    Пустые placements допустимы; они не означают отсутствие сетевых привязок.\n    Места применения не создают копий правил. Входные и вложенные значения\n    не изменяются. Общий verdict и синтетические правила не добавляются.\n    \"\"\"\n    ...\n\nfrom src.acl_checker.application.types import (\n    ExpectedApplicationFailure,\n    RelevanceSource,\n    ReportGroups,\n    SnapshotSource,\n)\nfrom src.acl_checker.domain.types import Flow\n\n\ndef check(\n    flow: Flow,\n    relevance: RelevanceSource,\n    snapshot: SnapshotSource,\n) -> ReportGroups:\n    \"\"\"Исследовать сохранённые правила всех уникальных релевантных ACL.\n\n    Args:\n        flow: Проверенный конкретный IPv4-поток без допуска None-портов.\n        relevance: Внедрённый callable(source: str, destination: str),\n            возвращающий список проверенных DeviceAclPair для адресов flow.\n        snapshot: Внедрённый callable(device: str, acl: str), возвращающий\n            проверенный Snapshot запрошенной пары или поднимающий\n            ExpectedApplicationFailure при отсутствии требуемого снимка.\n\n    Returns:\n        ReportGroups: Полный список групп в порядке первых появлений\n            уникальных пар relevance. Пустая релевантность возвращает [].\n            Для каждой пары включена группа, даже если совпадений нет.\n\n    Raises:\n        ExpectedApplicationFailure: Ожидаемый отказ любого источника,\n            включая отсутствие необходимого снимка; отказ распространяется\n            вызывающему коду без успешного частичного результата.\n\n    Публичная точка входа для внешней CLI-композиции и интеграционных тестов.\n    Вызывает relevance ровно один раз с двумя адресами flow; дедуплицирует\n    пары по обоим полям с сохранением первого появления; вызывает snapshot\n    ровно один раз для каждой уникальной пары и build_evidence_group для\n    полученного снимка. Нерелевантные снимки не запрашивает.\n    Источники предоставляются внешней композицией после проверки всего ввода.\n    Функция не импортирует адаптеры, не валидирует JSON, не сериализует и\n    не печатает результат. Нет retry, fallback, подавления ошибок\n    программиста, общего verdict или мутаций переданных данных.\n    \"\"\"\n    ..."
+        },
+        "src/acl_checker/domain/matching.py": {
+          "units": [
+            "function matches"
+          ],
+          "units_to_features": {
+            "function matches": [
+              "Исследование совпадений ACL/flow evaluation/evaluate stored rule match"
+            ]
+          },
+          "units_to_code": {
+            "function matches": "from ipaddress import IPv4Address, IPv4Network\n\nfrom src.acl_checker.domain.types import Flow, OriginalRule\n\n\ndef matches(flow: Flow, rule: OriginalRule) -> bool:\n    \"\"\"Проверить совпадение проверенного потока с сохранённым правилом.\n\n    Args:\n        flow: Flow с IPv4-адресами, протоколом tcp/udp и двумя обязательными\n            целыми портами 0..65535, исключая bool.\n        rule: OriginalRule с IPv4 hosts или canonical CIDR, протоколом\n            tcp/udp/any и двумя включительными диапазонами портов.\n            Каждый диапазон содержит ровно две упорядоченные границы.\n\n    Returns:\n        bool: Конъюнкция принадлежности обоих адресов предикатам правила,\n            совпадения протокола либо any и принадлежности обоих портов\n            соответствующим включительным диапазонам.\n\n    IPv4 host трактуется как /32; крайние адреса сети включены.\n    Action и id не влияют на результат. Внешний адаптер предварительно\n    проверяет схему и значения: неподдержанные предикаты не означают False.\n    Функция чистая, не изменяет аргументы и не обращается к источникам.\n    Вызывается collect_matching_evidence для каждого правила снимка.\n    \"\"\"\n    ...\n"
+          },
+          "file_code": "from ipaddress import IPv4Address, IPv4Network\n\nfrom src.acl_checker.domain.types import Flow, OriginalRule\n\n\ndef matches(flow: Flow, rule: OriginalRule) -> bool:\n    \"\"\"Проверить совпадение проверенного потока с сохранённым правилом.\n\n    Args:\n        flow: Flow с IPv4-адресами, протоколом tcp/udp и двумя обязательными\n            целыми портами 0..65535, исключая bool.\n        rule: OriginalRule с IPv4 hosts или canonical CIDR, протоколом\n            tcp/udp/any и двумя включительными диапазонами портов.\n            Каждый диапазон содержит ровно две упорядоченные границы.\n\n    Returns:\n        bool: Конъюнкция принадлежности обоих адресов предикатам правила,\n            совпадения протокола либо any и принадлежности обоих портов\n            соответствующим включительным диапазонам.\n\n    IPv4 host трактуется как /32; крайние адреса сети включены.\n    Action и id не влияют на результат. Внешний адаптер предварительно\n    проверяет схему и значения: неподдержанные предикаты не означают False.\n    Функция чистая, не изменяет аргументы и не обращается к источникам.\n    Вызывается collect_matching_evidence для каждого правила снимка.\n    \"\"\"\n    ..."
+        }
+      }
+    },
+    "Отбор и получение снимков ACL": {
+      "files_order": [
+        "src/acl_checker/application/evidence.py",
+        "src/acl_checker/application/sources.py"
+      ],
+      "interfaces": {
+        "src/acl_checker/application/evidence.py": {
+          "units": [
+            "function retrieve_relevant_pairs",
+            "function retrieve_required_snapshot"
+          ],
+          "units_to_features": {
+            "function retrieve_relevant_pairs": [
+              "Отбор и получение снимков ACL/ordered pair selection/deduplicate relevant pairs",
+              "Отбор и получение снимков ACL/ordered pair selection/retrieve relevant pairs"
+            ],
+            "function retrieve_required_snapshot": [
+              "Отбор и получение снимков ACL/required evidence retrieval/reject missing snapshot",
+              "Отбор и получение снимков ACL/required evidence retrieval/retrieve relevant snapshot"
+            ]
+          },
+          "units_to_code": {
+            "function retrieve_relevant_pairs": "from src.acl_checker.application.types import DeviceAclPair, RelevanceSource\nfrom src.acl_checker.domain.types import Flow\n\n\ndef retrieve_relevant_pairs(\n    flow: Flow,\n    relevance: RelevanceSource,\n) -> list[DeviceAclPair]:\n    \"\"\"Получить уникальные релевантные пары для проверенного потока.\n\n    Args:\n        flow: Flow с проверенными IPv4-строками source и destination.\n            Протокол и оба обязательных порта не участвуют в релевантности.\n        relevance: RelevanceSource, принимающий две IPv4-строки и\n            возвращающий проверенный список DeviceAclPair данного запроса.\n\n    Returns:\n        list[DeviceAclPair]: Новый список пар без повторов по совокупности\n            device и acl, в порядке первого появления. Пустой ответ даёт [].\n\n    Raises:\n        ExpectedApplicationFailure: Ожидаемый отказ внедрённого источника;\n            распространяется без fallback и частичного результата.\n\n    Вызывается check ровно один раз на запрос. Вызывает relevance ровно\n    один раз с flow['source'], flow['destination']. Не читает снимки,\n    не выводит сетевой путь и не изменяет flow, список источника или пары.\n    \"\"\"\n    ...\n",
+            "function retrieve_required_snapshot": "from src.acl_checker.application.types import (\n    DeviceAclPair,\n    ExpectedApplicationFailure,\n    Snapshot,\n    SnapshotSource,\n)\n\n\ndef retrieve_required_snapshot(\n    pair: DeviceAclPair,\n    snapshot: SnapshotSource,\n) -> Snapshot:\n    \"\"\"Получить обязательный снимок одной уникальной релевантной пары.\n\n    Args:\n        pair: Проверенная DeviceAclPair, выбранная retrieve_relevant_pairs.\n        snapshot: SnapshotSource с контрактом возврата проверенного Snapshot\n            для device/acl либо ExpectedApplicationFailure при отсутствии.\n\n    Returns:\n        Snapshot: Полный предоставленный снимок именно запрошенной пары,\n            сохраняющий placements, порядок правил и все исходные значения.\n\n    Raises:\n        ExpectedApplicationFailure: Источник не располагает требуемым\n            снимком или сообщает другой ожидаемый отказ получения.\n            Ошибка распространяется до check и внешней границы CLI.\n\n    Вызывается check один раз на каждую уникальную пару в порядке выбора.\n    Вызывает snapshot(pair['device'], pair['acl']) ровно один раз.\n    None не предусмотрен контрактом источника. Отсутствие снимка нельзя\n    заменить пустым снимком или NO_MATCH. Retry, fallback, мутации и\n    подавление ошибок программиста исключены. check публикует результат\n    только после успешного завершения всего запроса.\n    \"\"\"\n    ...\n"
+          },
+          "file_code": "from src.acl_checker.application.types import DeviceAclPair, RelevanceSource\nfrom src.acl_checker.domain.types import Flow\n\n\ndef retrieve_relevant_pairs(\n    flow: Flow,\n    relevance: RelevanceSource,\n) -> list[DeviceAclPair]:\n    \"\"\"Получить уникальные релевантные пары для проверенного потока.\n\n    Args:\n        flow: Flow с проверенными IPv4-строками source и destination.\n            Протокол и оба обязательных порта не участвуют в релевантности.\n        relevance: RelevanceSource, принимающий две IPv4-строки и\n            возвращающий проверенный список DeviceAclPair данного запроса.\n\n    Returns:\n        list[DeviceAclPair]: Новый список пар без повторов по совокупности\n            device и acl, в порядке первого появления. Пустой ответ даёт [].\n\n    Raises:\n        ExpectedApplicationFailure: Ожидаемый отказ внедрённого источника;\n            распространяется без fallback и частичного результата.\n\n    Вызывается check ровно один раз на запрос. Вызывает relevance ровно\n    один раз с flow['source'], flow['destination']. Не читает снимки,\n    не выводит сетевой путь и не изменяет flow, список источника или пары.\n    \"\"\"\n    ...\n\nfrom src.acl_checker.application.types import (\n    DeviceAclPair,\n    ExpectedApplicationFailure,\n    Snapshot,\n    SnapshotSource,\n)\n\n\ndef retrieve_required_snapshot(\n    pair: DeviceAclPair,\n    snapshot: SnapshotSource,\n) -> Snapshot:\n    \"\"\"Получить обязательный снимок одной уникальной релевантной пары.\n\n    Args:\n        pair: Проверенная DeviceAclPair, выбранная retrieve_relevant_pairs.\n        snapshot: SnapshotSource с контрактом возврата проверенного Snapshot\n            для device/acl либо ExpectedApplicationFailure при отсутствии.\n\n    Returns:\n        Snapshot: Полный предоставленный снимок именно запрошенной пары,\n            сохраняющий placements, порядок правил и все исходные значения.\n\n    Raises:\n        ExpectedApplicationFailure: Источник не располагает требуемым\n            снимком или сообщает другой ожидаемый отказ получения.\n            Ошибка распространяется до check и внешней границы CLI.\n\n    Вызывается check один раз на каждую уникальную пару в порядке выбора.\n    Вызывает snapshot(pair['device'], pair['acl']) ровно один раз.\n    None не предусмотрен контрактом источника. Отсутствие снимка нельзя\n    заменить пустым снимком или NO_MATCH. Retry, fallback, мутации и\n    подавление ошибок программиста исключены. check публикует результат\n    только после успешного завершения всего запроса.\n    \"\"\"\n    ..."
+        },
+        "src/acl_checker/application/sources.py": {
+          "units": [
+            "function create_relevance_provider",
+            "function create_snapshot_provider"
+          ],
+          "units_to_features": {
+            "function create_relevance_provider": [
+              "Отбор и получение снимков ACL/provider construction/create relevance provider"
+            ],
+            "function create_snapshot_provider": [
+              "Отбор и получение снимков ACL/provider construction/create snapshot provider"
+            ]
+          },
+          "units_to_code": {
+            "function create_relevance_provider": "from collections.abc import Sequence\n\nfrom src.acl_checker.application.types import DeviceAclPair, RelevanceSource\n\n\ndef create_relevance_provider(\n    pairs: Sequence[DeviceAclPair],\n) -> RelevanceSource:\n    \"\"\"Создать синтетический источник релевантности одного запроса.\n\n    Args:\n        pairs: Полностью проверенная последовательность DeviceAclPair\n            из relevance документа v1 для flow текущего запроса.\n            Порядок и повторения являются частью предоставленных данных.\n\n    Returns:\n        RelevanceSource: Callable(source: str, destination: str)\n            -> list[DeviceAclPair]. Принимает проверенные IPv4-адреса\n            текущего flow и возвращает новый список предоставленных пар\n            в исходном порядке, включая повторы. Пустой вход даёт [].\n\n    Вызывается validate_document после проверки всего документа.\n    Возвращённый callable вызывается retrieve_relevant_pairs, который\n    выполняет дедупликацию. Список относится только к текущему flow:\n    фабрика не строит адресный индекс и не вычисляет сетевую релевантность.\n    Дополнительный relevance_records не поддерживается. Фабрика и callable\n    не изменяют аргументы; потребители не изменяют вложенные значения.\n    Захваченное состояние локально для запуска, без глобального кеша,\n    файлового ввода, сети или зависимости от внешнего валидатора.\n    \"\"\"\n    ...\n",
+            "function create_snapshot_provider": "from collections.abc import Sequence\n\nfrom src.acl_checker.application.types import (\n    ExpectedApplicationFailure,\n    Snapshot,\n    SnapshotSource,\n)\n\n\ndef create_snapshot_provider(\n    snapshots: Sequence[Snapshot],\n) -> SnapshotSource:\n    \"\"\"Создать локальный источник проверенных снимков одного запроса.\n\n    Args:\n        snapshots: Полностью проверенная последовательность Snapshot.\n            Уникальность пар device/acl и корректность всех снимков,\n            включая нерелевантные, обеспечены внешним валидатором.\n\n    Returns:\n        SnapshotSource: Callable(device: str, acl: str) -> Snapshot,\n            возвращающий полный снимок точной пары без изменения placements,\n            порядка правил, их полей или исходных сериализованных значений.\n\n    Raises:\n        ExpectedApplicationFailure: Возвращённый callable поднимает этот\n            отказ при отсутствии запрошенной пары. reason явно указывает\n            отсутствующие device и acl. Сама фабрика не требует наличия\n            снимков для ещё не запрошенных релевантных пар.\n\n    Вызывается validate_document после проверки всего документа.\n    Возвращённый callable вызывается retrieve_required_snapshot.\n    Пустая последовательность допустима; любой запрос к ней завершается\n    ожидаемым отказом. Отсутствие не представляется None, пустым снимком\n    или NO_MATCH. Данные не изменяются и не дополняются. Захваченные\n    значения принадлежат одному запуску; глобальные кеши, ввод-вывод,\n    retry, fallback и blanket except Exception исключены.\n    \"\"\"\n    ...\n"
+          },
+          "file_code": "from collections.abc import Sequence\n\nfrom src.acl_checker.application.types import DeviceAclPair, RelevanceSource\n\n\ndef create_relevance_provider(\n    pairs: Sequence[DeviceAclPair],\n) -> RelevanceSource:\n    \"\"\"Создать синтетический источник релевантности одного запроса.\n\n    Args:\n        pairs: Полностью проверенная последовательность DeviceAclPair\n            из relevance документа v1 для flow текущего запроса.\n            Порядок и повторения являются частью предоставленных данных.\n\n    Returns:\n        RelevanceSource: Callable(source: str, destination: str)\n            -> list[DeviceAclPair]. Принимает проверенные IPv4-адреса\n            текущего flow и возвращает новый список предоставленных пар\n            в исходном порядке, включая повторы. Пустой вход даёт [].\n\n    Вызывается validate_document после проверки всего документа.\n    Возвращённый callable вызывается retrieve_relevant_pairs, который\n    выполняет дедупликацию. Список относится только к текущему flow:\n    фабрика не строит адресный индекс и не вычисляет сетевую релевантность.\n    Дополнительный relevance_records не поддерживается. Фабрика и callable\n    не изменяют аргументы; потребители не изменяют вложенные значения.\n    Захваченное состояние локально для запуска, без глобального кеша,\n    файлового ввода, сети или зависимости от внешнего валидатора.\n    \"\"\"\n    ...\n\nfrom collections.abc import Sequence\n\nfrom src.acl_checker.application.types import (\n    ExpectedApplicationFailure,\n    Snapshot,\n    SnapshotSource,\n)\n\n\ndef create_snapshot_provider(\n    snapshots: Sequence[Snapshot],\n) -> SnapshotSource:\n    \"\"\"Создать локальный источник проверенных снимков одного запроса.\n\n    Args:\n        snapshots: Полностью проверенная последовательность Snapshot.\n            Уникальность пар device/acl и корректность всех снимков,\n            включая нерелевантные, обеспечены внешним валидатором.\n\n    Returns:\n        SnapshotSource: Callable(device: str, acl: str) -> Snapshot,\n            возвращающий полный снимок точной пары без изменения placements,\n            порядка правил, их полей или исходных сериализованных значений.\n\n    Raises:\n        ExpectedApplicationFailure: Возвращённый callable поднимает этот\n            отказ при отсутствии запрошенной пары. reason явно указывает\n            отсутствующие device и acl. Сама фабрика не требует наличия\n            снимков для ещё не запрошенных релевантных пар.\n\n    Вызывается validate_document после проверки всего документа.\n    Возвращённый callable вызывается retrieve_required_snapshot.\n    Пустая последовательность допустима; любой запрос к ней завершается\n    ожидаемым отказом. Отсутствие не представляется None, пустым снимком\n    или NO_MATCH. Данные не изменяются и не дополняются. Захваченные\n    значения принадлежат одному запуску; глобальные кеши, ввод-вывод,\n    retry, fallback и blanket except Exception исключены.\n    \"\"\"\n    ..."
+        }
+      }
+    },
+    "Командный интерфейс и публикация отчёта": {
+      "files_order": [
+        "checker/__main__.py",
+        "src/acl_checker/cli/main.py",
+        "src/acl_checker/cli/rendering.py"
+      ],
+      "interfaces": {
+        "checker/__main__.py": {
+          "units": [
+            "function main"
+          ],
+          "units_to_features": {
+            "function main": [
+              "Командный интерфейс и публикация отчёта/execution wiring/compose local execution"
+            ]
+          },
+          "units_to_code": {
+            "function main": "def main() -> int:\n    \"\"\"Обеспечить запуск python3 -m checker, передав аргументы и стандартные потоки существующему CLI main. Вернуть его код завершения; модульный запуск завершает процесс этим кодом.\"\"\"\n    pass\n"
+          },
+          "file_code": "def main() -> int:\n    \"\"\"Обеспечить запуск python3 -m checker, передав аргументы и стандартные потоки существующему CLI main. Вернуть его код завершения; модульный запуск завершает процесс этим кодом.\"\"\"\n    pass",
+          "_handler_added": [
+            "function main"
+          ]
+        },
+        "src/acl_checker/cli/main.py": {
+          "units": [
+            "function parse_invocation",
+            "function main"
+          ],
+          "units_to_features": {
+            "function parse_invocation": [
+              "Командный интерфейс и публикация отчёта/command entry/display prototype help",
+              "Командный интерфейс и публикация отчёта/command entry/parse invocation options",
+              "Командный интерфейс и публикация отчёта/report scope/describe saved evidence scope"
+            ],
+            "function main": [
+              "Командный интерфейс и публикация отчёта/execution wiring/compose local execution",
+              "Командный интерфейс и публикация отчёта/request diagnostics/emit request diagnostic"
+            ]
+          },
+          "units_to_code": {
+            "function parse_invocation": "from argparse import ArgumentParser\nfrom collections.abc import Sequence\nfrom pathlib import Path\nfrom typing import TextIO\n\nfrom src.acl_checker.input.types import ExpectedInputFailure\n\n\ndef parse_invocation(argv: Sequence[str], stdout: TextIO) -> CliOptions | None:\n    \"\"\"Разобрать параметры либо вывести справку для main.\n\n    Args:\n        argv: Аргументы без имени программы. Поддерживаются --input PATH,\n            --format text|json и -h/--help; формат по умолчанию text.\n        stdout: TextIO для справки; обычный разбор ничего не печатает.\n\n    Returns:\n        CliOptions | None: Параметры запуска либо None после справки.\n        Справка не требует --input, не загружает файл и означает exit 0.\n\n    Raises:\n        ExpectedInputFailure: Отсутствующий --input, неизвестный аргумент,\n            неверный формат или другой отказ разбора. Диагностику печатает\n            main; парсер не завершает процесс и не пишет в stderr.\n\n    Использует ArgumentParser с переводом ошибок разбора в указанный отказ,\n    без стандартного error-exit. Значение '-' является именем файла,\n    stdin не подразумевается. Path не проверяется чтением на этом этапе.\n    Справка показывает 'python3 -m checker --input PATH [--format text|json]'\n    и объясняет локальный synthetic scope: IPv4 TCP/UDP, оба порта,\n    все совпавшие сохранённые правила, отсутствие live truth и общего\n    verdict. Порядок релевантности не означает сетевой путь; placements\n    описывают только предоставленные сведения; SLA/TTL не заявлены.\n    \"\"\"\n    ...\n",
+            "function main": "import sys\nfrom collections.abc import Sequence\nfrom typing import TextIO\n\nfrom src.acl_checker.application.check import check\nfrom src.acl_checker.application.types import ExpectedApplicationFailure\nfrom src.acl_checker.cli.rendering import render_json_report, render_text_report\nfrom src.acl_checker.input.document import load_request_document\nfrom src.acl_checker.input.types import ExpectedInputFailure\n\n\ndef main(\n    argv: Sequence[str] | None = None,\n    *,\n    stdout: TextIO | None = None,\n    stderr: TextIO | None = None,\n) -> int:\n    \"\"\"Выполнить один локальный запрос и вернуть код публичного CLI.\n\n    Args:\n        argv: Аргументы без имени программы; None использует sys.argv[1:].\n        stdout: Поток успешного отчёта или справки; None использует sys.stdout.\n        stderr: Поток диагностики; None использует sys.stderr.\n\n    Returns:\n        int: 0 после отчёта или справки; 2 при ExpectedInputFailure либо\n            ExpectedApplicationFailure. Функция сама не завершает процесс.\n\n    Вызывается публичным checker/__main__.py через SystemExit(main()).\n    Последовательно вызывает parse_invocation, load_request_document,\n    check(invocation.flow, invocation.relevance, invocation.snapshot)\n    и выбранный render_text_report либо render_json_report.\n    Источники уже созданы валидатором; повторная композиция не требуется.\n\n    Успешный отчёт полностью вычисляется и сериализуется до записи stdout.\n    При ожидаемом отказе stdout пуст, stderr получает ровно\n    'Checker error: <reason>\\n'; частичный отчёт не публикуется.\n    Причина выводится одной строкой с экранированием встроенных CR/LF.\n    Не перехватывает blanket Exception и не подавляет ошибки программиста.\n\n    Код завершения и записи в потоки вместе с argv дают внешним приёмочным\n    тестам ProcessObservation; CLI не импортирует проверочные структуры.\n    Не изменяет входные данные, не сохраняет результаты и не обращается\n    к сети. JSON-успех не содержит текстовых пояснений.\n    \"\"\"\n    ...\n"
+          },
+          "file_code": "from argparse import ArgumentParser\nfrom collections.abc import Sequence\nfrom pathlib import Path\nfrom typing import TextIO\n\nfrom src.acl_checker.input.types import ExpectedInputFailure\n\n\ndef parse_invocation(argv: Sequence[str], stdout: TextIO) -> CliOptions | None:\n    \"\"\"Разобрать параметры либо вывести справку для main.\n\n    Args:\n        argv: Аргументы без имени программы. Поддерживаются --input PATH,\n            --format text|json и -h/--help; формат по умолчанию text.\n        stdout: TextIO для справки; обычный разбор ничего не печатает.\n\n    Returns:\n        CliOptions | None: Параметры запуска либо None после справки.\n        Справка не требует --input, не загружает файл и означает exit 0.\n\n    Raises:\n        ExpectedInputFailure: Отсутствующий --input, неизвестный аргумент,\n            неверный формат или другой отказ разбора. Диагностику печатает\n            main; парсер не завершает процесс и не пишет в stderr.\n\n    Использует ArgumentParser с переводом ошибок разбора в указанный отказ,\n    без стандартного error-exit. Значение '-' является именем файла,\n    stdin не подразумевается. Path не проверяется чтением на этом этапе.\n    Справка показывает 'python3 -m checker --input PATH [--format text|json]'\n    и объясняет локальный synthetic scope: IPv4 TCP/UDP, оба порта,\n    все совпавшие сохранённые правила, отсутствие live truth и общего\n    verdict. Порядок релевантности не означает сетевой путь; placements\n    описывают только предоставленные сведения; SLA/TTL не заявлены.\n    \"\"\"\n    ...\n\nimport sys\nfrom collections.abc import Sequence\nfrom typing import TextIO\n\nfrom src.acl_checker.application.check import check\nfrom src.acl_checker.application.types import ExpectedApplicationFailure\nfrom src.acl_checker.cli.rendering import render_json_report, render_text_report\nfrom src.acl_checker.input.document import load_request_document\nfrom src.acl_checker.input.types import ExpectedInputFailure\n\n\ndef main(\n    argv: Sequence[str] | None = None,\n    *,\n    stdout: TextIO | None = None,\n    stderr: TextIO | None = None,\n) -> int:\n    \"\"\"Выполнить один локальный запрос и вернуть код публичного CLI.\n\n    Args:\n        argv: Аргументы без имени программы; None использует sys.argv[1:].\n        stdout: Поток успешного отчёта или справки; None использует sys.stdout.\n        stderr: Поток диагностики; None использует sys.stderr.\n\n    Returns:\n        int: 0 после отчёта или справки; 2 при ExpectedInputFailure либо\n            ExpectedApplicationFailure. Функция сама не завершает процесс.\n\n    Вызывается публичным checker/__main__.py через SystemExit(main()).\n    Последовательно вызывает parse_invocation, load_request_document,\n    check(invocation.flow, invocation.relevance, invocation.snapshot)\n    и выбранный render_text_report либо render_json_report.\n    Источники уже созданы валидатором; повторная композиция не требуется.\n\n    Успешный отчёт полностью вычисляется и сериализуется до записи stdout.\n    При ожидаемом отказе stdout пуст, stderr получает ровно\n    'Checker error: <reason>\\n'; частичный отчёт не публикуется.\n    Причина выводится одной строкой с экранированием встроенных CR/LF.\n    Не перехватывает blanket Exception и не подавляет ошибки программиста.\n\n    Код завершения и записи в потоки вместе с argv дают внешним приёмочным\n    тестам ProcessObservation; CLI не импортирует проверочные структуры.\n    Не изменяет входные данные, не сохраняет результаты и не обращается\n    к сети. JSON-успех не содержит текстовых пояснений.\n    \"\"\"\n    ..."
+        },
+        "src/acl_checker/cli/rendering.py": {
+          "units": [
+            "function render_text_report",
+            "function render_json_report"
+          ],
+          "units_to_features": {
+            "function render_text_report": [
+              "Командный интерфейс и публикация отчёта/human readable report/render empty relevance message",
+              "Командный интерфейс и публикация отчёта/human readable report/render text groups"
+            ],
+            "function render_json_report": [
+              "Командный интерфейс и публикация отчёта/structured report/render json report"
+            ]
+          },
+          "units_to_code": {
+            "function render_text_report": "import json\n\nfrom src.acl_checker.application.types import ReportGroups\n\n\ndef render_text_report(groups: ReportGroups) -> str:\n    \"\"\"Сформировать полный текстовый отчёт для публикации через main.\n\n    Args:\n        groups: Проверенные группы приложения в порядке первых уникальных\n            relevance-пар; правила и placements уже взяты из снимков.\n\n    Returns:\n        str: Отчёт с завершающим переводом строки. Для каждой группы:\n            'device / acl — status', затем 'placements: <JSON>', затем\n            по одной строке на правило со всеми исходными полями, включая\n            id, action и обе пары включительных границ портов.\n            Пустой список даёт ровно\n            'Нет релевантных ACL (synthetic source).\\n'.\n\n    NO_MATCH выводится явно и не создаёт implicit deny. Пустые placements\n    отображаются как [], без вывода об отсутствии реальных привязок.\n    Порядок групп и правил сохраняется, аргумент не изменяется.\n    Общий verdict, сетевой путь и live-состояние не вычисляются.\n    Функция не пишет в потоки; json.dumps используется для JSON-фрагментов.\n    \"\"\"\n    ...\n",
+            "function render_json_report": "import json\n\nfrom src.acl_checker.application.types import ReportGroups\n\n\ndef render_json_report(groups: ReportGroups) -> str:\n    \"\"\"Сериализовать успешный отчёт v1 для публикации через main.\n\n    Args:\n        groups: Проверенные группы приложения, включая полные исходные\n            правила, placements и статусы MATCHES либо NO_MATCH.\n\n    Returns:\n        str: Один JSON-документ с завершающим переводом строки и ровно\n            верхними полями version=1 и groups. Каждая группа содержит\n            ровно device, acl, placements, status, rules.\n            Пустой вход сериализуется с groups=[].\n\n    Сохраняет все исходные значения правил, порядок групп, placements\n    и правил. Не изменяет аргумент, не добавляет общий verdict, пояснения\n    или синтетические правила и не пишет в потоки. Вызывает json.dumps.\n    \"\"\"\n    ...\n"
+          },
+          "file_code": "import json\n\nfrom src.acl_checker.application.types import ReportGroups\n\n\ndef render_text_report(groups: ReportGroups) -> str:\n    \"\"\"Сформировать полный текстовый отчёт для публикации через main.\n\n    Args:\n        groups: Проверенные группы приложения в порядке первых уникальных\n            relevance-пар; правила и placements уже взяты из снимков.\n\n    Returns:\n        str: Отчёт с завершающим переводом строки. Для каждой группы:\n            'device / acl — status', затем 'placements: <JSON>', затем\n            по одной строке на правило со всеми исходными полями, включая\n            id, action и обе пары включительных границ портов.\n            Пустой список даёт ровно\n            'Нет релевантных ACL (synthetic source).\\n'.\n\n    NO_MATCH выводится явно и не создаёт implicit deny. Пустые placements\n    отображаются как [], без вывода об отсутствии реальных привязок.\n    Порядок групп и правил сохраняется, аргумент не изменяется.\n    Общий verdict, сетевой путь и live-состояние не вычисляются.\n    Функция не пишет в потоки; json.dumps используется для JSON-фрагментов.\n    \"\"\"\n    ...\n\nimport json\n\nfrom src.acl_checker.application.types import ReportGroups\n\n\ndef render_json_report(groups: ReportGroups) -> str:\n    \"\"\"Сериализовать успешный отчёт v1 для публикации через main.\n\n    Args:\n        groups: Проверенные группы приложения, включая полные исходные\n            правила, placements и статусы MATCHES либо NO_MATCH.\n\n    Returns:\n        str: Один JSON-документ с завершающим переводом строки и ровно\n            верхними полями version=1 и groups. Каждая группа содержит\n            ровно device, acl, placements, status, rules.\n            Пустой вход сериализуется с groups=[].\n\n    Сохраняет все исходные значения правил, порядок групп, placements\n    и правил. Не изменяет аргумент, не добавляет общий verdict, пояснения\n    или синтетические правила и не пишет в потоки. Вызывает json.dumps.\n    \"\"\"\n    ..."
+        }
+      }
+    },
+    "Проверка контрактов и ограничений": {
+      "files_order": [
+        "tests/test_application.py",
+        "tests/test_architecture.py",
+        "tests/test_cli_acceptance.py",
+        "tests/test_matching.py",
+        "tests/test_validation.py"
+      ],
+      "interfaces": {
+        "tests/test_application.py": {
+          "units": [
+            "function test_invocation_isolation",
+            "function test_interchangeable_providers",
+            "function test_atomic_request_failure",
+            "function test_application_input_immutability"
+          ],
+          "units_to_features": {
+            "function test_invocation_isolation": [
+              "Проверка контрактов и ограничений/execution confinement/verify invocation isolation"
+            ],
+            "function test_interchangeable_providers": [
+              "Проверка контрактов и ограничений/provider compatibility/verify interchangeable providers"
+            ],
+            "function test_atomic_request_failure": [
+              "Проверка контрактов и ограничений/request integrity/verify atomic request failure"
+            ],
+            "function test_application_input_immutability": [
+              "Проверка контрактов и ограничений/request integrity/verify input immutability"
+            ]
+          },
+          "units_to_code": {
+            "function test_invocation_isolation": "from checker.application.sources import create_relevance_provider, create_snapshot_provider\nfrom checker.domain.application.check import check\nfrom checker.domain.types import Flow\nfrom checker.application.types import DeviceAclPair, ReportGroups, Snapshot\n\n\ndef test_invocation_isolation() -> None:\n    \"\"\"Проверить независимость последовательно чередуемых запросов A/B/A.\n\n    Параметры отсутствуют; pytest получает None либо AssertionError.\n    Создаёт отдельные providers для фиксированных Flow, relevance и Snapshot,\n    в том числе одинаковых device/acl с различным evidence. Вызывает check\n    и сравнивает ReportGroups с независимыми ожиданиями: данные и отказы\n    одного запроса не влияют на другой, пустой relevance не читает снимки.\n    Повторный вызов A воспроизводит прежний результат без глобального кеша.\n    \"\"\"\n    ...",
+            "function test_interchangeable_providers": "from checker.application.sources import create_relevance_provider, create_snapshot_provider\nfrom checker.application.types import DeviceAclPair, RelevanceSource, ReportGroups, Snapshot, SnapshotSource\nfrom checker.domain.application.check import check\nfrom checker.domain.types import Flow\n\n\ndef test_interchangeable_providers() -> None:\n    \"\"\"Проверить check с фабричными источниками и независимыми spy-callables.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None.\n    Источники имеют сигнатуры relevance(str, str) -> list[DeviceAclPair]\n    и snapshot(str, str) -> Snapshot. Spy фиксирует последовательность\n    имён источников и пар аргументов. Ожидается один relevance-вызов с\n    source/destination и один snapshot-вызов на уникальную пару в порядке\n    первого появления; нерелевантные снимки не запрашиваются. Оба варианта\n    дают одинаковые заранее заданные ReportGroups: все совпадения после\n    первого, исходный порядок, отдельные ACL устройства, placements и NO_MATCH.\n    \"\"\"\n    ...",
+            "function test_atomic_request_failure": "import pytest\n\nfrom checker.application.types import ExpectedApplicationFailure, RelevanceSource, SnapshotSource\nfrom checker.domain.application.check import check\nfrom checker.domain.types import Flow\n\n\ndef test_atomic_request_failure() -> None:\n    \"\"\"Проверить отказ всего check при ожидаемой ошибке любого источника.\n\n    Параметры отсутствуют; pytest получает None. Подставляет relevance и\n    snapshot, поднимающие ExpectedApplicationFailure до и после успешного\n    получения предыдущих групп, включая отсутствие позднего снимка.\n    Проверяет propagation отказа, отсутствие возвращённого частичного\n    отчёта, NO_MATCH, повторных вызовов, fallback и дальнейших обращений.\n    Отдельно внедряет RuntimeError и требует его распространения без\n    маскировки под ожидаемый отказ. Несоответствие вызывает AssertionError.\n    \"\"\"\n    ...",
+            "function test_application_input_immutability": "from copy import deepcopy\n\nimport pytest\n\nfrom checker.application.types import ExpectedApplicationFailure, RelevanceSource, Snapshot, SnapshotSource\nfrom checker.domain.application.check import check\nfrom checker.domain.types import Flow\n\n\ndef test_application_input_immutability() -> None:\n    \"\"\"Проверить сохранность входных значений при успехе и ожидаемом отказе.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None.\n    Spy-источники возвращают исходные вложенные объекты, а не копии,\n    чтобы deepcopy-сравнение обнаруживало изменения flow, списка relevance,\n    пар, snapshots, placements, правил и обоих списков границ портов.\n    Проверяет успешный check и отказ после обработки предыдущего снимка.\n    Не требует identity либо глубокого копирования выходного отчёта:\n    контракт запрещает мутацию входа во время выполнения.\n    \"\"\"\n    ..."
+          },
+          "file_code": "from checker.application.sources import create_relevance_provider, create_snapshot_provider\nfrom checker.domain.application.check import check\nfrom checker.domain.types import Flow\nfrom checker.application.types import DeviceAclPair, ReportGroups, Snapshot\n\n\ndef test_invocation_isolation() -> None:\n    \"\"\"Проверить независимость последовательно чередуемых запросов A/B/A.\n\n    Параметры отсутствуют; pytest получает None либо AssertionError.\n    Создаёт отдельные providers для фиксированных Flow, relevance и Snapshot,\n    в том числе одинаковых device/acl с различным evidence. Вызывает check\n    и сравнивает ReportGroups с независимыми ожиданиями: данные и отказы\n    одного запроса не влияют на другой, пустой relevance не читает снимки.\n    Повторный вызов A воспроизводит прежний результат без глобального кеша.\n    \"\"\"\n    ...\n\nfrom checker.application.sources import create_relevance_provider, create_snapshot_provider\nfrom checker.application.types import DeviceAclPair, RelevanceSource, ReportGroups, Snapshot, SnapshotSource\nfrom checker.domain.application.check import check\nfrom checker.domain.types import Flow\n\n\ndef test_interchangeable_providers() -> None:\n    \"\"\"Проверить check с фабричными источниками и независимыми spy-callables.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None.\n    Источники имеют сигнатуры relevance(str, str) -> list[DeviceAclPair]\n    и snapshot(str, str) -> Snapshot. Spy фиксирует последовательность\n    имён источников и пар аргументов. Ожидается один relevance-вызов с\n    source/destination и один snapshot-вызов на уникальную пару в порядке\n    первого появления; нерелевантные снимки не запрашиваются. Оба варианта\n    дают одинаковые заранее заданные ReportGroups: все совпадения после\n    первого, исходный порядок, отдельные ACL устройства, placements и NO_MATCH.\n    \"\"\"\n    ...\n\nimport pytest\n\nfrom checker.application.types import ExpectedApplicationFailure, RelevanceSource, SnapshotSource\nfrom checker.domain.application.check import check\nfrom checker.domain.types import Flow\n\n\ndef test_atomic_request_failure() -> None:\n    \"\"\"Проверить отказ всего check при ожидаемой ошибке любого источника.\n\n    Параметры отсутствуют; pytest получает None. Подставляет relevance и\n    snapshot, поднимающие ExpectedApplicationFailure до и после успешного\n    получения предыдущих групп, включая отсутствие позднего снимка.\n    Проверяет propagation отказа, отсутствие возвращённого частичного\n    отчёта, NO_MATCH, повторных вызовов, fallback и дальнейших обращений.\n    Отдельно внедряет RuntimeError и требует его распространения без\n    маскировки под ожидаемый отказ. Несоответствие вызывает AssertionError.\n    \"\"\"\n    ...\n\nfrom copy import deepcopy\n\nimport pytest\n\nfrom checker.application.types import ExpectedApplicationFailure, RelevanceSource, Snapshot, SnapshotSource\nfrom checker.domain.application.check import check\nfrom checker.domain.types import Flow\n\n\ndef test_application_input_immutability() -> None:\n    \"\"\"Проверить сохранность входных значений при успехе и ожидаемом отказе.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None.\n    Spy-источники возвращают исходные вложенные объекты, а не копии,\n    чтобы deepcopy-сравнение обнаруживало изменения flow, списка relevance,\n    пар, snapshots, placements, правил и обоих списков границ портов.\n    Проверяет успешный check и отказ после обработки предыдущего снимка.\n    Не требует identity либо глубокого копирования выходного отчёта:\n    контракт запрещает мутацию входа во время выполнения.\n    \"\"\"\n    ..."
+        },
+        "tests/test_architecture.py": {
+          "units": [
+            "function test_functional_boundaries",
+            "function test_inward_imports",
+            "function test_bounded_runtime_scope",
+            "function test_exception_handling_scope"
+          ],
+          "units_to_features": {
+            "function test_functional_boundaries": [
+              "Проверка контрактов и ограничений/dependency integrity/check functional boundaries"
+            ],
+            "function test_inward_imports": [
+              "Проверка контрактов и ограничений/dependency integrity/check inward imports"
+            ],
+            "function test_bounded_runtime_scope": [
+              "Проверка контрактов и ограничений/execution confinement/check bounded runtime scope"
+            ],
+            "function test_exception_handling_scope": [
+              "Проверка контрактов и ограничений/failure containment/check exception handling scope"
+            ]
+          },
+          "units_to_code": {
+            "function test_functional_boundaries": "import ast\nfrom pathlib import Path\n\n\ndef test_functional_boundaries() -> None:\n    \"\"\"Проверить разделение matching, orchestration и внешних адаптеров.\n\n    Параметры отсутствуют; pytest вызывает тест напрямую. Возвращает None.\n    Читает PythonSourceText как str и анализирует ast.parse: matches остаётся\n    чистой операцией, check принимает flow и два узких callable, композиция,\n    parsing и serialization находятся снаружи. Проверяет реальное размещение\n    функций, включая вложенные каталоги, без требования конкретного алгоритма.\n    При нарушении контракта поднимает AssertionError; файлы не изменяет.\n    \"\"\"\n    ...",
+            "function test_inward_imports": "import ast\nfrom pathlib import Path\n\n\ndef test_inward_imports() -> None:\n    \"\"\"Проверить направленность прямых и транзитивных внутренних импортов.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None. Исходники\n    domain и application читаются как str и разбираются через ast.parse.\n    Проверяет абсолютные и относительные импорты, включая re-export пути:\n    внутреннее ядро не зависит от CLI, validation, concrete adapters, JSON,\n    filesystem, networking, Harness или CoderMind. Application использует\n    domain и собственные контракты источников. Динамический обход запрета\n    также считается нарушением; допустимые чистые библиотеки не запрещаются.\n    Несоответствие выражается AssertionError, а не изменением исходников.\n    \"\"\"\n    ...",
+            "function test_bounded_runtime_scope": "import ast\nfrom pathlib import Path\n\n\ndef test_bounded_runtime_scope() -> None:\n    \"\"\"Проверить статические ограничения runtime принятого прототипа.\n\n    Параметры отсутствуют; pytest получает None либо AssertionError.\n    Анализирует runtime-исходники, исключая тестовые subprocess и временные\n    файлы: нет сетевых вызовов, серверов, БД, workers, исполнения входных\n    значений, записи снимков или глобального изменяемого кеша. Источники\n    замыкают данные одного запроса, обработка синхронная. Проверка AST\n    дополняется динамическими integration и CLI тестами и не заявляется\n    доказательством отсутствия любого возможного побочного эффекта.\n    \"\"\"\n    ...",
+            "function test_exception_handling_scope": "import ast\nfrom pathlib import Path\n\n\ndef test_exception_handling_scope() -> None:\n    \"\"\"Проверить узкие границы перехвата ожидаемых отказов.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None.\n    Анализирует обработчики runtime: запрещены bare except и blanket\n    Exception/BaseException, включая алиасы, кортежи и подавляющие контексты.\n    Ожидаемые ошибки чтения, декодирования, JSON и проверки преобразуются\n    на соответствующей внешней границе; application не заменяет отказ\n    пустым результатом, NO_MATCH, retry или fallback. Нарушения вызывают\n    AssertionError; propagation programmer errors проверяется также динамически.\n    \"\"\"\n    ..."
+          },
+          "file_code": "import ast\nfrom pathlib import Path\n\n\ndef test_functional_boundaries() -> None:\n    \"\"\"Проверить разделение matching, orchestration и внешних адаптеров.\n\n    Параметры отсутствуют; pytest вызывает тест напрямую. Возвращает None.\n    Читает PythonSourceText как str и анализирует ast.parse: matches остаётся\n    чистой операцией, check принимает flow и два узких callable, композиция,\n    parsing и serialization находятся снаружи. Проверяет реальное размещение\n    функций, включая вложенные каталоги, без требования конкретного алгоритма.\n    При нарушении контракта поднимает AssertionError; файлы не изменяет.\n    \"\"\"\n    ...\n\nimport ast\nfrom pathlib import Path\n\n\ndef test_inward_imports() -> None:\n    \"\"\"Проверить направленность прямых и транзитивных внутренних импортов.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None. Исходники\n    domain и application читаются как str и разбираются через ast.parse.\n    Проверяет абсолютные и относительные импорты, включая re-export пути:\n    внутреннее ядро не зависит от CLI, validation, concrete adapters, JSON,\n    filesystem, networking, Harness или CoderMind. Application использует\n    domain и собственные контракты источников. Динамический обход запрета\n    также считается нарушением; допустимые чистые библиотеки не запрещаются.\n    Несоответствие выражается AssertionError, а не изменением исходников.\n    \"\"\"\n    ...\n\nimport ast\nfrom pathlib import Path\n\n\ndef test_bounded_runtime_scope() -> None:\n    \"\"\"Проверить статические ограничения runtime принятого прототипа.\n\n    Параметры отсутствуют; pytest получает None либо AssertionError.\n    Анализирует runtime-исходники, исключая тестовые subprocess и временные\n    файлы: нет сетевых вызовов, серверов, БД, workers, исполнения входных\n    значений, записи снимков или глобального изменяемого кеша. Источники\n    замыкают данные одного запроса, обработка синхронная. Проверка AST\n    дополняется динамическими integration и CLI тестами и не заявляется\n    доказательством отсутствия любого возможного побочного эффекта.\n    \"\"\"\n    ...\n\nimport ast\nfrom pathlib import Path\n\n\ndef test_exception_handling_scope() -> None:\n    \"\"\"Проверить узкие границы перехвата ожидаемых отказов.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None.\n    Анализирует обработчики runtime: запрещены bare except и blanket\n    Exception/BaseException, включая алиасы, кортежи и подавляющие контексты.\n    Ожидаемые ошибки чтения, декодирования, JSON и проверки преобразуются\n    на соответствующей внешней границе; application не заменяет отказ\n    пустым результатом, NO_MATCH, retry или fallback. Нарушения вызывают\n    AssertionError; propagation programmer errors проверяется также динамически.\n    \"\"\"\n    ..."
+        },
+        "tests/test_cli_acceptance.py": {
+          "units": [
+            "function run_isolated_cli",
+            "function test_cli_exit_behavior",
+            "function test_exact_evidence_groups",
+            "function test_evidence_interpretation_limits",
+            "function test_public_output_formats"
+          ],
+          "units_to_features": {
+            "function run_isolated_cli": [
+              "Проверка контрактов и ограничений/command acceptance/run isolated cli acceptance"
+            ],
+            "function test_cli_exit_behavior": [
+              "Проверка контрактов и ограничений/command acceptance/verify cli exit behavior"
+            ],
+            "function test_exact_evidence_groups": [
+              "Проверка контрактов и ограничений/matching correctness/verify exact evidence groups"
+            ],
+            "function test_evidence_interpretation_limits": [
+              "Проверка контрактов и ограничений/report guarantees/verify evidence interpretation limits"
+            ],
+            "function test_public_output_formats": [
+              "Проверка контрактов и ограничений/report guarantees/verify public output formats"
+            ]
+          },
+          "units_to_code": {
+            "function run_isolated_cli": "from collections.abc import Sequence\nfrom pathlib import Path\nimport subprocess\n\n\ndef run_isolated_cli(argv: Sequence[str], cwd: Path) -> subprocess.CompletedProcess[str]:\n    \"\"\"Запустить публичный CLI в отдельном локальном процессе для теста.\n\n    Args:\n        argv: Аргументы после 'python3 -m checker', включая явный --input\n            для обычного запуска; отрицательные тесты могут его опустить.\n        cwd: Рабочий каталог, позволяющий проверить публичный пакет checker\n            без Harness/CoderMind и неявных development bootstrap hooks.\n    Returns:\n        subprocess.CompletedProcess[str]: args, returncode, stdout и stderr;\n            ненулевой код возвращается как наблюдение, а не исключение.\n    Вызывается приёмочными тестами этого файла. Использует subprocess.run\n    с shell=False, capture_output, text, check=False, закрытым stdin и\n    конечным тестовым timeout без требования к продуктовой производительности.\n    Не импортирует matching, validation, check или rendering для вычисления oracle.\n    \"\"\"\n    ...",
+            "function test_cli_exit_behavior": "from pathlib import Path\nfrom tempfile import TemporaryDirectory\n\n\ndef test_cli_exit_behavior() -> None:\n    \"\"\"Проверить публичные коды завершения и разделение потоков CLI.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None.\n    Через run_isolated_cli проверяет успех и help: exit 0, пустой stderr;\n    help работает без --input и описывает публичную команду и scope.\n    Ошибки аргументов, формата, отсутствующий --input, файл, malformed JSON,\n    invalid shape, unsupported predicates и missing snapshot дают exit 2,\n    строго пустой stdout и 'Checker error: <непустая причина>' в stderr.\n    Покрывает отрицательные фиксированные сценарии, NaN/Infinity и поздний\n    отказ без частичного отчёта. '-' проверяется как путь, без stdin fallback.\n    Байты входных файлов сравниваются до и после запуска в обоих форматах.\n    \"\"\"\n    ...",
+            "function test_exact_evidence_groups": "import json\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\n\ndef test_exact_evidence_groups() -> None:\n    \"\"\"Выполнить все успешные pre-code сценарии через JSON CLI.\n\n    Параметры отсутствуют; pytest получает None либо AssertionError.\n    run_isolated_cli запускается отдельно для каждого фиксированного случая\n    из принятого сценарного контракта; production helpers не строят expected.\n    После json.loads сравниваются точные группы, первые уникальные пары,\n    статусы, полные исходные правила, IDs/actions, порядок и placements.\n    SC-ALL требует z-deny перед a-permit и две явные NO_MATCH группы;\n    покрываются UDP, обе адресные границы, несовпадения и портовые границы.\n    Дополнительные фиксированные случаи проверяют пустой relevance и пустые\n    placements. Нерелевантный снимок отсутствует в отчёте, совпадения после\n    первого сохранены. Исходные файлы остаются неизменными.\n    \"\"\"\n    ...",
+            "function test_evidence_interpretation_limits": "import json\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\n\ndef test_evidence_interpretation_limits() -> None:\n    \"\"\"Проверить допустимые выводы публичного отчёта и help.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None.\n    Запускает через run_isolated_cli text/json и help с фиксированными\n    смешанными permit/deny, NO_MATCH, пустыми placements и переставленным\n    relevance. Проверяет отсутствие общего verdict и выдуманных implicit\n    deny правил; порядок отражает предоставленные пары, а не найденный путь.\n    Help описывает synthetic saved evidence без обещаний live truth,\n    freshness/SLA или сетевых привязок. Текст не превращает NO_MATCH в deny\n    и пустые placements в утверждение об отсутствии реальных привязок.\n    JSON проверяется структурно, без запрета слова verdict внутри входных ID.\n    \"\"\"\n    ...",
+            "function test_public_output_formats": "import json\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\n\ndef test_public_output_formats() -> None:\n    \"\"\"Проверить точную публичную схему JSON и содержание text.\n\n    Параметры отсутствуют; pytest получает None либо AssertionError.\n    Через run_isolated_cli проверяет default text, явный text и json.\n    JSON содержит ровно version=1 и groups; каждая группа содержит ровно\n    device, acl, placements, status, rules. Проверяются типы, полные поля\n    правил и статусы MATCHES/NO_MATCH без matches/device_id/acl_id замен.\n    Text содержит 'device / acl — status', 'placements: <JSON>' и строки\n    со всеми полями каждого правила; default совпадает с явным text.\n    Для пустого relevance ожидается ровно\n    'Нет релевантных ACL (synthetic source).\\n', а JSON имеет пустой groups.\n    Успех означает exit 0 и пустой stderr; expected не берётся из rendering.\n    \"\"\"\n    ..."
+          },
+          "file_code": "from collections.abc import Sequence\nfrom pathlib import Path\nimport subprocess\n\n\ndef run_isolated_cli(argv: Sequence[str], cwd: Path) -> subprocess.CompletedProcess[str]:\n    \"\"\"Запустить публичный CLI в отдельном локальном процессе для теста.\n\n    Args:\n        argv: Аргументы после 'python3 -m checker', включая явный --input\n            для обычного запуска; отрицательные тесты могут его опустить.\n        cwd: Рабочий каталог, позволяющий проверить публичный пакет checker\n            без Harness/CoderMind и неявных development bootstrap hooks.\n    Returns:\n        subprocess.CompletedProcess[str]: args, returncode, stdout и stderr;\n            ненулевой код возвращается как наблюдение, а не исключение.\n    Вызывается приёмочными тестами этого файла. Использует subprocess.run\n    с shell=False, capture_output, text, check=False, закрытым stdin и\n    конечным тестовым timeout без требования к продуктовой производительности.\n    Не импортирует matching, validation, check или rendering для вычисления oracle.\n    \"\"\"\n    ...\n\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\n\ndef test_cli_exit_behavior() -> None:\n    \"\"\"Проверить публичные коды завершения и разделение потоков CLI.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None.\n    Через run_isolated_cli проверяет успех и help: exit 0, пустой stderr;\n    help работает без --input и описывает публичную команду и scope.\n    Ошибки аргументов, формата, отсутствующий --input, файл, malformed JSON,\n    invalid shape, unsupported predicates и missing snapshot дают exit 2,\n    строго пустой stdout и 'Checker error: <непустая причина>' в stderr.\n    Покрывает отрицательные фиксированные сценарии, NaN/Infinity и поздний\n    отказ без частичного отчёта. '-' проверяется как путь, без stdin fallback.\n    Байты входных файлов сравниваются до и после запуска в обоих форматах.\n    \"\"\"\n    ...\n\nimport json\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\n\ndef test_exact_evidence_groups() -> None:\n    \"\"\"Выполнить все успешные pre-code сценарии через JSON CLI.\n\n    Параметры отсутствуют; pytest получает None либо AssertionError.\n    run_isolated_cli запускается отдельно для каждого фиксированного случая\n    из принятого сценарного контракта; production helpers не строят expected.\n    После json.loads сравниваются точные группы, первые уникальные пары,\n    статусы, полные исходные правила, IDs/actions, порядок и placements.\n    SC-ALL требует z-deny перед a-permit и две явные NO_MATCH группы;\n    покрываются UDP, обе адресные границы, несовпадения и портовые границы.\n    Дополнительные фиксированные случаи проверяют пустой relevance и пустые\n    placements. Нерелевантный снимок отсутствует в отчёте, совпадения после\n    первого сохранены. Исходные файлы остаются неизменными.\n    \"\"\"\n    ...\n\nimport json\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\n\ndef test_evidence_interpretation_limits() -> None:\n    \"\"\"Проверить допустимые выводы публичного отчёта и help.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None.\n    Запускает через run_isolated_cli text/json и help с фиксированными\n    смешанными permit/deny, NO_MATCH, пустыми placements и переставленным\n    relevance. Проверяет отсутствие общего verdict и выдуманных implicit\n    deny правил; порядок отражает предоставленные пары, а не найденный путь.\n    Help описывает synthetic saved evidence без обещаний live truth,\n    freshness/SLA или сетевых привязок. Текст не превращает NO_MATCH в deny\n    и пустые placements в утверждение об отсутствии реальных привязок.\n    JSON проверяется структурно, без запрета слова verdict внутри входных ID.\n    \"\"\"\n    ...\n\nimport json\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\n\ndef test_public_output_formats() -> None:\n    \"\"\"Проверить точную публичную схему JSON и содержание text.\n\n    Параметры отсутствуют; pytest получает None либо AssertionError.\n    Через run_isolated_cli проверяет default text, явный text и json.\n    JSON содержит ровно version=1 и groups; каждая группа содержит ровно\n    device, acl, placements, status, rules. Проверяются типы, полные поля\n    правил и статусы MATCHES/NO_MATCH без matches/device_id/acl_id замен.\n    Text содержит 'device / acl — status', 'placements: <JSON>' и строки\n    со всеми полями каждого правила; default совпадает с явным text.\n    Для пустого relevance ожидается ровно\n    'Нет релевантных ACL (synthetic source).\\n', а JSON имеет пустой groups.\n    Успех означает exit 0 и пустой stderr; expected не берётся из rendering.\n    \"\"\"\n    ..."
+        },
+        "tests/test_matching.py": {
+          "units": [
+            "function test_predicate_boundaries"
+          ],
+          "units_to_features": {
+            "function test_predicate_boundaries": [
+              "Проверка контрактов и ограничений/matching correctness/verify predicate boundaries"
+            ]
+          },
+          "units_to_code": {
+            "function test_predicate_boundaries": "from copy import deepcopy\n\nfrom checker.domain.matching import matches\nfrom checker.domain.types import Flow, OriginalRule\n\n\ndef test_predicate_boundaries() -> None:\n    \"\"\"Проверить matches по независимой фиксированной таблице Flow/OriginalRule.\n\n    Параметры отсутствуют; pytest вызывает тест, результат None.\n    Для каждого проверенного входа сравнивает bool с заранее заданным\n    ожиданием и аргументы с deepcopy. Покрывает оба адреса, host и /32,\n    /0, крайние адреса CIDR, tcp/udp/any, конъюнкцию всех пяти условий,\n    обе включительные границы каждого диапазона, соседние значения,\n    равные границы и порты 0/65535. Проверяет независимость от id/action.\n    Невалидные значения проверяются отдельно внешним валидатором;\n    expected не вычисляется через matches или production helpers.\n    Несовпадение либо мутация вызывает AssertionError.\n    \"\"\"\n    ..."
+          },
+          "file_code": "from copy import deepcopy\n\nfrom checker.domain.matching import matches\nfrom checker.domain.types import Flow, OriginalRule\n\n\ndef test_predicate_boundaries() -> None:\n    \"\"\"Проверить matches по независимой фиксированной таблице Flow/OriginalRule.\n\n    Параметры отсутствуют; pytest вызывает тест, результат None.\n    Для каждого проверенного входа сравнивает bool с заранее заданным\n    ожиданием и аргументы с deepcopy. Покрывает оба адреса, host и /32,\n    /0, крайние адреса CIDR, tcp/udp/any, конъюнкцию всех пяти условий,\n    обе включительные границы каждого диапазона, соседние значения,\n    равные границы и порты 0/65535. Проверяет независимость от id/action.\n    Невалидные значения проверяются отдельно внешним валидатором;\n    expected не вычисляется через matches или production helpers.\n    Несовпадение либо мутация вызывает AssertionError.\n    \"\"\"\n    ..."
+        },
+        "tests/test_validation.py": {
+          "units": [
+            "function test_request_validation"
+          ],
+          "units_to_features": {
+            "function test_request_validation": [
+              "Проверка контрактов и ограничений/request integrity/verify invalid request rejection"
+            ]
+          },
+          "units_to_code": {
+            "function test_request_validation": "from copy import deepcopy\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\nimport pytest\n\nfrom checker.input.document import load_request_document\nfrom checker.input.types import ExpectedInputFailure, ValidatedInvocation\nfrom checker.input.validation import validate_document\n\n\ndef test_request_validation() -> None:\n    \"\"\"Проверить принятие корректного v1 и полный отказ некорректных документов.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None. Использует\n    фиксированные JSON-значения типа object и временные UTF-8 файлы.\n    Корректный документ даёт ValidatedInvocation с вызываемыми источниками.\n    ExpectedInputFailure требуется для неверных типов, обязательных и лишних\n    полей на всех уровнях, bool вместо version/портов, IPv6, неканонических\n    CIDR, неизвестных протоколов/actions, scalar/неупорядоченных/непарных\n    диапазонов, неверных placements, повторных пар снимков и ID внутри ACL.\n    Покрывает relevance_records, отсутствие требуемого снимка, повреждённый\n    нерелевантный снимок, malformed JSON, NaN/Infinity, неверный UTF-8 и\n    ошибки чтения. Проверяет оба обязательных порта и границы 0..65535.\n    Исходные объекты и байты фиксированных файлов должны остаться прежними;\n    отказы не дают частичного ValidatedInvocation и содержат понятную reason.\n    \"\"\"\n    ..."
+          },
+          "file_code": "from copy import deepcopy\nfrom pathlib import Path\nfrom tempfile import TemporaryDirectory\n\nimport pytest\n\nfrom checker.input.document import load_request_document\nfrom checker.input.types import ExpectedInputFailure, ValidatedInvocation\nfrom checker.input.validation import validate_document\n\n\ndef test_request_validation() -> None:\n    \"\"\"Проверить принятие корректного v1 и полный отказ некорректных документов.\n\n    Параметры отсутствуют; вызывается pytest, возвращает None. Использует\n    фиксированные JSON-значения типа object и временные UTF-8 файлы.\n    Корректный документ даёт ValidatedInvocation с вызываемыми источниками.\n    ExpectedInputFailure требуется для неверных типов, обязательных и лишних\n    полей на всех уровнях, bool вместо version/портов, IPv6, неканонических\n    CIDR, неизвестных протоколов/actions, scalar/неупорядоченных/непарных\n    диапазонов, неверных placements, повторных пар снимков и ID внутри ACL.\n    Покрывает relevance_records, отсутствие требуемого снимка, повреждённый\n    нерелевантный снимок, malformed JSON, NaN/Infinity, неверный UTF-8 и\n    ошибки чтения. Проверяет оба обязательных порта и границы 0..65535.\n    Исходные объекты и байты фиксированных файлов должны остаться прежними;\n    отказы не дают частичного ValidatedInvocation и содержат понятную reason.\n    \"\"\"\n    ..."
+        }
+      }
+    }
+  },
+  "subtree_order": [
+    "Приём и валидация запроса",
+    "Исследование совпадений ACL",
+    "Отбор и получение снимков ACL",
+    "Командный интерфейс и публикация отчёта",
+    "Проверка контрактов и ограничений"
+  ],
+  "implemented_subtrees": {
+    "Приём и валидация запроса": [
+      "src/acl_checker/input/document.py",
+      "src/acl_checker/input/validation.py"
+    ],
+    "Исследование совпадений ACL": [
+      "src/acl_checker/domain/application/check.py",
+      "src/acl_checker/domain/matching.py"
+    ],
+    "Отбор и получение снимков ACL": [
+      "src/acl_checker/application/evidence.py",
+      "src/acl_checker/application/sources.py"
+    ],
+    "Командный интерфейс и публикация отчёта": [
+      "checker/__main__.py",
+      "src/acl_checker/cli/main.py",
+      "src/acl_checker/cli/rendering.py"
+    ],
+    "Проверка контрактов и ограничений": [
+      "tests/test_application.py",
+      "tests/test_architecture.py",
+      "tests/test_cli_acceptance.py",
+      "tests/test_matching.py",
+      "tests/test_validation.py"
+    ]
+  },
+  "coverage": {
+    "expected_files": 13,
+    "successful_files": 13,
+    "expected_features": 50,
+    "covered_features": 50,
+    "missing_features": 0,
+    "failed_files": [],
+    "missing_subtrees": [],
+    "issues": []
+  },
+  "success": true,
+  "enhanced_data_flow": {
+    "original_edges": [
+      {
+        "source": "Приём и валидация запроса",
+        "target": "Исследование совпадений ACL",
+        "data_id": "validated_matching_values",
+        "data_type": "MatchingValues{flow:{source:IPv4,destination:IPv4,protocol:tcp|udp,source_port:Port,destination_port:Port},rule:{id,source:IPv4HostOrCanonicalCIDR,destination:IPv4HostOrCanonicalCIDR,protocol:tcp|udp|any,source_ports:[Port,Port],destination_ports:[Port,Port],action:permit|deny}}",
+        "transformation": "Внешний адаптер проверяет значения, обязательность полей и отсутствие неизвестных полей; Port — целое 0..65535, исключая bool, а диапазоны имеют две включительные упорядоченные границы. Application передаёт проверенные flow и rule в чистую matches(flow, rule), сохраняя исходные объекты правил."
+      },
+      {
+        "source": "Приём и валидация запроса",
+        "target": "Отбор и получение снимков ACL",
+        "data_id": "validated_invocation_and_sources",
+        "data_type": "ValidatedInvocation{flow:Flow,relevance:(IPv4,IPv4)->List<DeviceAclPair>,snapshot:(device,acl)->Snapshot}",
+        "transformation": "JSON версии 1 содержит flow, relevance и snapshots; все предоставленные снимки валидируются до обработки. Внешняя композиция передаёт check(flow, relevance, snapshot) узкие функции, замыкающие данные одного запуска; placements берутся из снимков, дополнительные relevance_records не поддерживаются."
+      },
+      {
+        "source": "Исследование совпадений ACL",
+        "target": "Отбор и получение снимков ACL",
+        "data_id": "rule_match_boolean",
+        "data_type": "bool",
+        "transformation": "matches возвращает конъюнкцию принадлежности обоих IPv4 адресов предикатам правила, совпадения протокола либо any и вхождения обоих портов во включительные диапазоны. Application проверяет каждое правило в порядке снимка без остановки на первом совпадении; action не влияет на предикат."
+      },
+      {
+        "source": "Отбор и получение снимков ACL",
+        "target": "Командный интерфейс и публикация отчёта",
+        "data_id": "ordered_report_groups",
+        "data_type": "List<ReportGroup{device,acl,placements,status:MATCHES|NO_MATCH,rules:List<OriginalRule>}>",
+        "transformation": "Application удаляет повторные relevance-пары с сохранением первого появления и формирует группы только для релевантных снимков, сохраняя placements и полные совпавшие правила в порядке снимка. CLI публикует ровно {version:1,groups:[...]} в JSON либо согласованный текст, без общего verdict, implicit deny или интерпретации порядка как сетевого пути."
+      },
+      {
+        "source": "Приём и валидация запроса",
+        "target": "Командный интерфейс и публикация отчёта",
+        "data_id": "input_boundary_failure",
+        "data_type": "ExpectedInputFailure{reason:string}",
+        "transformation": "Ошибка чтения, некорректный JSON, неподдерживаемая версия, неверная форма или неподдерживаемый предикат отклоняют весь запрос. CLI завершает процесс с кодом 2, пустым stdout и диагностикой stderr вида 'Checker error: <reason>'."
+      },
+      {
+        "source": "Отбор и получение снимков ACL",
+        "target": "Командный интерфейс и публикация отчёта",
+        "data_id": "missing_snapshot_failure",
+        "data_type": "ExpectedApplicationFailure{reason:string}",
+        "transformation": "Отсутствие снимка для релевантной пары прерывает запрос без успешного частичного отчёта и без подмены ошибки статусом NO_MATCH. CLI выдаёт код 2, пустой stdout и 'Checker error: <reason>' в stderr; ошибки программиста не подавляются blanket except Exception."
+      },
+      {
+        "source": "Командный интерфейс и публикация отчёта",
+        "target": "Проверка контрактов и ограничений",
+        "data_id": "public_process_observation",
+        "data_type": "ProcessObservation{argv:List<string>,exit_code:integer,stdout:string,stderr:string}",
+        "transformation": "Изолированные приёмочные запуски вызывают python3 -m checker --input PATH с text и json, сопоставляя наблюдения с независимыми фиксированными ожиданиями. Проверяются точная публичная схема, группы, статусы, полные правила, placements, отсутствие verdict и поведение ошибок."
+      },
+      {
+        "source": "Исследование совпадений ACL",
+        "target": "Проверка контрактов и ограничений",
+        "data_id": "matching_contract_observation",
+        "data_type": "MatchingObservation{actual:boolean,input_unchanged:boolean}",
+        "transformation": "Тесты сопоставляют результаты чистой matches с заранее заданными ожиданиями для адресов, протоколов и границ обоих диапазонов портов. Дополнительно проверяется отсутствие изменения переданных значений."
+      },
+      {
+        "source": "Отбор и получение снимков ACL",
+        "target": "Проверка контрактов и ограничений",
+        "data_id": "application_contract_observation",
+        "data_type": "ApplicationObservation{outcome:ReportGroupsOrExpectedFailure,source_calls:List<SourceCall>,inputs_unchanged:boolean}",
+        "transformation": "Интеграционные тесты подставляют relevance и snapshot callables и проверяют их аргументы, дедупликацию пар, порядок групп и правил, все совпадения и явные NO_MATCH. Отдельно проверяются отказ при отсутствующем снимке и неизменность исходных данных."
+      },
+      {
+        "source": "Приём и валидация запроса",
+        "target": "Проверка контрактов и ограничений",
+        "data_id": "validation_contract_observation",
+        "data_type": "ValidationObservation{outcome:ValidatedInvocationOrExpectedFailure,fixtures_unchanged:boolean}",
+        "transformation": "Тесты проверяют принятие корректного JSON и отклонение неизвестных полей, bool вместо портов, неверных CIDR, диапазонов и placements, включая ошибки в нерелевантных снимках. Ожидания остаются независимыми от реализации, фикстуры не изменяются."
+      },
+      {
+        "source": "Исследование совпадений ACL",
+        "target": "Проверка контрактов и ограничений",
+        "data_id": "domain_source_for_architecture_check",
+        "data_type": "PythonSourceText",
+        "transformation": "Тесты читают исходный код domain и анализируют AST и импорты. Проверяется отсутствие зависимостей от CLI, внешних адаптеров, JSON, файлового и сетевого инструментария."
+      },
+      {
+        "source": "Отбор и получение снимков ACL",
+        "target": "Проверка контрактов и ограничений",
+        "data_id": "application_source_for_architecture_check",
+        "data_type": "PythonSourceText",
+        "transformation": "Тесты анализируют AST и импорты application на соответствие направленным внутрь зависимостям и собственным контрактам источников. Проверки остаются вне рабочего выполнения и не передают результаты обратно компонентам."
+      }
+    ],
+    "inheritance_edges": [],
+    "invocation_edges": [
+      {
+        "caller": "function build_evidence_group",
+        "callee": "function collect_matching_evidence",
+        "caller_file": "src/acl_checker/domain/application/check.py",
+        "callee_file": "src/acl_checker/domain/application/check.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function build_evidence_group",
+        "callee": "function determine_evidence_status",
+        "caller_file": "src/acl_checker/domain/application/check.py",
+        "callee_file": "src/acl_checker/domain/application/check.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function check",
+        "callee": "relevance",
+        "caller_file": "src/acl_checker/domain/application/check.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function check",
+        "callee": "snapshot",
+        "caller_file": "src/acl_checker/domain/application/check.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function check",
+        "callee": "function build_evidence_group",
+        "caller_file": "src/acl_checker/domain/application/check.py",
+        "callee_file": "src/acl_checker/domain/application/check.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function retrieve_relevant_pairs",
+        "callee": "relevance",
+        "caller_file": "src/acl_checker/application/evidence.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function retrieve_required_snapshot",
+        "callee": "snapshot",
+        "caller_file": "src/acl_checker/application/evidence.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function create_snapshot_provider",
+        "callee": "ExpectedApplicationFailure",
+        "caller_file": "src/acl_checker/application/sources.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function parse_invocation",
+        "callee": "ArgumentParser",
+        "caller_file": "src/acl_checker/cli/main.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function parse_invocation",
+        "callee": "Path",
+        "caller_file": "src/acl_checker/cli/main.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function parse_invocation",
+        "callee": "CliOptions",
+        "caller_file": "src/acl_checker/cli/main.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function parse_invocation",
+        "callee": "ExpectedInputFailure",
+        "caller_file": "src/acl_checker/cli/main.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function main",
+        "callee": "function parse_invocation",
+        "caller_file": "src/acl_checker/cli/main.py",
+        "callee_file": "src/acl_checker/cli/main.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function main",
+        "callee": "function load_request_document",
+        "caller_file": "src/acl_checker/cli/main.py",
+        "callee_file": "src/acl_checker/input/document.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function main",
+        "callee": "function check",
+        "caller_file": "src/acl_checker/cli/main.py",
+        "callee_file": "src/acl_checker/domain/application/check.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function main",
+        "callee": "function render_text_report",
+        "caller_file": "src/acl_checker/cli/main.py",
+        "callee_file": "src/acl_checker/cli/rendering.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function main",
+        "callee": "function render_json_report",
+        "caller_file": "src/acl_checker/cli/main.py",
+        "callee_file": "src/acl_checker/cli/rendering.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_predicate_boundaries",
+        "callee": "function matches",
+        "caller_file": "tests/test_matching.py",
+        "callee_file": "src/acl_checker/domain/matching.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_predicate_boundaries",
+        "callee": "deepcopy",
+        "caller_file": "tests/test_matching.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_request_validation",
+        "callee": "function validate_document",
+        "caller_file": "tests/test_validation.py",
+        "callee_file": "src/acl_checker/input/validation.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_request_validation",
+        "callee": "function load_request_document",
+        "caller_file": "tests/test_validation.py",
+        "callee_file": "src/acl_checker/input/document.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_request_validation",
+        "callee": "deepcopy",
+        "caller_file": "tests/test_validation.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_request_validation",
+        "callee": "TemporaryDirectory",
+        "caller_file": "tests/test_validation.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_invocation_isolation",
+        "callee": "function create_relevance_provider",
+        "caller_file": "tests/test_application.py",
+        "callee_file": "src/acl_checker/application/sources.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_invocation_isolation",
+        "callee": "function create_snapshot_provider",
+        "caller_file": "tests/test_application.py",
+        "callee_file": "src/acl_checker/application/sources.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_invocation_isolation",
+        "callee": "function check",
+        "caller_file": "tests/test_application.py",
+        "callee_file": "src/acl_checker/domain/application/check.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_interchangeable_providers",
+        "callee": "function create_relevance_provider",
+        "caller_file": "tests/test_application.py",
+        "callee_file": "src/acl_checker/application/sources.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_interchangeable_providers",
+        "callee": "function create_snapshot_provider",
+        "caller_file": "tests/test_application.py",
+        "callee_file": "src/acl_checker/application/sources.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_interchangeable_providers",
+        "callee": "function check",
+        "caller_file": "tests/test_application.py",
+        "callee_file": "src/acl_checker/domain/application/check.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_atomic_request_failure",
+        "callee": "function check",
+        "caller_file": "tests/test_application.py",
+        "callee_file": "src/acl_checker/domain/application/check.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_application_input_immutability",
+        "callee": "function check",
+        "caller_file": "tests/test_application.py",
+        "callee_file": "src/acl_checker/domain/application/check.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_application_input_immutability",
+        "callee": "deepcopy",
+        "caller_file": "tests/test_application.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_cli_exit_behavior",
+        "callee": "function run_isolated_cli",
+        "caller_file": "tests/test_cli_acceptance.py",
+        "callee_file": "tests/test_cli_acceptance.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_cli_exit_behavior",
+        "callee": "TemporaryDirectory",
+        "caller_file": "tests/test_cli_acceptance.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_exact_evidence_groups",
+        "callee": "function run_isolated_cli",
+        "caller_file": "tests/test_cli_acceptance.py",
+        "callee_file": "tests/test_cli_acceptance.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_exact_evidence_groups",
+        "callee": "TemporaryDirectory",
+        "caller_file": "tests/test_cli_acceptance.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_evidence_interpretation_limits",
+        "callee": "function run_isolated_cli",
+        "caller_file": "tests/test_cli_acceptance.py",
+        "callee_file": "tests/test_cli_acceptance.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_evidence_interpretation_limits",
+        "callee": "TemporaryDirectory",
+        "caller_file": "tests/test_cli_acceptance.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_public_output_formats",
+        "callee": "function run_isolated_cli",
+        "caller_file": "tests/test_cli_acceptance.py",
+        "callee_file": "tests/test_cli_acceptance.py",
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function test_public_output_formats",
+        "callee": "TemporaryDirectory",
+        "caller_file": "tests/test_cli_acceptance.py",
+        "callee_file": null,
+        "edge_type": "invokes",
+        "generator": "design_interfaces"
+      },
+      {
+        "caller": "function load_request_document",
+        "callee": "function validate_document",
+        "caller_file": "src/acl_checker/input/document.py",
+        "callee_file": "src/acl_checker/input/validation.py",
+        "edge_type": "invokes",
+        "generator": "global_review"
+      },
+      {
+        "caller": "function validate_document",
+        "callee": "function create_relevance_provider",
+        "caller_file": "src/acl_checker/input/validation.py",
+        "callee_file": "src/acl_checker/application/sources.py",
+        "edge_type": "invokes",
+        "generator": "global_review"
+      },
+      {
+        "caller": "function validate_document",
+        "callee": "function create_snapshot_provider",
+        "caller_file": "src/acl_checker/input/validation.py",
+        "callee_file": "src/acl_checker/application/sources.py",
+        "edge_type": "invokes",
+        "generator": "global_review"
+      },
+      {
+        "caller": "function check",
+        "callee": "function retrieve_relevant_pairs",
+        "caller_file": "src/acl_checker/domain/application/check.py",
+        "callee_file": "src/acl_checker/application/evidence.py",
+        "edge_type": "invokes",
+        "generator": "global_review"
+      },
+      {
+        "caller": "function check",
+        "callee": "function retrieve_required_snapshot",
+        "caller_file": "src/acl_checker/domain/application/check.py",
+        "callee_file": "src/acl_checker/application/evidence.py",
+        "edge_type": "invokes",
+        "generator": "global_review"
+      },
+      {
+        "caller": "function collect_matching_evidence",
+        "callee": "function matches",
+        "caller_file": "src/acl_checker/domain/application/check.py",
+        "callee_file": "src/acl_checker/domain/matching.py",
+        "edge_type": "invokes",
+        "generator": "global_review"
+      },
+      {
+        "caller": "module checker.__main__",
+        "callee": "function main",
+        "caller_file": "checker/__main__.py",
+        "callee_file": "src/acl_checker/cli/main.py",
+        "edge_type": "invokes",
+        "generator": "global_review"
+      }
+    ],
+    "reference_edges": [
+      {
+        "unit": "function load_request_document",
+        "referenced_type": "ValidatedInvocation",
+        "source_file": "src/acl_checker/input/document.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function load_request_document",
+        "referenced_type": "ExpectedInputFailure",
+        "source_file": "src/acl_checker/input/document.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function matches",
+        "referenced_type": "Flow",
+        "source_file": "src/acl_checker/domain/matching.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function matches",
+        "referenced_type": "OriginalRule",
+        "source_file": "src/acl_checker/domain/matching.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function matches",
+        "referenced_type": "bool",
+        "source_file": "src/acl_checker/domain/matching.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function collect_matching_evidence",
+        "referenced_type": "Flow",
+        "source_file": "src/acl_checker/domain/application/check.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function collect_matching_evidence",
+        "referenced_type": "OriginalRule",
+        "source_file": "src/acl_checker/domain/application/check.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function determine_evidence_status",
+        "referenced_type": "OriginalRule",
+        "source_file": "src/acl_checker/domain/application/check.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function build_evidence_group",
+        "referenced_type": "Flow",
+        "source_file": "src/acl_checker/domain/application/check.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function build_evidence_group",
+        "referenced_type": "Snapshot",
+        "source_file": "src/acl_checker/domain/application/check.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function build_evidence_group",
+        "referenced_type": "ReportGroup",
+        "source_file": "src/acl_checker/domain/application/check.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function check",
+        "referenced_type": "Flow",
+        "source_file": "src/acl_checker/domain/application/check.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function check",
+        "referenced_type": "ExpectedApplicationFailure",
+        "source_file": "src/acl_checker/domain/application/check.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function check",
+        "referenced_type": "DeviceAclPair",
+        "source_file": "src/acl_checker/domain/application/check.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function check",
+        "referenced_type": "Snapshot",
+        "source_file": "src/acl_checker/domain/application/check.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function retrieve_relevant_pairs",
+        "referenced_type": "Flow",
+        "source_file": "src/acl_checker/application/evidence.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function retrieve_relevant_pairs",
+        "referenced_type": "DeviceAclPair",
+        "source_file": "src/acl_checker/application/evidence.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function retrieve_required_snapshot",
+        "referenced_type": "DeviceAclPair",
+        "source_file": "src/acl_checker/application/evidence.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function retrieve_required_snapshot",
+        "referenced_type": "Snapshot",
+        "source_file": "src/acl_checker/application/evidence.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function retrieve_required_snapshot",
+        "referenced_type": "ExpectedApplicationFailure",
+        "source_file": "src/acl_checker/application/evidence.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function create_relevance_provider",
+        "referenced_type": "DeviceAclPair",
+        "source_file": "src/acl_checker/application/sources.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function create_snapshot_provider",
+        "referenced_type": "Snapshot",
+        "source_file": "src/acl_checker/application/sources.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function create_snapshot_provider",
+        "referenced_type": "ExpectedApplicationFailure",
+        "source_file": "src/acl_checker/application/sources.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function parse_invocation",
+        "referenced_type": "ExpectedInputFailure",
+        "source_file": "src/acl_checker/cli/main.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function main",
+        "referenced_type": "ValidatedInvocation",
+        "source_file": "src/acl_checker/cli/main.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function main",
+        "referenced_type": "ExpectedInputFailure",
+        "source_file": "src/acl_checker/cli/main.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function main",
+        "referenced_type": "ExpectedApplicationFailure",
+        "source_file": "src/acl_checker/cli/main.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_predicate_boundaries",
+        "referenced_type": "Flow",
+        "source_file": "tests/test_matching.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_predicate_boundaries",
+        "referenced_type": "OriginalRule",
+        "source_file": "tests/test_matching.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_predicate_boundaries",
+        "referenced_type": "bool",
+        "source_file": "tests/test_matching.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_request_validation",
+        "referenced_type": "ValidatedInvocation",
+        "source_file": "tests/test_validation.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_request_validation",
+        "referenced_type": "ExpectedInputFailure",
+        "source_file": "tests/test_validation.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_invocation_isolation",
+        "referenced_type": "Flow",
+        "source_file": "tests/test_application.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_invocation_isolation",
+        "referenced_type": "DeviceAclPair",
+        "source_file": "tests/test_application.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_invocation_isolation",
+        "referenced_type": "Snapshot",
+        "source_file": "tests/test_application.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_interchangeable_providers",
+        "referenced_type": "Flow",
+        "source_file": "tests/test_application.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_interchangeable_providers",
+        "referenced_type": "DeviceAclPair",
+        "source_file": "tests/test_application.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_interchangeable_providers",
+        "referenced_type": "Snapshot",
+        "source_file": "tests/test_application.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_atomic_request_failure",
+        "referenced_type": "Flow",
+        "source_file": "tests/test_application.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_atomic_request_failure",
+        "referenced_type": "ExpectedApplicationFailure",
+        "source_file": "tests/test_application.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_application_input_immutability",
+        "referenced_type": "Flow",
+        "source_file": "tests/test_application.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_application_input_immutability",
+        "referenced_type": "Snapshot",
+        "source_file": "tests/test_application.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      },
+      {
+        "unit": "function test_application_input_immutability",
+        "referenced_type": "ExpectedApplicationFailure",
+        "source_file": "tests/test_application.py",
+        "type_file": null,
+        "edge_type": "references",
+        "generator": "design_interfaces"
+      }
+    ]
+  },
+  "global_review": {
+    "entry_points": [
+      {
+        "file_path": "checker/__main__.py",
+        "unit_name": "function main",
+        "rationale": "Точка запуска публичной команды python3 -m checker."
+      },
+      {
+        "file_path": "src/acl_checker/cli/main.py",
+        "unit_name": "function main",
+        "rationale": "Внешне вызываемая точка композиции CLI с внедряемыми аргументами и потоками."
+      },
+      {
+        "file_path": "tests/test_architecture.py",
+        "unit_name": "function test_functional_boundaries",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_architecture.py",
+        "unit_name": "function test_inward_imports",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_architecture.py",
+        "unit_name": "function test_bounded_runtime_scope",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_architecture.py",
+        "unit_name": "function test_exception_handling_scope",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_matching.py",
+        "unit_name": "function test_predicate_boundaries",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_validation.py",
+        "unit_name": "function test_request_validation",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_application.py",
+        "unit_name": "function test_invocation_isolation",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_application.py",
+        "unit_name": "function test_interchangeable_providers",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_application.py",
+        "unit_name": "function test_atomic_request_failure",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_application.py",
+        "unit_name": "function test_application_input_immutability",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_cli_acceptance.py",
+        "unit_name": "function test_cli_exit_behavior",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_cli_acceptance.py",
+        "unit_name": "function test_exact_evidence_groups",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_cli_acceptance.py",
+        "unit_name": "function test_evidence_interpretation_limits",
+        "rationale": "Автоматически вызывается pytest."
+      },
+      {
+        "file_path": "tests/test_cli_acceptance.py",
+        "unit_name": "function test_public_output_formats",
+        "rationale": "Автоматически вызывается pytest."
+      }
+    ],
+    "feature_orphans_count": 0,
+    "orphan_units_count": 0,
+    "unapplied_fixes_count": 2,
+    "advisory_fixes_count": 2,
+    "blocking_unapplied_fixes_count": 0,
+    "unapplied_fixes": [
+      {
+        "action": "modify_interface",
+        "file_path": "src/acl_checker/domain/application/check.py",
+        "unit_name": "function check",
+        "description": "Привести размещение use case к принятой границе application, согласовать импорты продукта и тестов с публичным пакетом checker и обновить производный DAG. Сохранить единственные определения общих типо",
+        "reason": "modify_interface has no auto-handler",
+        "iteration": 1
+      },
+      {
+        "action": "modify_interface",
+        "file_path": "src/acl_checker/cli/main.py",
+        "unit_name": "function main",
+        "description": "Согласовать единое пространство имён производственных интерфейсов и тестов: обеспечить доступность checker.* с единственной идентичностью типов и исключений. Сохранить публичный запуск python3 -m chec",
+        "reason": "modify_interface has no auto-handler",
+        "iteration": 3
+      }
+    ],
+    "iterations_run": 3,
+    "passed": true,
+    "unresolved_orphan_units": [],
+    "unresolved_orphan_features": []
+  },
+  "import_warnings_count": 2
+}

@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "kind": "harness-semantic-closure-evaluation",
+  "target": "CHECKER-CODEGEN-INPUT",
+  "status": "COMPLETE",
+  "structural_status": "COMPLETE",
+  "semantic_gaps": [],
+  "currentness_gaps": [],
+  "question_proposals": [],
+  "question_frontier": [],
+  "revalidate": [],
+  "pending": [],
+  "satisfied_capabilities": [
+    "checker.architecture",
+    "checker.components",
+    "checker.domain",
+    "checker.interface",
+    "checker.policy",
+    "checker.problem",
+    "checker.requirements",
+    "checker.scenarios",
+    "checker.technical-verification",
+    "checker.tests",
+    "checker.verification"
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "base_classes": [],
+  "data_structures": [
+    {
+      "code": "from typing import Literal, TypedDict\n\n\nclass Flow(TypedDict):\n    \"\"\"Проверенный IPv4-поток. Оба порта обязательны: int 0..65535, не bool.\"\"\"\n\n    source: str\n    destination: str\n    protocol: Literal['tcp', 'udp']\n    source_port: int\n    destination_port: int\n\n\nclass OriginalRule(TypedDict):\n    \"\"\"Полное исходное правило без нормализации его сериализованных значений.\n\n    Адреса — IPv4 hosts или canonical CIDR. Каждый список портов содержит\n    ровно две включительные границы: 0 <= lower <= upper <= 65535;\n    bool запрещён. Эти ограничения проверяет внешний валидатор.\n    \"\"\"\n\n    id: str\n    source: str\n    destination: str\n    protocol: Literal['tcp', 'udp', 'any']\n    source_ports: list[int]\n    destination_ports: list[int]\n    action: Literal['permit', 'deny']\n\n\n# MatchingValues обозначает два аргумента matches(flow, rule),\n# а не отдельный объект. Результат matches — встроенный bool.\n",
+      "subtree": "Исследование совпадений ACL",
+      "data_flow_types": [
+        "MatchingValues{flow:{source:IPv4,destination:IPv4,protocol:tcp|udp,source_port:Port,destination_port:Port},rule:{id,source:IPv4HostOrCanonicalCIDR,destination:IPv4HostOrCanonicalCIDR,protocol:tcp|udp|any,source_ports:[Port,Port],destination_ports:[Port,Port],action:permit|deny}}",
+        "bool"
+      ],
+      "file_path": ""
+    },
+    {
+      "code": "from typing import Callable, Literal, TypedDict\n\nfrom checker.domain.types import OriginalRule\n\n\nclass DeviceAclPair(TypedDict):\n    \"\"\"Пара источника релевантности; строки непустые.\"\"\"\n\n    device: str\n    acl: str\n\n\nclass InterfacePlacement(TypedDict):\n    \"\"\"Предоставленное место применения ACL; interface — непустая строка.\"\"\"\n\n    interface: str\n    direction: Literal['in', 'out']\n\n\nGlobalPlacement = TypedDict('GlobalPlacement', {'global': Literal[True]})\nGlobalPlacement.__doc__ = 'Предоставленный признак глобального применения ACL.'\nPlacement = InterfacePlacement | GlobalPlacement\n\n\nclass Snapshot(TypedDict):\n    \"\"\"Проверенный снимок; placements и порядок полных правил сохраняются.\"\"\"\n\n    device: str\n    acl: str\n    placements: list[Placement]\n    rules: list[OriginalRule]\n\n\nclass ReportGroup(TypedDict):\n    \"\"\"Результат для одной релевантной пары без общего verdict.\n\n    MATCHES соответствует непустому rules, NO_MATCH — пустому.\n    Placements берутся из снимка; rules содержат все совпадения\n    в исходном порядке. Пустые placements допустимы.\n    \"\"\"\n\n    device: str\n    acl: str\n    placements: list[Placement]\n    status: Literal['MATCHES', 'NO_MATCH']\n    rules: list[OriginalRule]\n\n\nReportGroups = list[ReportGroup]\nRelevanceSource = Callable[[str, str], list[DeviceAclPair]]\nSnapshotSource = Callable[[str, str], Snapshot]\n\n\nclass ExpectedApplicationFailure(Exception):\n    \"\"\"Ожидаемый отказ запроса, включая отсутствие требуемого снимка.\n\n    SnapshotSource поднимает этот отказ вместо возврата None.\n    Успешный частичный отчёт при отказе не публикуется.\n    \"\"\"\n\n    reason: str\n\n    def __init__(self, reason: str) -> None:\n        super().__init__(reason)\n        self.reason = reason\n",
+      "subtree": "Отбор и получение снимков ACL",
+      "data_flow_types": [
+        "List<ReportGroup{device,acl,placements,status:MATCHES|NO_MATCH,rules:List<OriginalRule>}>",
+        "ExpectedApplicationFailure{reason:string}"
+      ],
+      "file_path": ""
+    },
+    {
+      "code": "from dataclasses import dataclass\n\nfrom checker.domain.types import Flow\nfrom checker.application.types import RelevanceSource, SnapshotSource\n\n\n@dataclass(frozen=True)\nclass ValidatedInvocation:\n    \"\"\"Проверенный запрос и источники, замыкающие данные одного запуска.\n\n    Создаётся внешней композицией после проверки всего документа v1,\n    включая нерелевантные снимки. Вложенные значения не изменяются\n    потребителями; frozen не обеспечивает глубокую неизменяемость.\n    Не заменяет сигнатуру check(flow, relevance, snapshot).\n    \"\"\"\n\n    flow: Flow\n    relevance: RelevanceSource\n    snapshot: SnapshotSource\n\n\nclass ExpectedInputFailure(Exception):\n    \"\"\"Ожидаемый отказ чтения, JSON parsing или проверки входных данных.\n\n    CLI публикует причину как Checker error: <reason>, возвращает 2\n    и оставляет stdout пустым.\n    \"\"\"\n\n    reason: str\n\n    def __init__(self, reason: str) -> None:\n        super().__init__(reason)\n        self.reason = reason\n",
+      "subtree": "Приём и валидация запроса",
+      "data_flow_types": [
+        "ValidatedInvocation{flow:Flow,relevance:(IPv4,IPv4)->List<DeviceAclPair>,snapshot:(device,acl)->Snapshot}",
+        "ExpectedInputFailure{reason:string}"
+      ],
+      "file_path": ""
+    },
+    {
+      "code": "from typing import Literal, TypedDict\n\nfrom checker.application.types import ExpectedApplicationFailure, ReportGroups\nfrom checker.input.types import ExpectedInputFailure, ValidatedInvocation\n\n\nclass ProcessObservation(TypedDict):\n    \"\"\"Фактические результаты изолированного публичного запуска CLI.\"\"\"\n\n    argv: list[str]\n    exit_code: int\n    stdout: str\n    stderr: str\n\n\nclass MatchingObservation(TypedDict):\n    \"\"\"Фактический результат matches и проверка сохранности аргументов.\"\"\"\n\n    actual: bool\n    input_unchanged: bool\n\n\nclass SourceCall(TypedDict):\n    \"\"\"Вызов подставленного источника с двумя позиционными аргументами.\n\n    Для relevance это source/destination, для snapshot — device/acl.\n    Порядок записей отражает порядок фактических вызовов.\n    \"\"\"\n\n    source: Literal['relevance', 'snapshot']\n    arguments: tuple[str, str]\n\n\nclass ApplicationObservation(TypedDict):\n    \"\"\"Результат интеграционной проверки check без частичного success.\"\"\"\n\n    outcome: ReportGroups | ExpectedApplicationFailure\n    source_calls: list[SourceCall]\n    inputs_unchanged: bool\n\n\nclass ValidationObservation(TypedDict):\n    \"\"\"Результат проверки внешнего ввода и сохранности фикстур.\"\"\"\n\n    outcome: ValidatedInvocation | ExpectedInputFailure\n    fixtures_unchanged: bool\n\n\n# Исходный код для AST/import checks не требует отдельного контейнера.\nPythonSourceText = str\n\n# Наблюдения содержат фактические результаты. Независимые фиксированные\n# ожидания хранятся отдельно и не выводятся из этих структур.\n",
+      "subtree": "Проверка контрактов и ограничений",
+      "data_flow_types": [
+        "ProcessObservation{argv:List<string>,exit_code:integer,stdout:string,stderr:string}",
+        "MatchingObservation{actual:boolean,input_unchanged:boolean}",
+        "ApplicationObservation{outcome:ReportGroupsOrExpectedFailure,source_calls:List<SourceCall>,inputs_unchanged:boolean}",
+        "ValidationObservation{outcome:ValidatedInvocationOrExpectedFailure,fixtures_unchanged:boolean}",
+        "PythonSourceText"
+      ],
+      "file_path": ""
+    }
+  ],
+  "class_names": [],
+  "data_structure_names": [
+    "Flow",
+    "OriginalRule",
+    "DeviceAclPair",
+    "InterfacePlacement",
+    "Snapshot",
+    "ReportGroup",
+    "ExpectedApplicationFailure",
+    "ValidatedInvocation",
+    "ExpectedInputFailure",
+    "ProcessObservation",
+    "MatchingObservation",
+    "SourceCall",
+    "ApplicationObservation",
+    "ValidationObservation"
+  ],
+  "uncovered_data_flow_types": [],
+  "success": true,
+  "iterations": 1,
+  "meta": {
+    "primary_language": "python",
+    "target_languages": [
+      "python"
+    ]
+  }
+}

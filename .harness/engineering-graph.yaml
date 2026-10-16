@@ -218,15 +218,41 @@ consumers:
   purpose: Small runnable synthetic Checker requested by owner; progressively reconciled
     engineering closure.
   requires:
-  - capability: checker.problem
-  - capability: checker.requirements
-  - capability: checker.domain
-  - capability: checker.verification
-  - capability: checker.scenarios
-  - capability: checker.architecture
-  - capability: checker.interface
-  - capability: checker.policy
-  - capability: checker.tests
-  - capability: checker.components
-  - capability: checker.technical-verification
+  - &id001
+    capability: checker.problem
+  - &id002
+    capability: checker.requirements
+  - &id003
+    capability: checker.domain
+  - &id004
+    capability: checker.verification
+  - &id005
+    capability: checker.scenarios
+  - &id006
+    capability: checker.architecture
+  - &id007
+    capability: checker.interface
+  - &id008
+    capability: checker.policy
+  - &id009
+    capability: checker.tests
+  - &id010
+    capability: checker.components
+  - &id011
+    capability: checker.technical-verification
   - capability: checker.implementation
+- id: CHECKER-CODEGEN-INPUT
+  purpose: Accepted canonical knowledge consumed by RPG/CoderMind to produce candidate
+    source. Excludes downstream executable readiness; cannot claim a working product.
+  requires:
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  - *id009
+  - *id010
+  - *id011

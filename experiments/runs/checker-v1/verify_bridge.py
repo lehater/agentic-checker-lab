@@ -19,6 +19,9 @@ for relative, digest in manifest['inputs'].items():
 workspace = Path.home() / '.cache/agentic-checker-lab/runs/checker-v1/workspace'
 transferred = (workspace / 'docs/requirements.md').read_bytes()
 require_hash(transferred, manifest['transferred_sha256'])
+context = json.loads((RUN / 'context-bridge.json').read_text())
+require_hash((workspace / 'AGENTS.md').read_bytes(), context['context_instruction_sha256'])
+require_hash((RUN / 'cmind-AGENTS.md').read_bytes(), context['context_instruction_sha256'])
 try:
     require_hash(transferred + b'\nUse first match only.\n', manifest['transferred_sha256'])
 except ValueError:

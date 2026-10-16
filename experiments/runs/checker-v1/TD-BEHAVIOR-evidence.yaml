@@ -14,4 +14,5 @@ bindings:
   obligation: OR-SCENARIOS
   evidence: *id001
 test_source_sha256:
-  tests/test_checker_acceptance.py: 9e740dab4ac2be5a0aff8a809c51adaa8f370c28a34296a99c1be583f31ac242
+  tests/test_checker_structure.py: 3f9f9f2596b15a49dbb15177c5d3d41e98b3434724a2838aa04d34198e911c12
+  tests/test_checker_acceptance.py: bc87645474589b39ec6cf51ea3c15890978d59fff9ea930175ab79023ed052ff

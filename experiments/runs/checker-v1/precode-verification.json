@@ -74,5 +74,6 @@
     "stale-CAS": "project publication compare-and-swap failed: expected sha256:0000000000000000000000000000000000000000000000000000000000000000, current sha256:eedbce16938e6296805b4100a82a2992f915aa08d54d05f4be46a1ea6270d9ae",
     "false-acceptance-identity": "publication acceptance identity mismatch for checker.problem"
   },
-  "fixed_expected_cases_unchanged": true
+  "fixed_expected_cases_unchanged": true,
+  "scope": "pre-code engineering contracts at original bridge revision; not implementation readiness"
 }

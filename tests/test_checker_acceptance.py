@@ -124,6 +124,28 @@ class CheckerAcceptance(unittest.TestCase):
         data['snapshots'][0]['rules'].append(copy.deepcopy(data['snapshots'][0]['rules'][0]))
         self.assert_error(invoke(data))
 
+    def test_same_rule_id_in_distinct_acls(self):
+        data = copy.deepcopy(SCENARIOS['base'])
+        data['flow']['protocol'] = 'udp'
+        data['snapshots'][2]['rules'][0]['id'] = 'a-permit'
+        result = invoke(data)
+        self.assertEqual(result.returncode, 0, result.stderr)
+        groups = json.loads(result.stdout)['groups']
+        self.assertEqual([(g['device'], g['acl'], [r['id'] for r in g['rules']]) for g in groups],
+                         [('fw-a', 'outside', ['a-permit']), ('fw-a', 'inside', []),
+                          ('fw-b', 'global', ['a-permit'])])
+
+    def test_help_and_required_input(self):
+        help_result = subprocess.run([sys.executable, '-m', 'checker', '--help'], cwd=ROOT,
+                                     capture_output=True, text=True, stdin=subprocess.DEVNULL, timeout=10)
+        self.assertEqual(help_result.returncode, 0, help_result.stderr)
+        self.assertIn('--input', help_result.stdout)
+        self.assertIn('IPv4', help_result.stdout)
+        missing = subprocess.run([sys.executable, '-m', 'checker'], cwd=ROOT,
+                                 capture_output=True, text=True, stdin=subprocess.DEVNULL, timeout=10)
+        self.assertEqual(missing.returncode, 2, missing.stderr)
+        self.assertEqual(missing.stdout, '')
+
     def test_missing_and_empty_inputs(self):
         data = copy.deepcopy(SCENARIOS['base'])
         del data['flow']['source_port']

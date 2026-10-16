@@ -15,7 +15,10 @@ contracts = {
         'test_checker_acceptance.CheckerAcceptance.test_strict_boundary',
         'test_checker_acceptance.CheckerAcceptance.test_duplicate_snapshot_and_rule_rejected',
         'test_checker_acceptance.CheckerAcceptance.test_missing_and_empty_inputs',
+        'test_checker_acceptance.CheckerAcceptance.test_same_rule_id_in_distinct_acls',
+        'test_checker_acceptance.CheckerAcceptance.test_help_and_required_input',
         'test_checker_structure.CheckerStructure.test_inward_dependencies',
+        'test_checker_structure.CheckerStructure.test_runtime_dependency_inventory',
         'test_checker_structure.CheckerStructure.test_source_substitution_and_immutability',
     ],
 }
