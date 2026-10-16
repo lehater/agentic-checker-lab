@@ -1,6 +1,6 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_FRESH_CONTRACTS_CURRENT_RPG_IN_PROGRESS
-phase: P2
+status: P4_RPG_SEMANTIC_CONTEXT_REPAIR
+phase: P4
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology with Harness and RPG
 strategy: docs/project/strategy.md
@@ -25,6 +25,10 @@ verified:
 - Independent expected cases frozen and public acceptance tests executed RED before
   implementation
 - Live pinned CoderMind LLMClient/Codex exact-token probe PASS in this run
+- First CoderMind feature construction and five-stage RPG planning completed; semantic
+  review REJECTED known DOM/IF drift
+- Native feature edit reported MODIFY but semantic-input diff is a no-op; corrected-context
+  native replanning is running
 not_verified:
 - Checker RPG planning and code generation completion
 - Executable Checker behavior and test-realization conformance
@@ -35,5 +39,7 @@ evidence:
   checker_run: experiments/runs/checker-v1/README.md
   checker_publication: .harness/project-publication.yaml
   checker_bridge: experiments/runs/checker-v1/bridge.json
+  checker_rpg_review: experiments/runs/checker-v1/rpg-semantic-review-1.yaml
+  checker_context_decision: docs/decisions/0003-cmind-canonical-context.md
 git_branch_protection: TEMPORARILY_DISABLED_BY_OWNER_FOR_RESET
 toolchain: tooling/versions.yaml

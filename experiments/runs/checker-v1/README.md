@@ -29,6 +29,6 @@ are inapplicable on stated evidence. No claim of production closure.
 Live CoderMind LLMClient/CodexSessionManager probe PASS at candidate SHA
 `3303a222eaec42c6a178bddd46ad63d9026ab8fa`, actual exact-token model response;
 local evidence `~/.cache/agentic-checker-lab/runs/codex-live.CkG0U8`.
-First feature construction completed in 335.2s and native five-stage RPG planning completed in 1039.6s. Nine real JSON artifacts and logs are exported under rpg-attempt-1 with checksums. Semantic review rejected this candidate for port predicate, CLI and JSON-contract drift; native feature edit is correcting the derived descriptions. No Checker codegen/runtime acceptance is claimed.
+First feature construction completed in 335.2s and native five-stage RPG planning completed in 1039.6s. Nine real JSON artifacts and logs are exported under rpg-attempt-1 with checksums. Semantic review rejected this candidate for port predicate, CLI and JSON-contract drift; native feature edit reported MODIFY but changed none of the semantic input sections. The exact no-op is recorded in feature-edit-diff.json. Corrected-context replanning now supplies ordinary scoped workspace AGENTS; see ADR-0003. No Checker codegen/runtime acceptance is claimed.
 
 Implementation readiness is an additional pending Capability; its introduction correctly changes the live Frontier from the pre-code bridge COMPLETE snapshot to READY/INCOMPLETE. status.py reports this honestly; verify.py requires full completion. The successful pre-code closure evidence remains in Git commit f9577c8 and bridge.json.
