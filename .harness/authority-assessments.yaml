@@ -28,16 +28,19 @@ assessments:
 - authority_id: MODEL-CONTEXT-STRATEGY
   applicability: UNASSESSED
 - authority_id: DOMAIN-USE-CASE-DESIGN
-  applicability: UNRESOLVED
+  applicability: REQUIRED
   evidence:
   - docs/scenario/domain-verification-delegation.md
-  - core:question:Q-DV-001
-  rationale: Scoped delegated work has real prerequisite/semantic blockers; no accepted
-    provider.
+  - .harness/knowledge/checker-requirements.yaml
+  - core:question:Q-DV-002
+  rationale: Independent first-slice ACL behavior must be defined for verification;
+    accepted matching meaning is still blocked.
   depends_on_evidence:
-  - Q-DV-001
+  - PDEC-CHECKER-004
+  - PDEC-CHECKER-005
+  - Q-DV-002
   reopening_conditions:
-  - Accepted ownership/matching contracts and genuine admission
+  - first-slice behavior or accepted use-case consumer changes
 - authority_id: TACTICAL-DOMAIN-DESIGN
   applicability: UNASSESSED
 - authority_id: APPLICATION-DESIGN
@@ -73,13 +76,15 @@ assessments:
 - authority_id: IMPLEMENTATION-DESIGN
   applicability: UNASSESSED
 - authority_id: VERIFICATION-DESIGN
-  applicability: UNRESOLVED
+  applicability: REQUIRED
   evidence:
   - docs/scenario/domain-verification-delegation.md
+  - .harness/knowledge/checker-requirements.yaml
   - core:question:Q-DV-002
-  rationale: Scoped delegated work has real prerequisite/semantic blockers; no accepted
-    provider.
+  rationale: Accepted first-slice requirements need independent verification; match-dependent
+    evidence is blocked.
   depends_on_evidence:
+  - PDEC-CHECKER-004
   - Q-DV-002
   reopening_conditions:
-  - Accepted ownership/matching contracts and genuine admission
+  - verification scope or accepted matching contracts change

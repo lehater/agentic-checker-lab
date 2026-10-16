@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_CHECKER_REQUIREMENTS_CURRENT_DOMAIN_VERIFICATION_BLOCKED
+status: P2_CHECKER_REQUIREMENTS_CURRENT_DOMAIN_MATCHING_BLOCKED
 phase: P2
 date: 2026-10-16
 purpose: Evaluate agentic software engineering on standalone Checker
@@ -7,20 +7,22 @@ strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
 next_task: TASK-004
 accepted:
-  - "PDEC-CHECKER-001: checker.problem CURRENT"
-  - "PDEC-CHECKER-004: bounded IPv4 TCP/UDP first slice and evidence behavior"
-  - "PDEC-CHECKER-003: PRODUCT-REQUIREMENTS delegated"
-  - "PDEC-CHECKER-005: bounded Domain Use-Case and Verification Design delegated"
+- 'PDEC-CHECKER-001: checker.problem CURRENT'
+- 'PDEC-CHECKER-004: bounded IPv4 TCP/UDP first slice and evidence behavior'
+- 'PDEC-CHECKER-003: PRODUCT-REQUIREMENTS delegated'
+- 'PDEC-CHECKER-005: bounded Domain Use-Case and Verification Design delegated'
 verified:
-  - "checker.problem CURRENT; acceptance and lifecycle unchanged"
-  - "checker.requirements CURRENT: 13 current product obligations; inactive requirements deleted from canonical artifact"
-  - "checker.domain-use-case BLOCKED by Q-DV-001 (accepted Strategic Domain ownership)"
-  - "checker.verification-strategy BLOCKED by Q-DV-002 (accepted matching semantics and independent oracle)"
-  - "Full product subject inventory and implementation are not accepted"
+- checker.problem CURRENT; original admission and lifecycle preserved
+- checker.requirements CURRENT; 13 accepted first-slice obligations preserved
+- checker.domain-use-case BLOCKED by Q-DV-002 (accepted matching semantics)
+- checker.verification-strategy BLOCKED by Q-DV-002 (independent matching oracle)
+- Q-DV-001 deleted as erroneous skill-derived prerequisite; no Domain Strategy provider
+  invented
+- Full product subject inventory and implementation are not accepted
 evidence:
   canonical_requirements: .harness/knowledge/checker-requirements.yaml
   canonical_publication: .harness/project-publication.yaml
-  publication_revision: sha256:0bd03134218117e5230683b6e50bb3e80b3d66813036479cd8da91aad2a92d6d
+  publication_revision: sha256:9d08573399009eab2c93711ab8b7420bd41c9753bd3c7f781365432d6059fc4b
   first_slice_decision: docs/scenario/first-slice-product-decision.md
   domain_verification_delegation: docs/scenario/domain-verification-delegation.md
 toolchain: tooling/versions.yaml

@@ -57,6 +57,7 @@ authorities:
     knowledge_kind: verification-strategy
     requires:
     - checker.requirements
+    - checker.domain-use-case
 consumers:
 - id: CHECKER-PROBLEM-ADMISSION
   purpose: TASK-004 Discovery admission only; not an implementation Consumer.

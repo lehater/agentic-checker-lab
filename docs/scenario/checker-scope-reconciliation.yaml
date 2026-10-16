@@ -3,10 +3,24 @@ kind: checker-project-scope-reconciliation
 status: FIRST_SLICE_REQUIREMENTS_CURRENT_SUBJECT_COVERAGE_OPEN
 project_scope:
   identity: CHECKER
-  purpose: Standalone Checker for explainable analysis of network flows against provided policy contexts and saved ACL snapshots.
+  purpose: Standalone Checker for explainable analysis of network flows against provided
+    policy contexts and saved ACL snapshots.
   accepted_problem: checker.problem
   accepted_first_slice_artifact: .harness/knowledge/checker-requirements.yaml
-  accepted_atomic_requirements: [REQ-CHECKER-001, REQ-CHECKER-002, REQ-CHECKER-003, REQ-CHECKER-006, REQ-CHECKER-007, REQ-CHECKER-012, REQ-CHECKER-013, REQ-CHECKER-014, REQ-CHECKER-025, REQ-CHECKER-029, REQ-CHECKER-030, REQ-CHECKER-031, REQ-CHECKER-032]
+  accepted_atomic_requirements:
+  - REQ-CHECKER-001
+  - REQ-CHECKER-002
+  - REQ-CHECKER-003
+  - REQ-CHECKER-006
+  - REQ-CHECKER-007
+  - REQ-CHECKER-012
+  - REQ-CHECKER-013
+  - REQ-CHECKER-014
+  - REQ-CHECKER-025
+  - REQ-CHECKER-029
+  - REQ-CHECKER-030
+  - REQ-CHECKER-031
+  - REQ-CHECKER-032
   subject_inventory_status: REQUIRED_NOT_YET_CLASSIFIED
   full_product_coverage: NOT_ESTABLISHED
   open_scope_question: Q-REC-002
@@ -14,7 +28,8 @@ technical_scope:
   consumer: CHECKER-PROBLEM-ADMISSION
   subject: CHECKER-PROBLEM
   meaning: Discovery admission only; not the full product implementation Consumer.
-open_design_questions: [Q-DV-001, Q-DV-002]
+open_design_questions:
+- Q-DV-002
 accepted_decisions:
   problem: docs/scenario/problem-framing-decision.md
   first_slice: docs/scenario/first-slice-product-decision.md
