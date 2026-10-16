@@ -16,7 +16,6 @@ project_scope:
   accepted_product_consumer: null
   accepted_first_slice_artifact: .harness/knowledge/checker-requirements.yaml
   accepted_atomic_requirements: [REQ-CHECKER-001, REQ-CHECKER-002, REQ-CHECKER-003, REQ-CHECKER-006, REQ-CHECKER-007, REQ-CHECKER-012, REQ-CHECKER-013, REQ-CHECKER-014, REQ-CHECKER-025, REQ-CHECKER-029, REQ-CHECKER-030, REQ-CHECKER-031, REQ-CHECKER-032]
-  historical_retired_requirement_ids: [REQ-CHECKER-004, REQ-CHECKER-005, REQ-CHECKER-008, REQ-CHECKER-009, REQ-CHECKER-010, REQ-CHECKER-011, REQ-CHECKER-015, REQ-CHECKER-016, REQ-CHECKER-017, REQ-CHECKER-018, REQ-CHECKER-019, REQ-CHECKER-020, REQ-CHECKER-021, REQ-CHECKER-022, REQ-CHECKER-023, REQ-CHECKER-024, REQ-CHECKER-026, REQ-CHECKER-027, REQ-CHECKER-028]
   subject_inventory_status: REQUIRED_NOT_YET_CLASSIFIED
   question: Q-REC-002
   unresolved: [subject-obligation classification, exact ACL matching semantics, interface, independent oracle, future-product scope]
