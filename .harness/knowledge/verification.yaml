@@ -1,0 +1,52 @@
+version: 1
+kind: harness-knowledge-artifact
+artifact: verification
+title: Checker Verification Strategy
+schema: verification-plan/v1
+content:
+  purpose: Независимый от реализации oracle по доменному контракту до генерации.
+  scope: Synthetic IPv4 TCP/UDP prototype
+  checks:
+  - id: VC-INPUT
+    verifies:
+    - REQ-CHECKER-101
+    - DOM-1
+    objective: Поддержанные пять полей и отклонение неверных/неподдержанных значений.
+    method: TEST
+    evidence:
+    - 'REQUIRED: fixed pre-code scenario expected results, executable public boundary
+      acceptance run, failure output on mutation.'
+  - id: VC-MATCH
+    verifies:
+    - REQ-CHECKER-103
+    - DOM-1
+    - DOM-2
+    objective: Все совпадения, оба action, CIDR/port boundary, каждое поле влияет
+      на match.
+    method: TEST
+    evidence:
+    - 'REQUIRED: fixed pre-code scenario expected results, executable public boundary
+      acceptance run, failure output on mutation.'
+  - id: VC-CONTEXT
+    verifies:
+    - REQ-CHECKER-102
+    - REQ-CHECKER-103
+    - DOM-2
+    objective: Несколько ACL устройства, места применения, scope релевантности, порядок
+      снимка, дедупликация пар.
+    method: TEST
+    evidence:
+    - 'REQUIRED: fixed pre-code scenario expected results, executable public boundary
+      acceptance run, failure output on mutation.'
+  - id: VC-EMPTY
+    verifies:
+    - REQ-CHECKER-104
+    - DOM-2
+    objective: NO_MATCH на пустом/неподходящем снимке; missing не NO_MATCH; нет универсального
+      verdict.
+    method: TEST
+    evidence:
+    - 'REQUIRED: fixed pre-code scenario expected results, executable public boundary
+      acceptance run, failure output on mutation.'
+  out_of_scope:
+  - Live path accuracy, vendor parser, production performance, freshness policy.

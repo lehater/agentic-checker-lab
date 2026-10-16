@@ -1,0 +1,9 @@
+pin: 1c31054a8c4af223dc1bb003175c1fbe3f0538d6
+instructions:
+  docs/design/agent-instruction-architecture-v0.md: 2c9cde6de487c9717679a54a092ac515fc36bc35ca4df19d9b7f9f61a0d90467
+  docs/design/process-simplicity-and-efficiency-v0.md: 96c24a1145bf4c9460fc3a993fa10be1297d2c8a85eb9fc293998ca4880c8204
+  skills/artifacts/acceptance-scenarios/SKILL.md: d72ac3a82401d5e964609179fc17e4cf0ac2f7c344c5e26cab1a5d365a4b537a
+content_sha256: 75e7a8c3cb609592df227a7c712e938ce708a542d41f0bc257476ef7b2a44e0b
+publication_revision: sha256:ddeff23f5e731070e7e3704047218db49899756ea1104f13987de91273ab71c5
+status: ACCEPTED
+acceptance_id: checker-v1-c68eab9966725eeff1fee4ac

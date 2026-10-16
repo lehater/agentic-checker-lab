@@ -1,0 +1,45 @@
+knowledge_kind: domain-use-case
+depends_on:
+- requirements
+candidate:
+  id: domain
+  path: docs/checker/domain.md
+  capability: checker.domain
+  canonical_references:
+  - referenced_path: .harness/knowledge/requirements.yaml
+  semantic_assertions:
+  - id: DOM-1
+    kind: domain-behavior
+    subject: DOM-1
+    semantic_value: IPv4 TCP/UDP five-field conjunction with CIDR membership and inclusive
+      port ranges; any protocol accepted in rule; unsupported predicates rejected.
+    decision_authority: DOMAIN-USE-CASE-DESIGN
+    derived_from:
+    - REQ-CHECKER-101
+    - REQ-CHECKER-103
+  - id: DOM-2
+    kind: domain-behavior
+    subject: DOM-2
+    semantic_value: All matching rules retain snapshot sequence and action per unique
+      relevant device/ACL pair; empty complete snapshot is NO_MATCH; missing or malformed
+      input is an error, never no-match; no universal verdict.
+    decision_authority: DOMAIN-USE-CASE-DESIGN
+    derived_from:
+    - REQ-CHECKER-102
+    - REQ-CHECKER-103
+    - REQ-CHECKER-104
+  semantic_review:
+    status: ACCEPTED
+    checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - behavior-not-tactical
+    reviewer: Engineering agent under current owner assignment
+    record: docs/checker/domain.md
+    rationale: Сопоставлены требования и новая постановка, которая поручает разработчику
+      минимальный поддерживаемый набор. CIDR и диапазоны определены явно для прототипа,
+      без приписывания владельцу/legacy. Независимый потребитель — Verification. Стратегических/model-context
+      решений, materially constraining use case, нет; новый pin не требует Strategic
+      ownership универсально. Транспорт, persistence, aggregates не выбраны. Отказ
+      на неподдержанном входе сохраняет границы свидетельств.

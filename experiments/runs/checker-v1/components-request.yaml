@@ -1,0 +1,78 @@
+version: 1
+kind: harness-decision-explorer-request
+capability: checker.components
+knowledge_kind: component-design
+authority: COMPONENT-DESIGN
+mode: CREATE
+accepted_prerequisites:
+  checker.architecture: checker-v1-13b83a49054471c3b217f865
+  checker.domain: checker-v1-2abd3a6fff3ad8b58bfabf3e
+  checker.interface: checker-v1-7a5af9fc5faa417f2ed58f7d
+  checker.policy: checker-v1-bb39846d836179a7c699b5a8
+canonical_inputs:
+- id: architecture
+  authority: SYSTEM-ARCHITECTURE
+  path: docs/checker/architecture.md
+  provides:
+  - checker.architecture
+- id: domain
+  authority: DOMAIN-USE-CASE-DESIGN
+  path: docs/checker/domain.md
+  provides:
+  - checker.domain
+- id: interface
+  authority: MACHINE-INTERFACE-DESIGN
+  path: docs/checker/interface.md
+  provides:
+  - checker.interface
+- id: policy
+  authority: ENGINEERING-POLICY
+  path: docs/checker/engineering-policy.md
+  provides:
+  - checker.policy
+downstream_consumers:
+- kind: consumer
+  consumer: CHECKER-PROTOTYPE
+  capabilities:
+  - checker.components
+axes:
+- axis: responsibility-boundaries
+  exploration: EXPLORE
+  material_dimensions:
+  - boundary-granularity
+  - ownership-basis
+  - cross-feature-sharing
+  challenge_strategies:
+  - split-vs-merge
+  - feature-vs-technical
+  - local-vs-shared
+  minimum_probes: 2
+- axis: provider-seams
+  exploration: EXPLORE
+  material_dimensions:
+  - seam-location
+  - provider-leakage
+  - substitution-scope
+  challenge_strategies:
+  - direct-vs-port
+  - wrapper-scope-perturbation
+  - provider-substitution
+  minimum_probes: 2
+- axis: state-ownership
+  exploration: EXPLORE
+  material_dimensions:
+  - state-owner
+  - sharing-scope
+  - lifecycle
+  challenge_strategies:
+  - local-vs-global
+  - server-vs-client-owner
+  - lifecycle-perturbation
+  minimum_probes: 2
+forbidden_inputs:
+- future_candidate
+- decision_review
+- preferred_solution
+- selected_solution
+- write_set
+request_id: sha256:9544de9d72fa537cd323bffc8a79ac4c30e82ca59cdbbe5d7c19a854d3675175

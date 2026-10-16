@@ -1,0 +1,47 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: problem
+capability: checker.problem
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted:
+  - engineering.intent.problem
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: problem-evidence
+  skill: skills/artifacts/problem-evidence/SKILL.md
+  acceptance_id: checker-v1-34317db9923f9f5cd13831e1
+  authority: DISCOVERY
+  allowed_source_authorities:
+  - DISCOVERY
+  changed_paths:
+  - docs/checker/problem.md
+  canonical_references: []
+  accepted_prerequisites: &id001 {}
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+  acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: problem
+  capability: checker.problem
+  acceptance_id: checker-v1-34317db9923f9f5cd13831e1
+  acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    PE-1: SAF-70cbcfea6ac24c5d709c1cb7697a639bb7dd86acf394bbd7433ab013e21804fc

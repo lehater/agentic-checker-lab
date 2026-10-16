@@ -1,0 +1,61 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: technical-verification
+capability: checker.technical-verification
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted:
+  - engineering.verification.architecture
+  - engineering.verification.interface.machine
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: verification-strategy
+  skill: skills/artifacts/verification-strategy/SKILL.md
+  acceptance_id: checker-v1-be855fbf59477999d026a06b
+  authority: VERIFICATION-DESIGN
+  allowed_source_authorities:
+  - COMPONENT-DESIGN
+  - ENGINEERING-POLICY
+  - MACHINE-INTERFACE-DESIGN
+  - SYSTEM-ARCHITECTURE
+  - VERIFICATION-DESIGN
+  changed_paths:
+  - .harness/knowledge/technical-verification.yaml
+  canonical_references:
+  - referenced_path: docs/checker/architecture.md
+  - referenced_path: docs/checker/interface.md
+  - referenced_path: docs/checker/engineering-policy.md
+  - referenced_path: docs/checker/components.md
+  accepted_prerequisites: &id001
+    checker.architecture: checker-v1-13b83a49054471c3b217f865
+    checker.interface: checker-v1-7a5af9fc5faa417f2ed58f7d
+    checker.policy: checker-v1-bb39846d836179a7c699b5a8
+    checker.components: checker-v1-6f2fc74984ddb072caf02e66
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+  acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: technical-verification
+  capability: checker.technical-verification
+  acceptance_id: checker-v1-be855fbf59477999d026a06b
+  acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    VC-ARCH: SAF-807f9baabcfbe90c1818c8856508c48d2e31c1538b603f44dfa22ad22815f3c6
+    VC-IF: SAF-9425996c7af501510fb39ca8261d3ee702e607e954928a5a5a3accf25eae3f53

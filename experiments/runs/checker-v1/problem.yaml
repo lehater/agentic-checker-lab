@@ -1,0 +1,27 @@
+knowledge_kind: problem-evidence
+candidate:
+  id: problem
+  path: docs/checker/problem.md
+  capability: checker.problem
+  canonical_references: []
+  semantic_assertions:
+  - id: PE-1
+    kind: problem-evidence
+    subject: operator-need
+    semantic_value: Operator needs all matching stored ACL rules on relevant devices,
+      grouped by device/ACL in snapshot order, without universal verdict; synthetic
+      prototype.
+    decision_authority: DISCOVERY
+  semantic_review:
+    status: ACCEPTED
+    checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - evidence-not-solution
+    reviewer: Engineering agent authorized by current owner task
+    record: docs/checker/problem.md
+    rationale: 'Compared directly with owner brief: actor, manual burden, intended
+      evidence, ordering, grouping, all matches and verdict boundary retained. No
+      ACL predicates or architecture promoted. Unknown downstream choices explicitly
+      deferred.'

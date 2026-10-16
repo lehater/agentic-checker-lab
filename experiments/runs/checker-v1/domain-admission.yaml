@@ -1,0 +1,51 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: domain
+capability: checker.domain
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted:
+  - engineering.application.failures
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: domain-use-case
+  skill: skills/artifacts/domain-use-case/SKILL.md
+  acceptance_id: checker-v1-2abd3a6fff3ad8b58bfabf3e
+  authority: DOMAIN-USE-CASE-DESIGN
+  allowed_source_authorities:
+  - DOMAIN-USE-CASE-DESIGN
+  - PRODUCT-REQUIREMENTS
+  changed_paths:
+  - docs/checker/domain.md
+  canonical_references:
+  - referenced_path: .harness/knowledge/requirements.yaml
+  accepted_prerequisites: &id001
+    checker.requirements: checker-v1-db81ca67ab2f91e4b14806ff
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:cccbc64081ac326355653b5380e2838a0993c4942d68279e57a3b9075d99a523
+  acceptance_policy_fingerprint: sha256:cccbc64081ac326355653b5380e2838a0993c4942d68279e57a3b9075d99a523
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: domain
+  capability: checker.domain
+  acceptance_id: checker-v1-2abd3a6fff3ad8b58bfabf3e
+  acceptance_policy_fingerprint: sha256:cccbc64081ac326355653b5380e2838a0993c4942d68279e57a3b9075d99a523
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    DOM-1: SAF-0f93353dc6ad9f6e02e77254c326f6d971005009075dac727d12876e9dd70c2e
+    DOM-2: SAF-a7dff73ad00273e82daae9750445546fbcf45f5328433a3530f362c9656a1056

@@ -1,0 +1,78 @@
+version: 1
+kind: harness-decision-roadmap
+target: CHECKER-PROTOTYPE
+frontier_status: READY
+ready:
+- capability: checker.technical-verification
+  authority: VERIFICATION-DESIGN
+  knowledge_kind: verification-strategy
+  reason: CREATE_MISSING_PROVIDER
+  decision_governed: false
+  decision_request_mode: CREATE
+  read_set:
+  - artifact: architecture
+    authority: SYSTEM-ARCHITECTURE
+    path: docs/checker/architecture.md
+    provides:
+    - checker.architecture
+  - artifact: components
+    authority: COMPONENT-DESIGN
+    path: docs/checker/components.md
+    provides:
+    - checker.components
+  - artifact: interface
+    authority: MACHINE-INTERFACE-DESIGN
+    path: docs/checker/interface.md
+    provides:
+    - checker.interface
+  - artifact: policy
+    authority: ENGINEERING-POLICY
+    path: docs/checker/engineering-policy.md
+    provides:
+    - checker.policy
+  decision_request: null
+  pipeline:
+  - PRODUCE_CANDIDATE
+  - SEMANTIC_ADMISSION
+  terminal_outcomes:
+  - CURRENT
+  - BLOCKED
+  - FAILED_VALIDATION
+completed:
+- capability: checker.architecture
+  authority: SYSTEM-ARCHITECTURE
+  state: CURRENT
+- capability: checker.components
+  authority: COMPONENT-DESIGN
+  state: CURRENT
+- capability: checker.domain
+  authority: DOMAIN-USE-CASE-DESIGN
+  state: CURRENT
+- capability: checker.interface
+  authority: MACHINE-INTERFACE-DESIGN
+  state: CURRENT
+- capability: checker.policy
+  authority: ENGINEERING-POLICY
+  state: CURRENT
+- capability: checker.problem
+  authority: DISCOVERY
+  state: CURRENT
+- capability: checker.requirements
+  authority: PRODUCT-REQUIREMENTS
+  state: CURRENT
+- capability: checker.scenarios
+  authority: VERIFICATION-DESIGN
+  state: CURRENT
+- capability: checker.tests
+  authority: TEST-DESIGN
+  state: CURRENT
+- capability: checker.verification
+  authority: VERIFICATION-DESIGN
+  state: CURRENT
+blocked: []
+failed_validation: []
+lifecycle_gaps: []
+waiting_upstream: []
+execution_rule: Run one READY capability through the complete pipeline, persist its
+  outcome, then recompute this roadmap. FAILED_VALIDATION remains non-READY until
+  explicitly retried.

@@ -1,0 +1,62 @@
+knowledge_kind: verification-strategy
+depends_on:
+- requirements
+- domain
+candidate:
+  id: verification
+  path: .harness/knowledge/verification.yaml
+  capability: checker.verification
+  canonical_references:
+  - referenced_path: .harness/knowledge/requirements.yaml
+  - referenced_path: docs/checker/domain.md
+  semantic_assertions:
+  - id: VC-INPUT
+    kind: verification-check
+    subject: VC-INPUT
+    semantic_value: Поддержанные пять полей и отклонение неверных/неподдержанных значений.
+    decision_authority: VERIFICATION-DESIGN
+    derived_from:
+    - REQ-CHECKER-101
+    - DOM-1
+  - id: VC-MATCH
+    kind: verification-check
+    subject: VC-MATCH
+    semantic_value: Все совпадения, оба action, CIDR/port boundary, каждое поле влияет
+      на match.
+    decision_authority: VERIFICATION-DESIGN
+    derived_from:
+    - REQ-CHECKER-103
+    - DOM-1
+    - DOM-2
+  - id: VC-CONTEXT
+    kind: verification-check
+    subject: VC-CONTEXT
+    semantic_value: Несколько ACL устройства, места применения, scope релевантности,
+      порядок снимка, дедупликация пар.
+    decision_authority: VERIFICATION-DESIGN
+    derived_from:
+    - REQ-CHECKER-102
+    - REQ-CHECKER-103
+    - DOM-2
+  - id: VC-EMPTY
+    kind: verification-check
+    subject: VC-EMPTY
+    semantic_value: NO_MATCH на пустом/неподходящем снимке; missing не NO_MATCH; нет
+      универсального verdict.
+    decision_authority: VERIFICATION-DESIGN
+    derived_from:
+    - REQ-CHECKER-104
+    - DOM-2
+  semantic_review:
+    status: ACCEPTED
+    checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - verification-not-semantic-owner
+    reviewer: Engineering agent under current owner assignment
+    record: .harness/knowledge/verification.yaml
+    rationale: Все четыре REQ имеют disposition TEST. Oracle — математическая семантика
+      DOM-1/2 и фиксированные ожидаемые ID; ожидания не получаются вызовом будущего
+      matcher. Проверяются all-match, deny/action, порядок и каждый predicate. Evidence
+      пока REQUIRED, не исполнено.
