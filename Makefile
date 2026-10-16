@@ -1,4 +1,4 @@
-.PHONY: harness-consumer-preflight check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit
+.PHONY: harness-pack-preflight harness-consumer-preflight check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit
 
 check:
 	python3 tools/check_repository.py
@@ -41,3 +41,7 @@ cmind-rpg-audit:
 # Read-only pinned Harness consumer skill routing preflight (not agent workflow).
 harness-consumer-preflight:
 	@bash tools/harness_consumer_preflight.sh
+
+# Explicit pinned Harness Consumer Pack bootstrap and read-only route check.
+harness-pack-preflight:
+	@bash tools/harness_pack_preflight.sh

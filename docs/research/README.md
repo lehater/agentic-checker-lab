@@ -22,3 +22,5 @@
 
 - [TASK-004 Checker source intake](task-004-harness-source-intake.md) — source-derived input, **not accepted requirements**.
 - [TASK-004 Harness consumer routing preflight](task-004-harness-consumer-preflight.md) — prepared read-only route probe; execution not yet confirmed.
+
+- [TASK-004 pinned Harness Consumer Pack preflight](task-004-harness-consumer-pack.md) — planned canonical v1 binding, bootstrap and independent consumer/maintainer separation check.
