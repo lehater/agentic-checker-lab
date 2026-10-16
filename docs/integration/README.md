@@ -1,14 +1,14 @@
 # Harness ↔ RPG: экспериментальный контракт
 
-Статус: **HYPOTHESIS**, не реализован. Уточняется после P1 CoderMind inspection.
+Статус: **HYPOTHESIS**, не реализован. P1 проверил initial RPG (31 узел, 18 feature leaves, 0 явных dependency edges); полный CoderMind planning/codegen и Harness→RPG handoff не проверены. См. [аудит](../research/methodology-integration-audit-2026-10.md).
 
 ## Разделение истины
 
 | Контур | Владеет | Не вправе |
 | --- | --- | --- |
-| Принятые docs | Проблема, требования, инварианты, архитектурные ограничения, test intent | Механически повторять legacy файлы |
-| Harness | Authority, Capabilities, Questions, зависимость/полнота инженерных знаний | Присваивать знания о предметной области из чужих исходников |
-| RPG/CoderMind | Функциональная структура, компоненты, файлы, interfaces, задачи codegen | Переопределять требования или гарантировать оптимальность дизайна |
+| Project canonical artifacts | Принятая проблема, требования, инварианты, архитектура, Test Design и ограничения реализации | Механически повторять legacy файлы, считать derivations новой истиной |
+| Harness + агент и skills | Получение/принятие Problem Evidence/Requirements/Design/Test knowledge, Authority/Capabilities/Questions, completeness, provenance и human documentation | Принимать произвольные факты из кода за авторитетные, считать структурное COMPLETE достаточным для codegen |
+| RPG/CoderMind | Производные feature specification/decomposition, компоненты, file/data flow/interfaces, codegen и graph-aware edits | Переопределять принятый проектный смысл; считать output graph доказательством полноты |
 | Приложение | Исполняемый результат Checker | Служить первичной истиной о продукте |
 | Independent oracle | Проверка принятых требований | Принимать только агентные тесты к его собственному коду |
 
@@ -47,3 +47,13 @@
 ## Приёмка интеграции
 
 До перевода HYPOTHESIS в ACCEPTED нужны: положительный сквозной run, негативный случай с запрещённым semantic override, повторимое восстановление и change-impact с независимыми oracle cases. Отдельный отказ CoderMind/agent CLI требует BLOCKED, а не подмены доказательства mock output.
+
+## Исправленная граница интеграции
+
+**Единый источник принятых обязательств:** проектные канонические артефакты. Не смешивать `Harness Core` (структурная модель), действия инженерного агента по artifact skills и semantic acceptance. Project Frontier/coverage определяют допустимый объём работы; CoderMind получает версионированную, неизменяемую на время прогона проекцию применимых принятых знаний.
+
+CoderMind `feature_spec` сам генерирует требования/декомпозицию: результат сначала **предложение**, которое сверяется с canonical accepted requirements/constraints/implementation freedoms. Принять новый смысл вправе только проектный Authority через Harness, не CoderMind. Источники и негативные ограничения не должны теряться. Подробный [план пилота](handoff-pilot.md).
+
+При codegen не использовать lab Git repo непосредственно: upstream `code_gen`/RPG edit имеют собственные branch/commit/merge workflows. Запускать в изолированном disposable repo, сканировать diff, переносить результат только через PR/squash. Включить негативные тесты unauthorized write, stale source, missing requirement и архитектурного конфликта.
+
+Сквозная link projection и RPG snapshots **не становятся вторым canonical truth**. Исследовать минимальную модель идентификаторов и ссылок по фактическому CoderMind output, без изобретения универсальной DSL.

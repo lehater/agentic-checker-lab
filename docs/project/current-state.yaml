@@ -40,6 +40,7 @@ evidence:
   synthetic_rpg_data_dir: ~/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-rpg-synthetic-v1-workspace/data
   synthetic_rpg_export_dir: experiments/runs/rpg-synthetic-v1
   synthetic_rpg_independent_review: docs/research/p1-synthetic-rpg-review.md
+  methodology_audit: docs/research/methodology-integration-audit-2026-10.md
   synthetic_rpg_snapshot_commit: b20a93b7377471fc553298128b613ee38726f8b9
 observed_rule_gaps:
   - Required status checks rule exists but has an empty required_status_checks list as inspected; add repository/check in Settings
@@ -52,6 +53,9 @@ not_verified:
   - Accepted target Checker specification and oracle
   - Checker implementation
   - Four-arm comparative evaluation
+  - Full agent-operated Harness Problem-to-Implementation knowledge loop
+  - Harness to CoderMind handoff compatibility and enforcement
+  - Codegen Git/sandbox isolation and privilege behavior
 git_branch_protection: RULESET_ACTIVE_NO_BYPASS_REQUIRED_CHECKS_NOT_CONFIGURED
 toolchain: tooling/versions.yaml
 
