@@ -12,7 +12,18 @@ assessments:
   reopening_conditions:
   - canonical ownership/evidence changes
 - authority_id: PRODUCT-REQUIREMENTS
-  applicability: UNASSESSED
+  applicability: UNRESOLVED
+  evidence:
+  - docs/scenario/product-requirements-delegation.md
+  - core:question:Q-PR-001
+  - core:question:Q-PR-002
+  rationale: Delegated production with unresolved product scope/acceptance questions;
+    no canonical requirements provider yet.
+  depends_on_evidence:
+  - Q-PR-001
+  - Q-PR-002
+  reopening_conditions:
+  - Questions resolved via admitted product provider
 - authority_id: DOMAIN-STRATEGY
   applicability: UNASSESSED
 - authority_id: MODEL-CONTEXT-STRATEGY

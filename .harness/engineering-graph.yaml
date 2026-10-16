@@ -14,8 +14,27 @@ authorities:
   - capability: checker.problem
     knowledge_kind: problem-evidence
     requires: []
+- id: PRODUCT-REQUIREMENTS
+  responsibility: Own accepted product intent, scope, externally observable behavior,
+    constraints and acceptance expectations.
+  boundary:
+    semantic_cohesion: Decisions about what the product must achieve.
+    independent_change: Product intent can change without directly deciding domain
+      or technical realization.
+    public_contract: Provides accepted behavioral and acceptance semantics to downstream
+      design.
+  produces:
+  - capability: checker.requirements
+    knowledge_kind: product-requirements
+    requires:
+    - checker.problem
 consumers:
 - id: CHECKER-PROBLEM-ADMISSION
   purpose: TASK-004 Discovery admission only; not an implementation Consumer.
   requires:
   - capability: checker.problem
+- id: CHECKER-REQUIREMENTS-ADMISSION
+  purpose: PDEC-CHECKER-003 bounded requirements admission; not complete product implementation
+    scope.
+  requires:
+  - capability: checker.requirements

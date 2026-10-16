@@ -1,0 +1,39 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "experiments/runs/harness-requirements-v1/produce.py"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"BLOCKED\", \"publication\": \"sha256:b252cfbe6ef33d213aa0c6919a463fa31e891075a1ba0e7d191a8ae2ad010fb8\", \"states\": {\"checker.problem\": {\"state\": \"CURRENT\", \"capability\": \"checker.problem\", \"artifact\": \"CHECKER-PROBLEM-EVIDENCE\", \"acceptance_id\": \"task-004-checker-problem-aa7cd410ffb83daf218e\"}, \"checker.requirements\": {\"state\": \"UNKNOWN\", \"capability\": \"checker.requirements\", \"reason\": \"lifecycle coverage unavailable\"}}}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "make",
+        "check"
+      ],
+      "exit_code": 0,
+      "stdout": "python3 tools/check_repository.py\nRepository check PASS: 37 Markdown files checked\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "replay_identical": true,
+  "publication_bytes_stable_on_replay": true,
+  "false_current_rejected": {
+    "result": "PASS",
+    "error": "CURRENT publication for checker.requirements requires lifecycle evidence"
+  },
+  "base": "c8eb169"
+}

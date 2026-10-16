@@ -32,3 +32,5 @@
 - [TASK-004: strict admission и CURRENT publication](../../experiments/runs/harness-current-v1/run-report.md)
 
 - [TASK-004: bounded Project Reconciliation и следующий owner gate](../../experiments/runs/harness-reconcile-v1/README.md)
+
+- [TASK-004: CREATE checker.requirements — BLOCKED на Product Questions](../../experiments/runs/harness-requirements-v1/README.md)

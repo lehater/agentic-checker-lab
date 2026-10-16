@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_CHECKER_PRODUCT_REQUIREMENTS_AUTHORIZED_PRODUCTION_PENDING
+status: P2_CHECKER_REQUIREMENTS_BLOCKED_PRODUCT_QUESTIONS
 phase: P2
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
@@ -14,6 +14,9 @@ accepted:
   - PDEC-CHECKER-003: owner-authorized PRODUCT-REQUIREMENTS for checker.requirements, direct prerequisite checker.problem, delegated bounded agent production/review/admission/conditional publication; no actual product requirements accepted yet
   - Task branches, PR and squash into main following authorized bootstrap
 verified:
+  - Authorized CREATE checker.requirements executed; managed candidate schema VALID; strict semantic admission REJECTED on incomplete observable product scope/evidence policy
+  - Real Q-PR-001 and Q-PR-002 addressed to PRODUCT-REQUIREMENTS block only checker.requirements; BLOCKED outcome atomically published and read back
+  - checker.problem CURRENT with unchanged provider, acceptance identity and policy; requirements has no accepted provider or lifecycle row
   - Bounded reconciliation verified all 16 Frontier work items; technical Discovery Consumer is not product scope; no accepted product Consumer exists
   - Reconciliation proposed checker.requirements under PRODUCT-REQUIREMENTS; Q-REC-001 authorization later resolved by PDEC-CHECKER-003; subject completeness Q-REC-002 remains open
   - Reconciliation preserves checker.problem CURRENT and the exact accepted publication; no new Authorities or NOT_APPLICABLE dispositions
@@ -39,12 +42,14 @@ verified:
   - Operator-reported first agent Harness intake run produced candidate evidence/graph/core/questions; independently reviewed from GitHub commit 4a82dbe; research run PASS WITH LIMITATIONS, no semantic acceptance or Checker implementation
   - Independent review of raw Harness outputs confirms target READY (CREATE checker.problem; 4 PENDING), 21 activated coverage concerns, completion_ready false, 23 Authorities UNASSESSED and no full Project Frontier
 evidence:
+  checker_requirements_run: experiments/runs/harness-requirements-v1/README.md
+  checker_requirements_blocked_publication_revision: sha256:b252cfbe6ef33d213aa0c6919a463fa31e891075a1ba0e7d191a8ae2ad010fb8
   checker_scope_reconciliation: docs/scenario/checker-scope-reconciliation.yaml
   checker_product_requirements_delegation: docs/scenario/product-requirements-delegation.md
   harness_reconciliation_run: experiments/runs/harness-reconcile-v1/README.md
   checker_problem_current_run: experiments/runs/harness-current-v1/run-report.md
   checker_problem_publication: .harness/project-publication.yaml
-  checker_problem_publication_revision: sha256:1833adfec5d5a3f2f288da75762cf6efb32f4d154ca70903f11a8485319b769d
+  checker_problem_admission_publication_revision: sha256:1833adfec5d5a3f2f288da75762cf6efb32f4d154ca70903f11a8485319b769d
   harness_smoke: docs/research/p1-harness-spike.md
   harness_consumer_routing_preflight: docs/research/task-004-harness-consumer-preflight.md
   harness_consumer_pack_preflight: docs/research/task-004-harness-consumer-pack.md
