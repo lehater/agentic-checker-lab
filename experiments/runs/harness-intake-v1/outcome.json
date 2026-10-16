@@ -1,0 +1,18 @@
+{
+  "status": "AGENT_BOOTSTRAP_CANDIDATES_PRODUCED",
+  "pack_revision": "442db854c3a736a5e500b4a41664b80981b0d94c",
+  "model_calls": null,
+  "project_accepted": false,
+  "checker_implemented": false,
+  "outputs": {
+    "report": "experiments/runs/harness-intake-v1/run-report.md",
+    "problem_evidence": "experiments/runs/harness-intake-v1/problem-evidence-candidate.md",
+    "questions": "experiments/runs/harness-intake-v1/questions.md",
+    "graph": "experiments/runs/harness-intake-v1/engineering-graph-candidate.yaml",
+    "core": "experiments/runs/harness-intake-v1/core-candidate.yaml",
+    "profile": "experiments/runs/harness-intake-v1/profile.stdout",
+    "coverage": "experiments/runs/harness-intake-v1/engineering-coverage.stdout",
+    "commands": "experiments/runs/harness-intake-v1/commands.jsonl",
+    "authority_status": "experiments/runs/harness-intake-v1/project-status.stdout"
+  }
+}

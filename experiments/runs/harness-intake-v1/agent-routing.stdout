@@ -1,0 +1,67 @@
+{
+  "pending": [
+    {
+      "action": "PENDING",
+      "authority": "SYSTEM-ARCHITECTURE",
+      "capability": "checker.architecture",
+      "depends_on": [
+        "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "action": "PENDING",
+      "authority": "IMPLEMENTATION-DESIGN",
+      "capability": "checker.implementation",
+      "depends_on": [
+        "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+        "E-CHECKER-VERIFICATION-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-IMPLEMENTATION-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "action": "PENDING",
+      "authority": "PRODUCT-REQUIREMENTS",
+      "capability": "checker.requirements",
+      "depends_on": [
+        "E-CHECKER-PROBLEM-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    },
+    {
+      "action": "PENDING",
+      "authority": "VERIFICATION-DESIGN",
+      "capability": "checker.verification",
+      "depends_on": [
+        "E-CHECKER-ARCHITECTURE-CHECKER-OFFLINE-CANDIDATE",
+        "E-CHECKER-REQUIREMENTS-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "expectation": "E-CHECKER-VERIFICATION-CHECKER-OFFLINE-CANDIDATE",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    }
+  ],
+  "routed": [
+    {
+      "authority": "DISCOVERY",
+      "capabilities": [
+        "checker.problem"
+      ],
+      "expectations": [
+        "E-CHECKER-PROBLEM-CHECKER-OFFLINE-CANDIDATE"
+      ],
+      "instruction_contracts": [
+        "docs/design/agent-instruction-architecture-v0.md",
+        "docs/design/process-simplicity-and-efficiency-v0.md"
+      ],
+      "knowledge_kind": "problem-evidence",
+      "skill": "skills/artifacts/problem-evidence/SKILL.md",
+      "subject": "CHECKER-OFFLINE-CANDIDATE"
+    }
+  ],
+  "target_status": "READY",
+  "unrouted": [],
+  "wait": []
+}

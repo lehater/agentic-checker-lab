@@ -1,0 +1,11 @@
+{
+  "exposure": "public",
+  "instruction_contracts": [
+    "docs/design/agent-instruction-architecture-v0.md",
+    "docs/design/process-simplicity-and-efficiency-v0.md"
+  ],
+  "route_class": "operation",
+  "route_key": "project-engineering-status",
+  "skill": "skills/agent/project-engineering-status/SKILL.md",
+  "surface": "consumer"
+}

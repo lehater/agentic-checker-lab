@@ -1,0 +1,10 @@
+{
+  "instruction_contracts": [
+    "docs/design/agent-instruction-architecture-v0.md",
+    "docs/design/process-simplicity-and-efficiency-v0.md"
+  ],
+  "route_class": "artifact-production",
+  "route_key": "problem-evidence",
+  "skill": "skills/artifacts/problem-evidence/SKILL.md",
+  "surface": "consumer"
+}

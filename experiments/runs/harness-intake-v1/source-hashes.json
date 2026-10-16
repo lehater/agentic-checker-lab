@@ -1,0 +1,22 @@
+[
+  {
+    "path": ".harness/harness-binding.json",
+    "sha256": "7a9dfabdb25599d7f4b484e57a577da42cb73d19813c3accc3bb94071f458566",
+    "git_blob_sha": "fa3e6ff0c99f35f4e48367e7cd561842d063509c"
+  },
+  {
+    "path": "tooling/fixtures/checker-intake/README.md",
+    "sha256": "3c8fa0fccf178db5cbde9ac1a652bf4fccfaa8951b3c6bdcb23e09711c5541e3",
+    "git_blob_sha": "dbdd78f50d47546d5797d086d0ba1a9bcf0ed2ae"
+  },
+  {
+    "path": "tooling/fixtures/checker-intake/sssr-scn-006.md",
+    "sha256": "1d05af1e653ba85351dc62b78e3df20690d75df5def8a6a511a03f6e96e4e26b",
+    "git_blob_sha": "c434c0e7b0fe43561d4b7a543688f3ced9a9c619"
+  },
+  {
+    "path": "tooling/fixtures/checker-intake/product-access-as-is.md",
+    "sha256": "e5774dd705786e99a25341c7e0db8a6f537e24130ef3c62698300f913d27aeee",
+    "git_blob_sha": "220d37864a6bbd4e111a62eaa43c16320a38e32d"
+  }
+]
