@@ -1,0 +1,65 @@
+version: 1
+kind: checker-project-scope-reconciliation
+status: RECONCILED_WITH_OWNER_GATES
+basis:
+  - docs/project/strategy.md
+  - docs/project/roadmap.md
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/discovery-authority-delegation.md
+execution_scope:
+  authority: current user request for bounded Project Reconciliation only
+  excludes: [Product Requirements production, new semantic acceptance, code generation]
+project_scope:
+  identity: CHECKER
+  purpose: Standalone application supporting the operator evidence/explanation scenario of PDEC-CHECKER-001; laboratory vehicle for evaluating agentic engineering.
+  accepted_problem: checker.problem
+  accepted_product_consumer: null
+  accepted_atomic_requirements: []
+  subject_inventory_status: QUESTION
+  question: Q-REC-002
+  unresolved: [product boundary, traffic representation, matching semantics, completeness/freshness policy, interface, independent oracle]
+  warning: Empty accepted_atomic_requirements records absent accepted requirements; it does not assert an empty product scope.
+technical_scope:
+  consumer: CHECKER-PROBLEM-ADMISSION
+  subject: CHECKER-PROBLEM
+  meaning: Checks only the admitted Discovery provider; not an implementation Consumer, product boundary, or inventory of Checker subjects.
+next_step:
+  status: OWNER_AUTHORIZATION_REQUIRED
+  question: Q-REC-001
+  authority: PRODUCT-REQUIREMENTS
+  proposed_capability: checker.requirements
+  knowledge_kind: product-requirements
+  proposed_requires: [checker.problem]
+  adopted_in_graph: false
+  purpose: Establish product scope, observable behavior and atomic acceptance expectations; route unknown product choices as Questions.
+  excludes: [new Discovery artifact, mandatory user-needs intermediate artifact, domain model, architecture, code generation]
+questions:
+  - id: Q-REC-001
+    owner: project owner
+    state: OPEN
+    text: Assign PRODUCT-REQUIREMENTS to checker.requirements and authorize the proposed checker.problem prerequisite plus agent production/review/strict admission and conditional publication, or name the reviewer/acceptor who will own those operations.
+    evidence: PDEC-CHECKER-002 delegates only DISCOVERY; no Product delegation or accepted product production contract exists.
+    resolution_required_before: Adopting checker.requirements production contract or executing its artifact skill.
+  - id: Q-REC-002
+    owner: project owner / subsequently authorized PRODUCT-REQUIREMENTS
+    state: OPEN
+    text: Establish the bounded Checker product scope and machine-addressable accepted atoms before declaring a complete product subject inventory.
+    evidence: PDEC-CHECKER-001 leaves product detail open; historical fixtures and proposed vertical slice are not accepted target requirements.
+    resolution_required_before: Claiming product subject completeness; not a reason to recreate Discovery or pre-answer every product choice before starting authorized requirements work.
+frontier_dispositions:
+  - {concern: intent.scope, timing: NOW, cause: INCOMPLETE_SCOPE_MODEL, next_owner: PRODUCT-REQUIREMENTS, gate: Q-REC-001}
+  - {concern: intent.behavior, timing: NOW, cause: INCOMPLETE_SCOPE_MODEL, next_owner: PRODUCT-REQUIREMENTS, gate: Q-REC-001}
+  - {concern: meta.subject-inventory, timing: NOW, cause: INCOMPLETE_SCOPE_MODEL, next_owner: project owner / PRODUCT-REQUIREMENTS, gate: Q-REC-002}
+  - {concern: application.failures, timing: LATER, reason: Observable failure policy needs product behavior; technical failure handling belongs to subsequent application design.}
+  - {concern: architecture.structure, timing: LATER, reason: Technical realization follows bounded product behavior.}
+  - {concern: architecture.boundaries, timing: LATER, reason: Do not select technical boundaries from historical SQL or reference catalog alone.}
+  - {concern: engineering.error-handling, timing: LATER, reason: Error handling depends on accepted failure semantics and technical realization.}
+  - {concern: verification.strategy, timing: LATER, reason: Independent verification must be planned from accepted scope; current replay is not a product oracle.}
+  - {concern: verification.requirement-traceability, timing: LATER, reason: Stable accepted product requirement identities do not yet exist.}
+  - {concern: verification.functional, timing: LATER, reason: Observable behavior and product acceptance are not yet defined.}
+  - {concern: verification.architecture, timing: LATER, reason: Accepted architecture does not yet exist.}
+  - {concern: governance.external-obligations, timing: OWNER_DECISION, reason: Screen actual contractual/legal constraints; baseline activation does not prove regulation applies.}
+  - {concern: governance.privacy, timing: OWNER_DECISION, reason: Classify actual product inputs and sensitivity; lab fixtures do not establish product privacy disposition.}
+  - {concern: specialized.ai, timing: OWNER_DECISION, reason: Agentic development method is established; AI in Checker runtime is not. Do not equate the lab and the target product.}
+  - {concern: specialized.regulated, timing: OWNER_DECISION, reason: Sector obligations are unknown; network policy context alone is insufficient evidence.}
+  - {concern: specialized.safety, timing: OWNER_DECISION, reason: Assess intended operational reliance and harm; no live mutation permission is not proof of no harm.}

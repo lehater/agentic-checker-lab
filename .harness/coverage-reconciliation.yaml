@@ -1,0 +1,8 @@
+version: 1
+kind: harness-project-coverage-overlay
+# Applies only when explicitly supplied for the existing technical Consumer.
+# No concern suppression, no NOT_APPLICABLE, no fabricated semantic claims.
+subject_inventory:
+  state: REQUIRED
+  rationale: The technical Discovery Consumer is not the Checker product boundary. Accepted product atoms and a project implementation Consumer are absent; see docs/scenario/checker-scope-reconciliation.yaml. Inventory completeness requires an accepted scope; Q-REC-002 is a project-owner question outside the current Discovery-only Core, not a fabricated Core Question.
+decisions: []

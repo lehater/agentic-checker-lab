@@ -1,0 +1,41 @@
+{
+  "checks": [
+    {
+      "argv": [
+        "python3",
+        "experiments/runs/harness-reconcile-v1/reconcile.py"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"lifecycle\": {\"checker.problem\": {\"state\": \"CURRENT\", \"capability\": \"checker.problem\", \"artifact\": \"CHECKER-PROBLEM-EVIDENCE\", \"acceptance_id\": \"task-004-checker-problem-aa7cd410ffb83daf218e\"}}, \"coverage_before\": 16, \"coverage_after\": 16, \"frontier_status\": \"READY\", \"publication_unchanged\": true}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "make",
+        "check"
+      ],
+      "exit_code": 0,
+      "stdout": "python3 tools/check_repository.py\nRepository check PASS: 35 Markdown files checked\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "evidence_replay_identical": true,
+  "accepted_inputs_unchanged": [
+    ".harness/project-publication.yaml",
+    ".harness/engineering-graph.yaml",
+    ".harness/authority-assessments.yaml",
+    "docs/scenario/problem-framing-decision.md",
+    "docs/scenario/discovery-authority-delegation.md"
+  ],
+  "base": "2bedc05"
+}
