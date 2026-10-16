@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_CHECKER_FIRST_SLICE_DOMAIN_VERIFICATION_BLOCKED
+status: P2_CHECKER_REQUIREMENTS_REVISED_CURRENT_DOMAIN_VERIFICATION_BLOCKED
 phase: P2
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
@@ -16,6 +16,9 @@ accepted:
   - PDEC-CHECKER-005: owner-authorized scoped DOMAIN-USE-CASE-DESIGN and VERIFICATION-DESIGN, conditional on actual Harness prerequisites; no domain strategy, independent oracle or new Current provider yet
   - Task branches, PR and squash into main following authorized bootstrap
 verified:
+  - PR23 corrected Product Requirements against revised Harness policy: 13 active independent obligations, 19 historical RETIRED; former REQ-CHECKER-028 is a Verification Design handoff, not product behavior
+  - Genuine Harness REVISION accepted CHECKER-REQUIREMENTS and republished Core/evaluation/lifecycle/Q-PR resolution identities via CAS; prior checker.problem CURRENT unchanged, domain-use-case and verification-strategy still BLOCKED
+  - The earlier BLOCKED verification candidate has 28 legacy requirement references and is historical evidence only; next Verification Design continuation must remap to the 13 active IDs
   - First-slice domain-use-case BLOCKED on missing accepted Strategic Domain ownership (Q-DV-001) and matching contract (Q-DV-002); no fictitious Strategy provider or domain admission
   - Verification candidate schema VALID with explicit dispositions for all 28 requirements; substantive review REJECTED and real strict admission REJECTED on missing matching semantics/oracle; independent metadata/evidence work continued
   - Eight upstream-grounded scenario drafts prepared; acceptance-scenarios production blocked on absent accepted Verification Strategy; no behavioral execution claimed
@@ -51,12 +54,14 @@ verified:
   - Operator-reported first agent Harness intake run produced candidate evidence/graph/core/questions; independently reviewed from GitHub commit 4a82dbe; research run PASS WITH LIMITATIONS, no semantic acceptance or Checker implementation
   - Independent review of raw Harness outputs confirms target READY (CREATE checker.problem; 4 PENDING), 21 activated coverage concerns, completion_ready false, 23 Authorities UNASSESSED and no full Project Frontier
 evidence:
+  checker_requirements_reviewed_revision: experiments/runs/harness-requirements-revision-v1/README.md
+  checker_requirements_reviewed_admission: experiments/runs/harness-requirements-revision-v1/semantic-admission.yaml
   checker_domain_verification_run: experiments/runs/harness-domain-verification-v1/README.md
   checker_domain_verification_questions: .harness/project-publication.yaml
   checker_domain_verification_delegation: docs/scenario/domain-verification-delegation.md
   checker_requirements_current_run: experiments/runs/harness-requirements-current-v1/README.md
   checker_requirements_canonical: .harness/knowledge/checker-requirements.yaml
-  checker_current_publication_revision: sha256:f38832e09ce67f6713d26e1a06ab04d1af786d5cbd148e6e702181201c938334
+  checker_current_publication_revision: sha256:8f5dc04d1b76ce6c347b63c796935465b84db72bb1b3623969c90ae7a89af2f5
   checker_first_slice_owner_decision: docs/scenario/first-slice-product-decision.md
   checker_requirements_run: experiments/runs/harness-requirements-v1/README.md
   checker_requirements_blocked_publication_revision: sha256:b252cfbe6ef33d213aa0c6919a463fa31e891075a1ba0e7d191a8ae2ad010fb8
@@ -99,7 +104,7 @@ not_verified:
   - Independent executable behavior for R-SYN-01..06 (no code exists)
   - CoderMind data-flow/interface/task-planning and code generation stages
   - Standalone typed requirement-to-RPG provenance and test links
-  - Accepted target Checker specification and oracle
+  - Full target Checker specification and independent matching oracle; first-slice Product Requirements are CURRENT after revision
   - Checker implementation
   - Four-arm comparative evaluation
   - Full Harness project-bootstrap reconciliation, accepted project-owned Authority applicability, subject inventory and coverage completion
