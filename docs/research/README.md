@@ -24,3 +24,5 @@
 - [TASK-004 Harness consumer routing preflight](task-004-harness-consumer-preflight.md) — prepared read-only route probe; execution not yet confirmed.
 
 - [TASK-004 pinned Harness Consumer Pack preflight](task-004-harness-consumer-pack.md) — planned canonical v1 binding, bootstrap and independent consumer/maintainer separation check.
+
+- [First agent-operated Harness Discovery pilot](task-004-harness-agent-pilot.md) — pinned source snapshots, bounded Codex agent run, output/acceptance boundaries. **NOT RUN**.
