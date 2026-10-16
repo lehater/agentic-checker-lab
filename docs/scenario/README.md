@@ -1,6 +1,6 @@
 # Checker — границы первой предметной задачи
 
-Статус: **потребность верхнего уровня подтверждена владельцем** ([PDEC-CHECKER-001](problem-framing-decision.md)); полномочия DISCOVERY и PRODUCT-REQUIREMENTS заданы [PDEC-CHECKER-002](discovery-authority-delegation.md) и [PDEC-CHECKER-003](product-requirements-delegation.md). Предлагаемый вертикальный срез и target requirements — **CANDIDATE / NOT ACCEPTED**.
+Статус: **потребность верхнего уровня подтверждена владельцем** ([PDEC-CHECKER-001](problem-framing-decision.md)); полномочия DISCOVERY и PRODUCT-REQUIREMENTS заданы [PDEC-CHECKER-002](discovery-authority-delegation.md) и [PDEC-CHECKER-003](product-requirements-delegation.md). **Первый узкий продуктовый slice и политика неполных свидетельств подтверждены** в [PDEC-CHECKER-004](first-slice-product-decision.md). Канонические требования пока **не приняты**.
 
 ## Пользовательская проблема
 
@@ -9,7 +9,7 @@
 
 Оператору требуется объяснимое свидетельство по конкретному сетевому потоку: источник, назначение, протокол, порты → релевантные места применения сетевой политики, сохранённые подходящие ACL правила, порядок, происхождение и свежесть данных. Историческая реализация в Product использует Django, SQL и возможную живую диагностику устройства; не копировать её техническую архитектуру.
 
-## Предполагаемый минимальный вертикальный срез
+## Исторический кандидат минимального вертикального среза
 
 - Input: source/destination IPv4, IP protocol, source/destination ports когда имеют смысл.
 - Подготовленные fixture providers: известные enforcement attachments и нормализованные ACL snapshot rules. **На первой итерации не вычислять реальную топологию и не читать устройства.**
@@ -17,7 +17,7 @@
 - Независимая проверка, защищающая от универсального allow/deny: отсутствие matching rule никогда само по себе не значит DENIED.
 - Небольшой самостоятельный CLI или API; UI, БД и конкретный runtime stack выбираются позднее при достаточном основании.
 
-Это **исследовательское сужение**, а не утверждение, что legacy-checker обладал только такой функциональностью.
+Это исследовательское предложение, не нормативная спецификация. Для первой версии нормативен PDEC-CHECKER-004; requirements artifact ещё требует admission.
 
 ## Вне первой задачи
 
