@@ -49,3 +49,7 @@ scenario drafts и dispositions всех 28 требований уже подг
 Новый scoped Decision Roadmap и Semantic Closure — BLOCKED; Coverage неполон.
 Project Frontier READY означает наличие дальнейших coverage reconciliation actions,
 а не готовность Checker к реализации. Общая инвентаризация не выполнялась.
+
+## Product Requirements correction after PR #22
+
+[Requirements revision](../../experiments/runs/harness-requirements-revision-v1/README.md) is genuinely admitted CURRENT with 13 active product obligations, 19 historical RETIRED (including REQ-028 moved to Verification). Previous run's 28-requirement strategy and eight scenarios are retained as **historical BLOCKED drafts**, not accepted downstream knowledge. Q-DV-001/002 remain blockers, and new Verification Strategy must map to active requirements after domain semantics are accepted. No architecture or code generation authorized.
