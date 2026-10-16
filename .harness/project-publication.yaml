@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:b252cfbe6ef33d213aa0c6919a463fa31e891075a1ba0e7d191a8ae2ad010fb8
-parent_revision: sha256:1833adfec5d5a3f2f288da75762cf6efb32f4d154ca70903f11a8485319b769d
+revision: sha256:94bc167d0108b5b4b90dcea6cefd0af3f5ba5132091f0ee20756163127da9852
+parent_revision: sha256:b252cfbe6ef33d213aa0c6919a463fa31e891075a1ba0e7d191a8ae2ad010fb8
 state:
   core_model:
     artifacts:
@@ -11,6 +11,13 @@ state:
       provides:
       - checker.problem
       depends_on: []
+    - id: CHECKER-REQUIREMENTS
+      path: .harness/knowledge/checker-requirements.yaml
+      authority: PRODUCT-REQUIREMENTS
+      provides:
+      - checker.requirements
+      depends_on:
+      - CHECKER-PROBLEM-EVIDENCE
     questions:
     - id: Q-PR-001
       authority: PRODUCT-REQUIREMENTS
@@ -22,6 +29,10 @@ state:
       - checker.requirements
       blocks: []
       answer_from: []
+      resolution:
+        artifact: CHECKER-REQUIREMENTS
+        acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
+        supersedes_acceptance_id: ABSENT
     - id: Q-PR-002
       authority: PRODUCT-REQUIREMENTS
       text: Как оператор должен различать надёжные, неизвестные, неполные или устаревшие
@@ -32,6 +43,10 @@ state:
       - checker.requirements
       blocks: []
       answer_from: []
+      resolution:
+        artifact: CHECKER-REQUIREMENTS
+        acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
+        supersedes_acceptance_id: ABSENT
   semantic_evaluations:
     version: 1
     kind: harness-semantic-evaluation-set
@@ -80,12 +95,88 @@ state:
         acceptance_id: task-004-checker-problem-aa7cd410ffb83daf218e
         acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
         accepted_prerequisites: {}
-        semantic_atom_fingerprints: &id001
+        semantic_atom_fingerprints: &id002
           problem-actor: SAF-a5b38b9482cab5c6a300aac8bca0f7266d7d308e7702d342b0b766b9fff3dfe5
           problem-need: SAF-77f736eb804bf4d499e9d93e233a5c4c947bd35e38f78e3fbadc200110893ad7
           problem-outcome: SAF-3f8eacfab7559884026c3d7c6ee4a2d9cf2345e21a11f5b8f758fbbc00b27c5f
           problem-verdict-boundary: SAF-b03f408c8970ec3b9458eb88004159b2e28b76444afdf1e778801cd544b6a169
           problem-scope-boundary: SAF-1e751339bde64c94d1ffb9202ead11273a1a873072b1ff8fbe68e77fc75e76af
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: CHECKER-REQUIREMENTS
+      capability: checker.requirements
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted: []
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: product-requirements
+        skill: skills/artifacts/product-requirements/SKILL.md
+        acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
+        authority: PRODUCT-REQUIREMENTS
+        allowed_source_authorities:
+        - DISCOVERY
+        - PRODUCT-REQUIREMENTS
+        changed_paths:
+        - .harness/knowledge/checker-requirements.yaml
+        canonical_references:
+        - referenced_path: docs/scenario/problem-framing-decision.md
+        accepted_prerequisites: &id001
+          checker.problem: task-004-checker-problem-aa7cd410ffb83daf218e
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: CHECKER-REQUIREMENTS
+        capability: checker.requirements
+        acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
+        acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+        accepted_prerequisites: *id001
+        semantic_atom_fingerprints: &id003
+          REQ-CHECKER-001: SAF-2ceeeb8f9cdfefbac5b18985f8d09263caaff6d431408c3c2166d20bc7ac1039
+          REQ-CHECKER-002: SAF-c9f20f56b478b55825e72dfe67e5b1f81792a4b8532c9aec4b090772e241a715
+          REQ-CHECKER-003: SAF-7f1e60410b783f5019bc6691ff816135bfe86f95fa2018cce507b32c05544d47
+          REQ-CHECKER-004: SAF-aec497f12e5b9ad670c98d4da75458d31bc3d5f397fd9e324aa476ddb7ee81c8
+          REQ-CHECKER-005: SAF-4ed5113c7eb291daafed137946e32f88f41ec3a203de240e0a942630926a268f
+          REQ-CHECKER-006: SAF-298ea62c3ddee160b562b6f99df103bf8c84a3518cab8c61dc2dea566563fb1a
+          REQ-CHECKER-007: SAF-6d23f9db3ff2f090be6bd0fde651f525bb13c36714445d459d9fa9edb89f8ff4
+          REQ-CHECKER-008: SAF-420790629046e6d6d260bdf7e62c325242982246127f0f074b038c8360fc73c5
+          REQ-CHECKER-009: SAF-df741f742c197263a4af18b4a5f86f5304f98a3f1020befcd8396b7d2a70fecb
+          REQ-CHECKER-010: SAF-8d9b9a820e9c03817ae27bdc1d1fe96d636c33acf2837054329279e19568e67a
+          REQ-CHECKER-011: SAF-dc911af858ec974c13d75d602318d8626b0dc0cc3ff73ddc3b6a553e880955cf
+          REQ-CHECKER-012: SAF-c02b742769d8182d98eb9977e3a0680d01216a17c319e760e715c4932588b37f
+          REQ-CHECKER-013: SAF-91f3771c61e6f2613bed80bf46d7161f5ca1bbca9ff64842076e86249206dae1
+          REQ-CHECKER-014: SAF-d1e684b0ef0fb317c3111dbb61e9f2dd5fa3b610ff05a225502f3612f9f1f199
+          REQ-CHECKER-015: SAF-1ff0b9176f76c614280c2c6d1a56db6b2fce94a9a4cc47813060bb9d6cc73e5c
+          REQ-CHECKER-016: SAF-648857db17aa87dc9eff51653bfcf75798874f3ef93579b3dced650d54fe93ba
+          REQ-CHECKER-017: SAF-5c90d16aea998d5a1c4104423bd459b5430baa7c5c53d477a3ad8e2a30825615
+          REQ-CHECKER-018: SAF-840d2e7d075d80de534d86e7a13692a1e1839eca0cfafebc3ca31a212449a1c4
+          REQ-CHECKER-019: SAF-e38c61ca9d84648239df48772e60d963beead521df8861bc29b4f27610eb3339
+          REQ-CHECKER-020: SAF-790f55185f3ee32929b39b48263c9abee87e1c656bc96a8ccfd79898fb6b87ed
+          REQ-CHECKER-021: SAF-61b27eb6af74d398ae65efea56a18e4d633f434749f43a7c41d6590763f05627
+          REQ-CHECKER-022: SAF-72909068a58446d4bbd7ac7a17683c27e06e07f1da5988b18a3b322152bdf25d
+          REQ-CHECKER-023: SAF-4b83c7f643e55575a096ccda07de5a1183696e32cbd1e26cc5dbc2dc1f9456a4
+          REQ-CHECKER-024: SAF-46c5787aadf6ad3ac5e26a76e63c1b659ecc8a8d16c39217f3858a7e2d50f824
+          REQ-CHECKER-025: SAF-d48b95a953068a26d6a2ff43f9a0d664964ab068bc09c134d8a57727f7b59b97
+          REQ-CHECKER-026: SAF-75353c43dd07ff614f63d42e6fc436c51c4add3e947feb1d341e42b9bd5eae54
+          REQ-CHECKER-027: SAF-ac6dacc031f96dfe824245b9258f8693538b8fe6240dd4de0a1d243a80c506e0
+          REQ-CHECKER-028: SAF-55aa5f06001d224ff49474e81f5689a75113331ade2e893895ab8411fc6d196c
     derivation_evaluations: []
   lifecycle:
     version: 1
@@ -96,7 +187,14 @@ state:
       acceptance_id: task-004-checker-problem-aa7cd410ffb83daf218e
       acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
       accepted_prerequisites: {}
-      semantic_atom_fingerprints: *id001
+      semantic_atom_fingerprints: *id002
+    - artifact: CHECKER-REQUIREMENTS
+      capability: checker.requirements
+      acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
+      acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
+      accepted_prerequisites:
+        checker.problem: task-004-checker-problem-aa7cd410ffb83daf218e
+      semantic_atom_fingerprints: *id003
   decision_failures:
     version: 1
     kind: harness-decision-failure-set

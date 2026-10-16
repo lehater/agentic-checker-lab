@@ -1,0 +1,43 @@
+artifacts:
+- id: CHECKER-PROBLEM-EVIDENCE
+  path: docs/scenario/problem-framing-decision.md
+  authority: DISCOVERY
+  provides:
+  - checker.problem
+  depends_on: []
+- id: CHECKER-REQUIREMENTS
+  path: .harness/knowledge/checker-requirements.yaml
+  authority: PRODUCT-REQUIREMENTS
+  provides:
+  - checker.requirements
+  depends_on:
+  - CHECKER-PROBLEM-EVIDENCE
+questions:
+- id: Q-PR-001
+  authority: PRODUCT-REQUIREMENTS
+  text: 'Какой минимальный наблюдаемый scope первого Checker принимается: какие потоки
+    и policy contexts поддерживаются, какие сведения считаются входом/обязательным
+    результатом и по каким продуктовым условиям placements/правила считаются релевантными/подходящими?
+    Необходима граница, не выбор алгоритма, интерфейса или архитектуры.'
+  blocks_capabilities:
+  - checker.requirements
+  blocks: []
+  answer_from: []
+  resolution:
+    artifact: CHECKER-REQUIREMENTS
+    acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
+    supersedes_acceptance_id: ABSENT
+- id: Q-PR-002
+  authority: PRODUCT-REQUIREMENTS
+  text: Как оператор должен различать надёжные, неизвестные, неполные или устаревшие
+    свидетельства и какой результат считается допустимым при отсутствующих/недостоверных
+    источниках в scope Q-PR-001? Определить наблюдаемые условия приёмки без придуманных
+    порогов freshness и без универсального verdict.
+  blocks_capabilities:
+  - checker.requirements
+  blocks: []
+  answer_from: []
+  resolution:
+    artifact: CHECKER-REQUIREMENTS
+    acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
+    supersedes_acceptance_id: ABSENT

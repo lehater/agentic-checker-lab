@@ -1,0 +1,274 @@
+id: CHECKER-REQUIREMENTS
+path: .harness/knowledge/checker-requirements.yaml
+capability: checker.requirements
+canonical_references:
+- referenced_path: docs/scenario/problem-framing-decision.md
+semantic_assertions:
+- id: REQ-CHECKER-001
+  kind: product-requirement
+  subject: REQ-CHECKER-001
+  semantic_value: Показывать оператору релевантные места применения политики для исследуемого
+    сетевого потока.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-outcome
+  source_refs:
+  - checker.problem#problem-outcome
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-002
+  kind: product-requirement
+  subject: REQ-CHECKER-002
+  semantic_value: Показывать оператору подходящие сохранённые ACL-правила для исследуемого
+    сетевого потока.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-outcome
+  source_refs:
+  - checker.problem#problem-outcome
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-003
+  kind: product-requirement
+  subject: REQ-CHECKER-003
+  semantic_value: Сохранять порядок обработки показываемых подходящих ACL-правил.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-outcome
+  source_refs:
+  - checker.problem#problem-outcome
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-004
+  kind: product-requirement
+  subject: REQ-CHECKER-004
+  semantic_value: Предоставлять оператору сведения о достоверности источников используемых
+    свидетельств.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-outcome
+  source_refs:
+  - checker.problem#problem-outcome
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-005
+  kind: product-requirement
+  subject: REQ-CHECKER-005
+  semantic_value: Формирование единого универсального Permit/Deny не является обязательным
+    результатом Checker.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-verdict-boundary
+  source_refs:
+  - checker.problem#problem-verdict-boundary
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-006
+  kind: product-requirement
+  subject: REQ-CHECKER-006
+  semantic_value: Не превращать отсутствие совпадающего правила само по себе в DENY
+    или ALLOW.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-verdict-boundary
+  source_refs:
+  - checker.problem#problem-verdict-boundary
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-007
+  kind: product-requirement
+  subject: REQ-CHECKER-007
+  semantic_value: Не выводить общесистемный эффективный verdict из одного лишь факта
+    наличия подходящего правила.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-verdict-boundary
+  source_refs:
+  - checker.problem#problem-verdict-boundary
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-008
+  kind: product-requirement
+  subject: REQ-CHECKER-008
+  semantic_value: Поддерживать IPv4-адреса источника и назначения исследуемого потока.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-009
+  kind: product-requirement
+  subject: REQ-CHECKER-009
+  semantic_value: Поддерживать исследуемые потоки TCP и UDP.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-010
+  kind: product-requirement
+  subject: REQ-CHECKER-010
+  semantic_value: Учитывать предоставленный порт источника исследуемого TCP/UDP потока.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-011
+  kind: product-requirement
+  subject: REQ-CHECKER-011
+  semantic_value: Учитывать предоставленный порт назначения исследуемого TCP/UDP потока.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-012
+  kind: product-requirement
+  subject: REQ-CHECKER-012
+  semantic_value: Принимать релевантные policy contexts и места применения политики
+    как предоставленные входные сведения.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-013
+  kind: product-requirement
+  subject: REQ-CHECKER-013
+  semantic_value: Использовать заранее предоставленные snapshots сохранённых ACL-правил
+    для входных policy contexts.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-014
+  kind: product-requirement
+  subject: REQ-CHECKER-014
+  semantic_value: Указывать соответствующий policy context для показываемых ACL-правил.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-015
+  kind: product-requirement
+  subject: REQ-CHECKER-015
+  semantic_value: Представлять происхождение каждого использованного источника свидетельств.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-016
+  kind: product-requirement
+  subject: REQ-CHECKER-016
+  semantic_value: Представлять известную дату снимка каждого использованного источника.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-017
+  kind: product-requirement
+  subject: REQ-CHECKER-017
+  semantic_value: Явно обозначать неизвестную дату снимка использованного источника.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-018
+  kind: product-requirement
+  subject: REQ-CHECKER-018
+  semantic_value: Представлять известный статус полноты каждого использованного источника.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-019
+  kind: product-requirement
+  subject: REQ-CHECKER-019
+  semantic_value: Явно обозначать неизвестную полноту использованного источника.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-020
+  kind: product-requirement
+  subject: REQ-CHECKER-020
+  semantic_value: Допускать частичный объяснимый результат при недостаточных, неполных
+    или устаревших свидетельствах.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-021
+  kind: product-requirement
+  subject: REQ-CHECKER-021
+  semantic_value: Показывать оператору ограничения частичного результата.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-022
+  kind: product-requirement
+  subject: REQ-CHECKER-022
+  semantic_value: Показывать оператору неустановленные факты частичного результата.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-023
+  kind: product-requirement
+  subject: REQ-CHECKER-023
+  semantic_value: Различать отсутствие подходящих правил в полном известном snapshot
+    и отсутствие нужного snapshot/данных.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-024
+  kind: product-requirement
+  subject: REQ-CHECKER-024
+  semantic_value: Различать отсутствие подходящих правил в полном известном snapshot
+    и неизвестную полноту snapshot.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-025
+  kind: product-requirement
+  subject: REQ-CHECKER-025
+  semantic_value: Обозначать свидетельства устаревшими только при подтверждённом основании.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-026
+  kind: product-requirement
+  subject: REQ-CHECKER-026
+  semantic_value: Не определять просрочку свидетельств по придуманному числовому TTL.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-027
+  kind: product-requirement
+  subject: REQ-CHECKER-027
+  semantic_value: Не считать свидетельства с неизвестной датой актуальными на основании
+    отсутствия даты.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-028
+  kind: product-requirement
+  subject: REQ-CHECKER-028
+  semantic_value: Обеспечить проверяемость поддерживаемых совпадений ACL на независимых
+    примерах.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+semantic_review:
+  status: ACCEPTED
+  checks:
+  - source-discipline
+  - authority-boundary
+  - no-invention
+  - observable-product-level
+  - no-downstream-design-promotion
+  reviewer: Acting engineering agent delegated by PDEC-CHECKER-003
+  record: experiments/runs/harness-requirements-current-v1/review.md
