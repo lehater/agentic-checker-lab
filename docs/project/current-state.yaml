@@ -25,8 +25,11 @@ verified:
   - Operator reported local export of five RPG artifacts and checksum manifest; pushed at b20a93b
   - Independently verified five JSON SHA256 hashes and source requirements hash against manifest
   - Independently reconciled 31 RPG nodes and all 18 leaf assignments; six source requirements represented as design intent, not executable contracts
+  - Operator-reported Harness Consumer routing preflight PASS on pinned SHA; 3 public operations and 5 artifact skills resolve; no workflow or model call
 evidence:
   harness_smoke: docs/research/p1-harness-spike.md
+  harness_consumer_routing_preflight: docs/research/task-004-harness-consumer-preflight.md
+  harness_consumer_routing_run_directory: ~/.cache/agentic-checker-lab/runs/harness-consumer-routing.VC4o2g
   observed_harness_sha: 442db854c3a736a5e500b4a41664b80981b0d94c
   observed_run_directory: ~/.cache/agentic-checker-lab/runs/harness-smoke.Wjk5zq
   cmind_preflight: docs/research/p1-cmind-preflight.md

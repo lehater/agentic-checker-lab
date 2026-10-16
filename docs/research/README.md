@@ -19,3 +19,6 @@
 - [Independent RPG snapshot review](p1-synthetic-rpg-review.md) — SHA-256 integrity, R-SYN mapping and architectural limitations.
 
 - [Audit Harness × RPG × Agent strategy (2026-10-16)](methodology-integration-audit-2026-10.md) — primary-source responsibilities, critical gaps, proposed gates and experimental redesign; **not accepted strategy**.
+
+- [TASK-004 Checker source intake](task-004-harness-source-intake.md) — source-derived input, **not accepted requirements**.
+- [TASK-004 Harness consumer routing preflight](task-004-harness-consumer-preflight.md) — prepared read-only route probe; execution not yet confirmed.
