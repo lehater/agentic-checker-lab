@@ -1,18 +1,20 @@
-# Agent entrypoint — documentation map
+# Checker — agent entrypoint
 
-Persistent truth lives in the linked repository documents, not in this file.
+Start with [the owner's problem statement](docs/scenario/owner-problem-brief.md). Treat Checker as a real software engineering assignment, not a predesigned implementation.
 
-1. [Documentation index](docs/README.md)
-2. [Purpose and strategy](docs/project/strategy.md)
-3. [Current verified state](docs/project/current-state.yaml)
-4. [Roadmap and next tasks](docs/project/roadmap.md)
-5. [Repository governance](docs/project/governance.md)
-6. [Checker scenario](docs/scenario/README.md)
-7. [Harness–RPG integration](docs/integration/README.md)
-8. [Evaluation protocol](docs/evaluation/README.md)
+## Harness Consumer API v1
 
-[Research and sources](docs/research/README.md) · [Decisions](docs/decisions/README.md)
+Run `python3 .harness/harnessw.py sync` to materialize the pinned Consumer Pack at `.harness/harness-binding.json`. Route operations through `harness.application.skill_router` from that pack. Read returned `instruction_contracts` and the selected SKILL.md. Do not use Maintainer skills for project work.
 
-## Harness Consumer API v1 (tooling only)
+Select applicable Authorities and Capabilities according to Harness rules, not from a preset list. Follow dependencies, required semantic admission and publication. Ask the owner about material domain uncertainty; do not invent ACCEPTED or CURRENT. Produce an appropriate small working vertical slice on synthetic data.
 
-Before agent-operated Harness work, run `python3 .harness/harnessw.py sync` to materialize the pinned Consumer Pack at the revision in `.harness/harness-binding.json`. Invoke Consumer operations through `harness.application.skill_router` **from that pack**, read returned `instruction_contracts` then the selected SKILL.md; do not route target tasks through Harness Maintainer skills. This step does not accept project semantics; [intake](docs/research/task-004-harness-source-intake.md) is source evidence only. See [Consumer Pack pilot](docs/research/task-004-harness-consumer-pack.md).
+Use RPG/CoderMind for implementation planning and coding based on accepted Harness outputs; independently verify executable behavior. Do not access real firewalls.
+
+## Navigation
+
+- [Owner's problem](docs/scenario/owner-problem-brief.md)
+- [Project state](docs/project/current-state.yaml)
+- [Repository governance](docs/project/governance.md)
+- [Harness–RPG interface](docs/integration/README.md)
+
+Historical research and experimental runs are not accepted product requirements.
