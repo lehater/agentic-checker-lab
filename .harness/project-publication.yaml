@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:0bd03134218117e5230683b6e50bb3e80b3d66813036479cd8da91aad2a92d6d
-parent_revision: sha256:8f5dc04d1b76ce6c347b63c796935465b84db72bb1b3623969c90ae7a89af2f5
+revision: sha256:9d08573399009eab2c93711ab8b7420bd41c9753bd3c7f781365432d6059fc4b
+parent_revision: sha256:0bd03134218117e5230683b6e50bb3e80b3d66813036479cd8da91aad2a92d6d
 state:
   core_model:
     artifacts:
@@ -47,24 +47,14 @@ state:
         artifact: CHECKER-REQUIREMENTS
         acceptance_id: task-004-requirements-revised-e6b9bb836bc43b75a26fcebc
         supersedes_acceptance_id: task-004-requirements-revised-508d09a81929c4b2257bb8fa
-    - id: Q-DV-001
-      authority: DOMAIN-USE-CASE-DESIGN
-      text: 'Владелец проекта: обеспечьте accepted Strategic Domain ownership для
-        first slice PDEC-004 через надлежащий DOMAIN-STRATEGY процесс. Какой принятый
-        provider закрепляет эту ответственность? PDEC-005 и Product Requirements не
-        заменяют обязательный input domain-use-case skill.'
-      blocks_capabilities:
-      - checker.domain-use-case
-      blocks: []
-      answer_from: []
     - id: Q-DV-002
       authority: DOMAIN-USE-CASE-DESIGN
-      text: 'После установления Strategic ownership: примите минимальные поддерживаемые
-        ACL facts и match/non-match predicates для IPv4 TCP/UDP source/destination
-        и обоих портов, роль порядка при выборе показываемых правил и границу unknown/unsupported
-        facts. Нужны независимо размеченные положительные/отрицательные примеры с
-        основанием из контракта. Syntax/masks, implicit deny, first-match и action
-        priority не заданы и не могут выбираться тестом или legacy SQL.'
+      text: Какие конкретные поддерживаемые ACL facts и match/non-match predicates
+        применимы к входному IPv4 TCP/UDP потоку (оба адреса и оба порта), как интерпретируется
+        известный порядок показываемых правил внутри context и где проходит граница
+        unknown/unsupported фактов? Нужны независимо обоснованные положительные и
+        отрицательные ожидаемые примеры. Syntax/masks, implicit deny, first-match,
+        action priority, глобальный Permit/Deny и алгоритм не приняты.
       blocks_capabilities:
       - checker.domain-use-case
       - checker.verification-strategy
@@ -118,7 +108,7 @@ state:
         acceptance_id: task-004-checker-problem-aa7cd410ffb83daf218e
         acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
         accepted_prerequisites: {}
-        semantic_atom_fingerprints: &id002
+        semantic_atom_fingerprints: &id001
           problem-actor: SAF-a5b38b9482cab5c6a300aac8bca0f7266d7d308e7702d342b0b766b9fff3dfe5
           problem-need: SAF-77f736eb804bf4d499e9d93e233a5c4c947bd35e38f78e3fbadc200110893ad7
           problem-outcome: SAF-3f8eacfab7559884026c3d7c6ee4a2d9cf2345e21a11f5b8f758fbbc00b27c5f
@@ -150,7 +140,7 @@ state:
         - .harness/knowledge/checker-requirements.yaml
         canonical_references:
         - referenced_path: docs/scenario/problem-framing-decision.md
-        accepted_prerequisites: &id001
+        accepted_prerequisites:
           checker.problem: task-004-checker-problem-aa7cd410ffb83daf218e
         accepted_prerequisite_semantics: {}
         semantic_contract: knowledge-kind-semantic-contracts/v1
@@ -170,8 +160,9 @@ state:
         capability: checker.requirements
         acceptance_id: task-004-requirements-revised-e6b9bb836bc43b75a26fcebc
         acceptance_policy_fingerprint: sha256:2fb4620d32987bf389ecb0ed8935193a2cfe6eda9c4a8259083da3792a0f1847
-        accepted_prerequisites: *id001
-        semantic_atom_fingerprints: &id003
+        accepted_prerequisites:
+          checker.problem: task-004-checker-problem-aa7cd410ffb83daf218e
+        semantic_atom_fingerprints: &id002
           REQ-CHECKER-001: SAF-2ceeeb8f9cdfefbac5b18985f8d09263caaff6d431408c3c2166d20bc7ac1039
           REQ-CHECKER-002: SAF-c9f20f56b478b55825e72dfe67e5b1f81792a4b8532c9aec4b090772e241a715
           REQ-CHECKER-003: SAF-7f1e60410b783f5019bc6691ff816135bfe86f95fa2018cce507b32c05544d47
@@ -195,14 +186,14 @@ state:
       acceptance_id: task-004-checker-problem-aa7cd410ffb83daf218e
       acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
       accepted_prerequisites: {}
-      semantic_atom_fingerprints: *id002
+      semantic_atom_fingerprints: *id001
     - artifact: CHECKER-REQUIREMENTS
       capability: checker.requirements
       acceptance_id: task-004-requirements-revised-e6b9bb836bc43b75a26fcebc
       acceptance_policy_fingerprint: sha256:2fb4620d32987bf389ecb0ed8935193a2cfe6eda9c4a8259083da3792a0f1847
       accepted_prerequisites:
         checker.problem: task-004-checker-problem-aa7cd410ffb83daf218e
-      semantic_atom_fingerprints: *id003
+      semantic_atom_fingerprints: *id002
   decision_failures:
     version: 1
     kind: harness-decision-failure-set

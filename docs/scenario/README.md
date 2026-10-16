@@ -7,6 +7,6 @@
 
 Обязательное поведение: исследовать заданный IPv4 TCP/UDP поток, используя предоставленные policy contexts и сохранённые снимки ACL; показывать подходящие правила в известном порядке, источник и ограничения достоверности. Не выводить необоснованный общесистемный Permit/Deny.
 
-**Открыто:** Q-DV-001 (accepted Strategic Domain ownership), Q-DV-002 (конкретная ACL matching-семантика и независимый oracle). `checker.domain-use-case` и `checker.verification-strategy` — **BLOCKED**. Полнота всего Checker и subject inventory не подтверждена.
+**Открыто:** Q-DV-002 — конкретная ACL matching-семантика и независимый oracle. `checker.domain-use-case` и `checker.verification-strategy` — **BLOCKED**. Q-DV-001 исключён как ошибочная обязательная предпосылка skill; отдельная Domain Strategy не требуется для выбранного first slice, а общепроектная применимость остаётся UNASSESSED. Полнота всего Checker и subject inventory не подтверждена.
 
 Для состояния приёмки использовать [Project Publication](../../.harness/project-publication.yaml), а не прежние отчёты. Историю изменений брать из Git.

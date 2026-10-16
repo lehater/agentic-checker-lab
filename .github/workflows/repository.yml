@@ -28,6 +28,10 @@ jobs:
           bash -n tools/harness_pack_preflight.sh
           python3 -m py_compile .harness/harnessw.py
           python3 -m json.tool .harness/harness-binding.json > /dev/null
+      - name: Validate domain applicability and canonical publication
+        run: |
+          python3 -m pip install --disable-pip-version-check PyYAML==6.0.3
+          python3 tools/test_domain_applicability_reconciliation.py
       - name: Check RPG audit syntax
         run: |
           python3 -m py_compile tools/audit_synthetic_rpg.py
