@@ -15,7 +15,7 @@ admission:
   status: ACCEPTED
   knowledge_kind: product-requirements
   skill: skills/artifacts/product-requirements/SKILL.md
-  acceptance_id: task-004-requirements-revised-508d09a81929c4b2257bb8fa
+  acceptance_id: task-004-requirements-revised-e6b9bb836bc43b75a26fcebc
   authority: PRODUCT-REQUIREMENTS
   allowed_source_authorities:
   - DISCOVERY
@@ -42,7 +42,7 @@ admission:
 lifecycle_assertion:
   artifact: CHECKER-REQUIREMENTS
   capability: checker.requirements
-  acceptance_id: task-004-requirements-revised-508d09a81929c4b2257bb8fa
+  acceptance_id: task-004-requirements-revised-e6b9bb836bc43b75a26fcebc
   acceptance_policy_fingerprint: sha256:2fb4620d32987bf389ecb0ed8935193a2cfe6eda9c4a8259083da3792a0f1847
   accepted_prerequisites: *id001
   semantic_atom_fingerprints:
