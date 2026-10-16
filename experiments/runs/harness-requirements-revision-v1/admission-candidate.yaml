@@ -1,0 +1,296 @@
+id: CHECKER-REQUIREMENTS
+path: .harness/knowledge/checker-requirements.yaml
+capability: checker.requirements
+canonical_references:
+- referenced_path: docs/scenario/problem-framing-decision.md
+semantic_assertions:
+- id: REQ-CHECKER-001
+  kind: product-requirement
+  subject: REQ-CHECKER-001
+  semantic_value: Показывать оператору релевантные места применения политики для исследуемого
+    сетевого потока.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-outcome
+  source_refs:
+  - checker.problem#problem-outcome
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-002
+  kind: product-requirement
+  subject: REQ-CHECKER-002
+  semantic_value: Показывать оператору подходящие сохранённые ACL-правила для исследуемого
+    сетевого потока.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-outcome
+  source_refs:
+  - checker.problem#problem-outcome
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-003
+  kind: product-requirement
+  subject: REQ-CHECKER-003
+  semantic_value: Сохранять порядок обработки показываемых подходящих ACL-правил.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-outcome
+  source_refs:
+  - checker.problem#problem-outcome
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-006
+  kind: product-requirement
+  subject: REQ-CHECKER-006
+  semantic_value: Не превращать отсутствие совпадающего правила само по себе в DENY
+    или ALLOW.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-verdict-boundary
+  source_refs:
+  - checker.problem#problem-verdict-boundary
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-007
+  kind: product-requirement
+  subject: REQ-CHECKER-007
+  semantic_value: Не выводить общесистемный эффективный verdict из одного лишь факта
+    наличия подходящего правила.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from:
+  - problem-verdict-boundary
+  source_refs:
+  - checker.problem#problem-verdict-boundary
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-012
+  kind: product-requirement
+  subject: REQ-CHECKER-012
+  semantic_value: Принимать релевантные policy contexts и места применения политики
+    как предоставленные входные сведения.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-013
+  kind: product-requirement
+  subject: REQ-CHECKER-013
+  semantic_value: Использовать заранее предоставленные snapshots сохранённых ACL-правил
+    для входных policy contexts.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-014
+  kind: product-requirement
+  subject: REQ-CHECKER-014
+  semantic_value: Указывать соответствующий policy context для показываемых ACL-правил.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-025
+  kind: product-requirement
+  subject: REQ-CHECKER-025
+  semantic_value: Обозначать свидетельства устаревшими только при подтверждённом основании.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-029
+  kind: product-requirement
+  subject: REQ-CHECKER-029
+  semantic_value: Принимать описание одного исследуемого IPv4 TCP/UDP потока с адресами
+    источника и назначения, транспортным протоколом и обоими портами.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-001--минимальный-поддерживаемый-сценарий
+- id: REQ-CHECKER-030
+  kind: product-requirement
+  subject: REQ-CHECKER-030
+  semantic_value: Предоставлять оператору для каждого использованного источника сведения
+    о происхождении, известной дате снимка и известной полноте, явно обозначая неизвестные
+    значения.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/problem-framing-decision.md
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-031
+  kind: product-requirement
+  subject: REQ-CHECKER-031
+  semantic_value: Если Checker возвращает частичный результат при недостаточных, неполных
+    или обоснованно устаревших свидетельствах, показывать оператору ограничения и
+    неустановленные факты, не обозначая результат достоверным полным выводом.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+- id: REQ-CHECKER-032
+  kind: product-requirement
+  subject: REQ-CHECKER-032
+  semantic_value: Различать отсутствие подходящих правил в известном полном ACL snapshot,
+    отсутствие необходимых snapshot/данных и неизвестную полноту snapshot.
+  decision_authority: PRODUCT-REQUIREMENTS
+  derived_from: []
+  source_refs:
+  - docs/scenario/first-slice-product-decision.md#ответ-на-q-pr-002--достоверность-и-частичный-результат
+semantic_review:
+  status: ACCEPTED
+  checks:
+  - source-discipline
+  - authority-boundary
+  - no-invention
+  - observable-product-level
+  - no-downstream-design-promotion
+  - product-requirement-boundary-review
+  requirement_classifications:
+  - assertion: REQ-CHECKER-001
+    role: PRODUCT_BEHAVIOR
+    obligation: relevant-placements
+    rationale: Observable set of relevant provided placements
+  - assertion: REQ-CHECKER-002
+    role: PRODUCT_BEHAVIOR
+    obligation: matching-rules
+    rationale: Observable matched-rule result, predicates remain Q-DV-002
+  - assertion: REQ-CHECKER-003
+    role: PRODUCT_BEHAVIOR
+    obligation: within-context-order
+    rationale: Distinct observable ordering constraint
+  - assertion: REQ-CHECKER-006
+    role: PRODUCT_CONSTRAINT
+    obligation: no-universal-verdict-from-absence
+    rationale: Negative interpretation constraint for no matching rule
+  - assertion: REQ-CHECKER-007
+    role: PRODUCT_CONSTRAINT
+    obligation: no-universal-verdict-from-presence
+    rationale: Negative interpretation constraint for matching rule
+  - assertion: REQ-CHECKER-012
+    role: PRODUCT_BEHAVIOR
+    obligation: provided-policy-contexts
+    rationale: Distinct accepted input source boundary
+  - assertion: REQ-CHECKER-013
+    role: PRODUCT_BEHAVIOR
+    obligation: provided-acl-snapshots
+    rationale: Distinct accepted policy evidence input
+  - assertion: REQ-CHECKER-014
+    role: PRODUCT_BEHAVIOR
+    obligation: rule-context-attribution
+    rationale: Distinct visible attribution of a rule to a policy context
+  - assertion: REQ-CHECKER-025
+    role: PRODUCT_CONSTRAINT
+    obligation: founded-freshness
+    rationale: Distinct rule for describing stale vs unknown source
+  - assertion: REQ-CHECKER-029
+    role: PRODUCT_BEHAVIOR
+    obligation: network-flow-input
+    rationale: One input contract; addresses/protocol/both ports are fields not separate
+      requirements
+  - assertion: REQ-CHECKER-030
+    role: PRODUCT_BEHAVIOR
+    obligation: source-metadata
+    rationale: One source credibility contract with known and unknown facets
+  - assertion: REQ-CHECKER-031
+    role: PRODUCT_BEHAVIOR
+    obligation: partial-explanation
+    rationale: Conditional observable restrictions on a partial result, not mandatory
+      partial return
+  - assertion: REQ-CHECKER-032
+    role: PRODUCT_BEHAVIOR
+    obligation: evidence-state-distinction
+    rationale: One three-way evidence state distinction, not separate test cases
+  source_dispositions:
+  - source: problem-placements
+    disposition: PRODUCT_REQUIREMENT
+    assertions:
+    - REQ-CHECKER-001
+    rationale: Operator observes provided relevant placements
+  - source: problem-matching
+    disposition: PRODUCT_REQUIREMENT
+    assertions:
+    - REQ-CHECKER-002
+    rationale: Operator observes matching stored ACL rules
+  - source: problem-order
+    disposition: PRODUCT_REQUIREMENT
+    assertions:
+    - REQ-CHECKER-003
+    rationale: Operator sees known intra-context order
+  - source: problem-credibility
+    disposition: PRODUCT_REQUIREMENT
+    assertions:
+    - REQ-CHECKER-030
+    rationale: Known/unknown evidence credibility in one result contract
+  - source: problem-not-required-verdict
+    disposition: NON_GOAL
+    assertions: []
+    rationale: No mandatory universal effective verdict
+  - source: problem-absence-verdict
+    disposition: PRODUCT_CONSTRAINT
+    assertions:
+    - REQ-CHECKER-006
+    rationale: No invented DENY/ALLOW on absence alone
+  - source: problem-presence-verdict
+    disposition: PRODUCT_CONSTRAINT
+    assertions:
+    - REQ-CHECKER-007
+    rationale: No invented overall effective verdict on presence alone
+  - source: PDEC004-flow-fields
+    disposition: PRODUCT_REQUIREMENT
+    assertions:
+    - REQ-CHECKER-029
+    rationale: One IPv4 TCP/UDP 5-tuple input contract
+  - source: PDEC004-provided-contexts
+    disposition: PRODUCT_REQUIREMENT
+    assertions:
+    - REQ-CHECKER-012
+    rationale: Contexts provided as inputs, not discovered
+  - source: PDEC004-stored-snapshots
+    disposition: PRODUCT_REQUIREMENT
+    assertions:
+    - REQ-CHECKER-013
+    rationale: Stored snapshots provided as source facts
+  - source: PDEC004-rule-context
+    disposition: PRODUCT_REQUIREMENT
+    assertions:
+    - REQ-CHECKER-014
+    rationale: Each result rule retains attributable context
+  - source: PDEC004-metadata
+    disposition: PRODUCT_REQUIREMENT
+    assertions:
+    - REQ-CHECKER-030
+    rationale: One origin/date/completeness result contract
+  - source: PDEC004-partial-explanation
+    disposition: PRODUCT_REQUIREMENT
+    assertions:
+    - REQ-CHECKER-031
+    rationale: One conditional partial explanation obligation
+  - source: PDEC004-evidence-states
+    disposition: PRODUCT_REQUIREMENT
+    assertions:
+    - REQ-CHECKER-032
+    rationale: Complete no-match/missing/unknown must be distinguishable
+  - source: PDEC004-staleness
+    disposition: PRODUCT_CONSTRAINT
+    assertions:
+    - REQ-CHECKER-025
+    rationale: Staleness requires established grounds; unknown date not fresh
+  - source: PDEC004-independent-test-examples
+    disposition: VERIFICATION_OBLIGATION
+    assertions: []
+    rationale: Requires independent expected test oracle, owned by Verification Design,
+      not Product
+  - source: PDEC004-TTL
+    disposition: ACCEPTANCE_CRITERION
+    assertions: []
+    rationale: Do not invent source freshness threshold; captured by REQ-025 criteria
+  - source: PDEC004-future-exclusions
+    disposition: NON_GOAL
+    assertions: []
+    rationale: No IPv6, ICMP, route discovery, NAT or live access in first slice
+  - source: PDEC004-interface-decisions
+    disposition: DOWNSTREAM_DECISION
+    assertions: []
+    rationale: No CLI/API/runtime/architecture selection
+  reviewer: Independent semantic audit of owner decisions + corrected Harness contract
+  record: experiments/runs/harness-requirements-revision-v1/README.md
