@@ -27,7 +27,7 @@
 ### VERIFICATION-DESIGN
 
 - Authority `VERIFICATION-DESIGN` авторизована разработать ограниченный `verification-strategy` для принятого first slice; при удовлетворении штатных предпосылок — `acceptance-scenarios` с независимыми входами и ожидаемыми результатами.
-- Обязательна прослеживаемость к **всем `REQ-CHECKER-001..028`**, либо явная честная disposition для тех проверок, которые требуют ещё не принятого доменного контракта.
+- Обязательна прослеживаемость ко **всем действующим принятым требованиям первого slice из `.harness/knowledge/checker-requirements.yaml`** (сейчас 13), либо явная честная disposition для проверок, требующих ещё не принятого доменного контракта.
 - Отдельно проверить matched/non-matched rule, known within-context order, complete no-match vs missing snapshot vs unknown completeness, known/unknown source metadata, partial explainable results, no invented TTL, no universal Permit/Deny.
 - **Независимый oracle** должен быть выведен из принятых Product/Domain semantic contracts и независимо заданных expected cases. Генерация ожиданий по собственному алгоритму агента/наследуемой SQL-логике и последующее тестирование того же алгоритма не являются независимыми evidence.
 - По pinned `verification-strategy` skill evidence план должен быть конкретным; по `acceptance-scenarios` skill допустимы только сценарии, ожидаемые результаты которых определены принятыми upstream contracts. Если нет утверждённого matching contract — подготовить неоспоримые сценарии и зафиксировать **адресный Question о конкретной недостающей семантике** вместо фабрикации проверок.
@@ -47,4 +47,4 @@
 
 **Успех:** принятые `CURRENT` domain-use-case и verification artifacts в том объёме, где prerequisites и независимые семантические ожидания действительно установлены, с честным first-slice coverage и конкретным следующим шагом.
 
-**Действительный BLOCKED:** воспроизводимое нарушение конкретного prerequisite (например, отсутствующее accepted Strategic Domain ownership), недостающий узкий доменный факт либо oracle, оформленный минимальным адресным Question; ранее принятые `checker.problem` и `checker.requirements` остаются CURRENT. Отсутствие доказательства нельзя скрывать новым default или объявлением всего проекта COMPLETE.
+**Действительный BLOCKED:** воспроизводимое нарушение действительно необходимого prerequisite, отсутствие принятой семантики matching или независимого oracle, оформленное минимальным адресным Question; ранее принятые `checker.problem` и `checker.requirements` остаются CURRENT. Отсутствие Domain Strategy само по себе не является таким blocker. Отсутствие доказательства нельзя скрывать новым default или объявлением всего проекта COMPLETE.
