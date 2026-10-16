@@ -49,7 +49,7 @@ questions:
     evidence: PDEC-CHECKER-001 leaves product detail open; historical fixtures and proposed vertical slice are not accepted target requirements.
     resolution_required_before: Claiming product subject completeness; not a reason to recreate Discovery or pre-answer every product choice before starting authorized requirements work.
 frontier_dispositions:
-  - {concern: intent.scope, timing: NOW, cause: INCOMPLETE_SCOPE_MODEL, next_owner: PRODUCT-REQUIREMENTS, gate: Q-REC-001 (RESOLVED, PDEC-CHECKER-003)}
+  - {concern: intent.scope, timing: NOW, cause: INCOMPLETE_SCOPE_MODEL, next_owner: PRODUCT-REQUIREMENTS, gate: Q-REC-001}
   - {concern: intent.behavior, timing: NOW, cause: INCOMPLETE_SCOPE_MODEL, next_owner: PRODUCT-REQUIREMENTS, gate: Q-REC-001}
   - {concern: meta.subject-inventory, timing: NOW, cause: INCOMPLETE_SCOPE_MODEL, next_owner: project owner / PRODUCT-REQUIREMENTS, gate: Q-REC-002}
   - {concern: application.failures, timing: LATER, reason: Observable failure policy needs product behavior; technical failure handling belongs to subsequent application design.}
