@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_CHECKER_REQUIREMENTS_BLOCKED_PRODUCT_QUESTIONS
+status: P2_CHECKER_REQUIREMENTS_OWNER_ANSWERS_CONFIRMED_CORE_RECONCILIATION_PENDING
 phase: P2
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
@@ -12,6 +12,7 @@ accepted:
   - Checker problem framing PDEC-CHECKER-001 confirmed by owner; not full Harness semantic admission or target requirements
   - Scoped PDEC-CHECKER-002: DISCOVERY produces checker.problem; engineering agent may perform genuine semantic review/admission and conditional atomic publication (other Authorities and product semantics remain unaccepted)
   - PDEC-CHECKER-003: owner-authorized PRODUCT-REQUIREMENTS for checker.requirements, direct prerequisite checker.problem, delegated bounded agent production/review/admission/conditional publication; no actual product requirements accepted yet
+  - PDEC-CHECKER-004: owner confirmed the first IPv4 TCP/UDP Checker slice, provided policy contexts and ACL snapshots, and observable treatment of missing/incomplete/stale evidence; Core Q-PR-001/002 remain published blockers until valid resolution and admission
   - Task branches, PR and squash into main following authorized bootstrap
 verified:
   - Authorized CREATE checker.requirements executed; managed candidate schema VALID; strict semantic admission REJECTED on incomplete observable product scope/evidence policy
@@ -42,6 +43,7 @@ verified:
   - Operator-reported first agent Harness intake run produced candidate evidence/graph/core/questions; independently reviewed from GitHub commit 4a82dbe; research run PASS WITH LIMITATIONS, no semantic acceptance or Checker implementation
   - Independent review of raw Harness outputs confirms target READY (CREATE checker.problem; 4 PENDING), 21 activated coverage concerns, completion_ready false, 23 Authorities UNASSESSED and no full Project Frontier
 evidence:
+  checker_first_slice_owner_decision: docs/scenario/first-slice-product-decision.md
   checker_requirements_run: experiments/runs/harness-requirements-v1/README.md
   checker_requirements_blocked_publication_revision: sha256:b252cfbe6ef33d213aa0c6919a463fa31e891075a1ba0e7d191a8ae2ad010fb8
   checker_scope_reconciliation: docs/scenario/checker-scope-reconciliation.yaml
