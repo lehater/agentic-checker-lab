@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_HARNESS_DISCOVERY_RUN_REVIEWED_CANDIDATES_NOT_ACCEPTED
+status: P2_CHECKER_PROBLEM_INTENT_CONFIRMED_HARNESS_ADMISSION_PENDING
 phase: P2
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
@@ -9,6 +9,7 @@ next_task: TASK-004
 accepted:
   - Independent repo and documentation-as-truth approach
   - One bounded checker scenario as first laboratory example
+  - Checker problem framing PDEC-CHECKER-001 confirmed by owner; not full Harness semantic admission or target requirements
   - Task branches, PR and squash into main following authorized bootstrap
 verified:
   - Initial documentation structure committed to main
@@ -35,6 +36,7 @@ evidence:
   harness_consumer_pack_preflight: docs/research/task-004-harness-consumer-pack.md
   harness_agent_intake_operator_report: docs/research/task-004-harness-agent-pilot.md
   harness_agent_intake_independent_review: docs/research/task-004-harness-agent-review.md
+  checker_owner_problem_decision: docs/scenario/problem-framing-decision.md
   harness_agent_intake_snapshot_commit: 4a82dbedfdf82baf681cf58d3396fd4ed398a909
   harness_agent_intake_local_directory: experiments/runs/harness-intake-v1
   harness_consumer_pack_local_path: ~/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c
@@ -66,6 +68,7 @@ not_verified:
   - Four-arm comparative evaluation
   - Full Harness project-bootstrap reconciliation, accepted project-owned Authority applicability, subject inventory and coverage completion
   - Harness Project Frontier, source-bounded Problem Evidence semantic acceptance and Consumer closure
+  - Project-owned accepted Discovery canonical provider/publication transition
 git_branch_protection: RULESET_ACTIVE_NO_BYPASS_REQUIRED_CHECKS_NOT_CONFIGURED
 toolchain: tooling/versions.yaml
 
