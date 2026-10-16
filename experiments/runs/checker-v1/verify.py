@@ -56,7 +56,7 @@ scenarios = load(ROOT / 'docs/checker/scenarios.yaml')
 exported = json.loads((ROOT / 'tests/fixtures/scenarios.json').read_text())
 assert exported['cases'] == scenarios['cases']
 assert exported['base'] == dict(scenarios['base'], version=1)
-subprocess.run([sys.executable, str(RUN / 'status.py')], check=True)
+subprocess.run([sys.executable, str(RUN / 'status.py'), '--require-complete'], check=True)
 result = dict(status='PASS', pin=PIN, publication_revision=pub['revision'], currentness=states,
               negative_checks=negatives, fixed_expected_cases_unchanged=True)
 (RUN / 'verification.json').write_text(json.dumps(result, indent=2) + '\n')

@@ -19,8 +19,12 @@ def invoke(data, output='json', raw=None):
     with tempfile.TemporaryDirectory() as directory:
         path = Path(directory) / 'input.json'
         path.write_text(json.dumps(data) if raw is None else raw)
-        return subprocess.run([sys.executable, '-m', 'checker', '--input', str(path),
-                               '--format', output], cwd=ROOT, capture_output=True, text=True)
+        before = path.read_bytes()
+        result = subprocess.run([sys.executable, '-m', 'checker', '--input', str(path),
+                                '--format', output], cwd=ROOT, capture_output=True, text=True)
+        if path.read_bytes() != before:
+            raise AssertionError('CLI changed the supplied snapshot file')
+        return result
 
 
 class CheckerAcceptance(unittest.TestCase):
@@ -78,7 +82,8 @@ class CheckerAcceptance(unittest.TestCase):
         result = invoke(SCENARIOS['base'], 'text')
         self.assertEqual(result.returncode, 0, result.stderr)
         for text in ['fw-a', 'outside', 'inside', 'fw-b', 'global', 'MATCHES', 'NO_MATCH',
-                     'z-deny', 'a-permit', 'deny', 'permit', 'wan0', '50000', '443']:
+                     'z-deny', 'a-permit', 'deny', 'permit', 'wan0', '50000', '443',
+                     'source', 'destination', 'protocol', 'source_ports', 'destination_ports']:
             self.assertIn(text, result.stdout)
         self.assertLess(result.stdout.index('z-deny'), result.stdout.index('a-permit'))
 

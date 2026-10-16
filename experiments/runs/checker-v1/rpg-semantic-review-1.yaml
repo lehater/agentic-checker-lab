@@ -1,0 +1,37 @@
+version: 1
+status: REJECTED
+scope: first CoderMind planning run
+reviewer: engineering agent against accepted Harness outputs
+structural_probe: 4_of_5_done_at_review
+findings:
+- id: RPG-DRIFT-PORTS
+  source: DOM-1
+  artifact: interfaces.json
+  locator: subtrees/Исследование совпадений ACL/interfaces/src/acl_checker/domain/matching.py
+  observed: Predicate ports use equality and optional scalar fields; inclusive ranges
+    are not represented and contract explicitly defers semantics to future schema.
+  required: Both required flow ports compared against inclusive rule ranges per accepted
+    domain contract; no missing semantic choice.
+- id: RPG-DRIFT-CLI
+  source: IF-1
+  artifact: interfaces.json
+  locator: subtrees/Командный интерфейс и публикация отчёта/interfaces/src/acl_checker/cli/main.py
+  observed: Input path optional, stdin default, and public checker entrypoint not
+    materialized.
+  required: Required --input path and supported python3 -m checker entrypoint.
+- id: RPG-DRIFT-REPORT
+  source: IF-1
+  artifact: interfaces.json
+  locator: subtrees/Командный интерфейс и публикация отчёта/interfaces/src/acl_checker/cli/reporting.py
+  observed: Generated report uses matches field and MATCH status; placements carried
+    by relevance pairs rather than snapshots.
+  required: Public rules field and MATCHES status; preserve original snapshot placements
+    and rule fields.
+consequence: No codegen from this candidate. Restore derived planning constraints
+  using existing accepted contracts; do not change oracle or upstream semantics.
+owner_question: null
+owner_question_rationale: No material domain uncertainty; generated candidate failed
+  known contracts.
+final_native_pipeline: 'PASS: all five stages completed, 1039.6 seconds; structural
+  success does not repair semantic findings'
+snapshot: experiments/runs/checker-v1/rpg-attempt-1/manifest.json

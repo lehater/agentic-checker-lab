@@ -1,0 +1,2637 @@
+{
+  "repo_name": "acl-checker",
+  "repo_info": "Provide a bounded local Python CLI for investigating every saved ACL rule matching one concrete IPv4 traffic flow across synthetically relevant device/ACL pairs. Preserve original evidence, placements and snapshot ordering while reporting explicit no-match states or request failures.",
+  "excluded_files": [],
+  "repo_node_id": "acl-checker_L0",
+  "root": {
+    "id": "acl-checker_L0",
+    "name": "acl-checker",
+    "node_type": "repo",
+    "level": 0,
+    "meta": {
+      "type_name": "directory",
+      "path": ".",
+      "content": "",
+      "description": "",
+      "generator": "build_skeleton",
+      "language": "python"
+    },
+    "children": [
+      {
+        "id": "Приём и валидация запроса_85d6f12f",
+        "name": "Приём и валидация запроса",
+        "node_type": "functional_area",
+        "level": 1,
+        "meta": {
+          "type_name": "directory",
+          "path": "src/acl_checker/inputs",
+          "content": "",
+          "description": "",
+          "generator": "build_skeleton",
+          "language": null
+        },
+        "children": [
+          {
+            "id": "document intake_cb367f1c",
+            "name": "document intake",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "load request document_1efd6755",
+                "name": "load request document",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/document.py::function load_request_document",
+                  "content": "",
+                  "description": "[ENTRY_POINT] Явно объявленный внешний интерфейс загрузки и проверки запроса; также используется внутренней композицией.",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "validate request envelope_7a339438",
+                "name": "validate request envelope",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/document.py::function load_request_document",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "reject unknown fields_bc57f84b",
+                "name": "reject unknown fields",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/document.py::function load_request_document",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "flow constraints_2f80a367",
+            "name": "flow constraints",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "validate flow addresses_9f5e9c9a",
+                "name": "validate flow addresses",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/flow.py::function validate_ipv4_address",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "validate flow ports_37d00b47",
+                "name": "validate flow ports",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/flow.py::function validate_port",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "validate flow protocol_ee6217dc",
+                "name": "validate flow protocol",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/flow.py::function validate_flow",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "saved evidence integrity_5a50df0f",
+            "name": "saved evidence integrity",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "validate snapshot structure_7a947cd1",
+                "name": "validate snapshot structure",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/evidence.py::function validate_evidence",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "reject duplicate snapshot pairs_d9158bbc",
+                "name": "reject duplicate snapshot pairs",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/evidence.py::function validate_evidence",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "reject duplicate rule identifiers_f810bf91",
+                "name": "reject duplicate rule identifiers",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/evidence.py::function validate_evidence",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "validate placement entries_2905cb7a",
+                "name": "validate placement entries",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/evidence.py::function validate_evidence",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "selection constraints_00f35c4d",
+            "name": "selection constraints",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "validate relevance entries_601860e6",
+                "name": "validate relevance entries",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/evidence.py::function validate_evidence",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "rule constraints_987cf5c4",
+            "name": "rule constraints",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "validate rule structure_9e372a5a",
+                "name": "validate rule structure",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/evidence.py::function validate_evidence",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "validate rule action_32ff1fa2",
+                "name": "validate rule action",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/evidence.py::function validate_evidence",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "validate rule protocol_dfbbc433",
+                "name": "validate rule protocol",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/evidence.py::function validate_evidence",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "validate address predicates_08e84f47",
+                "name": "validate address predicates",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/evidence.py::function validate_evidence",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "validate inclusive port ranges_adbafd14",
+                "name": "validate inclusive port ranges",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/inputs/evidence.py::function validate_evidence",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Отбор и получение снимков ACL_fbe8bc02",
+        "name": "Отбор и получение снимков ACL",
+        "node_type": "functional_area",
+        "level": 1,
+        "meta": {
+          "type_name": "directory",
+          "path": "src/acl_checker/sources",
+          "content": "",
+          "description": "",
+          "generator": "build_skeleton",
+          "language": null
+        },
+        "children": [
+          {
+            "id": "provider construction_cf8a0d0e",
+            "name": "provider construction",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "create relevance provider_ee494f44",
+                "name": "create relevance provider",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/sources/synthetic.py::function create_relevance_provider",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "create snapshot provider_8d6408c0",
+                "name": "create snapshot provider",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/sources/synthetic.py::function create_snapshot_provider",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "ordered pair selection_3588fca9",
+            "name": "ordered pair selection",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "retrieve relevant pairs_0969b901",
+                "name": "retrieve relevant pairs",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/sources/synthetic.py::function retrieve_relevant_pairs",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "deduplicate relevant pairs_17688410",
+                "name": "deduplicate relevant pairs",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/sources/synthetic.py::function retrieve_relevant_pairs",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "required evidence retrieval_aeb866d8",
+            "name": "required evidence retrieval",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "retrieve relevant snapshot_9e66a8c6",
+                "name": "retrieve relevant snapshot",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/sources/synthetic.py::function retrieve_relevant_snapshot",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "reject missing snapshot_8fed5f87",
+                "name": "reject missing snapshot",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/sources/synthetic.py::function retrieve_relevant_snapshot",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Исследование совпадений ACL_5778ffc4",
+        "name": "Исследование совпадений ACL",
+        "node_type": "functional_area",
+        "level": 1,
+        "meta": {
+          "type_name": "directory",
+          "path": "src/acl_checker/domain",
+          "content": "",
+          "description": "",
+          "generator": "build_skeleton",
+          "language": null
+        },
+        "children": [
+          {
+            "id": "investigation execution_25a01d83",
+            "name": "investigation execution",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "check traffic evidence_932b7db0",
+                "name": "check traffic evidence",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/domain/evidence.py::function check",
+                  "content": "",
+                  "description": "[ENTRY_POINT] Публичный интерфейс исследования ACL с подменяемыми провайдерами, доступный внешним вызывающим сторонам.",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "flow evaluation_b9ebbda0",
+            "name": "flow evaluation",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "evaluate stored rule match_feee1bb1",
+                "name": "evaluate stored rule match",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/domain/matching.py::function matches",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "evidence assembly_a8e779ca",
+            "name": "evidence assembly",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "collect matching evidence_16c80b19",
+                "name": "collect matching evidence",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/domain/evidence.py::function collect_matching_evidence",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "determine evidence status_0946bf9e",
+                "name": "determine evidence status",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/domain/evidence.py::function determine_evidence_status",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "build evidence group_047ea291",
+                "name": "build evidence group",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/domain/evidence.py::function build_evidence_group",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Командный интерфейс и публикация отчёта_70b33c0c",
+        "name": "Командный интерфейс и публикация отчёта",
+        "node_type": "functional_area",
+        "level": 1,
+        "meta": {
+          "type_name": "directory",
+          "path": "src/acl_checker/cli",
+          "content": "",
+          "description": "",
+          "generator": "build_skeleton",
+          "language": null
+        },
+        "children": [
+          {
+            "id": "command entry_50219665",
+            "name": "command entry",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "parse invocation options_2695a8ef",
+                "name": "parse invocation options",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/cli/main.py::function main",
+                  "content": "",
+                  "description": "[ENTRY_POINT] Публичная точка запуска CLI, вызываемая внешней командой.",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "display prototype help_16230e05",
+                "name": "display prototype help",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/cli/main.py::function display_prototype_help",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "execution wiring_34e570e7",
+            "name": "execution wiring",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "compose local execution_5e8f11ac",
+                "name": "compose local execution",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/cli/main.py::function execute_local",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "request diagnostics_5cb6c385",
+            "name": "request diagnostics",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "emit request diagnostic_3c9213c3",
+                "name": "emit request diagnostic",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/cli/main.py::function emit_request_diagnostic",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "human readable report_8681f111",
+            "name": "human readable report",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "render empty relevance message_41621856",
+                "name": "render empty relevance message",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/cli/reporting.py::function render_empty_relevance_message",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "render text groups_f537651a",
+                "name": "render text groups",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/cli/reporting.py::function render_text_groups",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "structured report_2932f263",
+            "name": "structured report",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "render json report_85c6ea45",
+                "name": "render json report",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/cli/reporting.py::function render_json_report",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "report scope_70ec7eba",
+            "name": "report scope",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "describe saved evidence scope_07754fd3",
+                "name": "describe saved evidence scope",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "src/acl_checker/cli/reporting.py::function describe_saved_evidence_scope",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "Проверка контрактов и ограничений_e93fdebe",
+        "name": "Проверка контрактов и ограничений",
+        "node_type": "functional_area",
+        "level": 1,
+        "meta": {
+          "type_name": "directory",
+          "path": "tests",
+          "content": "",
+          "description": "",
+          "generator": "build_skeleton",
+          "language": null
+        },
+        "children": [
+          {
+            "id": "dependency integrity_80ac5f2c",
+            "name": "dependency integrity",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "check functional boundaries_7a9da4b1",
+                "name": "check functional boundaries",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "tests/test_architecture.py::function assert_source_constraints",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "check inward imports_10cc7e5c",
+                "name": "check inward imports",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "tests/test_architecture.py::function assert_source_constraints",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "provider compatibility_45763f8a",
+            "name": "provider compatibility",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "verify interchangeable providers_41b4479f",
+                "name": "verify interchangeable providers",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "class",
+                  "path": "tests/test_application_contracts.py::method test_invalid_request_rejection",
+                  "content": "",
+                  "description": "[ENTRY_POINT] Тестовый метод, автоматически вызываемый unittest.",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "request integrity_fc54bcbc",
+            "name": "request integrity",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "verify invalid request rejection_ccad8906",
+                "name": "verify invalid request rejection",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "class",
+                  "path": "tests/test_application_contracts.py::method test_invalid_request_rejection",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "verify input immutability_577e835f",
+                "name": "verify input immutability",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "class",
+                  "path": "tests/test_application_contracts.py::method test_invalid_request_rejection",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "verify atomic request failure_f6c0ddcf",
+                "name": "verify atomic request failure",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "class",
+                  "path": "tests/test_application_contracts.py::method test_invalid_request_rejection",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "failure containment_ed837eb9",
+            "name": "failure containment",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "check exception handling scope_2b37408a",
+                "name": "check exception handling scope",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "tests/test_architecture.py::function assert_source_constraints",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "matching correctness_86826fae",
+            "name": "matching correctness",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "verify predicate boundaries_79663d93",
+                "name": "verify predicate boundaries",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "tests/test_matching.py::function observe_matching",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "verify exact evidence groups_ea150c7b",
+                "name": "verify exact evidence groups",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "class",
+                  "path": "tests/test_cli_acceptance.py::method test_public_output_formats",
+                  "content": "",
+                  "description": "[ENTRY_POINT] Тестовый метод, автоматически вызываемый тестовым фреймворком.",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "report guarantees_9971b570",
+            "name": "report guarantees",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "verify public output formats_53176a05",
+                "name": "verify public output formats",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "class",
+                  "path": "tests/test_cli_acceptance.py::method test_public_output_formats",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "verify evidence interpretation limits_33fb654f",
+                "name": "verify evidence interpretation limits",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "class",
+                  "path": "tests/test_cli_acceptance.py::method test_public_output_formats",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "command acceptance_5c8d63bd",
+            "name": "command acceptance",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "verify cli exit behavior_6bfb3220",
+                "name": "verify cli exit behavior",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "class",
+                  "path": "tests/test_cli_acceptance.py::method test_public_output_formats",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "run isolated cli acceptance_ff35827e",
+                "name": "run isolated cli acceptance",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "tests/test_cli_acceptance.py::function run_isolated_cli",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          },
+          {
+            "id": "execution confinement_516bca93",
+            "name": "execution confinement",
+            "node_type": "feature_group",
+            "level": 2,
+            "meta": {
+              "type_name": null,
+              "path": null,
+              "content": "",
+              "description": "",
+              "generator": "build_skeleton",
+              "language": null
+            },
+            "children": [
+              {
+                "id": "check bounded runtime scope_e99138ee",
+                "name": "check bounded runtime scope",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "function",
+                  "path": "tests/test_architecture.py::function assert_source_constraints",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              },
+              {
+                "id": "verify invocation isolation_831b27a7",
+                "name": "verify invocation isolation",
+                "node_type": "feature",
+                "level": 3,
+                "meta": {
+                  "type_name": "class",
+                  "path": "tests/test_application_contracts.py::method test_invalid_request_rejection",
+                  "content": "",
+                  "description": "",
+                  "generator": "build_skeleton",
+                  "language": null
+                },
+                "children": []
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "edges": [
+    {
+      "src": "Приём и валидация запроса_85d6f12f",
+      "dst": "Отбор и получение снимков ACL_fbe8bc02",
+      "relation": "references",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "data_id=validated_synthetic_evidence, data_type=ValidatedSyntheticEvidence",
+        "description": "JSON преобразуется в проверенные записи релевантности и снимки с идентификаторами устройств, ACL, правилами и placements. Сохраняются исходные свидетельства и порядок; значения фиксируются локально для одного вызова без изменения входных данных.",
+        "generator": "build_data_flow",
+        "language": null
+      }
+    },
+    {
+      "src": "Приём и валидация запроса_85d6f12f",
+      "dst": "Исследование совпадений ACL_5778ffc4",
+      "relation": "references",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "data_id=validated_ipv4_flow, data_type=IPv4Flow { source: IPv4Address, destination: IPv4Address, protocol: Protocol, source_port: Optional<Port>, destination_port: Optional<Port> }",
+        "description": "Проверяются конкретные IPv4-адреса, поддерживаемый протокол и допустимые значения портов. Передаются значения потока без зависимости от JSON, файловой системы или CLI.",
+        "generator": "build_data_flow",
+        "language": null
+      }
+    },
+    {
+      "src": "Отбор и получение снимков ACL_fbe8bc02",
+      "dst": "Исследование совпадений ACL_5778ffc4",
+      "relation": "references",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "data_id=ordered_relevant_acl_pairs, data_type=OrderedSequence<RelevantAclPair { device_id, acl_id, placements }>",
+        "description": "Внедрённый relevance(source, destination) возвращает синтетически релевантные пары для адресов запроса с сохранением порядка и placements. Порядок не интерпретируется как сетевой путь, а placements не дополняются неподтверждёнными привязками.",
+        "generator": "build_data_flow",
+        "language": null
+      }
+    },
+    {
+      "src": "Исследование совпадений ACL_5778ffc4",
+      "dst": "Командный интерфейс и публикация отчёта_70b33c0c",
+      "relation": "references",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "data_id=complete_match_report, data_type=OrderedSequence<ReportGroup { device_id, acl_id, placements, status: MATCH | NO_MATCH, matches: OrderedSequence<SavedAclRule> }>",
+        "description": "Чистая функция matches(flow, rule) применяется ко всем правилам каждой релевантной пары, и в группу включаются все совпадения в порядке снимка. Только полностью успешный запрос передаёт группы для текстовой или JSON-сериализации; общий permit/deny и неявное deny не создаются.",
+        "generator": "build_data_flow",
+        "language": null
+      }
+    },
+    {
+      "src": "Приём и валидация запроса_85d6f12f",
+      "dst": "Командный интерфейс и публикация отчёта_70b33c0c",
+      "relation": "references",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "data_id=input_validation_failure, data_type=RequestFailure { category, message, location: Optional<InputLocation> }",
+        "description": "Ошибки JSON, структуры, значений и неподдерживаемых предикатов преобразуются в явную диагностику stderr и ненулевой код завершения. Успешный частичный отчёт и статус NO_MATCH при ошибке не выдаются.",
+        "generator": "build_data_flow",
+        "language": null
+      }
+    },
+    {
+      "src": "Отбор и получение снимков ACL_fbe8bc02",
+      "dst": "Командный интерфейс и публикация отчёта_70b33c0c",
+      "relation": "references",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "data_id=required_evidence_failure, data_type=RequestFailure { category, message, location: Optional<InputLocation> }",
+        "description": "Ожидаемые ошибки получения обязательных сохранённых данных передаются границе CLI для диагностики и отказа всего запроса. Повторы, подмена данных и подавление ошибок программирования общим except Exception не применяются.",
+        "generator": "build_data_flow",
+        "language": null
+      }
+    },
+    {
+      "src": "Командный интерфейс и публикация отчёта_70b33c0c",
+      "dst": "Проверка контрактов и ограничений_e93fdebe",
+      "relation": "references",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "data_id=public_cli_observation, data_type=CliObservation { stdout: Text, stderr: Text, exit_code: Integer }",
+        "description": "Изолированные приёмочные проверки захватывают потоки вывода и код завершения для текстового и JSON-форматов. JSON разбирается и сравнивается с независимыми фиксированными ожиданиями по группам, полям, идентификаторам, действиям, статусам, placements и отсутствию общего вердикта.",
+        "generator": "build_data_flow",
+        "language": null
+      }
+    },
+    {
+      "src": "Исследование совпадений ACL_5778ffc4",
+      "dst": "Проверка контрактов и ограничений_e93fdebe",
+      "relation": "references",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "data_id=matching_contract_observation, data_type=MatchingContractObservation { match_results: Sequence<Boolean>, report_groups: OrderedSequence<ReportGroup>, source_calls: Sequence<SourceCall> }",
+        "description": "Проверяются результаты matches и check с подставленными узкими source-callable контрактами и фиксированными ожиданиями. Наблюдения подтверждают полноту совпадений, сохранение порядка и отсутствие успешного частичного результата при отказе.",
+        "generator": "build_data_flow",
+        "language": null
+      }
+    },
+    {
+      "src": "Приём и валидация запроса_85d6f12f",
+      "dst": "Проверка контрактов и ограничений_e93fdebe",
+      "relation": "references",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "data_id=input_contract_observation, data_type=InputContractObservation { outcome: ValidatedInput | RequestFailure, fixture_before: Bytes, fixture_after: Bytes }",
+        "description": "Проверки сопоставляют принятие или отклонение входа с независимыми сценариями, включая некорректный JSON, формы и неподдерживаемые значения. Сравнение исходных и конечных байтов подтверждает неизменность фикстур.",
+        "generator": "build_data_flow",
+        "language": null
+      }
+    },
+    {
+      "src": "Отбор и получение снимков ACL_fbe8bc02",
+      "dst": "Проверка контрактов и ограничений_e93fdebe",
+      "relation": "references",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "data_id=synthetic_source_contract_observation, data_type=SourceContractObservation { relevance: OrderedSequence<RelevantAclPair>, snapshots: Sequence<AclSnapshot>, failure: Optional<RequestFailure> }",
+        "description": "Проверяются выдача сохранённых данных, порядок, placements и отказ при отсутствии обязательного снимка. Повторные независимые вызовы проверяют отсутствие влияния общего изменяемого состояния.",
+        "generator": "build_data_flow",
+        "language": null
+      }
+    },
+    {
+      "src": "validate address predicates_08e84f47",
+      "dst": "validate inclusive port ranges_adbafd14",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate address predicates_08e84f47",
+      "dst": "validate rule action_32ff1fa2",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate address predicates_08e84f47",
+      "dst": "validate rule protocol_dfbbc433",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate address predicates_08e84f47",
+      "dst": "validate rule structure_9e372a5a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate address predicates_08e84f47",
+      "dst": "reject duplicate rule identifiers_f810bf91",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate address predicates_08e84f47",
+      "dst": "reject duplicate snapshot pairs_d9158bbc",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate address predicates_08e84f47",
+      "dst": "validate placement entries_2905cb7a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate address predicates_08e84f47",
+      "dst": "validate snapshot structure_7a947cd1",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate address predicates_08e84f47",
+      "dst": "validate relevance entries_601860e6",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate inclusive port ranges_adbafd14",
+      "dst": "validate rule action_32ff1fa2",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate inclusive port ranges_adbafd14",
+      "dst": "validate rule protocol_dfbbc433",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate inclusive port ranges_adbafd14",
+      "dst": "validate rule structure_9e372a5a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate inclusive port ranges_adbafd14",
+      "dst": "reject duplicate rule identifiers_f810bf91",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate inclusive port ranges_adbafd14",
+      "dst": "reject duplicate snapshot pairs_d9158bbc",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate inclusive port ranges_adbafd14",
+      "dst": "validate placement entries_2905cb7a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate inclusive port ranges_adbafd14",
+      "dst": "validate snapshot structure_7a947cd1",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate inclusive port ranges_adbafd14",
+      "dst": "validate relevance entries_601860e6",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule action_32ff1fa2",
+      "dst": "validate rule protocol_dfbbc433",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule action_32ff1fa2",
+      "dst": "validate rule structure_9e372a5a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule action_32ff1fa2",
+      "dst": "reject duplicate rule identifiers_f810bf91",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule action_32ff1fa2",
+      "dst": "reject duplicate snapshot pairs_d9158bbc",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule action_32ff1fa2",
+      "dst": "validate placement entries_2905cb7a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule action_32ff1fa2",
+      "dst": "validate snapshot structure_7a947cd1",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule action_32ff1fa2",
+      "dst": "validate relevance entries_601860e6",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule protocol_dfbbc433",
+      "dst": "validate rule structure_9e372a5a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule protocol_dfbbc433",
+      "dst": "reject duplicate rule identifiers_f810bf91",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule protocol_dfbbc433",
+      "dst": "reject duplicate snapshot pairs_d9158bbc",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule protocol_dfbbc433",
+      "dst": "validate placement entries_2905cb7a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule protocol_dfbbc433",
+      "dst": "validate snapshot structure_7a947cd1",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule protocol_dfbbc433",
+      "dst": "validate relevance entries_601860e6",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule structure_9e372a5a",
+      "dst": "reject duplicate rule identifiers_f810bf91",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule structure_9e372a5a",
+      "dst": "reject duplicate snapshot pairs_d9158bbc",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule structure_9e372a5a",
+      "dst": "validate placement entries_2905cb7a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule structure_9e372a5a",
+      "dst": "validate snapshot structure_7a947cd1",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate rule structure_9e372a5a",
+      "dst": "validate relevance entries_601860e6",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "reject duplicate rule identifiers_f810bf91",
+      "dst": "reject duplicate snapshot pairs_d9158bbc",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "reject duplicate rule identifiers_f810bf91",
+      "dst": "validate placement entries_2905cb7a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "reject duplicate rule identifiers_f810bf91",
+      "dst": "validate snapshot structure_7a947cd1",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "reject duplicate rule identifiers_f810bf91",
+      "dst": "validate relevance entries_601860e6",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "reject duplicate snapshot pairs_d9158bbc",
+      "dst": "validate placement entries_2905cb7a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "reject duplicate snapshot pairs_d9158bbc",
+      "dst": "validate snapshot structure_7a947cd1",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "reject duplicate snapshot pairs_d9158bbc",
+      "dst": "validate relevance entries_601860e6",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate placement entries_2905cb7a",
+      "dst": "validate snapshot structure_7a947cd1",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate placement entries_2905cb7a",
+      "dst": "validate relevance entries_601860e6",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate snapshot structure_7a947cd1",
+      "dst": "validate relevance entries_601860e6",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/evidence.py::function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "load request document_1efd6755",
+      "dst": "reject unknown fields_bc57f84b",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/document.py::function load_request_document",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "load request document_1efd6755",
+      "dst": "validate request envelope_7a339438",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/document.py::function load_request_document",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "reject unknown fields_bc57f84b",
+      "dst": "validate request envelope_7a339438",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/inputs/document.py::function load_request_document",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "deduplicate relevant pairs_17688410",
+      "dst": "retrieve relevant pairs_0969b901",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/sources/synthetic.py::function retrieve_relevant_pairs",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "reject missing snapshot_8fed5f87",
+      "dst": "retrieve relevant snapshot_9e66a8c6",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: src/acl_checker/sources/synthetic.py::function retrieve_relevant_snapshot",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "check functional boundaries_7a9da4b1",
+      "dst": "check inward imports_10cc7e5c",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_architecture.py::function assert_source_constraints",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "check functional boundaries_7a9da4b1",
+      "dst": "check bounded runtime scope_e99138ee",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_architecture.py::function assert_source_constraints",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "check functional boundaries_7a9da4b1",
+      "dst": "check exception handling scope_2b37408a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_architecture.py::function assert_source_constraints",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "check inward imports_10cc7e5c",
+      "dst": "check bounded runtime scope_e99138ee",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_architecture.py::function assert_source_constraints",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "check inward imports_10cc7e5c",
+      "dst": "check exception handling scope_2b37408a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_architecture.py::function assert_source_constraints",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "check bounded runtime scope_e99138ee",
+      "dst": "check exception handling scope_2b37408a",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_architecture.py::function assert_source_constraints",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify invocation isolation_831b27a7",
+      "dst": "verify interchangeable providers_41b4479f",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_application_contracts.py::class TestApplicationContracts",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify invocation isolation_831b27a7",
+      "dst": "verify atomic request failure_f6c0ddcf",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_application_contracts.py::class TestApplicationContracts",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify invocation isolation_831b27a7",
+      "dst": "verify input immutability_577e835f",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_application_contracts.py::class TestApplicationContracts",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify invocation isolation_831b27a7",
+      "dst": "verify invalid request rejection_ccad8906",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_application_contracts.py::class TestApplicationContracts",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify interchangeable providers_41b4479f",
+      "dst": "verify atomic request failure_f6c0ddcf",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_application_contracts.py::class TestApplicationContracts",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify interchangeable providers_41b4479f",
+      "dst": "verify input immutability_577e835f",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_application_contracts.py::class TestApplicationContracts",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify interchangeable providers_41b4479f",
+      "dst": "verify invalid request rejection_ccad8906",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_application_contracts.py::class TestApplicationContracts",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify atomic request failure_f6c0ddcf",
+      "dst": "verify input immutability_577e835f",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_application_contracts.py::class TestApplicationContracts",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify atomic request failure_f6c0ddcf",
+      "dst": "verify invalid request rejection_ccad8906",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_application_contracts.py::class TestApplicationContracts",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify input immutability_577e835f",
+      "dst": "verify invalid request rejection_ccad8906",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_application_contracts.py::class TestApplicationContracts",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify cli exit behavior_6bfb3220",
+      "dst": "verify exact evidence groups_ea150c7b",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_cli_acceptance.py::class TestCliAcceptance",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify cli exit behavior_6bfb3220",
+      "dst": "verify evidence interpretation limits_33fb654f",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_cli_acceptance.py::class TestCliAcceptance",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify cli exit behavior_6bfb3220",
+      "dst": "verify public output formats_53176a05",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_cli_acceptance.py::class TestCliAcceptance",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify exact evidence groups_ea150c7b",
+      "dst": "verify evidence interpretation limits_33fb654f",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_cli_acceptance.py::class TestCliAcceptance",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify exact evidence groups_ea150c7b",
+      "dst": "verify public output formats_53176a05",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_cli_acceptance.py::class TestCliAcceptance",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify evidence interpretation limits_33fb654f",
+      "dst": "verify public output formats_53176a05",
+      "relation": "same_unit",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "Share implementation: tests/test_cli_acceptance.py::class TestCliAcceptance",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate flow protocol_ee6217dc",
+      "dst": "validate flow addresses_9f5e9c9a",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function validate_flow invokes function validate_ipv4_address",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate flow protocol_ee6217dc",
+      "dst": "validate flow ports_37d00b47",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function validate_flow invokes function validate_port",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "create relevance provider_ee494f44",
+      "dst": "retrieve relevant pairs_0969b901",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function create_relevance_provider invokes function retrieve_relevant_pairs",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "create snapshot provider_8d6408c0",
+      "dst": "retrieve relevant snapshot_9e66a8c6",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function create_snapshot_provider invokes function retrieve_relevant_snapshot",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "build evidence group_047ea291",
+      "dst": "collect matching evidence_16c80b19",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function build_evidence_group invokes function collect_matching_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "build evidence group_047ea291",
+      "dst": "determine evidence status_0946bf9e",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function build_evidence_group invokes function determine_evidence_status",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "check traffic evidence_932b7db0",
+      "dst": "build evidence group_047ea291",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function check invokes function build_evidence_group",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "render text groups_f537651a",
+      "dst": "describe saved evidence scope_07754fd3",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function render_text_groups invokes function describe_saved_evidence_scope",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "render text groups_f537651a",
+      "dst": "render empty relevance message_41621856",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function render_text_groups invokes function render_empty_relevance_message",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "render json report_85c6ea45",
+      "dst": "describe saved evidence scope_07754fd3",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function render_json_report invokes function describe_saved_evidence_scope",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "compose local execution_5e8f11ac",
+      "dst": "load request document_1efd6755",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function execute_local invokes function load_request_document",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "compose local execution_5e8f11ac",
+      "dst": "create relevance provider_ee494f44",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function execute_local invokes function create_relevance_provider",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "compose local execution_5e8f11ac",
+      "dst": "create snapshot provider_8d6408c0",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function execute_local invokes function create_snapshot_provider",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "compose local execution_5e8f11ac",
+      "dst": "check traffic evidence_932b7db0",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function execute_local invokes function check",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "compose local execution_5e8f11ac",
+      "dst": "render text groups_f537651a",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function execute_local invokes function render_text_groups",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "compose local execution_5e8f11ac",
+      "dst": "render json report_85c6ea45",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function execute_local invokes function render_json_report",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "compose local execution_5e8f11ac",
+      "dst": "emit request diagnostic_3c9213c3",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function execute_local invokes function emit_request_diagnostic",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "verify predicate boundaries_79663d93",
+      "dst": "evaluate stored rule match_feee1bb1",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function observe_matching invokes function matches",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate snapshot structure_7a947cd1",
+      "dst": "validate flow addresses_9f5e9c9a",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function validate_evidence invokes function validate_ipv4_address",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "validate snapshot structure_7a947cd1",
+      "dst": "validate flow ports_37d00b47",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function validate_evidence invokes function validate_port",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "load request document_1efd6755",
+      "dst": "validate flow protocol_ee6217dc",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function load_request_document invokes function validate_flow",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "load request document_1efd6755",
+      "dst": "validate snapshot structure_7a947cd1",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function load_request_document invokes function validate_evidence",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "collect matching evidence_16c80b19",
+      "dst": "evaluate stored rule match_feee1bb1",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function collect_matching_evidence invokes function matches",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    },
+    {
+      "src": "parse invocation options_2695a8ef",
+      "dst": "display prototype help_16230e05",
+      "relation": "invokes",
+      "meta": {
+        "type_name": null,
+        "path": null,
+        "content": "",
+        "description": "function main invokes function display_prototype_help",
+        "generator": "design_interfaces",
+        "language": null
+      }
+    }
+  ],
+  "_dep_to_rpg_map": {},
+  "_dep_graph_code_dir": "",
+  "dep_graph_file": null,
+  "_feature_to_dep_map": {},
+  "meta": {}
+}

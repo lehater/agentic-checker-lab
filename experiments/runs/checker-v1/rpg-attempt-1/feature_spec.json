@@ -1,0 +1,730 @@
+{
+  "meta": {
+    "project_types": [
+      "CLI"
+    ],
+    "project_notes": "Bounded local synthetic ACL checker for one concrete flow per invocation. Canonical accepted contracts govern semantics; generated graphs are derived. Preserve all matches and snapshot order without inferring a network path or end-to-end verdict.",
+    "generated_at": "2026-10-16",
+    "source_documents": [
+      "requirements.md"
+    ],
+    "primary_language": "python",
+    "target_languages": [
+      "python"
+    ]
+  },
+  "background_and_overview": [
+    {
+      "id": "BG-001",
+      "title": "Synthetic ACL Investigation",
+      "description": "The prototype lets an operator investigate saved ACL evidence for one concrete traffic flow using small synthetic datasets. Human-readable output serves operators, while machine-readable output supports independent acceptance runs; no numerical load targets are specified.",
+      "evidence": [
+        {
+          "id": "requirements-BG-001",
+          "source": "requirements.md",
+          "line_start": 12,
+          "line_end": 16
+        },
+        {
+          "id": "requirements-BG-002",
+          "source": "requirements.md",
+          "line_start": 133,
+          "line_end": 135
+        }
+      ]
+    },
+    {
+      "id": "BG-002",
+      "title": "Saved Evidence Boundary",
+      "description": "A separate simulated relevance source supplies device/ACL pairs for the query's two IP addresses, and supplied snapshots provide stored rule evidence. Relevance order does not represent a real network path, saved evidence does not establish live truth, and no SLA or freshness TTL is specified.",
+      "evidence": [
+        {
+          "id": "requirements-BG-003",
+          "source": "requirements.md",
+          "line_start": 22,
+          "line_end": 28
+        },
+        {
+          "id": "requirements-BG-004",
+          "source": "requirements.md",
+          "line_start": 136,
+          "line_end": 136
+        },
+        {
+          "id": "requirements-BG-005",
+          "source": "requirements.md",
+          "line_start": 167,
+          "line_end": 170
+        },
+        {
+          "id": "requirements-BG-006",
+          "source": "requirements.md",
+          "line_start": 190,
+          "line_end": 191
+        }
+      ]
+    }
+  ],
+  "non_functional_requirements": [
+    {
+      "id": "NFR-001",
+      "title": "Bounded Prototype Scope",
+      "description": "Provide only the local CLI prototype, without networking, web or HTTP interfaces, authentication, interactive UI, live routing, real-device collection, full vendor parsing, databases or production history storage. Continuous services, distributed workers, queues, CQRS, event buses, DI frameworks and production dependencies are outside scope.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-001",
+          "source": "requirements.md",
+          "line_start": 3,
+          "line_end": 3
+        },
+        {
+          "id": "requirements-NFR-002",
+          "source": "requirements.md",
+          "line_start": 46,
+          "line_end": 50
+        },
+        {
+          "id": "requirements-NFR-003",
+          "source": "requirements.md",
+          "line_start": 137,
+          "line_end": 150
+        },
+        {
+          "id": "requirements-NFR-004",
+          "source": "requirements.md",
+          "line_start": 255,
+          "line_end": 256
+        }
+      ]
+    },
+    {
+      "id": "NFR-002",
+      "title": "Interpretation Boundary",
+      "description": "Report matching stored rules without computing an overall end-to-end permit/deny verdict or synthesizing an implicit deny rule. Neither placements nor serialized group order may imply a discovered network path or unsupported facts about network bindings.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-005",
+          "source": "requirements.md",
+          "line_start": 39,
+          "line_end": 40
+        },
+        {
+          "id": "requirements-NFR-006",
+          "source": "requirements.md",
+          "line_start": 95,
+          "line_end": 98
+        },
+        {
+          "id": "requirements-NFR-007",
+          "source": "requirements.md",
+          "line_start": 174,
+          "line_end": 176
+        },
+        {
+          "id": "requirements-NFR-008",
+          "source": "requirements.md",
+          "line_start": 190,
+          "line_end": 191
+        }
+      ]
+    },
+    {
+      "id": "NFR-003",
+      "title": "Inward Dependency Architecture",
+      "description": "Run one request synchronously in one local process, with separate domain matching, application orchestration and outer validation/serialization responsibilities, composed externally. Domain and application must not import CLI, JSON loading, filesystem, networking, Harness or CoderMind adapters; infrastructure depends inward on application-owned contracts, and execution requires neither Harness nor CoderMind.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-009",
+          "source": "requirements.md",
+          "line_start": 112,
+          "line_end": 125
+        },
+        {
+          "id": "requirements-NFR-010",
+          "source": "requirements.md",
+          "line_start": 146,
+          "line_end": 147
+        },
+        {
+          "id": "requirements-NFR-011",
+          "source": "requirements.md",
+          "line_start": 222,
+          "line_end": 224
+        },
+        {
+          "id": "requirements-NFR-012",
+          "source": "requirements.md",
+          "line_start": 245,
+          "line_end": 250
+        }
+      ]
+    },
+    {
+      "id": "NFR-004",
+      "title": "Simple Functional Contracts",
+      "description": "Expose pure matches(flow, rule) -> bool and application check(flow, relevance, snapshot) -> report groups, injecting narrow relevance(source, destination) and snapshot(device, acl) callables owned by the use case. Keep addresses and ports as values, separate relevance from matching and parsing, and prefer simple functions without unjustified classes, repositories or wrappers; internal representations remain implementation choices, and source changes must not alter matching semantics.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-013",
+          "source": "requirements.md",
+          "line_start": 211,
+          "line_end": 238
+        },
+        {
+          "id": "requirements-NFR-014",
+          "source": "requirements.md",
+          "line_start": 249,
+          "line_end": 250
+        }
+      ]
+    },
+    {
+      "id": "NFR-005",
+      "title": "Read Only Execution",
+      "description": "Do not mutate the flow, supplied snapshots or network state, and do not require result persistence. Synthetic providers capture validated invocation-local values without a global mutable cache or concurrent shared mutable state.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-015",
+          "source": "requirements.md",
+          "line_start": 98,
+          "line_end": 98
+        },
+        {
+          "id": "requirements-NFR-016",
+          "source": "requirements.md",
+          "line_start": 138,
+          "line_end": 141
+        },
+        {
+          "id": "requirements-NFR-017",
+          "source": "requirements.md",
+          "line_start": 219,
+          "line_end": 229
+        },
+        {
+          "id": "requirements-NFR-018",
+          "source": "requirements.md",
+          "line_start": 255,
+          "line_end": 256
+        }
+      ]
+    },
+    {
+      "id": "NFR-006",
+      "title": "Conservative Failure Semantics",
+      "description": "Reject the entire request when supplied data is invalid, unsupported or missing a required snapshot, without fallback, retry or a successful partial report. Expected boundary failures become explicit CLI diagnostics rather than NO_MATCH, while programmer errors must not be suppressed by a blanket except Exception.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-019",
+          "source": "requirements.md",
+          "line_start": 87,
+          "line_end": 92
+        },
+        {
+          "id": "requirements-NFR-020",
+          "source": "requirements.md",
+          "line_start": 126,
+          "line_end": 127
+        },
+        {
+          "id": "requirements-NFR-021",
+          "source": "requirements.md",
+          "line_start": 252,
+          "line_end": 254
+        }
+      ]
+    },
+    {
+      "id": "NFR-007",
+      "title": "Safe Local Input",
+      "description": "Treat external values as untrusted local synthetic data, validate them and parse input only as JSON. Never execute input values, issue network requests or write snapshots; real-device access and secrets are outside the trust boundary.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-022",
+          "source": "requirements.md",
+          "line_start": 144,
+          "line_end": 144
+        },
+        {
+          "id": "requirements-NFR-023",
+          "source": "requirements.md",
+          "line_start": 197,
+          "line_end": 200
+        },
+        {
+          "id": "requirements-NFR-024",
+          "source": "requirements.md",
+          "line_start": 252,
+          "line_end": 255
+        }
+      ]
+    },
+    {
+      "id": "NFR-008",
+      "title": "Independent Contract Verification",
+      "description": "Require automated AST/import checks, an integration test substituting source callables and isolated public CLI acceptance tests using implementation-independent fixed expectations. Cover every supplied scenario, text/JSON formats, malformed JSON, invalid shapes, unsupported predicates, absent data, exact groups/IDs/actions/statuses, complete fields, placements, absent verdict, error streams/exit codes and unchanged fixtures.",
+      "evidence": [
+        {
+          "id": "requirements-NFR-025",
+          "source": "requirements.md",
+          "line_start": 233,
+          "line_end": 238
+        },
+        {
+          "id": "requirements-NFR-026",
+          "source": "requirements.md",
+          "line_start": 258,
+          "line_end": 260
+        },
+        {
+          "id": "requirements-NFR-027",
+          "source": "requirements.md",
+          "line_start": 271,
+          "line_end": 309
+        },
+        {
+          "id": "requirements-NFR-028",
+          "source": "requirements.md",
+          "line_start": 318,
+          "line_end": 409
+        }
+      ]
+    }
+  ],
+  "functional_requirements": [
+    {
+      "id": "FT-001",
+      "name": "CLI Invocation",
+      "description": "Provide a local command interface for one diagnostic request.",
+      "evidence": [],
+      "children": [
+        {
+          "id": "FT-001-001",
+          "name": "Parse Invocation Options",
+          "description": "Accept python3 -m checker --input <path> [--format text|json] with a required input path and text as the default format.",
+          "evidence": [
+            {
+              "id": "requirements-FR-001",
+              "source": "requirements.md",
+              "line_start": 158,
+              "line_end": 160
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-001-002",
+          "name": "Display Scope Help",
+          "description": "Display the supported prototype scope through --help.",
+          "evidence": [
+            {
+              "id": "requirements-FR-002",
+              "source": "requirements.md",
+              "line_start": 161,
+              "line_end": 161
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-001-003",
+          "name": "Load Input Document",
+          "description": "Load the selected local UTF-8 JSON file as the request object.",
+          "evidence": [
+            {
+              "id": "requirements-FR-003",
+              "source": "requirements.md",
+              "line_start": 158,
+              "line_end": 161
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-001-004",
+          "name": "Report Request Failure",
+          "description": "Report an expected reading, JSON, validation or missing-snapshot failure with exit 2, empty stdout and stderr containing Checker error: followed by an understandable reason.",
+          "evidence": [
+            {
+              "id": "requirements-FR-004",
+              "source": "requirements.md",
+              "line_start": 197,
+              "line_end": 201
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "FT-002",
+      "name": "Request Validation",
+      "description": "Validate the complete supplied version-one request before reporting success.",
+      "evidence": [],
+      "children": [
+        {
+          "id": "FT-002-001",
+          "name": "Validate Request Schema",
+          "description": "Validate a root object containing required version, flow, relevance and snapshots fields, accepting only integer version 1 and rejecting missing fields or unknown fields at every schema boundary.",
+          "evidence": [
+            {
+              "id": "requirements-FR-005",
+              "source": "requirements.md",
+              "line_start": 163,
+              "line_end": 182
+            },
+            {
+              "id": "requirements-FR-006",
+              "source": "requirements.md",
+              "line_start": 200,
+              "line_end": 201
+            },
+            {
+              "id": "requirements-FR-007",
+              "source": "requirements.md",
+              "line_start": 406,
+              "line_end": 409
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-002-002",
+          "name": "Validate Traffic Flow",
+          "description": "Validate one flow with required source and destination IPv4 strings, protocol tcp or udp, and source_port and destination_port integers from 0 through 65535, excluding booleans.",
+          "evidence": [
+            {
+              "id": "requirements-FR-008",
+              "source": "requirements.md",
+              "line_start": 15,
+              "line_end": 20
+            },
+            {
+              "id": "requirements-FR-009",
+              "source": "requirements.md",
+              "line_start": 165,
+              "line_end": 166
+            },
+            {
+              "id": "requirements-FR-010",
+              "source": "requirements.md",
+              "line_start": 398,
+              "line_end": 405
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-002-003",
+          "name": "Validate Relevance List",
+          "description": "Validate relevance as a possibly empty list of objects containing nonempty device and acl strings, permitting repeated pairs.",
+          "evidence": [
+            {
+              "id": "requirements-FR-011",
+              "source": "requirements.md",
+              "line_start": 167,
+              "line_end": 173
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-002-004",
+          "name": "Validate Snapshot Collection",
+          "description": "Validate every supplied snapshot as an object with required device, acl, placements and rules fields, nonempty device/acl strings, a unique device/ACL pair and rule IDs unique within that ACL, including snapshots unused by relevance.",
+          "evidence": [
+            {
+              "id": "requirements-FR-012",
+              "source": "requirements.md",
+              "line_start": 171,
+              "line_end": 185
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-002-005",
+          "name": "Validate Placement List",
+          "description": "Validate placements as a possibly empty list whose entries are either an interface object with a nonempty interface string and direction in or out, or an object containing global equal to true.",
+          "evidence": [
+            {
+              "id": "requirements-FR-013",
+              "source": "requirements.md",
+              "line_start": 174,
+              "line_end": 176
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-002-006",
+          "name": "Validate Rule Record",
+          "description": "Validate each rule's required id, source, destination, protocol, source_ports, destination_ports and action fields using a nonempty ID, IPv4 hosts or canonical CIDRs with zero host bits, tcp/udp/any protocol, two-integer inclusive port ranges with 0 <= lower <= upper <= 65535 excluding booleans, and permit/deny action.",
+          "evidence": [
+            {
+              "id": "requirements-FR-014",
+              "source": "requirements.md",
+              "line_start": 70,
+              "line_end": 76
+            },
+            {
+              "id": "requirements-FR-015",
+              "source": "requirements.md",
+              "line_start": 171,
+              "line_end": 182
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "FT-003",
+      "name": "Relevant Snapshot Selection",
+      "description": "Obtain the unique relevant ACL snapshots from the request-scoped synthetic sources.",
+      "evidence": [],
+      "children": [
+        {
+          "id": "FT-003-001",
+          "name": "Retrieve Relevant Pairs",
+          "description": "Retrieve the request's supplied relevance list through a source callable receiving the flow's source and destination IP addresses.",
+          "evidence": [
+            {
+              "id": "requirements-FR-016",
+              "source": "requirements.md",
+              "line_start": 167,
+              "line_end": 170
+            },
+            {
+              "id": "requirements-FR-017",
+              "source": "requirements.md",
+              "line_start": 214,
+              "line_end": 221
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-003-002",
+          "name": "Deduplicate Relevant Pairs",
+          "description": "Deduplicate device/ACL pairs while preserving first-appearance order and treating different ACLs on one device as distinct contexts.",
+          "evidence": [
+            {
+              "id": "requirements-FR-018",
+              "source": "requirements.md",
+              "line_start": 22,
+              "line_end": 24
+            },
+            {
+              "id": "requirements-FR-019",
+              "source": "requirements.md",
+              "line_start": 83,
+              "line_end": 85
+            },
+            {
+              "id": "requirements-FR-020",
+              "source": "requirements.md",
+              "line_start": 169,
+              "line_end": 170
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-003-003",
+          "name": "Retrieve Relevant Snapshot",
+          "description": "Retrieve each unique relevant pair's snapshot through snapshot(device, acl), rejecting a missing snapshot and excluding irrelevant snapshots from matching or report groups.",
+          "evidence": [
+            {
+              "id": "requirements-FR-021",
+              "source": "requirements.md",
+              "line_start": 89,
+              "line_end": 97
+            },
+            {
+              "id": "requirements-FR-022",
+              "source": "requirements.md",
+              "line_start": 183,
+              "line_end": 185
+            },
+            {
+              "id": "requirements-FR-023",
+              "source": "requirements.md",
+              "line_start": 214,
+              "line_end": 218
+            },
+            {
+              "id": "requirements-FR-024",
+              "source": "requirements.md",
+              "line_start": 394,
+              "line_end": 397
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "FT-004",
+      "name": "Stored Rule Matching",
+      "description": "Identify every supported stored rule that matches the concrete flow.",
+      "evidence": [],
+      "children": [
+        {
+          "id": "FT-004-001",
+          "name": "Evaluate Rule Match",
+          "description": "Return true exactly when source and destination satisfy their respective IPv4 host or CIDR predicates including network boundary addresses, protocol equals the flow protocol or any, and both flow ports fall within their respective inclusive ranges, independently of action.",
+          "evidence": [
+            {
+              "id": "requirements-FR-025",
+              "source": "requirements.md",
+              "line_start": 70,
+              "line_end": 81
+            },
+            {
+              "id": "requirements-FR-026",
+              "source": "requirements.md",
+              "line_start": 211,
+              "line_end": 213
+            },
+            {
+              "id": "requirements-FR-027",
+              "source": "requirements.md",
+              "line_start": 354,
+              "line_end": 393
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-004-002",
+          "name": "Collect Matching Rules",
+          "description": "Collect every matching permit/deny rule from a relevant snapshot in original array order without first-match termination, ID sorting or action prioritization.",
+          "evidence": [
+            {
+              "id": "requirements-FR-028",
+              "source": "requirements.md",
+              "line_start": 30,
+              "line_end": 37
+            },
+            {
+              "id": "requirements-FR-029",
+              "source": "requirements.md",
+              "line_start": 81,
+              "line_end": 84
+            },
+            {
+              "id": "requirements-FR-030",
+              "source": "requirements.md",
+              "line_start": 347,
+              "line_end": 353
+            }
+          ],
+          "children": []
+        }
+      ]
+    },
+    {
+      "id": "FT-005",
+      "name": "Evidence Reporting",
+      "description": "Present complete per-ACL evidence in the selected output format.",
+      "evidence": [],
+      "children": [
+        {
+          "id": "FT-005-001",
+          "name": "Build Evidence Group",
+          "description": "Build one group per unique relevant device/ACL pair containing device, acl, unchanged placements and matching rules with all original fields and actions, without duplicating rules for placements or interpreting empty placements as absent network bindings.",
+          "evidence": [
+            {
+              "id": "requirements-FR-031",
+              "source": "requirements.md",
+              "line_start": 83,
+              "line_end": 85
+            },
+            {
+              "id": "requirements-FR-032",
+              "source": "requirements.md",
+              "line_start": 95,
+              "line_end": 97
+            },
+            {
+              "id": "requirements-FR-033",
+              "source": "requirements.md",
+              "line_start": 174,
+              "line_end": 176
+            },
+            {
+              "id": "requirements-FR-034",
+              "source": "requirements.md",
+              "line_start": 188,
+              "line_end": 189
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-005-002",
+          "name": "Determine Group Status",
+          "description": "Assign MATCHES to a group with matching rules or NO_MATCH to a complete valid snapshot with zero matching rules, including an empty rule list.",
+          "evidence": [
+            {
+              "id": "requirements-FR-035",
+              "source": "requirements.md",
+              "line_start": 87,
+              "line_end": 92
+            },
+            {
+              "id": "requirements-FR-036",
+              "source": "requirements.md",
+              "line_start": 350,
+              "line_end": 352
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-005-003",
+          "name": "Render JSON Report",
+          "description": "Emit a successful JSON report to stdout with exit 0 using exactly the envelope {version: 1, groups: [...]} and groups containing device, acl, placements, status and rules in first-unique-relevance order, with an empty groups list for empty relevance and no overall verdict field.",
+          "evidence": [
+            {
+              "id": "requirements-FR-037",
+              "source": "requirements.md",
+              "line_start": 169,
+              "line_end": 170
+            },
+            {
+              "id": "requirements-FR-038",
+              "source": "requirements.md",
+              "line_start": 187,
+              "line_end": 191
+            }
+          ],
+          "children": []
+        },
+        {
+          "id": "FT-005-004",
+          "name": "Render Text Report",
+          "description": "Emit a successful text report to stdout with exit 0 in first-unique-relevance order using each group's device / acl — status heading, placements: <JSON> line and one line per matching rule containing its ID, action and every predicate field, or the exact message Нет релевантных ACL (synthetic source). for empty relevance.",
+          "evidence": [
+            {
+              "id": "requirements-FR-039",
+              "source": "requirements.md",
+              "line_start": 158,
+              "line_end": 160
+            },
+            {
+              "id": "requirements-FR-040",
+              "source": "requirements.md",
+              "line_start": 187,
+              "line_end": 195
+            }
+          ],
+          "children": []
+        }
+      ]
+    }
+  ],
+  "repository_name": "acl-checker",
+  "repository_purpose": "Provide a bounded local Python CLI for investigating every saved ACL rule matching one concrete IPv4 traffic flow across synthetically relevant device/ACL pairs. Preserve original evidence, placements and snapshot ordering while reporting explicit no-match states or request failures."
+}

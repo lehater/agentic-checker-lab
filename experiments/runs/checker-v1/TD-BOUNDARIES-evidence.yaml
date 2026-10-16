@@ -1,0 +1,37 @@
+version: 1
+kind: harness-test-realization-evidence
+test_contract: TD-BOUNDARIES
+executables:
+- id: TD-BOUNDARIES-1
+  test: tests/test_checker_acceptance.CheckerAcceptance.test_text_report
+  status: FAILED
+- id: TD-BOUNDARIES-2
+  test: tests/test_checker_acceptance.CheckerAcceptance.test_strict_boundary
+  status: FAILED
+- id: TD-BOUNDARIES-3
+  test: tests/test_checker_acceptance.CheckerAcceptance.test_duplicate_snapshot_and_rule_rejected
+  status: FAILED
+- id: TD-BOUNDARIES-4
+  test: tests/test_checker_acceptance.CheckerAcceptance.test_missing_and_empty_inputs
+  status: FAILED
+- id: TD-BOUNDARIES-5
+  test: tests/test_checker_structure.CheckerStructure.test_inward_dependencies
+  status: FAILED
+- id: TD-BOUNDARIES-6
+  test: tests/test_checker_structure.CheckerStructure.test_source_substitution_and_immutability
+  status: FAILED
+bindings:
+- id: TD-BOUNDARIES-OP-BOUNDARY
+  obligation: OP-BOUNDARY
+  evidence: &id001
+  - TD-BOUNDARIES-1
+  - TD-BOUNDARIES-2
+  - TD-BOUNDARIES-3
+  - TD-BOUNDARIES-4
+  - TD-BOUNDARIES-5
+  - TD-BOUNDARIES-6
+- id: TD-BOUNDARIES-OR-BOUNDARY
+  obligation: OR-BOUNDARY
+  evidence: *id001
+test_source_sha256:
+  tests/test_checker_acceptance.py: 9e740dab4ac2be5a0aff8a809c51adaa8f370c28a34296a99c1be583f31ac242
