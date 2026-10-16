@@ -1,0 +1,46 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: CHECKER-VERIFICATION
+capability: checker.verification-strategy
+status: REJECTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings:
+- code: SEMANTIC_REVIEW_REQUIRED
+- code: SEMANTIC_REVIEW_REJECTED
+  reason: Full first-slice strategy lacks accepted matching predicates and independently
+    justified match/non-match oracle. VC-DV-MATCH BLOCKED; VC-DV-ORDER CONDITIONAL.
+    Q-DV-002. Metadata work does not establish the whole capability.
+semantic_claims:
+  accepted: []
+question_proposals: []
+admission:
+  status: REJECTED
+  knowledge_kind: verification-strategy
+  skill: skills/artifacts/verification-strategy/SKILL.md
+  acceptance_id: checker-verification-attempt-4df738825543650de81bb6f7
+  authority: VERIFICATION-DESIGN
+  allowed_source_authorities:
+  - PRODUCT-REQUIREMENTS
+  - VERIFICATION-DESIGN
+  changed_paths:
+  - experiments/runs/harness-domain-verification-v1/verification-candidate.yaml
+  canonical_references:
+  - referenced_path: .harness/knowledge/checker-requirements.yaml
+  accepted_prerequisites:
+    checker.requirements: task-004-requirements-3219d4ef86d53466a04bb4e9
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+  acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE

@@ -1,0 +1,98 @@
+id: CHECKER-VERIFICATION
+path: experiments/runs/harness-domain-verification-v1/verification-candidate.yaml
+capability: checker.verification-strategy
+canonical_references:
+- referenced_path: .harness/knowledge/checker-requirements.yaml
+semantic_assertions:
+- id: VC-DV-CONTEXT
+  kind: verification-check
+  subject: VC-DV-CONTEXT
+  semantic_value: Предоставленные contexts/placements и snapshots показаны без route
+    discovery или live access.
+  decision_authority: VERIFICATION-DESIGN
+  derived_from:
+  - REQ-CHECKER-001
+  - REQ-CHECKER-012
+  - REQ-CHECKER-013
+- id: VC-DV-MATCH
+  kind: verification-check
+  subject: VC-DV-MATCH
+  semantic_value: Поддерживаемые IPv4 TCP/UDP match и non-match с независимой разметкой
+    каждого измерения.
+  decision_authority: VERIFICATION-DESIGN
+  derived_from:
+  - REQ-CHECKER-002
+  - REQ-CHECKER-008
+  - REQ-CHECKER-009
+  - REQ-CHECKER-010
+  - REQ-CHECKER-011
+  - REQ-CHECKER-028
+- id: VC-DV-ORDER
+  kind: verification-check
+  subject: VC-DV-ORDER
+  semantic_value: Известный относительный порядок и context показываемых правил.
+  decision_authority: VERIFICATION-DESIGN
+  derived_from:
+  - REQ-CHECKER-003
+  - REQ-CHECKER-014
+- id: VC-DV-VERDICT
+  kind: verification-check
+  subject: VC-DV-VERDICT
+  semantic_value: Rule action и наличие/отсутствие совпадения не доказывают универсальный
+    verdict.
+  decision_authority: VERIFICATION-DESIGN
+  derived_from:
+  - REQ-CHECKER-005
+  - REQ-CHECKER-006
+  - REQ-CHECKER-007
+- id: VC-DV-METADATA
+  kind: verification-check
+  subject: VC-DV-METADATA
+  semantic_value: Неизвестные metadata не подменяются подтверждёнными.
+  decision_authority: VERIFICATION-DESIGN
+  derived_from:
+  - REQ-CHECKER-004
+  - REQ-CHECKER-015
+  - REQ-CHECKER-016
+  - REQ-CHECKER-017
+  - REQ-CHECKER-018
+  - REQ-CHECKER-019
+- id: VC-DV-PARTIAL
+  kind: verification-check
+  subject: VC-DV-PARTIAL
+  semantic_value: Частичный результат допустим только с видимыми ограничениями и неизвестными
+    фактами.
+  decision_authority: VERIFICATION-DESIGN
+  derived_from:
+  - REQ-CHECKER-020
+  - REQ-CHECKER-021
+  - REQ-CHECKER-022
+- id: VC-DV-NO-MATCH
+  kind: verification-check
+  subject: VC-DV-NO-MATCH
+  semantic_value: Полный no-match отличается от missing и unknown completeness.
+  decision_authority: VERIFICATION-DESIGN
+  derived_from:
+  - REQ-CHECKER-023
+  - REQ-CHECKER-024
+- id: VC-DV-FRESHNESS
+  kind: verification-check
+  subject: VC-DV-FRESHNESS
+  semantic_value: Не изобретать TTL, fresh при unknown date или stale без основания.
+  decision_authority: VERIFICATION-DESIGN
+  derived_from:
+  - REQ-CHECKER-025
+  - REQ-CHECKER-026
+  - REQ-CHECKER-027
+semantic_review:
+  status: REJECTED
+  checks:
+  - source-discipline
+  - authority-boundary
+  - no-invention
+  - verification-not-semantic-owner
+  reason: Full first-slice strategy lacks accepted matching predicates and independently
+    justified match/non-match oracle. VC-DV-MATCH BLOCKED; VC-DV-ORDER CONDITIONAL.
+    Q-DV-002. Metadata work does not establish the whole capability.
+  reviewer: Engineering agent delegated by PDEC-CHECKER-005
+  record: experiments/runs/harness-domain-verification-v1/review.md

@@ -1,0 +1,150 @@
+version: 1
+kind: harness-knowledge-artifact
+artifact: CHECKER-VERIFICATION
+title: Checker first slice — verification strategy candidate
+schema: verification-plan/v1
+disposition: BLOCKED_NOT_CANONICAL_PROVIDER
+content:
+  purpose: Проверить весь принятый first slice независимо от будущей реализации; не
+    объявлять неустановленный matching oracle готовым.
+  scope: REQ-CHECKER-001..028 / PDEC-CHECKER-004
+  checks:
+  - id: VC-DV-CONTEXT
+    objective: Предоставленные contexts/placements и snapshots показаны без route
+      discovery или live access.
+    verifies:
+    - REQ-CHECKER-001
+    - REQ-CHECKER-012
+    - REQ-CHECKER-013
+    method: TEST
+    disposition: READY
+    evidence:
+    - Контексты C-A/placement edge-in и C-B/placement core-out; snapshot S-A связан
+      с C-A, S-B с C-B. Проверить сохранение связи и отсутствие необходимости опрашивать
+      устройства.
+    - 'До заявления поведенческого PASS: Test Design с входом, утверждёнными expected
+      outcomes, фактическим output и отчётом сравнения по этому check id; сейчас исполнения
+      Checker нет.'
+    oracle_source: .harness/knowledge/checker-requirements.yaml#REQ-CHECKER-001,REQ-CHECKER-012,REQ-CHECKER-013
+  - id: VC-DV-MATCH
+    objective: Поддерживаемые IPv4 TCP/UDP match и non-match с независимой разметкой
+      каждого измерения.
+    verifies:
+    - REQ-CHECKER-002
+    - REQ-CHECKER-008
+    - REQ-CHECKER-009
+    - REQ-CHECKER-010
+    - REQ-CHECKER-011
+    - REQ-CHECKER-028
+    method: TEST
+    disposition: BLOCKED
+    evidence:
+    - 'Нужны принятый matching contract и ручная таблица expected match/non-match,
+      подготовленная до реализации: IPv4 source/destination, TCP/UDP, source/destination
+      port; каждый изменённый факт и граница должны иметь отдельное обоснование из
+      контракта. Q-DV-002.'
+    - 'До заявления поведенческого PASS: Test Design с входом, утверждёнными expected
+      outcomes, фактическим output и отчётом сравнения по этому check id; сейчас исполнения
+      Checker нет.'
+    oracle_source: .harness/knowledge/checker-requirements.yaml#REQ-CHECKER-002,REQ-CHECKER-008,REQ-CHECKER-009,REQ-CHECKER-010,REQ-CHECKER-011,REQ-CHECKER-028
+  - id: VC-DV-ORDER
+    objective: Известный относительный порядок и context показываемых правил.
+    verifies:
+    - REQ-CHECKER-003
+    - REQ-CHECKER-014
+    method: TEST
+    disposition: CONDITIONAL
+    evidence:
+    - 'Независимо установленные подходящие R-A (order 20), R-B (order 10) в C-A и
+      R-C (order 5) в C-B: среди показанных R-B перед R-A; context каждого сохранён;
+      межконтекстный порядок не проверять. Установление подходящих правил ожидает
+      Q-DV-002.'
+    - 'До заявления поведенческого PASS: Test Design с входом, утверждёнными expected
+      outcomes, фактическим output и отчётом сравнения по этому check id; сейчас исполнения
+      Checker нет.'
+    oracle_source: .harness/knowledge/checker-requirements.yaml#REQ-CHECKER-003,REQ-CHECKER-014
+  - id: VC-DV-VERDICT
+    objective: Rule action и наличие/отсутствие совпадения не доказывают универсальный
+      verdict.
+    verifies:
+    - REQ-CHECKER-005
+    - REQ-CHECKER-006
+    - REQ-CHECKER-007
+    method: TEST
+    disposition: READY
+    evidence:
+    - SC-DV-01/02/03; при показе independently matched Permit/Deny проверить отсутствие
+      вывода effective verdict только из action (matching часть ожидает Q-DV-002).
+      Отсутствие универсального verdict допустимо.
+    - 'До заявления поведенческого PASS: Test Design с входом, утверждёнными expected
+      outcomes, фактическим output и отчётом сравнения по этому check id; сейчас исполнения
+      Checker нет.'
+    oracle_source: .harness/knowledge/checker-requirements.yaml#REQ-CHECKER-005,REQ-CHECKER-006,REQ-CHECKER-007
+  - id: VC-DV-METADATA
+    objective: Неизвестные metadata не подменяются подтверждёнными.
+    verifies:
+    - REQ-CHECKER-004
+    - REQ-CHECKER-015
+    - REQ-CHECKER-016
+    - REQ-CHECKER-017
+    - REQ-CHECKER-018
+    - REQ-CHECKER-019
+    method: TEST
+    disposition: READY
+    evidence:
+    - 'SC-DV-04/05: отдельно сравнить provenance, snapshot date и completeness с независимо
+      заданными metadata; полный перечень использованных источников сверить с fixture.'
+    - 'До заявления поведенческого PASS: Test Design с входом, утверждёнными expected
+      outcomes, фактическим output и отчётом сравнения по этому check id; сейчас исполнения
+      Checker нет.'
+    oracle_source: .harness/knowledge/checker-requirements.yaml#REQ-CHECKER-004,REQ-CHECKER-015,REQ-CHECKER-016,REQ-CHECKER-017,REQ-CHECKER-018,REQ-CHECKER-019
+  - id: VC-DV-PARTIAL
+    objective: Частичный результат допустим только с видимыми ограничениями и неизвестными
+      фактами.
+    verifies:
+    - REQ-CHECKER-020
+    - REQ-CHECKER-021
+    - REQ-CHECKER-022
+    method: TEST
+    disposition: READY
+    evidence:
+    - 'SC-DV-06: если возвращён частичный результат, видны неполнота S-A и неизвестные
+      данные C-B; не требовать обязательного частичного результата.'
+    - 'До заявления поведенческого PASS: Test Design с входом, утверждёнными expected
+      outcomes, фактическим output и отчётом сравнения по этому check id; сейчас исполнения
+      Checker нет.'
+    oracle_source: .harness/knowledge/checker-requirements.yaml#REQ-CHECKER-020,REQ-CHECKER-021,REQ-CHECKER-022
+  - id: VC-DV-NO-MATCH
+    objective: Полный no-match отличается от missing и unknown completeness.
+    verifies:
+    - REQ-CHECKER-023
+    - REQ-CHECKER-024
+    method: TEST
+    disposition: READY
+    evidence:
+    - 'SC-DV-01/02/03: полное пустое множество сохранённых правил не требует ACL predicate
+      semantics; сравнить три состояния, не точный текст/UI. Непустые no-match примеры
+      ожидают Q-DV-002.'
+    - 'До заявления поведенческого PASS: Test Design с входом, утверждёнными expected
+      outcomes, фактическим output и отчётом сравнения по этому check id; сейчас исполнения
+      Checker нет.'
+    oracle_source: .harness/knowledge/checker-requirements.yaml#REQ-CHECKER-023,REQ-CHECKER-024
+  - id: VC-DV-FRESHNESS
+    objective: Не изобретать TTL, fresh при unknown date или stale без основания.
+    verifies:
+    - REQ-CHECKER-025
+    - REQ-CHECKER-026
+    - REQ-CHECKER-027
+    method: TEST
+    disposition: READY
+    evidence:
+    - 'SC-DV-05/07/08: внешняя stale classification и её основание сохранены; один
+      лишь возраст/отсутствие даты не служит основанием классификации.'
+    - 'До заявления поведенческого PASS: Test Design с входом, утверждёнными expected
+      outcomes, фактическим output и отчётом сравнения по этому check id; сейчас исполнения
+      Checker нет.'
+    oracle_source: .harness/knowledge/checker-requirements.yaml#REQ-CHECKER-025,REQ-CHECKER-026,REQ-CHECKER-027
+  out_of_scope:
+  - Live devices, route discovery, NAT, IPv6, ICMP
+  - API, storage, framework, matching algorithm, performance targets
+  - Universal Permit/Deny as mandatory acceptance gate

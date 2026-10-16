@@ -28,6 +28,35 @@ authorities:
     knowledge_kind: product-requirements
     requires:
     - checker.problem
+- id: DOMAIN-USE-CASE-DESIGN
+  responsibility: Own domain-focused use-case behavior without deciding internal tactical
+    structures or technical transport.
+  boundary:
+    semantic_cohesion: Observable domain behavior for bounded problem slices.
+    independent_change: Use-case behavior can be refined before tactical identities,
+      invariants or persistence are selected.
+    public_contract: Provides accepted domain behavior to tactical modeling and application
+      composition.
+  produces:
+  - capability: checker.domain-use-case
+    knowledge_kind: domain-use-case
+    requires:
+    - checker.requirements
+- id: VERIFICATION-DESIGN
+  responsibility: Own verification levels, traceability, scenarios and evidence proving
+    implementation realizes accepted engineering knowledge.
+  boundary:
+    semantic_cohesion: Decisions about what executable or inspectable evidence proves
+      accepted design.
+    independent_change: Verification strategy can evolve without taking ownership
+      of product/domain/architecture semantics.
+    public_contract: Provides verification strategy and acceptance evidence; routes
+      design gaps to owning Authorities.
+  produces:
+  - capability: checker.verification-strategy
+    knowledge_kind: verification-strategy
+    requires:
+    - checker.requirements
 consumers:
 - id: CHECKER-PROBLEM-ADMISSION
   purpose: TASK-004 Discovery admission only; not an implementation Consumer.
@@ -38,3 +67,9 @@ consumers:
     scope.
   requires:
   - capability: checker.requirements
+- id: CHECKER-DOMAIN-VERIFICATION-ADMISSION
+  purpose: PDEC-CHECKER-005 first-slice design admission only; not implementation
+    scope.
+  requires:
+  - capability: checker.domain-use-case
+  - capability: checker.verification-strategy
