@@ -1,10 +1,10 @@
-name: Revised Product Requirements admission
+name: Accepted Checker Requirements integrity
 
 on:
   pull_request:
     paths:
       - '.harness/**'
-      - 'experiments/runs/harness-requirements-revision-v1/**'
+      - 'tools/test_domain_applicability_reconciliation.py'
       - '.github/workflows/requirements-revision.yml'
 
 permissions:
@@ -22,25 +22,40 @@ jobs:
           python-version: '3.12'
       - name: Install PyYAML
         run: python3 -m pip install PyYAML==6.0.3
-      - name: Execute real pinned Harness REVISION
-        run: python3 experiments/runs/harness-requirements-revision-v1/execute.py
+      - name: Validate active Project Publication against pinned Harness
+        run: |
+          python3 .harness/harnessw.py sync
+          python3 tools/test_domain_applicability_reconciliation.py
+          python3 - <<'PY'
+          import json, sys
+          from pathlib import Path
+          import yaml
+
+          pin=json.loads(Path('.harness/harness-binding.json').read_text())['source']['revision']
+          pack=Path.home()/'.cache/harness/v1'/pin
+          sys.path.insert(0,str(pack/'src'))
+          from harness.application.project_publication import read_project_publication
+          from harness.application.semantic_admission import derive_acceptance_policy_fingerprints
+          from harness.assurance.capability_lifecycle import lifecycle_states
+          from harness.project_model.engineering_graph import validate_realization
+
+          graph=yaml.safe_load(Path('.harness/engineering-graph.yaml').read_text())
+          pub=read_project_publication('.harness/project-publication.yaml',graph=graph)
+          state=pub['state']
+          policy=derive_acceptance_policy_fingerprints(
+              graph=graph,
+              knowledge_contracts=yaml.safe_load((pack/'spec/semantic-acceptance/knowledge-kind-contracts-v1.yaml').read_text()),
+              decision_contracts=yaml.safe_load((pack/'spec/decision-governance/knowledge-kind-decision-contracts-v1.yaml').read_text()),
+          )
+          current=lifecycle_states(
+              graph,validate_realization(graph,state['core_model']),
+              state['lifecycle'],current_acceptance_policy_fingerprints=policy,
+          )
+          for capability in ('checker.problem','checker.requirements'):
+              assert current[capability]['state']=='CURRENT',current[capability]
+          assert current['checker.domain-use-case']['state']!='CURRENT'
+          assert current['checker.verification-strategy']['state']!='CURRENT'
+          print('Accepted upstream capabilities CURRENT and downstream unaccepted')
+          PY
       - name: Validate repository
         run: make check
-      - name: Emit deterministic admitted output for exact checked-in update
-        run: |
-          python3 - <<'PY'
-          import json
-          from pathlib import Path
-          root=Path('experiments/runs/harness-requirements-revision-v1')
-          files={
-              'publication': Path('.harness/project-publication.yaml').read_text(),
-              'admission': (root/'semantic-admission.yaml').read_text(),
-              'candidate': (root/'admission-candidate.yaml').read_text(),
-          }
-          print('CHECKER_REVISED_OUTPUT_JSON='+json.dumps(files,ensure_ascii=True,separators=(',',':')))
-          PY
-      - name: Require checked-in revision to equal real Harness publication and evidence
-        run: |
-          git diff --exit-code -- .harness/project-publication.yaml
-          git diff --exit-code -- experiments/runs/harness-requirements-revision-v1/admission-candidate.yaml
-          git diff --exit-code -- experiments/runs/harness-requirements-revision-v1/semantic-admission.yaml
