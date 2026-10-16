@@ -1,20 +1,16 @@
-# Checker — agent entrypoint
+# Spec Kit Checker experiment — branch-specific instructions
 
-Start with [the owner's problem statement](docs/scenario/owner-problem-brief.md). Treat Checker as a real software engineering assignment, not a predesigned implementation.
+This file applies to `experiment/spec-kit-checker-v1` only. The original repository instructions remain unchanged on `main`.
 
-## Harness Consumer API v1
+## Task
+Use the owner's original problem statement at `docs/scenario/owner-problem-brief.md` to prepare engineering artifacts by the GitHub Spec Kit workflow. Produce specifications, clarification notes, quality checklists, a plan, research, data model, interface contracts, and an implementation validation guide. Stop **before** tasks, RPG planning, or code generation.
 
-Run `python3 .harness/harnessw.py sync` to materialize the pinned Consumer Pack at `.harness/harness-binding.json`. Route operations through `harness.application.skill_router` from that pack. Read returned `instruction_contracts` and the selected SKILL.md. Do not use Maintainer skills for project work.
+## Isolation
+- Do not use Harness tools, .harness state, previous Checker designs, prior RPG files, implementation or test solutions as feature input.
+- Work only under `specs/001-acl-snapshot-checker/`, `.specify/`, and `experiments/runs/spec-kit-checker-v1/`.
+- The source brief is the only product input; unresolved choices must be documented as assumptions or questions, not falsely attributed to the owner.
+- Do not access real network appliances. Use synthetic data only.
+- Preserve provenance, experimental limitations and any operator interventions.
 
-Select applicable Authorities and Capabilities according to Harness rules, not from a preset list. Follow dependencies, required semantic admission and publication. Ask the owner about material domain uncertainty; do not invent ACCEPTED or CURRENT. Produce an appropriate small working vertical slice on synthetic data.
-
-Use RPG/CoderMind for implementation planning and coding based on accepted Harness outputs; independently verify executable behavior. Do not access real firewalls.
-
-## Navigation
-
-- [Owner's problem](docs/scenario/owner-problem-brief.md)
-- [Project state](docs/project/current-state.yaml)
-- [Repository governance](docs/project/governance.md)
-- [Harness–RPG interface](docs/integration/README.md)
-
-Historical research and experimental runs are not accepted product requirements.
+## Experimental integrity
+This branch was prepared from main at 2bf23ce. The initial artifacts here are produced in a ChatGPT session by directly following upstream Spec Kit command templates; the official `specify` CLI and autonomous coding-agent integration were not executed. This is a **non-blind, adapted Spec Kit process**, not a controlled A/B benchmark. Do not report it otherwise.

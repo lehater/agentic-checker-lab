@@ -1,0 +1,222 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/checker/fixture.schema.json",
+  "title": "Synthetic ACL Snapshot Checker dataset",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "flow",
+    "relevant_acls",
+    "snapshots"
+  ],
+  "properties": {
+    "flow": {
+      "$ref": "#/$defs/flow"
+    },
+    "relevant_acls": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/relevant"
+      }
+    },
+    "snapshots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/snapshot"
+      }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "port": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 65535
+    },
+    "port_range": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "min",
+        "max"
+      ],
+      "properties": {
+        "min": {
+          "$ref": "#/$defs/port"
+        },
+        "max": {
+          "$ref": "#/$defs/port"
+        }
+      }
+    },
+    "flow": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "source_ip",
+        "destination_ip",
+        "protocol",
+        "source_port",
+        "destination_port"
+      ],
+      "properties": {
+        "source_ip": {
+          "type": "string",
+          "format": "ipv4"
+        },
+        "destination_ip": {
+          "type": "string",
+          "format": "ipv4"
+        },
+        "protocol": {
+          "enum": [
+            "tcp",
+            "udp"
+          ]
+        },
+        "source_port": {
+          "$ref": "#/$defs/port"
+        },
+        "destination_port": {
+          "$ref": "#/$defs/port"
+        }
+      }
+    },
+    "relevant": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "device_id",
+        "acl_id"
+      ],
+      "properties": {
+        "device_id": {
+          "$ref": "#/$defs/id"
+        },
+        "acl_id": {
+          "$ref": "#/$defs/id"
+        }
+      }
+    },
+    "placement": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind"
+          ],
+          "properties": {
+            "kind": {
+              "const": "global"
+            }
+          }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "kind",
+            "interface",
+            "direction"
+          ],
+          "properties": {
+            "kind": {
+              "const": "interface"
+            },
+            "interface": {
+              "$ref": "#/$defs/id"
+            },
+            "direction": {
+              "enum": [
+                "in",
+                "out"
+              ]
+            }
+          }
+        }
+      ]
+    },
+    "rule": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "rule_id",
+        "action",
+        "source",
+        "destination",
+        "protocol",
+        "source_ports",
+        "destination_ports"
+      ],
+      "properties": {
+        "rule_id": {
+          "$ref": "#/$defs/id"
+        },
+        "action": {
+          "enum": [
+            "permit",
+            "deny"
+          ]
+        },
+        "source": {
+          "type": "string",
+          "minLength": 1,
+          "description": "any, IPv4 literal, or IPv4 CIDR; semantic parse required"
+        },
+        "destination": {
+          "type": "string",
+          "minLength": 1,
+          "description": "any, IPv4 literal, or IPv4 CIDR; semantic parse required"
+        },
+        "protocol": {
+          "enum": [
+            "tcp",
+            "udp",
+            "any"
+          ]
+        },
+        "source_ports": {
+          "$ref": "#/$defs/port_range"
+        },
+        "destination_ports": {
+          "$ref": "#/$defs/port_range"
+        }
+      }
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "device_id",
+        "acl_id",
+        "placements",
+        "rules"
+      ],
+      "properties": {
+        "device_id": {
+          "$ref": "#/$defs/id"
+        },
+        "acl_id": {
+          "$ref": "#/$defs/id"
+        },
+        "placements": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/placement"
+          }
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rule"
+          }
+        }
+      }
+    }
+  },
+  "$comment": "Beyond JSON Schema: validate IPv4 hosts/CIDR, nonempty unique IDs/pairs/snapshots, min<=max, exactly one snapshot per relevant ACL, and no partial report on error."
+}
