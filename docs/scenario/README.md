@@ -1,6 +1,6 @@
 # Checker — границы первой предметной задачи
 
-Статус: **потребность верхнего уровня подтверждена владельцем** ([PDEC-CHECKER-001](problem-framing-decision.md)); предлагаемый вертикальный срез и target requirements — **CANDIDATE / NOT ACCEPTED**.
+Статус: **потребность верхнего уровня подтверждена владельцем** ([PDEC-CHECKER-001](problem-framing-decision.md)); полномочия DISCOVERY и PRODUCT-REQUIREMENTS заданы [PDEC-CHECKER-002](discovery-authority-delegation.md) и [PDEC-CHECKER-003](product-requirements-delegation.md). Предлагаемый вертикальный срез и target requirements — **CANDIDATE / NOT ACCEPTED**.
 
 ## Пользовательская проблема
 
