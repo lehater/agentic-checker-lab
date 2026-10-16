@@ -36,3 +36,16 @@
 - **TASK-009 (P7):** оформить итоги и replication design.
 
 Не считать DONE задачи, пока evidence не зафиксировано и проверки не запускались.
+
+## First-slice Domain / Verification после PDEC-CHECKER-005
+
+Оба направления доведены до обоснованного BLOCKED: [run и evidence](../../experiments/runs/harness-domain-verification-v1/README.md).
+Сначала владелец проекта обеспечивает accepted Strategic Domain ownership
+(Q-DV-001), затем DOMAIN-USE-CASE-DESIGN принимает минимальный matching contract
+с независимыми match/non-match labels (Q-DV-002). После этого завершаются
+Verification Strategy, admission и acceptance scenarios. Восемь metadata/empty-set
+scenario drafts и dispositions всех 28 требований уже подготовлены.
+
+Новый scoped Decision Roadmap и Semantic Closure — BLOCKED; Coverage неполон.
+Project Frontier READY означает наличие дальнейших coverage reconciliation actions,
+а не готовность Checker к реализации. Общая инвентаризация не выполнялась.

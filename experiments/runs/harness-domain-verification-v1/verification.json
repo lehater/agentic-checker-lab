@@ -1,0 +1,56 @@
+{
+  "status": "PASS",
+  "replays_identical": true,
+  "publication_bytes_stable": true,
+  "upstream_evaluations_and_lifecycle_unchanged": true,
+  "all_28_requirements_have_disposition": true,
+  "no_fabricated_strategy_provider": true,
+  "scenario_drafts": 8,
+  "negative_checks": {
+    "stale_cas": "project publication compare-and-swap failed: expected sha256:94bc167d0108b5b4b90dcea6cefd0af3f5ba5132091f0ee20756163127da9852, current sha256:f38832e09ce67f6713d26e1a06ab04d1af786d5cbd148e6e702181201c938334",
+    "false_current_with_questions": "CURRENT publication for checker.verification-strategy requires lifecycle evidence"
+  },
+  "commands": [
+    {
+      "check": "replay-1",
+      "exit_code": 0,
+      "stdout": "{\"outcomes\": {\"checker.problem\": \"CURRENT\", \"checker.requirements\": \"CURRENT\", \"checker.domain-use-case\": \"BLOCKED\", \"checker.verification-strategy\": \"BLOCKED\"}, \"revision\": \"sha256:f38832e09ce67f6713d26e1a06ab04d1af786d5cbd148e6e702181201c938334\"}\n"
+    },
+    {
+      "check": "replay-2",
+      "exit_code": 0,
+      "stdout": "{\"outcomes\": {\"checker.problem\": \"CURRENT\", \"checker.requirements\": \"CURRENT\", \"checker.domain-use-case\": \"BLOCKED\", \"checker.verification-strategy\": \"BLOCKED\"}, \"revision\": \"sha256:f38832e09ce67f6713d26e1a06ab04d1af786d5cbd148e6e702181201c938334\"}\n"
+    },
+    {
+      "argv": [
+        "make",
+        "check"
+      ],
+      "exit_code": 0,
+      "stdout": "python3 tools/check_repository.py\nRepository check PASS: 40 Markdown files checked\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "git",
+        "diff",
+        "--cached",
+        "--check"
+      ],
+      "exit_code": 0,
+      "stdout": "",
+      "stderr": ""
+    }
+  ],
+  "publication_revision": "sha256:f38832e09ce67f6713d26e1a06ab04d1af786d5cbd148e6e702181201c938334"
+}

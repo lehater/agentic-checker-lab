@@ -28,7 +28,16 @@ assessments:
 - authority_id: MODEL-CONTEXT-STRATEGY
   applicability: UNASSESSED
 - authority_id: DOMAIN-USE-CASE-DESIGN
-  applicability: UNASSESSED
+  applicability: UNRESOLVED
+  evidence:
+  - docs/scenario/domain-verification-delegation.md
+  - core:question:Q-DV-001
+  rationale: Scoped delegated work has real prerequisite/semantic blockers; no accepted
+    provider.
+  depends_on_evidence:
+  - Q-DV-001
+  reopening_conditions:
+  - Accepted ownership/matching contracts and genuine admission
 - authority_id: TACTICAL-DOMAIN-DESIGN
   applicability: UNASSESSED
 - authority_id: APPLICATION-DESIGN
@@ -64,4 +73,13 @@ assessments:
 - authority_id: IMPLEMENTATION-DESIGN
   applicability: UNASSESSED
 - authority_id: VERIFICATION-DESIGN
-  applicability: UNASSESSED
+  applicability: UNRESOLVED
+  evidence:
+  - docs/scenario/domain-verification-delegation.md
+  - core:question:Q-DV-002
+  rationale: Scoped delegated work has real prerequisite/semantic blockers; no accepted
+    provider.
+  depends_on_evidence:
+  - Q-DV-002
+  reopening_conditions:
+  - Accepted ownership/matching contracts and genuine admission

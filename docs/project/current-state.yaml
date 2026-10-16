@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_CHECKER_FIRST_SLICE_DOMAIN_VERIFICATION_AUTHORIZED_PENDING
+status: P2_CHECKER_FIRST_SLICE_DOMAIN_VERIFICATION_BLOCKED
 phase: P2
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
@@ -16,6 +16,10 @@ accepted:
   - PDEC-CHECKER-005: owner-authorized scoped DOMAIN-USE-CASE-DESIGN and VERIFICATION-DESIGN, conditional on actual Harness prerequisites; no domain strategy, independent oracle or new Current provider yet
   - Task branches, PR and squash into main following authorized bootstrap
 verified:
+  - First-slice domain-use-case BLOCKED on missing accepted Strategic Domain ownership (Q-DV-001) and matching contract (Q-DV-002); no fictitious Strategy provider or domain admission
+  - Verification candidate schema VALID with explicit dispositions for all 28 requirements; substantive review REJECTED and real strict admission REJECTED on missing matching semantics/oracle; independent metadata/evidence work continued
+  - Eight upstream-grounded scenario drafts prepared; acceptance-scenarios production blocked on absent accepted Verification Strategy; no behavioral execution claimed
+  - Atomic CAS publication of both design BLOCKED outcomes preserves problem/requirements CURRENT and their evaluations/lifecycle; two stable replays and stale-CAS/false-CURRENT negative checks PASS
   - Continued REQ-CHECKER-001..007 with stable statements and accepted REQ-CHECKER-008..028 from PDEC-CHECKER-004; managed first-slice product requirements VALID and strict admission ACCEPTED
   - checker.requirements CURRENT; Q-PR-001/002 resolved by Core.resolve_question with matching accepted requirements identity and ABSENT prior acceptance, atomically CAS published and read back
   - checker.problem remains CURRENT with unchanged accepted evaluation and lifecycle; scoped Roadmap and Semantic Closure COMPLETE, whole-product Coverage remains incomplete
@@ -47,10 +51,12 @@ verified:
   - Operator-reported first agent Harness intake run produced candidate evidence/graph/core/questions; independently reviewed from GitHub commit 4a82dbe; research run PASS WITH LIMITATIONS, no semantic acceptance or Checker implementation
   - Independent review of raw Harness outputs confirms target READY (CREATE checker.problem; 4 PENDING), 21 activated coverage concerns, completion_ready false, 23 Authorities UNASSESSED and no full Project Frontier
 evidence:
+  checker_domain_verification_run: experiments/runs/harness-domain-verification-v1/README.md
+  checker_domain_verification_questions: .harness/project-publication.yaml
   checker_domain_verification_delegation: docs/scenario/domain-verification-delegation.md
   checker_requirements_current_run: experiments/runs/harness-requirements-current-v1/README.md
   checker_requirements_canonical: .harness/knowledge/checker-requirements.yaml
-  checker_current_publication_revision: sha256:94bc167d0108b5b4b90dcea6cefd0af3f5ba5132091f0ee20756163127da9852
+  checker_current_publication_revision: sha256:f38832e09ce67f6713d26e1a06ab04d1af786d5cbd148e6e702181201c938334
   checker_first_slice_owner_decision: docs/scenario/first-slice-product-decision.md
   checker_requirements_run: experiments/runs/harness-requirements-v1/README.md
   checker_requirements_blocked_publication_revision: sha256:b252cfbe6ef33d213aa0c6919a463fa31e891075a1ba0e7d191a8ae2ad010fb8

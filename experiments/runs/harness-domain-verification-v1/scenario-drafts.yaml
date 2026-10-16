@@ -1,0 +1,215 @@
+status: DRAFT_ONLY_ACCEPTANCE_SKILL_PREREQUISITE_UNMET
+reason: Нет accepted Verification Strategy; skill acceptance-scenarios не исполняется
+  за проверку inputs. Expected metadata/empty-set outcomes следуют из requirements,
+  а не из SQL/matcher.
+scenarios:
+- id: SC-DV-01
+  status: UPSTREAM_GROUNDED_DRAFT_NOT_ADMITTED
+  setup:
+    flow: &id001
+      source_ipv4: 192.0.2.10
+      destination_ipv4: 198.51.100.20
+      protocol: TCP
+      source_port: 49152
+      destination_port: 443
+    contexts:
+    - C-A
+    snapshot:
+      id: S-A
+      context: C-A
+      rules: []
+      completeness: complete
+      origin: fixture-owner
+      date: '2026-10-15'
+  action: Исследовать предоставленный поток по заданным contexts и snapshots.
+  expected:
+  - Нет подходящих сохранённых правил в полном пустом S-A; это не отсутствующий snapshot
+    и не unknown completeness.
+  - Сам по себе этот факт не даёт универсальный ALLOW/DENY; отсутствие универсального
+    verdict допустимо.
+  verifies:
+  - REQ-CHECKER-005
+  - REQ-CHECKER-006
+  - REQ-CHECKER-023
+  - REQ-CHECKER-024
+  oracle: .harness/knowledge/checker-requirements.yaml
+  evidence_target: Будущий наблюдаемый результат Checker + независимая сверка; уровень
+    module/integration уточняет Test Design, интерфейс не выбран.
+- id: SC-DV-02
+  status: UPSTREAM_GROUNDED_DRAFT_NOT_ADMITTED
+  setup:
+    flow: *id001
+    contexts:
+    - C-A
+    snapshots: []
+  action: Исследовать предоставленный поток по заданным contexts и snapshots.
+  expected:
+  - Нужный snapshot C-A отсутствует; состояние отличается от полного no-match SC-DV-01.
+  - Отсутствие snapshot само по себе не даёт ALLOW/DENY.
+  verifies:
+  - REQ-CHECKER-006
+  - REQ-CHECKER-022
+  - REQ-CHECKER-023
+  oracle: .harness/knowledge/checker-requirements.yaml
+  evidence_target: Будущий наблюдаемый результат Checker + независимая сверка; уровень
+    module/integration уточняет Test Design, интерфейс не выбран.
+- id: SC-DV-03
+  status: UPSTREAM_GROUNDED_DRAFT_NOT_ADMITTED
+  setup:
+    flow: *id001
+    contexts:
+    - C-A
+    snapshot:
+      id: S-A
+      context: C-A
+      rules: []
+      completeness: null
+  action: Исследовать предоставленный поток по заданным contexts и snapshots.
+  expected:
+  - Полнота неизвестна, не complete no-match SC-DV-01; отсутствие видимых правил не
+    доказывает отсутствие правил в полном источнике.
+  - Unknown completeness не даёт ALLOW/DENY.
+  verifies:
+  - REQ-CHECKER-006
+  - REQ-CHECKER-019
+  - REQ-CHECKER-024
+  oracle: .harness/knowledge/checker-requirements.yaml
+  evidence_target: Будущий наблюдаемый результат Checker + независимая сверка; уровень
+    module/integration уточняет Test Design, интерфейс не выбран.
+- id: SC-DV-04
+  status: UPSTREAM_GROUNDED_DRAFT_NOT_ADMITTED
+  setup:
+    flow: *id001
+    contexts:
+    - C-A
+    snapshot:
+      id: S-A
+      context: C-A
+      rules: []
+      completeness: complete
+      origin: manual-fixture-A
+      date: '2026-10-15'
+  action: Исследовать предоставленный поток по заданным contexts и snapshots.
+  expected:
+  - Известные origin manual-fixture-A, date 2026-10-15 и completeness complete доступны
+    оператору и связаны с S-A/C-A.
+  - Snapshot date не заменяется временем запуска.
+  verifies:
+  - REQ-CHECKER-004
+  - REQ-CHECKER-015
+  - REQ-CHECKER-016
+  - REQ-CHECKER-018
+  oracle: .harness/knowledge/checker-requirements.yaml
+  evidence_target: Будущий наблюдаемый результат Checker + независимая сверка; уровень
+    module/integration уточняет Test Design, интерфейс не выбран.
+- id: SC-DV-05
+  status: UPSTREAM_GROUNDED_DRAFT_NOT_ADMITTED
+  setup:
+    flow: *id001
+    contexts:
+    - C-A
+    snapshot:
+      id: S-A
+      context: C-A
+      rules: []
+      completeness: null
+      origin: null
+      date: null
+  action: Исследовать предоставленный поток по заданным contexts и snapshots.
+  expected:
+  - Origin, date и completeness явно неизвестны.
+  - Unknown date не означает fresh; stale не выводится без основания.
+  verifies:
+  - REQ-CHECKER-004
+  - REQ-CHECKER-015
+  - REQ-CHECKER-017
+  - REQ-CHECKER-019
+  - REQ-CHECKER-025
+  - REQ-CHECKER-027
+  oracle: .harness/knowledge/checker-requirements.yaml
+  evidence_target: Будущий наблюдаемый результат Checker + независимая сверка; уровень
+    module/integration уточняет Test Design, интерфейс не выбран.
+- id: SC-DV-06
+  status: UPSTREAM_GROUNDED_DRAFT_NOT_ADMITTED
+  setup:
+    flow: *id001
+    contexts:
+    - C-A
+    - C-B
+    snapshot:
+      id: S-A
+      context: C-A
+      rules: []
+      completeness: incomplete
+      origin: manual-fixture
+      date: '2026-10-15'
+  action: Исследовать предоставленный поток по заданным contexts и snapshots.
+  expected:
+  - 'Если возвращён частичный результат: явно указаны неполнота S-A и отсутствие данных
+    C-B; полный достоверный вывод не заявлен.'
+  - Частичность сама по себе не проваливает приёмку; обязательность частичного результата
+    не вводится.
+  verifies:
+  - REQ-CHECKER-018
+  - REQ-CHECKER-020
+  - REQ-CHECKER-021
+  - REQ-CHECKER-022
+  oracle: .harness/knowledge/checker-requirements.yaml
+  evidence_target: Будущий наблюдаемый результат Checker + независимая сверка; уровень
+    module/integration уточняет Test Design, интерфейс не выбран.
+- id: SC-DV-07
+  status: UPSTREAM_GROUNDED_DRAFT_NOT_ADMITTED
+  setup:
+    flow: *id001
+    contexts:
+    - C-A
+    snapshot:
+      id: S-A
+      context: C-A
+      rules: []
+      completeness: complete
+      origin: manual-fixture
+      date: '2026-10-15'
+      external_classification: stale
+      classification_basis: fixture-owner declares source superseded by S-new
+  action: Исследовать предоставленный поток по заданным contexts и snapshots.
+  expected:
+  - Обозначение stale обосновано внешней классификацией; при частичном результате
+    ограничение stale видно.
+  - Числовой TTL не изобретается.
+  verifies:
+  - REQ-CHECKER-020
+  - REQ-CHECKER-021
+  - REQ-CHECKER-025
+  - REQ-CHECKER-026
+  oracle: .harness/knowledge/checker-requirements.yaml
+  evidence_target: Будущий наблюдаемый результат Checker + независимая сверка; уровень
+    module/integration уточняет Test Design, интерфейс не выбран.
+- id: SC-DV-08
+  status: UPSTREAM_GROUNDED_DRAFT_NOT_ADMITTED
+  setup:
+    flow: *id001
+    contexts:
+    - C-A
+    snapshot:
+      id: S-A
+      context: C-A
+      rules: []
+      completeness: complete
+      origin: manual-fixture
+      date: '2000-01-01'
+      external_classification: null
+  action: Исследовать предоставленный поток по заданным contexts и snapshots.
+  expected:
+  - Одна лишь старая дата не даёт основания выдумать TTL и объявить stale.
+  - Этот сценарий не требует объявлять источник fresh.
+  verifies:
+  - REQ-CHECKER-025
+  - REQ-CHECKER-026
+  oracle: .harness/knowledge/checker-requirements.yaml
+  evidence_target: Будущий наблюдаемый результат Checker + независимая сверка; уровень
+    module/integration уточняет Test Design, интерфейс не выбран.
+deferred:
+- 'Непустые matched/non-matched ACL cases для TCP и UDP, адресов и портов: Q-DV-002.'
+- 'Показ Permit/Deny rule action и порядок подходящих правил: условные проверки требуют
+  независимых matching labels.'

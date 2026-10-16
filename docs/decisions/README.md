@@ -6,3 +6,5 @@
 Существенное решение: новый ADR с контекстом, альтернативами, решением, последствиями, источниками и статусом. Отменённое решение — SUPERSEDED с ссылкой на замену. Дублировать актуальные требования в ADR не нужно; текущая смысловая истина остаётся в своём owner-документе. Git history — архив изменения решений, но не дополнительная текущая спецификация.
 
 - [ADR-0003 — bounded Product Requirements production](0003-checker-product-production.md)
+
+- [ADR-0004: scoped Domain/Verification production contracts](0004-checker-domain-verification-boundary.md)

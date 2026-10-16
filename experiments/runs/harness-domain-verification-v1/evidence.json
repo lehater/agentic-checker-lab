@@ -1,0 +1,507 @@
+{
+  "outcomes": {
+    "checker.problem": "CURRENT",
+    "checker.requirements": "CURRENT",
+    "checker.domain-use-case": "BLOCKED",
+    "checker.verification-strategy": "BLOCKED"
+  },
+  "publication_revision": "sha256:f38832e09ce67f6713d26e1a06ab04d1af786d5cbd148e6e702181201c938334",
+  "parent_revision": "sha256:94bc167d0108b5b4b90dcea6cefd0af3f5ba5132091f0ee20756163127da9852",
+  "pin": "442db854c3a736a5e500b4a41664b80981b0d94c",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        ".harness/harnessw.py",
+        "sync"
+      ],
+      "exit_code": 0,
+      "stdout": "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "harness.application.consumer_pack",
+        "validate-pack",
+        "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c",
+        "--revision",
+        "442db854c3a736a5e500b4a41664b80981b0d94c"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"VALID\", \"consumer_api\": \"v1\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "harness.application.skill_router",
+        "operation",
+        "--root",
+        "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c",
+        "--surface",
+        "consumer",
+        "--operation",
+        "project-bootstrap-reconcile"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"exposure\": \"public\",\n  \"instruction_contracts\": [\n    \"docs/design/agent-instruction-architecture-v0.md\",\n    \"docs/design/process-simplicity-and-efficiency-v0.md\"\n  ],\n  \"route_class\": \"operation\",\n  \"route_key\": \"project-bootstrap-reconcile\",\n  \"skill\": \"skills/agent/project-bootstrap-reconcile/SKILL.md\",\n  \"surface\": \"consumer\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "harness.application.skill_router",
+        "artifact",
+        "--root",
+        "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c",
+        "--knowledge-kind",
+        "domain-use-case"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"instruction_contracts\": [\n    \"docs/design/agent-instruction-architecture-v0.md\",\n    \"docs/design/process-simplicity-and-efficiency-v0.md\"\n  ],\n  \"route_class\": \"artifact-production\",\n  \"route_key\": \"domain-use-case\",\n  \"skill\": \"skills/artifacts/domain-use-case/SKILL.md\",\n  \"surface\": \"consumer\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "harness.application.skill_router",
+        "artifact",
+        "--root",
+        "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c",
+        "--knowledge-kind",
+        "verification-strategy"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"instruction_contracts\": [\n    \"docs/design/agent-instruction-architecture-v0.md\",\n    \"docs/design/process-simplicity-and-efficiency-v0.md\"\n  ],\n  \"route_class\": \"artifact-production\",\n  \"route_key\": \"verification-strategy\",\n  \"skill\": \"skills/artifacts/verification-strategy/SKILL.md\",\n  \"surface\": \"consumer\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "harness.application.skill_router",
+        "artifact",
+        "--root",
+        "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c",
+        "--knowledge-kind",
+        "acceptance-scenarios"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"instruction_contracts\": [\n    \"docs/design/agent-instruction-architecture-v0.md\",\n    \"docs/design/process-simplicity-and-efficiency-v0.md\"\n  ],\n  \"route_class\": \"artifact-production\",\n  \"route_key\": \"acceptance-scenarios\",\n  \"skill\": \"skills/artifacts/acceptance-scenarios/SKILL.md\",\n  \"surface\": \"consumer\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "harness.application.skill_router",
+        "operation",
+        "--root",
+        "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c",
+        "--surface",
+        "consumer",
+        "--operation",
+        "project-engineering-status"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"exposure\": \"public\",\n  \"instruction_contracts\": [\n    \"docs/design/agent-instruction-architecture-v0.md\",\n    \"docs/design/process-simplicity-and-efficiency-v0.md\"\n  ],\n  \"route_class\": \"operation\",\n  \"route_key\": \"project-engineering-status\",\n  \"skill\": \"skills/agent/project-engineering-status/SKILL.md\",\n  \"surface\": \"consumer\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "python3",
+        "-m",
+        "harness.workspace.workspace",
+        "validate-artifact",
+        "experiments/runs/harness-domain-verification-v1/verification-candidate.yaml"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"artifact\": \"CHECKER-VERIFICATION\",\n  \"schema\": \"verification-plan/v1\",\n  \"valid\": true\n}\n",
+      "stderr": ""
+    }
+  ],
+  "instructions": {
+    "docs/design/agent-instruction-architecture-v0.md": "2c9cde6de487c9717679a54a092ac515fc36bc35ca4df19d9b7f9f61a0d90467",
+    "docs/design/process-simplicity-and-efficiency-v0.md": "6232dd080429246e8de1e3541424a93afe495d4ea6ba132a0d410d9e9706e4c0",
+    "skills/agent/project-bootstrap-reconcile/SKILL.md": "4c90f3b5d5933b9991953a86797479bfc3ce25422e5cd198c69a2fbb72202f71",
+    "skills/artifacts/domain-use-case/SKILL.md": "863ed5fc76748ec4f0816d8cae3666d36d5c5740a8fe20ecbb903a0fa58154a5",
+    "skills/artifacts/verification-strategy/SKILL.md": "70d8813f5df1788c17b5749ab5e1db90458af785f5d445ee585d5b400ca3185d",
+    "skills/artifacts/acceptance-scenarios/SKILL.md": "d72ac3a82401d5e964609179fc17e4cf0ac2f7c344c5e26cab1a5d365a4b537a",
+    "skills/agent/project-engineering-status/SKILL.md": "39a46288cfb93909750eb4663247214656a01cd7a53f127776d9abe5a99096e0"
+  },
+  "source_sha256": {
+    ".harness/engineering-graph.yaml": "aa2c56c01407051b0ae7d06b98359beb7b138d5ea2bd419eb62d04785d059ca3",
+    ".harness/harness-binding.json": "7a9dfabdb25599d7f4b484e57a577da42cb73d19813c3accc3bb94071f458566",
+    ".harness/knowledge/checker-requirements.yaml": "8bdf79d8fe64c776cdad2f8aa7fa4235721f1e7841c3296baac4417867e039eb",
+    "AGENTS.md": "74337064ff6d34c916ad66413ca00b41117e7ceed1bcfc57e417dee1d7ec1105",
+    "docs/decisions/0004-checker-domain-verification-boundary.md": "8ac403057a52a6838d9cf710c6408556bb7678e510ff893f10edb70732824b79",
+    "docs/scenario/domain-verification-delegation.md": "caf4d6aa62467939eedfb699bb3a435bc4bd677b6b1897f7596c4c0d526acbaa",
+    "docs/scenario/first-slice-product-decision.md": "b0a702d46906868cdc97847def71952e4af799949faa9688342fb2a8f4f61f1b",
+    "docs/scenario/problem-framing-decision.md": "8917fab3ccaf2a7c60d57c259ec77c42f945f6d007993a7cdd7cc62f4649861a",
+    "experiments/runs/harness-domain-verification-v1/domain-contract.md": "087faa3738cbc5246704b35c17aa832667efb35421c76ca62387c31a190e4a64",
+    "experiments/runs/harness-domain-verification-v1/execute.py": "17619d6dfa606613b4e45595ca36e55078ee8511c071b1dd8c0304c2e9acdab7",
+    "experiments/runs/harness-domain-verification-v1/review.md": "92f79737ccf503e7c20b0d382adcfb0812ce46ab0a9e99a27ec411ef5ad00856",
+    "experiments/runs/harness-domain-verification-v1/scenario-drafts.yaml": "3cbb059ef9c3ec8b5ed21198fcdf1b250eb93bac5dbc85392edf9f3502d0d148",
+    "experiments/runs/harness-domain-verification-v1/verification-candidate.yaml": "3296c7077b3b443c5ea1c939a3a0ac5bd70de5a2dde960b1c7a680d45d165b54"
+  },
+  "domain_admission": "NOT_ATTEMPTED_MISSING_REQUIRED_STRATEGIC_OWNERSHIP",
+  "verification_admission": "REJECTED",
+  "acceptance_scenarios": "NOT_RUN_NO_ACCEPTED_STRATEGY",
+  "questions": [
+    {
+      "id": "Q-DV-001",
+      "authority": "DOMAIN-USE-CASE-DESIGN",
+      "text": "Владелец проекта: обеспечьте accepted Strategic Domain ownership для first slice PDEC-004 через надлежащий DOMAIN-STRATEGY процесс. Какой принятый provider закрепляет эту ответственность? PDEC-005 и Product Requirements не заменяют обязательный input domain-use-case skill.",
+      "blocks_capabilities": [
+        "checker.domain-use-case"
+      ],
+      "blocks": [],
+      "answer_from": []
+    },
+    {
+      "id": "Q-DV-002",
+      "authority": "DOMAIN-USE-CASE-DESIGN",
+      "text": "После установления Strategic ownership: примите минимальные поддерживаемые ACL facts и match/non-match predicates для IPv4 TCP/UDP source/destination и обоих портов, роль порядка при выборе показываемых правил и границу unknown/unsupported facts. Нужны независимо размеченные положительные/отрицательные примеры с основанием из контракта. Syntax/masks, implicit deny, first-match и action priority не заданы и не могут выбираться тестом или legacy SQL.",
+      "blocks_capabilities": [
+        "checker.domain-use-case",
+        "checker.verification-strategy"
+      ],
+      "blocks": [],
+      "answer_from": []
+    }
+  ],
+  "lifecycle": {
+    "checker.problem": {
+      "state": "CURRENT",
+      "capability": "checker.problem",
+      "artifact": "CHECKER-PROBLEM-EVIDENCE",
+      "acceptance_id": "task-004-checker-problem-aa7cd410ffb83daf218e"
+    },
+    "checker.requirements": {
+      "state": "CURRENT",
+      "capability": "checker.requirements",
+      "artifact": "CHECKER-REQUIREMENTS",
+      "acceptance_id": "task-004-requirements-3219d4ef86d53466a04bb4e9"
+    },
+    "checker.domain-use-case": {
+      "state": "UNKNOWN",
+      "capability": "checker.domain-use-case",
+      "reason": "lifecycle coverage unavailable"
+    },
+    "checker.verification-strategy": {
+      "state": "UNKNOWN",
+      "capability": "checker.verification-strategy",
+      "reason": "lifecycle coverage unavailable"
+    }
+  },
+  "decision_roadmap": {
+    "version": 1,
+    "kind": "harness-decision-roadmap",
+    "target": "CHECKER-DOMAIN-VERIFICATION-ADMISSION",
+    "frontier_status": "BLOCKED",
+    "ready": [],
+    "completed": [
+      {
+        "capability": "checker.problem",
+        "authority": "DISCOVERY",
+        "state": "CURRENT"
+      },
+      {
+        "capability": "checker.requirements",
+        "authority": "PRODUCT-REQUIREMENTS",
+        "state": "CURRENT"
+      }
+    ],
+    "blocked": [
+      {
+        "capability": "checker.domain-use-case",
+        "authority": "DOMAIN-USE-CASE-DESIGN",
+        "state": "BLOCKED",
+        "reason": "CORE_QUESTION",
+        "questions": [
+          "Q-DV-001",
+          "Q-DV-002"
+        ]
+      },
+      {
+        "capability": "checker.verification-strategy",
+        "authority": "VERIFICATION-DESIGN",
+        "state": "BLOCKED",
+        "reason": "CORE_QUESTION",
+        "questions": [
+          "Q-DV-002"
+        ]
+      }
+    ],
+    "failed_validation": [],
+    "lifecycle_gaps": [],
+    "waiting_upstream": [],
+    "execution_rule": "Run one READY capability through the complete pipeline, persist its outcome, then recompute this roadmap. FAILED_VALIDATION remains non-READY until explicitly retried."
+  },
+  "semantic_closure": {
+    "version": 1,
+    "kind": "harness-semantic-closure-evaluation",
+    "target": "CHECKER-DOMAIN-VERIFICATION-ADMISSION",
+    "status": "BLOCKED",
+    "structural_status": "BLOCKED",
+    "semantic_gaps": [],
+    "currentness_gaps": [],
+    "question_proposals": [],
+    "question_frontier": [],
+    "revalidate": [],
+    "pending": [],
+    "satisfied_capabilities": [
+      "checker.problem",
+      "checker.requirements"
+    ]
+  },
+  "engineering_coverage": {
+    "status": "canonical",
+    "completion_ready": false,
+    "activated_count": 15,
+    "work_item_count": 16,
+    "summary": {
+      "states": {
+        "MISSING": 7,
+        "BLOCKED": 8
+      },
+      "actions": {
+        "MODEL_PRODUCTION_CONTRACT": 7,
+        "ASSIGN_AUTHORITY": 5,
+        "MODEL_PROOF_CONTRACT": 3
+      }
+    },
+    "subject_obligation_rows": [
+      {
+        "concern": "meta.subject-inventory",
+        "subject": "__accepted_scope__",
+        "state": "MISSING",
+        "action": "DEFINE_SUBJECT_OBLIGATIONS",
+        "reason": "Full subject inventory remains unaccepted; this task adds only two scoped contracts."
+      }
+    ]
+  },
+  "project_frontier": {
+    "version": 1,
+    "kind": "harness-project-frontier",
+    "target": "CHECKER-DOMAIN-VERIFICATION-ADMISSION",
+    "status": "READY",
+    "next_actions": [
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "architecture.boundaries",
+        "accepted_semantic_claims": [
+          "engineering.architecture.boundaries"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "architecture.structure",
+        "accepted_semantic_claims": [
+          "engineering.architecture.structure"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "engineering.error-handling",
+        "accepted_semantic_claims": [
+          "engineering.engineering.error-handling"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "governance.external-obligations",
+        "accepted_semantic_claims": [
+          "engineering.governance.external-obligations"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "governance.privacy",
+        "accepted_semantic_claims": [
+          "engineering.governance.privacy"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "DEFINE_SUBJECT_OBLIGATIONS",
+        "concern": "meta.subject-inventory",
+        "subject": "__accepted_scope__",
+        "reason": "Full subject inventory remains unaccepted; this task adds only two scoped contracts."
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PRODUCTION_CONTRACT",
+        "concern": "application.failures",
+        "candidate_authorities": [
+          "DOMAIN-USE-CASE-DESIGN"
+        ],
+        "accepted_semantic_claims": [
+          "engineering.application.failures"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PRODUCTION_CONTRACT",
+        "concern": "intent.behavior",
+        "candidate_authorities": [
+          "DISCOVERY",
+          "PRODUCT-REQUIREMENTS"
+        ],
+        "accepted_semantic_claims": [
+          "engineering.intent.behavior"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PRODUCTION_CONTRACT",
+        "concern": "intent.scope",
+        "candidate_authorities": [
+          "DISCOVERY",
+          "PRODUCT-REQUIREMENTS"
+        ],
+        "accepted_semantic_claims": [
+          "engineering.intent.scope"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PRODUCTION_CONTRACT",
+        "concern": "verification.architecture",
+        "candidate_authorities": [
+          "VERIFICATION-DESIGN"
+        ],
+        "accepted_semantic_claims": [
+          "engineering.verification.architecture"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PRODUCTION_CONTRACT",
+        "concern": "verification.functional",
+        "candidate_authorities": [
+          "VERIFICATION-DESIGN"
+        ],
+        "accepted_semantic_claims": [
+          "engineering.verification.functional"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PRODUCTION_CONTRACT",
+        "concern": "verification.requirement-traceability",
+        "candidate_authorities": [
+          "VERIFICATION-DESIGN"
+        ],
+        "accepted_semantic_claims": [
+          "engineering.verification.requirement-traceability"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PRODUCTION_CONTRACT",
+        "concern": "verification.strategy",
+        "candidate_authorities": [
+          "VERIFICATION-DESIGN"
+        ],
+        "accepted_semantic_claims": [
+          "engineering.verification.strategy"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PROOF_CONTRACT",
+        "concern": "specialized.ai"
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PROOF_CONTRACT",
+        "concern": "specialized.regulated"
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PROOF_CONTRACT",
+        "concern": "specialized.safety"
+      }
+    ],
+    "failed_validation": [],
+    "blocked": [
+      {
+        "source": "DECISION_ROADMAP",
+        "capability": "checker.domain-use-case",
+        "authority": "DOMAIN-USE-CASE-DESIGN",
+        "state": "BLOCKED",
+        "reason": "CORE_QUESTION",
+        "questions": [
+          "Q-DV-001",
+          "Q-DV-002"
+        ]
+      },
+      {
+        "source": "DECISION_ROADMAP",
+        "capability": "checker.verification-strategy",
+        "authority": "VERIFICATION-DESIGN",
+        "state": "BLOCKED",
+        "reason": "CORE_QUESTION",
+        "questions": [
+          "Q-DV-002"
+        ]
+      }
+    ],
+    "waiting": [],
+    "gaps": [],
+    "source_status": {
+      "decision": "BLOCKED",
+      "semantic": "BLOCKED",
+      "structural": "BLOCKED",
+      "coverage_completion_ready": false
+    }
+  },
+  "authority_status": [
+    {
+      "authority": "DISCOVERY",
+      "applicability": "REQUIRED",
+      "operational_status": "IN_PROGRESS",
+      "artifacts": [
+        "CHECKER-PROBLEM-EVIDENCE"
+      ],
+      "blocking": []
+    },
+    {
+      "authority": "PRODUCT-REQUIREMENTS",
+      "applicability": "REQUIRED",
+      "operational_status": "IN_PROGRESS",
+      "artifacts": [
+        "CHECKER-REQUIREMENTS"
+      ],
+      "blocking": []
+    },
+    {
+      "authority": "DOMAIN-USE-CASE-DESIGN",
+      "applicability": "UNRESOLVED",
+      "operational_status": null,
+      "artifacts": [],
+      "blocking": [
+        "Q-DV-001",
+        "Q-DV-002"
+      ]
+    },
+    {
+      "authority": "VERIFICATION-DESIGN",
+      "applicability": "UNRESOLVED",
+      "operational_status": null,
+      "artifacts": [],
+      "blocking": []
+    }
+  ]
+}

@@ -34,3 +34,5 @@ RELEVANT FIREWALL ≠ MATCHING RULE ≠ PERMIT. Stored snapshot ≠ live operati
 ## Принятое состояние первого slice
 
 После PDEC-CHECKER-004 принят [канонический first-slice requirements artifact](../../.harness/knowledge/checker-requirements.yaml): `REQ-CHECKER-001..028`, `checker.requirements CURRENT`. [Исполнение и ограничения](../../experiments/runs/harness-requirements-current-v1/README.md). Предыдущий предполагаемый вертикальный срез выше — историческое исследовательское предложение; он не расширяет принятые requirements. Точная ACL/matching-семантика и downstream realization не утверждены этим принятием; полнота subject inventory всего Checker не доказана.
+
+Domain/Verification этап: [результаты, конкретные Questions и scenario drafts](../../experiments/runs/harness-domain-verification-v1/README.md). Оба новых design contracts BLOCKED; problem/requirements остаются CURRENT.

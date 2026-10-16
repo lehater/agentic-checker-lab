@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:94bc167d0108b5b4b90dcea6cefd0af3f5ba5132091f0ee20756163127da9852
-parent_revision: sha256:b252cfbe6ef33d213aa0c6919a463fa31e891075a1ba0e7d191a8ae2ad010fb8
+revision: sha256:f38832e09ce67f6713d26e1a06ab04d1af786d5cbd148e6e702181201c938334
+parent_revision: sha256:94bc167d0108b5b4b90dcea6cefd0af3f5ba5132091f0ee20756163127da9852
 state:
   core_model:
     artifacts:
@@ -47,6 +47,29 @@ state:
         artifact: CHECKER-REQUIREMENTS
         acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
         supersedes_acceptance_id: ABSENT
+    - id: Q-DV-001
+      authority: DOMAIN-USE-CASE-DESIGN
+      text: 'Владелец проекта: обеспечьте accepted Strategic Domain ownership для
+        first slice PDEC-004 через надлежащий DOMAIN-STRATEGY процесс. Какой принятый
+        provider закрепляет эту ответственность? PDEC-005 и Product Requirements не
+        заменяют обязательный input domain-use-case skill.'
+      blocks_capabilities:
+      - checker.domain-use-case
+      blocks: []
+      answer_from: []
+    - id: Q-DV-002
+      authority: DOMAIN-USE-CASE-DESIGN
+      text: 'После установления Strategic ownership: примите минимальные поддерживаемые
+        ACL facts и match/non-match predicates для IPv4 TCP/UDP source/destination
+        и обоих портов, роль порядка при выборе показываемых правил и границу unknown/unsupported
+        facts. Нужны независимо размеченные положительные/отрицательные примеры с
+        основанием из контракта. Syntax/masks, implicit deny, first-match и action
+        priority не заданы и не могут выбираться тестом или legacy SQL.'
+      blocks_capabilities:
+      - checker.domain-use-case
+      - checker.verification-strategy
+      blocks: []
+      answer_from: []
   semantic_evaluations:
     version: 1
     kind: harness-semantic-evaluation-set
@@ -95,7 +118,7 @@ state:
         acceptance_id: task-004-checker-problem-aa7cd410ffb83daf218e
         acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
         accepted_prerequisites: {}
-        semantic_atom_fingerprints: &id002
+        semantic_atom_fingerprints: &id001
           problem-actor: SAF-a5b38b9482cab5c6a300aac8bca0f7266d7d308e7702d342b0b766b9fff3dfe5
           problem-need: SAF-77f736eb804bf4d499e9d93e233a5c4c947bd35e38f78e3fbadc200110893ad7
           problem-outcome: SAF-3f8eacfab7559884026c3d7c6ee4a2d9cf2345e21a11f5b8f758fbbc00b27c5f
@@ -127,7 +150,7 @@ state:
         - .harness/knowledge/checker-requirements.yaml
         canonical_references:
         - referenced_path: docs/scenario/problem-framing-decision.md
-        accepted_prerequisites: &id001
+        accepted_prerequisites:
           checker.problem: task-004-checker-problem-aa7cd410ffb83daf218e
         accepted_prerequisite_semantics: {}
         semantic_contract: knowledge-kind-semantic-contracts/v1
@@ -147,8 +170,9 @@ state:
         capability: checker.requirements
         acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
         acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
-        accepted_prerequisites: *id001
-        semantic_atom_fingerprints: &id003
+        accepted_prerequisites:
+          checker.problem: task-004-checker-problem-aa7cd410ffb83daf218e
+        semantic_atom_fingerprints: &id002
           REQ-CHECKER-001: SAF-2ceeeb8f9cdfefbac5b18985f8d09263caaff6d431408c3c2166d20bc7ac1039
           REQ-CHECKER-002: SAF-c9f20f56b478b55825e72dfe67e5b1f81792a4b8532c9aec4b090772e241a715
           REQ-CHECKER-003: SAF-7f1e60410b783f5019bc6691ff816135bfe86f95fa2018cce507b32c05544d47
@@ -187,14 +211,14 @@ state:
       acceptance_id: task-004-checker-problem-aa7cd410ffb83daf218e
       acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
       accepted_prerequisites: {}
-      semantic_atom_fingerprints: *id002
+      semantic_atom_fingerprints: *id001
     - artifact: CHECKER-REQUIREMENTS
       capability: checker.requirements
       acceptance_id: task-004-requirements-3219d4ef86d53466a04bb4e9
       acceptance_policy_fingerprint: sha256:c3bd0313a1a7752207561c46ff51961d8b8178118ecc106b060dec052e8bac28
       accepted_prerequisites:
         checker.problem: task-004-checker-problem-aa7cd410ffb83daf218e
-      semantic_atom_fingerprints: *id003
+      semantic_atom_fingerprints: *id002
   decision_failures:
     version: 1
     kind: harness-decision-failure-set
