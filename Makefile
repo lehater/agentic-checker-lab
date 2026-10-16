@@ -1,4 +1,4 @@
-.PHONY: check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit
+.PHONY: harness-consumer-preflight check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit
 
 check:
 	python3 tools/check_repository.py
@@ -37,3 +37,7 @@ cmind-rpg-export:
 RPG_AUDIT_DIR ?= experiments/runs/rpg-synthetic-v1
 cmind-rpg-audit:
 	@python3 tools/audit_synthetic_rpg.py "$(RPG_AUDIT_DIR)"
+
+# Read-only pinned Harness consumer skill routing preflight (not agent workflow).
+harness-consumer-preflight:
+	@bash tools/harness_consumer_preflight.sh
