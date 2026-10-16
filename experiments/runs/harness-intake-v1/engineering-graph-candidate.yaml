@@ -1,0 +1,74 @@
+version: 1
+kind: harness-engineering-graph
+id: CHECKER-DISCOVERY-CANDIDATE
+default_subject: CHECKER-OFFLINE-CANDIDATE
+authorities:
+- id: DISCOVERY
+  responsibility: Candidate ownership of Checker problem-evidence; not accepted delegation.
+  boundary:
+    semantic_cohesion: One class of problem-evidence knowledge.
+    independent_change: problem-evidence knowledge has its own revision boundary.
+    public_contract: Expose checker.problem to downstream engineering; candidate only.
+  produces:
+  - capability: checker.problem
+    knowledge_kind: problem-evidence
+    requires: []
+- id: PRODUCT-REQUIREMENTS
+  responsibility: Candidate ownership of Checker product-requirements; not accepted
+    delegation.
+  boundary:
+    semantic_cohesion: One class of product-requirements knowledge.
+    independent_change: product-requirements knowledge has its own revision boundary.
+    public_contract: Expose checker.requirements to downstream engineering; candidate
+      only.
+  produces:
+  - capability: checker.requirements
+    knowledge_kind: product-requirements
+    requires:
+    - checker.problem
+- id: SYSTEM-ARCHITECTURE
+  responsibility: Candidate ownership of Checker system-architecture; not accepted
+    delegation.
+  boundary:
+    semantic_cohesion: One class of system-architecture knowledge.
+    independent_change: system-architecture knowledge has its own revision boundary.
+    public_contract: Expose checker.architecture to downstream engineering; candidate
+      only.
+  produces:
+  - capability: checker.architecture
+    knowledge_kind: system-architecture
+    requires:
+    - checker.requirements
+- id: VERIFICATION-DESIGN
+  responsibility: Candidate ownership of Checker verification-strategy; not accepted
+    delegation.
+  boundary:
+    semantic_cohesion: One class of verification-strategy knowledge.
+    independent_change: verification-strategy knowledge has its own revision boundary.
+    public_contract: Expose checker.verification to downstream engineering; candidate
+      only.
+  produces:
+  - capability: checker.verification
+    knowledge_kind: verification-strategy
+    requires:
+    - checker.requirements
+    - checker.architecture
+- id: IMPLEMENTATION-DESIGN
+  responsibility: Candidate ownership of Checker implementation-design; not accepted
+    delegation.
+  boundary:
+    semantic_cohesion: One class of implementation-design knowledge.
+    independent_change: implementation-design knowledge has its own revision boundary.
+    public_contract: Expose checker.implementation to downstream engineering; candidate
+      only.
+  produces:
+  - capability: checker.implementation
+    knowledge_kind: implementation-design
+    requires:
+    - checker.architecture
+    - checker.verification
+consumers:
+- id: CHECKER-IMPLEMENTATION
+  purpose: Candidate implementation need; discovery only, no coding authorization.
+  requires:
+  - capability: checker.implementation
