@@ -28,17 +28,19 @@ verified:
 - First CoderMind feature construction and five-stage RPG planning completed; semantic
   review REJECTED known DOM/IF drift
 - Native feature edit reported MODIFY but semantic-input diff is a no-op; corrected-context
-  native replanning is running
+  native replanning subsequently completed
 - Corrected-context native RPG pipeline completed all five stages in 1118.8s; second
   semantic review accepted it as candidate-code input
 - CHECKER-CODEGEN-INPUT has COMPLETE closure and Coverage; separate CHECKER-PROTOTYPE
   readiness remains INCOMPLETE
 - Native init_codebase completed and autonomous TDD/file-merge loop started; early
   batches post-verified, no product acceptance claim
+- Immutable native candidate 3f0cbdabb099632f8ad538fecf3ce21c504b1d82 imported into repository;
+  all 10 independent behavioral and structural test methods PASS locally
 not_verified:
 - Completion of native code generation, final native tests/global review and independent
   product acceptance
-- Executable Checker behavior and test-realization conformance
+- Formal test-realization conformance and final implementation admission
 - Whole-product or production readiness
 - 'Blind isolation from historical research: initial local archival branch documents
   were read before fetching restarted main; no blinded experimental claim'
@@ -52,6 +54,8 @@ evidence:
   checker_context_decision: docs/decisions/0003-cmind-canonical-context.md
   checker_rpg_corrected: experiments/runs/checker-v1/rpg-context-1/manifest.json
   checker_rpg_review_corrected: experiments/runs/checker-v1/rpg-semantic-review-2.yaml
+  checker_checkpoint: experiments/runs/checker-v1/checkpoint.md
+  checker_candidate: experiments/runs/checker-v1/candidate-independent.json
   checker_trace: experiments/runs/checker-v1/traceability.json
 git_branch_protection: TEMPORARILY_DISABLED_BY_OWNER_FOR_RESET
 toolchain: tooling/versions.yaml
