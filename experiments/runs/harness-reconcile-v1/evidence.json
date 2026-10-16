@@ -1,0 +1,523 @@
+{
+  "pin": "442db854c3a736a5e500b4a41664b80981b0d94c",
+  "commands": [
+    {
+      "argv": [
+        "python3",
+        ".harness/harnessw.py",
+        "sync"
+      ],
+      "exit_code": 0,
+      "stdout": "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-m",
+        "harness.application.consumer_pack",
+        "validate-pack",
+        "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c",
+        "--revision",
+        "442db854c3a736a5e500b4a41664b80981b0d94c"
+      ],
+      "exit_code": 0,
+      "stdout": "{\"status\": \"VALID\", \"consumer_api\": \"v1\"}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-m",
+        "harness.application.skill_router",
+        "operation",
+        "--root",
+        "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c",
+        "--surface",
+        "consumer",
+        "--operation",
+        "project-bootstrap-reconcile"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"exposure\": \"public\",\n  \"instruction_contracts\": [\n    \"docs/design/agent-instruction-architecture-v0.md\",\n    \"docs/design/process-simplicity-and-efficiency-v0.md\"\n  ],\n  \"route_class\": \"operation\",\n  \"route_key\": \"project-bootstrap-reconcile\",\n  \"skill\": \"skills/agent/project-bootstrap-reconcile/SKILL.md\",\n  \"surface\": \"consumer\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-m",
+        "harness.application.skill_router",
+        "operation",
+        "--root",
+        "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c",
+        "--surface",
+        "consumer",
+        "--operation",
+        "project-engineering-status"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"exposure\": \"public\",\n  \"instruction_contracts\": [\n    \"docs/design/agent-instruction-architecture-v0.md\",\n    \"docs/design/process-simplicity-and-efficiency-v0.md\"\n  ],\n  \"route_class\": \"operation\",\n  \"route_key\": \"project-engineering-status\",\n  \"skill\": \"skills/agent/project-engineering-status/SKILL.md\",\n  \"surface\": \"consumer\"\n}\n",
+      "stderr": ""
+    },
+    {
+      "argv": [
+        "/usr/bin/python3",
+        "-m",
+        "harness.application.skill_router",
+        "artifact",
+        "--root",
+        "/home/alex/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c",
+        "--knowledge-kind",
+        "product-requirements"
+      ],
+      "exit_code": 0,
+      "stdout": "{\n  \"instruction_contracts\": [\n    \"docs/design/agent-instruction-architecture-v0.md\",\n    \"docs/design/process-simplicity-and-efficiency-v0.md\"\n  ],\n  \"route_class\": \"artifact-production\",\n  \"route_key\": \"product-requirements\",\n  \"skill\": \"skills/artifacts/product-requirements/SKILL.md\",\n  \"surface\": \"consumer\"\n}\n",
+      "stderr": ""
+    }
+  ],
+  "instructions_sha256": {
+    "docs/design/agent-instruction-architecture-v0.md": "2c9cde6de487c9717679a54a092ac515fc36bc35ca4df19d9b7f9f61a0d90467",
+    "docs/design/process-simplicity-and-efficiency-v0.md": "6232dd080429246e8de1e3541424a93afe495d4ea6ba132a0d410d9e9706e4c0",
+    "skills/agent/project-bootstrap-reconcile/SKILL.md": "4c90f3b5d5933b9991953a86797479bfc3ce25422e5cd198c69a2fbb72202f71",
+    "skills/agent/project-engineering-status/SKILL.md": "39a46288cfb93909750eb4663247214656a01cd7a53f127776d9abe5a99096e0",
+    "skills/artifacts/product-requirements/SKILL.md": "cd507b337140ed11eb1c6c25c8e1b152bb31173aaf3a56678b10b81badaf8d3d"
+  },
+  "sources_sha256": {
+    ".harness/harness-binding.json": "7a9dfabdb25599d7f4b484e57a577da42cb73d19813c3accc3bb94071f458566",
+    ".harness/engineering-graph.yaml": "f5e45f8827ea9436954d8fe6a2f2794962a78c83cc40ce12d8da4f70c8bbd441",
+    ".harness/project-publication.yaml": "ddb244a452ac2717c2aad242c6fe8a4678cbeee2d3981f007bcd7e319854e887",
+    ".harness/authority-assessments.yaml": "1e5c423c6aeb6e302de704038396bff2befdedf295f12539c5716078d0c07536",
+    ".harness/coverage-reconciliation.yaml": "a83982a776268241753ff3246b60bd5849b1b3a772ade7bb1e887e4fb4fde2a8",
+    "docs/scenario/checker-scope-reconciliation.yaml": "dffc2462c19a5aaed744996be6d50522acd45e490dae9da5ae05cd2500d44037",
+    "docs/scenario/problem-framing-decision.md": "8917fab3ccaf2a7c60d57c259ec77c42f945f6d007993a7cdd7cc62f4649861a",
+    "docs/scenario/discovery-authority-delegation.md": "a6dbe3d6b9c42e8cf375aecadf5d2675f6bb8804d8bf0c41a29c967fcda3abd0",
+    "docs/project/strategy.md": "ac4bf9d2e078b8b21b5dcb96671ad95b4e849842e5844fe63aa831610e5586fe",
+    "docs/project/roadmap.md": "5a39fb27ee858feb8b933d5fbcc5dd27565f460ab065ffc7e5e473a3b1ae6962",
+    "experiments/runs/harness-current-v1/project-frontier.yaml": "24f025cccbff0c742591b3ee30cfecfb7b6cc1fa627546c05239dedc56e10862"
+  },
+  "publication_revision": "sha256:1833adfec5d5a3f2f288da75762cf6efb32f4d154ca70903f11a8485319b769d",
+  "publication_unchanged": true,
+  "question_boundary": {
+    "status": "EXPECTED_REJECTION",
+    "error": "unknown question: Q-REC-002"
+  },
+  "lifecycle": {
+    "checker.problem": {
+      "state": "CURRENT",
+      "capability": "checker.problem",
+      "artifact": "CHECKER-PROBLEM-EVIDENCE",
+      "acceptance_id": "task-004-checker-problem-aa7cd410ffb83daf218e"
+    }
+  },
+  "authority_status": {
+    "version": 1,
+    "kind": "harness-project-engineering-status",
+    "rows": [
+      {
+        "authority": "DISCOVERY",
+        "applicability": "REQUIRED",
+        "operational_status": "IN_PROGRESS",
+        "artifacts": [
+          "CHECKER-PROBLEM-EVIDENCE"
+        ],
+        "blocking": []
+      },
+      {
+        "authority": "PRODUCT-REQUIREMENTS",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "DOMAIN-STRATEGY",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "MODEL-CONTEXT-STRATEGY",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "DOMAIN-USE-CASE-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "TACTICAL-DOMAIN-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "APPLICATION-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "SYSTEM-ARCHITECTURE",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "CONCURRENCY-CONSISTENCY-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "SECURITY-ARCHITECTURE",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "MACHINE-INTERFACE-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "HUMAN-INTERFACE-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "DATA-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "QUALITY-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "SECURITY-ANALYSIS",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "OBLIGATION-ANALYSIS",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "CHANGE-TRANSITION-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "OPERABILITY-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "ENGINEERING-POLICY",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "COMPONENT-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "TEST-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "IMPLEMENTATION-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      },
+      {
+        "authority": "VERIFICATION-DESIGN",
+        "applicability": "UNASSESSED",
+        "operational_status": null,
+        "artifacts": [],
+        "blocking": []
+      }
+    ]
+  },
+  "decision_roadmap": {
+    "version": 1,
+    "kind": "harness-decision-roadmap",
+    "target": "CHECKER-PROBLEM-ADMISSION",
+    "frontier_status": "COMPLETE",
+    "ready": [],
+    "completed": [
+      {
+        "capability": "checker.problem",
+        "authority": "DISCOVERY",
+        "state": "CURRENT"
+      }
+    ],
+    "blocked": [],
+    "failed_validation": [],
+    "lifecycle_gaps": [],
+    "waiting_upstream": [],
+    "execution_rule": "Run one READY capability through the complete pipeline, persist its outcome, then recompute this roadmap. FAILED_VALIDATION remains non-READY until explicitly retried."
+  },
+  "semantic_closure": {
+    "version": 1,
+    "kind": "harness-semantic-closure-evaluation",
+    "target": "CHECKER-PROBLEM-ADMISSION",
+    "status": "COMPLETE",
+    "structural_status": "COMPLETE",
+    "semantic_gaps": [],
+    "currentness_gaps": [],
+    "question_proposals": [],
+    "question_frontier": [],
+    "revalidate": [],
+    "pending": [],
+    "satisfied_capabilities": [
+      "checker.problem"
+    ]
+  },
+  "coverage_before": {
+    "kind": "harness-engineering-coverage-evaluation",
+    "consumer": "CHECKER-PROBLEM-ADMISSION",
+    "scope": "CHECKER-PROBLEM",
+    "completion_ready": false,
+    "activated_count": 15,
+    "remaining_work_count": 16,
+    "work_item_count": 16,
+    "summary": {
+      "states": {
+        "BLOCKED": 13,
+        "MISSING": 2
+      },
+      "actions": {
+        "ASSIGN_AUTHORITY": 10,
+        "MODEL_PRODUCTION_CONTRACT": 2,
+        "MODEL_PROOF_CONTRACT": 3
+      }
+    },
+    "subject_obligation_rows": [
+      {
+        "concern": "meta.subject-inventory",
+        "subject": "__accepted_scope__",
+        "state": "MISSING",
+        "action": "DECLARE_SUBJECT_INVENTORY",
+        "reason": "Coverage cannot prove subject/scope completeness without either a subject-obligation contract or an explicit subject-inventory disposition"
+      }
+    ]
+  },
+  "coverage_after": {
+    "kind": "harness-engineering-coverage-evaluation",
+    "consumer": "CHECKER-PROBLEM-ADMISSION",
+    "scope": "CHECKER-PROBLEM",
+    "completion_ready": false,
+    "activated_count": 15,
+    "remaining_work_count": 16,
+    "work_item_count": 16,
+    "summary": {
+      "states": {
+        "BLOCKED": 13,
+        "MISSING": 2
+      },
+      "actions": {
+        "ASSIGN_AUTHORITY": 10,
+        "MODEL_PRODUCTION_CONTRACT": 2,
+        "MODEL_PROOF_CONTRACT": 3
+      }
+    },
+    "subject_obligation_rows": [
+      {
+        "concern": "meta.subject-inventory",
+        "subject": "__accepted_scope__",
+        "state": "MISSING",
+        "action": "DEFINE_SUBJECT_OBLIGATIONS",
+        "reason": "The technical Discovery Consumer is not the Checker product boundary. Accepted product atoms and a project implementation Consumer are absent; see docs/scenario/checker-scope-reconciliation.yaml. Inventory completeness requires an accepted scope; Q-REC-002 is a project-owner question outside the current Discovery-only Core, not a fabricated Core Question."
+      }
+    ]
+  },
+  "frontier_after": {
+    "version": 1,
+    "kind": "harness-project-frontier",
+    "target": "CHECKER-PROBLEM-ADMISSION",
+    "status": "READY",
+    "next_actions": [
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "application.failures",
+        "accepted_semantic_claims": [
+          "engineering.application.failures"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "architecture.boundaries",
+        "accepted_semantic_claims": [
+          "engineering.architecture.boundaries"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "architecture.structure",
+        "accepted_semantic_claims": [
+          "engineering.architecture.structure"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "engineering.error-handling",
+        "accepted_semantic_claims": [
+          "engineering.engineering.error-handling"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "governance.external-obligations",
+        "accepted_semantic_claims": [
+          "engineering.governance.external-obligations"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "governance.privacy",
+        "accepted_semantic_claims": [
+          "engineering.governance.privacy"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "verification.architecture",
+        "accepted_semantic_claims": [
+          "engineering.verification.architecture"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "verification.functional",
+        "accepted_semantic_claims": [
+          "engineering.verification.functional"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "verification.requirement-traceability",
+        "accepted_semantic_claims": [
+          "engineering.verification.requirement-traceability"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "ASSIGN_AUTHORITY",
+        "concern": "verification.strategy",
+        "accepted_semantic_claims": [
+          "engineering.verification.strategy"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "DEFINE_SUBJECT_OBLIGATIONS",
+        "concern": "meta.subject-inventory",
+        "subject": "__accepted_scope__",
+        "reason": "The technical Discovery Consumer is not the Checker product boundary. Accepted product atoms and a project implementation Consumer are absent; see docs/scenario/checker-scope-reconciliation.yaml. Inventory completeness requires an accepted scope; Q-REC-002 is a project-owner question outside the current Discovery-only Core, not a fabricated Core Question."
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PRODUCTION_CONTRACT",
+        "concern": "intent.behavior",
+        "candidate_authorities": [
+          "DISCOVERY"
+        ],
+        "accepted_semantic_claims": [
+          "engineering.intent.behavior"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PRODUCTION_CONTRACT",
+        "concern": "intent.scope",
+        "candidate_authorities": [
+          "DISCOVERY"
+        ],
+        "accepted_semantic_claims": [
+          "engineering.intent.scope"
+        ]
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PROOF_CONTRACT",
+        "concern": "specialized.ai"
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PROOF_CONTRACT",
+        "concern": "specialized.regulated"
+      },
+      {
+        "source": "ENGINEERING_COVERAGE",
+        "action": "MODEL_PROOF_CONTRACT",
+        "concern": "specialized.safety"
+      }
+    ],
+    "failed_validation": [],
+    "blocked": [],
+    "waiting": [],
+    "gaps": [],
+    "source_status": {
+      "decision": "COMPLETE",
+      "semantic": "COMPLETE",
+      "structural": "COMPLETE",
+      "coverage_completion_ready": false
+    }
+  },
+  "product_frontier": {
+    "status": "UNAVAILABLE",
+    "reason": "No accepted product Consumer/production contract or product delegation; technical frontier must not be relabeled as product frontier.",
+    "next_authority": "PRODUCT-REQUIREMENTS",
+    "proposed_capability": "checker.requirements",
+    "owner_gate": "Q-REC-001"
+  }
+}
