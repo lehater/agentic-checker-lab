@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_CHECKER_PROBLEM_INTENT_CONFIRMED_HARNESS_ADMISSION_PENDING
+status: P2_CHECKER_DISCOVERY_AUTHORITY_AUTHORIZED_ADMISSION_PENDING
 phase: P2
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
@@ -10,6 +10,7 @@ accepted:
   - Independent repo and documentation-as-truth approach
   - One bounded checker scenario as first laboratory example
   - Checker problem framing PDEC-CHECKER-001 confirmed by owner; not full Harness semantic admission or target requirements
+  - Scoped PDEC-CHECKER-002: DISCOVERY produces checker.problem; engineering agent may perform genuine semantic review/admission and conditional atomic publication (other Authorities and product semantics remain unaccepted)
   - Task branches, PR and squash into main following authorized bootstrap
 verified:
   - Initial documentation structure committed to main
@@ -37,6 +38,7 @@ evidence:
   harness_agent_intake_operator_report: docs/research/task-004-harness-agent-pilot.md
   harness_agent_intake_independent_review: docs/research/task-004-harness-agent-review.md
   checker_owner_problem_decision: docs/scenario/problem-framing-decision.md
+  checker_discovery_authority_delegation: docs/scenario/discovery-authority-delegation.md
   harness_agent_intake_snapshot_commit: 4a82dbedfdf82baf681cf58d3396fd4ed398a909
   harness_agent_intake_local_directory: experiments/runs/harness-intake-v1
   harness_consumer_pack_local_path: ~/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c

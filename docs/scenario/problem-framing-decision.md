@@ -18,10 +18,10 @@
 
 ## Отношение к Harness
 
-Это project-owned **owner decision/evidence input** для Discovery `problem-evidence`. `checker.problem` из пилотного `engineering-graph-candidate.yaml` пока лишь предложенная Capability; его граф/Authority assignment, source-coverage и acceptance policy ещё не приняты.
+Это project-owned **owner decision/evidence input** для Discovery `problem-evidence`. `checker.problem` из пилотного `engineering-graph-candidate.yaml` пока лишь предложенная Capability; для него [отдельным решением](discovery-authority-delegation.md) утверждено только назначение producer DISCOVERY и право инженерного агента выполнять semantic review/admission в рамках TASK-004; остальная топология графа, source-coverage и acceptance policy пока не приняты.
 
 Для перехода к `CURRENT` необходимо отдельно выполнить официальную semantic admission по `problem-evidence`, получить согласованные `Core` / semantic evaluation / lifecycle и атомарно опубликовать их в действительной Project Publication. Не присваивать `acceptance_id` постфактум, не считать текст этого решения автоматически `ACCEPTED`-оценкой Harness. Технические и продуктовые Questions остаются открытыми.
 
 ## Изменение статуса открытых вопросов
 
-Из Q-01 в [первом пилоте](../../experiments/runs/harness-intake-v1/questions.md) **закрыта только часть**: подтверждены формулировка потребности, оператор и ожидаемый исход верхнего уровня. **Не закрыта** часть о назначении Discovery Authority и правилах проектной семантической приёмки. Q-02..Q-13 остаются открытыми с возможностью последующей декомпозиции согласно Harness.
+Из Q-01 в [первом пилоте](../../experiments/runs/harness-intake-v1/questions.md) **закрыта только часть**: подтверждены формулировка потребности, оператор и ожидаемый исход верхнего уровня. Часть о назначении Discovery Authority и полномочиях агента на review/admission закрыта [PDEC-CHECKER-002](discovery-authority-delegation.md). Проверка исполнения и Project Publication остаются невыполненными; Q-02..Q-13 сохраняются как вопросы для соответствующих этапов, при этом часть Q-07, относящаяся к Discovery, решена.
