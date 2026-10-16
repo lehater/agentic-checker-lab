@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P1_SYNTHETIC_RPG_ACCEPTED_WITH_LIMITATIONS
+status: P2_HARNESS_DISCOVERY_RUN_REVIEWED_CANDIDATES_NOT_ACCEPTED
 phase: P2
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
@@ -27,12 +27,15 @@ verified:
   - Independently reconciled 31 RPG nodes and all 18 leaf assignments; six source requirements represented as design intent, not executable contracts
   - Operator-reported Harness Consumer routing preflight PASS on pinned SHA; 3 public operations and 5 artifact skills resolve; no workflow or model call
   - Operator-reported Harness Consumer Pack v1 validated at pinned SHA; all nine operation/artifact routes resolve; Maintainer route unavailable; no agent workflow or model call
-  - Operator-reported first agent Harness intake run produced candidate evidence/graph/core/questions; output only in local untracked directory; independent audit pending; no acceptance or Checker implementation
+  - Operator-reported first agent Harness intake run produced candidate evidence/graph/core/questions; independently reviewed from GitHub commit 4a82dbe; research run PASS WITH LIMITATIONS, no semantic acceptance or Checker implementation
+  - Independent review of raw Harness outputs confirms target READY (CREATE checker.problem; 4 PENDING), 21 activated coverage concerns, completion_ready false, 23 Authorities UNASSESSED and no full Project Frontier
 evidence:
   harness_smoke: docs/research/p1-harness-spike.md
   harness_consumer_routing_preflight: docs/research/task-004-harness-consumer-preflight.md
   harness_consumer_pack_preflight: docs/research/task-004-harness-consumer-pack.md
   harness_agent_intake_operator_report: docs/research/task-004-harness-agent-pilot.md
+  harness_agent_intake_independent_review: docs/research/task-004-harness-agent-review.md
+  harness_agent_intake_snapshot_commit: 4a82dbedfdf82baf681cf58d3396fd4ed398a909
   harness_agent_intake_local_directory: experiments/runs/harness-intake-v1
   harness_consumer_pack_local_path: ~/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c
   harness_consumer_routing_run_directory: ~/.cache/agentic-checker-lab/runs/harness-consumer-routing.VC4o2g
@@ -61,7 +64,7 @@ not_verified:
   - Accepted target Checker specification and oracle
   - Checker implementation
   - Four-arm comparative evaluation
-  - Independent inspection of operator-reported Harness agent intake artifacts, actual project-bootstrap execution and produced read-models
+  - Full Harness project-bootstrap reconciliation, accepted project-owned Authority applicability, subject inventory and coverage completion
   - Harness Project Frontier, source-bounded Problem Evidence semantic acceptance and Consumer closure
 git_branch_protection: RULESET_ACTIVE_NO_BYPASS_REQUIRED_CHECKS_NOT_CONFIGURED
 toolchain: tooling/versions.yaml

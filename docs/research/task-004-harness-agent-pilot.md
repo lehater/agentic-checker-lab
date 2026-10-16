@@ -49,3 +49,9 @@ git status --short
 ### Следующая контрольная граница
 
 После самостоятельной проверки на отсутствие секретов/личных путей и опасных артефактов оператор публикует **только** `experiments/runs/harness-intake-v1/` отдельным коммитом в текущую исследовательскую ветку PR №10. Затем независимый ревьюер читает содержимое из GitHub и проверяет реальные команды, результаты Harness, source refs, ограничения и Questions против исходных документов. До этой проверки PR остаётся draft.
+
+## Независимая проверка опубликованных результатов
+
+После коммита `4a82dbedfdf82baf681cf58d3396fd4ed398a909` прочитаны исходные кандидаты и raw outputs непосредственно из GitHub. Отдельно сопоставлены source Git blob hashes и замороженные исторические материалы. Вердикт по **исследовательскому прогону**: **PASS WITH LIMITATIONS**, подробности: [TASK-004 independent review](task-004-harness-agent-review.md).
+
+Не путать с авторитетным решением о Problem Evidence: кандидатный артефакт остаётся `DRAFT`; graph/profile/Authority applicability неполны, Project Frontier и strict Semantic Closure ещё не вычислены. Ограничение целевого scope и owner-owned вопросы явно открыты. Для Product Requirements / codegen GO не выдан.
