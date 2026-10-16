@@ -1,0 +1,130 @@
+{
+  "flow": {
+    "source": "10.0.0.1",
+    "destination": "192.0.2.10",
+    "protocol": "tcp",
+    "source_port": 50000,
+    "destination_port": 443
+  },
+  "relevance": [
+    {
+      "device": "fw-a",
+      "acl": "outside"
+    },
+    {
+      "device": "fw-a",
+      "acl": "inside"
+    },
+    {
+      "device": "fw-b",
+      "acl": "global"
+    },
+    {
+      "device": "fw-a",
+      "acl": "outside"
+    }
+  ],
+  "snapshots": [
+    {
+      "device": "fw-a",
+      "acl": "outside",
+      "placements": [
+        {
+          "interface": "wan0",
+          "direction": "in"
+        }
+      ],
+      "rules": [
+        {
+          "id": "z-deny",
+          "source": "10.0.0.0/24",
+          "destination": "192.0.2.10/32",
+          "protocol": "tcp",
+          "source_ports": [
+            50000,
+            50000
+          ],
+          "destination_ports": [
+            443,
+            443
+          ],
+          "action": "deny"
+        },
+        {
+          "id": "a-permit",
+          "source": "0.0.0.0/0",
+          "destination": "192.0.2.0/24",
+          "protocol": "any",
+          "source_ports": [
+            0,
+            65535
+          ],
+          "destination_ports": [
+            440,
+            450
+          ],
+          "action": "permit"
+        },
+        {
+          "id": "wrong-source",
+          "source": "10.0.1.0/24",
+          "destination": "0.0.0.0/0",
+          "protocol": "any",
+          "source_ports": [
+            0,
+            65535
+          ],
+          "destination_ports": [
+            0,
+            65535
+          ],
+          "action": "permit"
+        }
+      ]
+    },
+    {
+      "device": "fw-a",
+      "acl": "inside",
+      "placements": [
+        {
+          "interface": "lan0",
+          "direction": "out"
+        }
+      ],
+      "rules": []
+    },
+    {
+      "device": "fw-b",
+      "acl": "global",
+      "placements": [
+        {
+          "global": true
+        }
+      ],
+      "rules": [
+        {
+          "id": "udp-only",
+          "source": "0.0.0.0/0",
+          "destination": "0.0.0.0/0",
+          "protocol": "udp",
+          "source_ports": [
+            0,
+            65535
+          ],
+          "destination_ports": [
+            0,
+            65535
+          ],
+          "action": "permit"
+        }
+      ]
+    },
+    {
+      "device": "irrelevant",
+      "acl": "unused",
+      "placements": [],
+      "rules": []
+    }
+  ],
+  "version": 1
+}

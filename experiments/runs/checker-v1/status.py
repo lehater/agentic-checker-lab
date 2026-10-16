@@ -16,6 +16,6 @@ road=derive_decision_roadmap(**args,decision_failures=s['decision_failures'])
 front=compose_project_frontier(target='CHECKER-PROTOTYPE',decision_roadmap=road,semantic_closure=closure,engineering_coverage=c)
 for name,value in [('closure',closure),('roadmap',road),('frontier',front)]:
  (r/('experiments/runs/checker-v1/'+name+'.json')).write_text(json.dumps(value,indent=2))
-print('Coverage:',c['completion_ready'],'Closure:',closure['status'],'Roadmap:',road['status'],'Frontier:',front['status'])
-assert c['completion_ready'] and closure['status']=='COMPLETE' and road['status']=='COMPLETE'
+print('Coverage:',c['completion_ready'],'Closure:',closure['status'],'Roadmap:',road['frontier_status'],'Frontier:',front['status'])
+assert c['completion_ready'] and closure['status']=='COMPLETE' and road['frontier_status']=='COMPLETE'
 

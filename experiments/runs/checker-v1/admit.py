@@ -81,10 +81,12 @@ if ev['status'] != 'ACCEPTED':
     raise SystemExit(1)
 row = dict(id=candidate['id'], authority=ev['admission']['authority'], path=candidate['path'],
            provides=[cap], depends_on=spec.get('depends_on', []))
-s['core_model']['artifacts'] = [a for a in s['core_model']['artifacts'] if a['id'] != row['id']] + [row]
-s['semantic_evaluations']['semantic_evaluations'] = [e for e in s['semantic_evaluations']['semantic_evaluations']
-    if e['capability'] != cap] + [ev]
-s['lifecycle']['providers'] = [p for p in s['lifecycle']['providers'] if p['capability'] != cap] + [ev['lifecycle_assertion']]
+def replace_or_append(rows, value, key):
+    return [value if item[key] == value[key] else item for item in rows] if any(item[key] == value[key] for item in rows) else [*rows, value]
+
+s['core_model']['artifacts'] = replace_or_append(s['core_model']['artifacts'], row, 'id')
+s['semantic_evaluations']['semantic_evaluations'] = replace_or_append(s['semantic_evaluations']['semantic_evaluations'], ev, 'capability')
+s['lifecycle']['providers'] = replace_or_append(s['lifecycle']['providers'], ev['lifecycle_assertion'], 'capability')
 nextpub = prepare_capability_transition(graph=graph, current_publication=before,
     expected_revision=before['revision'], capability=cap, outcome='CURRENT', **s)
 if nextpub != before:
@@ -95,7 +97,6 @@ registry = bootstrap_registry(catalog, core=s['core_model'])
 assert not validate_registry(catalog, registry)
 save(ROOT / '.harness/authority-assessments.yaml', registry)
 save(RUN / 'authority-status.yaml', status(catalog, registry, s['core_model']))
-save(RUN / (slug + '-publication.yaml'), nextpub)
 save(RUN / (slug + '-evidence.yaml'), dict(pin=PACK.name, instructions=instructions,
     content_sha256=identity['content_sha256'], publication_revision=nextpub['revision'],
     status=ev['status'], acceptance_id=acceptance_id))
