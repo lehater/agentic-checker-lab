@@ -1,0 +1,8 @@
+status: CURRENT
+revision: sha256:1833adfec5d5a3f2f288da75762cf6efb32f4d154ca70903f11a8485319b769d
+lifecycle:
+  checker.problem:
+    state: CURRENT
+    capability: checker.problem
+    artifact: CHECKER-PROBLEM-EVIDENCE
+    acceptance_id: task-004-checker-problem-aa7cd410ffb83daf218e

@@ -1,0 +1,16 @@
+version: 1
+kind: harness-decision-roadmap
+target: CHECKER-PROBLEM-ADMISSION
+frontier_status: COMPLETE
+ready: []
+completed:
+- capability: checker.problem
+  authority: DISCOVERY
+  state: CURRENT
+blocked: []
+failed_validation: []
+lifecycle_gaps: []
+waiting_upstream: []
+execution_rule: Run one READY capability through the complete pipeline, persist its
+  outcome, then recompute this roadmap. FAILED_VALIDATION remains non-READY until
+  explicitly retried.

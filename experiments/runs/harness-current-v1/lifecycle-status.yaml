@@ -1,0 +1,5 @@
+checker.problem:
+  state: CURRENT
+  capability: checker.problem
+  artifact: CHECKER-PROBLEM-EVIDENCE
+  acceptance_id: task-004-checker-problem-aa7cd410ffb83daf218e

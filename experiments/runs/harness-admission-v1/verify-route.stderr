@@ -1,0 +1,4 @@
+usage: skill_router.py operation [-h] --surface {maintainer,consumer}
+                                 --operation OPERATION
+                                 [--invoked-by INVOKED_BY] [--root ROOT]
+skill_router.py operation: error: the following arguments are required: --operation

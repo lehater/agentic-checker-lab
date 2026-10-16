@@ -1,0 +1,13 @@
+version: 1
+kind: harness-semantic-closure-evaluation
+target: CHECKER-PROBLEM-ADMISSION
+status: COMPLETE
+structural_status: COMPLETE
+semantic_gaps: []
+currentness_gaps: []
+question_proposals: []
+question_frontier: []
+revalidate: []
+pending: []
+satisfied_capabilities:
+- checker.problem

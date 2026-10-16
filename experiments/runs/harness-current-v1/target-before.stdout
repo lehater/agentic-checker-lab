@@ -1,0 +1,30 @@
+{
+  "create": [
+    {
+      "action": "CREATE",
+      "authority": "DISCOVERY",
+      "capability": "checker.problem",
+      "expectation": "E-CHECKER-PROBLEM-CHECKER-PROBLEM",
+      "subject": "CHECKER-PROBLEM"
+    }
+  ],
+  "implementation_consumer": false,
+  "pending": [],
+  "profile": {
+    "expectations": [
+      {
+        "authority": "DISCOVERY",
+        "capability": "checker.problem",
+        "id": "E-CHECKER-PROBLEM-CHECKER-PROBLEM",
+        "subject": "CHECKER-PROBLEM"
+      }
+    ],
+    "id": "CHECKER-PROBLEM-CHECKER-PROBLEM-ADMISSION",
+    "kind": "harness-design-profile",
+    "version": 1
+  },
+  "satisfied": [],
+  "status": "READY",
+  "target": "CHECKER-PROBLEM-ADMISSION",
+  "wait": []
+}

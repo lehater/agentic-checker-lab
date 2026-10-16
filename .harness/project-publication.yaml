@@ -1,0 +1,83 @@
+version: 1
+kind: harness-project-publication
+revision: sha256:1833adfec5d5a3f2f288da75762cf6efb32f4d154ca70903f11a8485319b769d
+parent_revision: sha256:4ea5a8d94da6879287d390c3862e8fbff6e3cff607deb29e5b6c2d0ec212f93e
+state:
+  core_model:
+    artifacts:
+    - id: CHECKER-PROBLEM-EVIDENCE
+      path: docs/scenario/problem-framing-decision.md
+      authority: DISCOVERY
+      provides:
+      - checker.problem
+      depends_on: []
+    questions: []
+  semantic_evaluations:
+    version: 1
+    kind: harness-semantic-evaluation-set
+    semantic_evaluations:
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: CHECKER-PROBLEM-EVIDENCE
+      capability: checker.problem
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted: []
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: problem-evidence
+        skill: skills/artifacts/problem-evidence/SKILL.md
+        acceptance_id: task-004-checker-problem-aa7cd410ffb83daf218e
+        authority: DISCOVERY
+        allowed_source_authorities:
+        - DISCOVERY
+        changed_paths:
+        - docs/scenario/problem-framing-decision.md
+        canonical_references: []
+        accepted_prerequisites: &id001 {}
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+        acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+        decision_exploration: NOT_REQUIRED
+        decision_explorer_request_id: null
+        decision_execution_assurance: NOT_REQUIRED
+        decision_governance: NOT_REQUIRED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: CHECKER-PROBLEM-EVIDENCE
+        capability: checker.problem
+        acceptance_id: task-004-checker-problem-aa7cd410ffb83daf218e
+        acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+        accepted_prerequisites: *id001
+        semantic_atom_fingerprints: &id002
+          problem-actor: SAF-a5b38b9482cab5c6a300aac8bca0f7266d7d308e7702d342b0b766b9fff3dfe5
+          problem-need: SAF-77f736eb804bf4d499e9d93e233a5c4c947bd35e38f78e3fbadc200110893ad7
+          problem-outcome: SAF-3f8eacfab7559884026c3d7c6ee4a2d9cf2345e21a11f5b8f758fbbc00b27c5f
+          problem-verdict-boundary: SAF-b03f408c8970ec3b9458eb88004159b2e28b76444afdf1e778801cd544b6a169
+          problem-scope-boundary: SAF-1e751339bde64c94d1ffb9202ead11273a1a873072b1ff8fbe68e77fc75e76af
+    derivation_evaluations: []
+  lifecycle:
+    version: 1
+    kind: harness-capability-lifecycle
+    providers:
+    - artifact: CHECKER-PROBLEM-EVIDENCE
+      capability: checker.problem
+      acceptance_id: task-004-checker-problem-aa7cd410ffb83daf218e
+      acceptance_policy_fingerprint: sha256:83b5edb2ec08b85ee97186f500caac33b1b16a64074db407835d9143236dfb10
+      accepted_prerequisites: {}
+      semantic_atom_fingerprints: *id002
+  decision_failures:
+    version: 1
+    kind: harness-decision-failure-set
+    failures: []

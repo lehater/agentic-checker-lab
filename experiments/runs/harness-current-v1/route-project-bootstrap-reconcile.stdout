@@ -1,0 +1,11 @@
+{
+  "exposure": "public",
+  "instruction_contracts": [
+    "docs/design/agent-instruction-architecture-v0.md",
+    "docs/design/process-simplicity-and-efficiency-v0.md"
+  ],
+  "route_class": "operation",
+  "route_key": "project-bootstrap-reconcile",
+  "skill": "skills/agent/project-bootstrap-reconcile/SKILL.md",
+  "surface": "consumer"
+}

@@ -1,0 +1,11 @@
+.harness/harness-binding.json
+.harness/harnessw.py
+experiments/runs/harness-intake-v1/authority-assessments-candidate.yaml
+experiments/runs/harness-intake-v1/authority-reconcile.stderr
+experiments/runs/harness-intake-v1/authority-reconcile.stdout
+experiments/runs/harness-intake-v1/authority-validation.stderr
+experiments/runs/harness-intake-v1/authority-validation.stdout
+experiments/runs/harness-intake-v1/core-candidate.yaml
+experiments/runs/harness-intake-v1/engineering-graph-candidate.yaml
+tooling/fixtures/harness-smoke/core.yaml
+tooling/fixtures/harness-smoke/engineering-graph.yaml

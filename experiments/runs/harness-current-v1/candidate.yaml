@@ -1,0 +1,48 @@
+id: CHECKER-PROBLEM-EVIDENCE
+path: docs/scenario/problem-framing-decision.md
+capability: checker.problem
+canonical_references: []
+semantic_assertions:
+- id: problem-actor
+  kind: problem-actor
+  subject: Checker
+  semantic_value: Оператор
+  decision_authority: DISCOVERY
+  derived_from: []
+- id: problem-need
+  kind: problem-need
+  subject: Checker
+  semantic_value: Объяснимо исследовать сетевой поток
+  decision_authority: DISCOVERY
+  derived_from: []
+- id: problem-outcome
+  kind: problem-outcome
+  subject: Checker
+  semantic_value: Релевантные места применения политики, подходящие сохранённые ACL-правила
+    в порядке обработки и достоверность источников
+  decision_authority: DISCOVERY
+  derived_from: []
+- id: problem-verdict-boundary
+  kind: problem-verdict-boundary
+  subject: Checker
+  semantic_value: Нет обязанности формировать единый универсальный Permit/Deny; отсутствие
+    совпадения не означает автоматически DENY/ALLOW
+  decision_authority: DISCOVERY
+  derived_from: []
+- id: problem-scope-boundary
+  kind: problem-scope-boundary
+  subject: Checker
+  semantic_value: Offline/fixture-only, IP/protocol/matching, completeness/freshness,
+    live diagnostics, UI/API, architecture и oracle не приняты
+  decision_authority: DISCOVERY
+  derived_from: []
+semantic_review:
+  status: ACCEPTED
+  checks:
+  - source-discipline
+  - authority-boundary
+  - no-invention
+  - evidence-not-solution
+  reviewer: Acting engineering agent, delegated by PDEC-CHECKER-002; not an independent
+    human signature
+  record: experiments/runs/harness-current-v1/semantic-review.md
