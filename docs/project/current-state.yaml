@@ -1,5 +1,5 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_CHECKER_FIRST_SLICE_REQUIREMENTS_CURRENT_COVERAGE_OPEN
+status: P2_CHECKER_FIRST_SLICE_DOMAIN_VERIFICATION_AUTHORIZED_PENDING
 phase: P2
 date: 2026-10-16
 purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
@@ -13,6 +13,7 @@ accepted:
   - Scoped PDEC-CHECKER-002: DISCOVERY produces checker.problem; engineering agent may perform genuine semantic review/admission and conditional atomic publication (other Authorities and product semantics remain unaccepted)
   - PDEC-CHECKER-003: owner-authorized PRODUCT-REQUIREMENTS for checker.requirements, direct prerequisite checker.problem, delegated bounded agent production/review/admission/conditional publication; actual first-slice requirements admission recorded below
   - PDEC-CHECKER-004: owner confirmed the first IPv4 TCP/UDP Checker slice, provided policy contexts and ACL snapshots, and observable treatment of missing/incomplete/stale evidence; executed Core resolution/admission recorded below
+  - PDEC-CHECKER-005: owner-authorized scoped DOMAIN-USE-CASE-DESIGN and VERIFICATION-DESIGN, conditional on actual Harness prerequisites; no domain strategy, independent oracle or new Current provider yet
   - Task branches, PR and squash into main following authorized bootstrap
 verified:
   - Continued REQ-CHECKER-001..007 with stable statements and accepted REQ-CHECKER-008..028 from PDEC-CHECKER-004; managed first-slice product requirements VALID and strict admission ACCEPTED
@@ -46,6 +47,7 @@ verified:
   - Operator-reported first agent Harness intake run produced candidate evidence/graph/core/questions; independently reviewed from GitHub commit 4a82dbe; research run PASS WITH LIMITATIONS, no semantic acceptance or Checker implementation
   - Independent review of raw Harness outputs confirms target READY (CREATE checker.problem; 4 PENDING), 21 activated coverage concerns, completion_ready false, 23 Authorities UNASSESSED and no full Project Frontier
 evidence:
+  checker_domain_verification_delegation: docs/scenario/domain-verification-delegation.md
   checker_requirements_current_run: experiments/runs/harness-requirements-current-v1/README.md
   checker_requirements_canonical: .harness/knowledge/checker-requirements.yaml
   checker_current_publication_revision: sha256:94bc167d0108b5b4b90dcea6cefd0af3f5ba5132091f0ee20756163127da9852

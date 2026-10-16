@@ -2,6 +2,8 @@
 
 Статус: **потребность верхнего уровня подтверждена владельцем** ([PDEC-CHECKER-001](problem-framing-decision.md)); полномочия DISCOVERY и PRODUCT-REQUIREMENTS заданы [PDEC-CHECKER-002](discovery-authority-delegation.md) и [PDEC-CHECKER-003](product-requirements-delegation.md). **Первый узкий продуктовый slice и политика неполных свидетельств подтверждены** в [PDEC-CHECKER-004](first-slice-product-decision.md). Канонические требования пока **не приняты**.
 
+Для следующего этапа делегированы ограниченные [Domain Use-Case Design и Verification Design](domain-verification-delegation.md) (PDEC-CHECKER-005); новых предметных контрактов и проверочного oracle это делегирование само по себе не принимает.
+
 ## Пользовательская проблема
 
 Нормативная подтверждённая формулировка: [PDEC-CHECKER-001](problem-framing-decision.md). Исторические уточнения ниже остаются исходными свидетельствами; они не расширяют автоматически принятое решение.
