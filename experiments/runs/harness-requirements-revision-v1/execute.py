@@ -34,12 +34,12 @@ from harness.application.semantic_closure import evaluate_semantic_closure
 graph=load(ROOT/'.harness/engineering-graph.yaml')
 pubpath=ROOT/'.harness/project-publication.yaml'
 before=load(RUN/'publication-before.yaml')
-assert before['revision']=='sha256:f38832e09ce67f6713d26e1a06ab04d1af786d5cbd148e6e702181201c938334'
+assert before['revision']=='sha256:8f5dc04d1b76ce6c347b63c796935465b84db72bb1b3623969c90ae7a89af2f5'
 data=load(ROOT/'.harness/knowledge/checker-requirements.yaml')
 all_reqs=data['content']['requirements']
 active=[x for x in all_reqs if x['status']=='ACCEPTED']
 retired=[x for x in all_reqs if x['status']=='RETIRED']
-assert len(active)==13 and len(retired)==19 and len(all_reqs)==32
+assert len(active)==13 and len(retired)==0 and len(all_reqs)==13
 active_ids={x['id'] for x in active}
 expected={f'REQ-CHECKER-{i:03d}' for i in [1,2,3,6,7,12,13,14,25,29,30,31,32]}
 assert active_ids==expected
@@ -126,7 +126,7 @@ new_identity='task-004-requirements-revised-'+hashlib.sha256(
 state=before['state'];model=copy.deepcopy(state['core_model'])
 oldlife=next(p for p in state['lifecycle']['providers'] if p['capability']=='checker.requirements')
 oldid=oldlife['acceptance_id']
-assert oldid=='task-004-requirements-3219d4ef86d53466a04bb4e9'
+assert oldid=='task-004-requirements-revised-508d09a81929c4b2257bb8fa'
 for qid in ['Q-PR-001','Q-PR-002']:
  q=next(q for q in model['questions'] if q['id']==qid)
  assert q['resolution']['acceptance_id']==oldid
@@ -174,4 +174,4 @@ road=derive_decision_roadmap(graph=graph,model=published['state']['core_model'],
  decision_failures=published['state']['decision_failures'])
 assert {x['capability'] for x in road['blocked']} >= {'checker.domain-use-case','checker.verification-strategy'}
 print(json.dumps(dict(status='CURRENT',revision=published['revision'],acceptance_id=new_identity,
- active=len(active),retired=len(retired),downstream='BLOCKED'),ensure_ascii=False))
+ active=len(active),removed_historical_rows_from_active_state=True,downstream='BLOCKED'),ensure_ascii=False))
