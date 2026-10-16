@@ -20,7 +20,7 @@ verified:
 evidence:
   canonical_requirements: .harness/knowledge/checker-requirements.yaml
   canonical_publication: .harness/project-publication.yaml
-  publication_revision: sha256:8f5dc04d1b76ce6c347b63c796935465b84db72bb1b3623969c90ae7a89af2f5
+  publication_revision: sha256:0bd03134218117e5230683b6e50bb3e80b3d66813036479cd8da91aad2a92d6d
   first_slice_decision: docs/scenario/first-slice-product-decision.md
   domain_verification_delegation: docs/scenario/domain-verification-delegation.md
 toolchain: tooling/versions.yaml
