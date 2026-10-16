@@ -1,115 +1,27 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_CHECKER_REQUIREMENTS_REVISED_CURRENT_DOMAIN_VERIFICATION_BLOCKED
+status: P2_CHECKER_REQUIREMENTS_CURRENT_DOMAIN_VERIFICATION_BLOCKED
 phase: P2
 date: 2026-10-16
-purpose: Develop and evaluate agentic engineering methodology, not migrate Product or NAPMS
+purpose: Evaluate agentic software engineering on standalone Checker
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
 next_task: TASK-004
 accepted:
-  - Independent repo and documentation-as-truth approach
-  - One bounded checker scenario as first laboratory example
-  - Checker problem framing PDEC-CHECKER-001 confirmed by owner; not full Harness semantic admission or target requirements
-  - Scoped PDEC-CHECKER-002: DISCOVERY produces checker.problem; engineering agent may perform genuine semantic review/admission and conditional atomic publication (other Authorities and product semantics remain unaccepted)
-  - PDEC-CHECKER-003: owner-authorized PRODUCT-REQUIREMENTS for checker.requirements, direct prerequisite checker.problem, delegated bounded agent production/review/admission/conditional publication; actual first-slice requirements admission recorded below
-  - PDEC-CHECKER-004: owner confirmed the first IPv4 TCP/UDP Checker slice, provided policy contexts and ACL snapshots, and observable treatment of missing/incomplete/stale evidence; executed Core resolution/admission recorded below
-  - PDEC-CHECKER-005: owner-authorized scoped DOMAIN-USE-CASE-DESIGN and VERIFICATION-DESIGN, conditional on actual Harness prerequisites; no domain strategy, independent oracle or new Current provider yet
-  - Task branches, PR and squash into main following authorized bootstrap
+  - "PDEC-CHECKER-001: checker.problem CURRENT"
+  - "PDEC-CHECKER-004: bounded IPv4 TCP/UDP first slice and evidence behavior"
+  - "PDEC-CHECKER-003: PRODUCT-REQUIREMENTS delegated"
+  - "PDEC-CHECKER-005: bounded Domain Use-Case and Verification Design delegated"
 verified:
-  - PR23 corrected Product Requirements against revised Harness policy: 13 active independent obligations, 19 historical RETIRED; former REQ-CHECKER-028 is a Verification Design handoff, not product behavior
-  - Genuine Harness REVISION accepted CHECKER-REQUIREMENTS and republished Core/evaluation/lifecycle/Q-PR resolution identities via CAS; prior checker.problem CURRENT unchanged, domain-use-case and verification-strategy still BLOCKED
-  - The earlier BLOCKED verification candidate has 28 legacy requirement references and is historical evidence only; next Verification Design continuation must remap to the 13 active IDs
-  - First-slice domain-use-case BLOCKED on missing accepted Strategic Domain ownership (Q-DV-001) and matching contract (Q-DV-002); no fictitious Strategy provider or domain admission
-  - Verification candidate schema VALID with explicit dispositions for all 28 requirements; substantive review REJECTED and real strict admission REJECTED on missing matching semantics/oracle; independent metadata/evidence work continued
-  - Eight upstream-grounded scenario drafts prepared; acceptance-scenarios production blocked on absent accepted Verification Strategy; no behavioral execution claimed
-  - Atomic CAS publication of both design BLOCKED outcomes preserves problem/requirements CURRENT and their evaluations/lifecycle; two stable replays and stale-CAS/false-CURRENT negative checks PASS
-  - Continued REQ-CHECKER-001..007 with stable statements and accepted REQ-CHECKER-008..028 from PDEC-CHECKER-004; managed first-slice product requirements VALID and strict admission ACCEPTED
-  - checker.requirements CURRENT; Q-PR-001/002 resolved by Core.resolve_question with matching accepted requirements identity and ABSENT prior acceptance, atomically CAS published and read back
-  - checker.problem remains CURRENT with unchanged accepted evaluation and lifecycle; scoped Roadmap and Semantic Closure COMPLETE, whole-product Coverage remains incomplete
-  - Historical PR18 attempt before PDEC-004 - authorized CREATE checker.requirements executed; managed candidate schema VALID; strict semantic admission REJECTED on incomplete observable product scope/evidence policy
-  - Historical PR18 blockers before PDEC-004 - real Q-PR-001 and Q-PR-002 addressed to PRODUCT-REQUIREMENTS block only checker.requirements; BLOCKED outcome atomically published and read back
-  - Historical PR18 - checker.problem CURRENT; requirements had no accepted provider or lifecycle row
-  - Bounded reconciliation verified all 16 Frontier work items; technical Discovery Consumer is not product scope; no accepted product Consumer exists
-  - Reconciliation proposed checker.requirements under PRODUCT-REQUIREMENTS; Q-REC-001 authorization later resolved by PDEC-CHECKER-003; subject completeness Q-REC-002 remains open
-  - Reconciliation preserves checker.problem CURRENT and the exact accepted publication; no new Authorities or NOT_APPLICABLE dispositions
-  - TASK-004 strict pinned Harness admission ACCEPTED; checker.problem published CURRENT with coherent Core/evaluation/lifecycle and atomic CAS
-  - Scoped Decision Roadmap and Semantic Closure COMPLETE; Engineering Coverage remains incomplete (15 concerns, 16 work items); Project Frontier READY for reconciliation
-  - Publication replay stable; stale CAS and mixed acceptance identity rejected without changing published bytes
-  - Initial documentation structure committed to main
-  - Initial repository CI on main completed successfully
-  - Main ruleset active with pull request and squash-only, deletion and non-fast-forward protection
-  - Administrator ruleset bypass now disabled (inspected 2026-10-16)
-  - Operator reported Harness synthetic smoke PASS (pinned SHA; READY/CREATE; zero doctor errors)
-  - Operator reported pinned CoderMind installation, version, script listing and scratch init PASS; no RPG/codegen attempted
-  - Codex executable present in operator PATH; live authentication and exact model response verified by operator
-  - Operator reported structural CoderMind Codex PR96 smoke PASS, including package source SHA, scratch skills/MCP and session stdin
-  - Operator reported CoderMind LLMClient -> CodexSessionManager -> Codex CLI exact model-response PASS
-  - Operator reported synthetic RPG Phase 1 completed: feature_spec, feature_build and feature_tree files exist
-  - Operator reported synthetic skeleton.json and rpg.json files exist; content and skeleton checker logs not independently examined
-  - Operator reported local export of five RPG artifacts and checksum manifest; pushed at b20a93b
-  - Independently verified five JSON SHA256 hashes and source requirements hash against manifest
-  - Independently reconciled 31 RPG nodes and all 18 leaf assignments; six source requirements represented as design intent, not executable contracts
-  - Operator-reported Harness Consumer routing preflight PASS on pinned SHA; 3 public operations and 5 artifact skills resolve; no workflow or model call
-  - Operator-reported Harness Consumer Pack v1 validated at pinned SHA; all nine operation/artifact routes resolve; Maintainer route unavailable; no agent workflow or model call
-  - Operator-reported first agent Harness intake run produced candidate evidence/graph/core/questions; independently reviewed from GitHub commit 4a82dbe; research run PASS WITH LIMITATIONS, no semantic acceptance or Checker implementation
-  - Independent review of raw Harness outputs confirms target READY (CREATE checker.problem; 4 PENDING), 21 activated coverage concerns, completion_ready false, 23 Authorities UNASSESSED and no full Project Frontier
+  - "checker.problem CURRENT; acceptance and lifecycle unchanged"
+  - "checker.requirements CURRENT: 13 current product obligations; inactive requirements deleted from canonical artifact"
+  - "checker.domain-use-case BLOCKED by Q-DV-001 (accepted Strategic Domain ownership)"
+  - "checker.verification-strategy BLOCKED by Q-DV-002 (accepted matching semantics and independent oracle)"
+  - "Full product subject inventory and implementation are not accepted"
 evidence:
-  checker_requirements_reviewed_revision: experiments/runs/harness-requirements-revision-v1/README.md
-  checker_requirements_reviewed_admission: experiments/runs/harness-requirements-revision-v1/semantic-admission.yaml
-  checker_domain_verification_run: experiments/runs/harness-domain-verification-v1/README.md
-  checker_domain_verification_questions: .harness/project-publication.yaml
-  checker_domain_verification_delegation: docs/scenario/domain-verification-delegation.md
-  checker_requirements_current_run: experiments/runs/harness-requirements-current-v1/README.md
-  checker_requirements_canonical: .harness/knowledge/checker-requirements.yaml
-  checker_current_publication_revision: sha256:8f5dc04d1b76ce6c347b63c796935465b84db72bb1b3623969c90ae7a89af2f5
-  checker_first_slice_owner_decision: docs/scenario/first-slice-product-decision.md
-  checker_requirements_run: experiments/runs/harness-requirements-v1/README.md
-  checker_requirements_blocked_publication_revision: sha256:b252cfbe6ef33d213aa0c6919a463fa31e891075a1ba0e7d191a8ae2ad010fb8
-  checker_scope_reconciliation: docs/scenario/checker-scope-reconciliation.yaml
-  checker_product_requirements_delegation: docs/scenario/product-requirements-delegation.md
-  harness_reconciliation_run: experiments/runs/harness-reconcile-v1/README.md
-  checker_problem_current_run: experiments/runs/harness-current-v1/run-report.md
-  checker_problem_publication: .harness/project-publication.yaml
-  checker_problem_admission_publication_revision: sha256:1833adfec5d5a3f2f288da75762cf6efb32f4d154ca70903f11a8485319b769d
-  harness_smoke: docs/research/p1-harness-spike.md
-  harness_consumer_routing_preflight: docs/research/task-004-harness-consumer-preflight.md
-  harness_consumer_pack_preflight: docs/research/task-004-harness-consumer-pack.md
-  harness_agent_intake_operator_report: docs/research/task-004-harness-agent-pilot.md
-  harness_agent_intake_independent_review: docs/research/task-004-harness-agent-review.md
-  checker_owner_problem_decision: docs/scenario/problem-framing-decision.md
-  checker_discovery_authority_delegation: docs/scenario/discovery-authority-delegation.md
-  harness_agent_intake_snapshot_commit: 4a82dbedfdf82baf681cf58d3396fd4ed398a909
-  harness_agent_intake_local_directory: experiments/runs/harness-intake-v1
-  harness_consumer_pack_local_path: ~/.cache/harness/v1/442db854c3a736a5e500b4a41664b80981b0d94c
-  harness_consumer_routing_run_directory: ~/.cache/agentic-checker-lab/runs/harness-consumer-routing.VC4o2g
-  observed_harness_sha: 442db854c3a736a5e500b4a41664b80981b0d94c
-  observed_run_directory: ~/.cache/agentic-checker-lab/runs/harness-smoke.Wjk5zq
-  cmind_preflight: docs/research/p1-cmind-preflight.md
-  observed_cmind_sha: a4e6966c4ff59d84299bc56d6a47ae1f4f7b2885
-  cmind_run_directory: ~/.cache/agentic-checker-lab/runs/cmind-preflight.BeK5yl
-  codex_pr96_smoke: docs/research/p1-codex-pr96.md
-  codex_pr96_run_directory: ~/.cache/agentic-checker-lab/runs/codex-pr96.fkqjWi
-  codex_live_probe: docs/research/p1-codex-live.md
-  codex_live_run_directory: ~/.cache/agentic-checker-lab/runs/codex-live.Vzhj33
-  synthetic_rpg_phase1: docs/research/p1-synthetic-rpg.md
-  synthetic_rpg_data_dir: ~/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-rpg-synthetic-v1-workspace/data
-  synthetic_rpg_export_dir: experiments/runs/rpg-synthetic-v1
-  synthetic_rpg_independent_review: docs/research/p1-synthetic-rpg-review.md
-  synthetic_rpg_snapshot_commit: b20a93b7377471fc553298128b613ee38726f8b9
-observed_rule_gaps:
-  - Required status checks rule exists but has an empty required_status_checks list as inspected; add repository/check in Settings
-not_verified:
-  - Independent inspection of Harness smoke raw JSON in the operator environment
-  - Two consecutive successful runs of the corrected Harness script
-  - Independent executable behavior for R-SYN-01..06 (no code exists)
-  - CoderMind data-flow/interface/task-planning and code generation stages
-  - Standalone typed requirement-to-RPG provenance and test links
-  - Full target Checker specification and independent matching oracle; first-slice Product Requirements are CURRENT after revision
-  - Checker implementation
-  - Four-arm comparative evaluation
-  - Full Harness project-bootstrap reconciliation, accepted project-owned Authority applicability, subject inventory and coverage completion
-git_branch_protection: RULESET_ACTIVE_NO_BYPASS_REQUIRED_CHECKS_NOT_CONFIGURED
+  canonical_requirements: .harness/knowledge/checker-requirements.yaml
+  canonical_publication: .harness/project-publication.yaml
+  publication_revision: sha256:8f5dc04d1b76ce6c347b63c796935465b84db72bb1b3623969c90ae7a89af2f5
+  first_slice_decision: docs/scenario/first-slice-product-decision.md
+  domain_verification_delegation: docs/scenario/domain-verification-delegation.md
 toolchain: tooling/versions.yaml
-
-experimental_candidates:
-  - microsoft/RPG-ZeroRepo#96 at 3303a222eaec42c6a178bddd46ad63d9026ab8fa (open, live model call and initial synthetic forward RPG accepted with limitations)
+git_branch_protection: RULESET_ACTIVE_NO_BYPASS_REQUIRED_CHECKS_NOT_CONFIGURED
