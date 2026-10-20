@@ -1,0 +1,43 @@
+{
+  "success": true,
+  "type": "final_test",
+  "passed": 197,
+  "failed": 0,
+  "errors": 0,
+  "skipped": 0,
+  "duration": 5.16,
+  "output": "",
+  "next_action": "All tests passed! The repository is ready.",
+  "smoke_test": {
+    "success": true,
+    "type": "smoke_test",
+    "project_type": "python",
+    "duration": 0.3,
+    "layers": {
+      "imports": {
+        "total_files": 26,
+        "importable": 26,
+        "failed": 0,
+        "failures": [],
+        "passed": true
+      },
+      "entry_point": {
+        "exists": true,
+        "help_works": true,
+        "help_length": 1065,
+        "startup_error": null,
+        "passed": true
+      },
+      "stubs": {
+        "total_files": 26,
+        "stub_count": 0,
+        "placeholder_count": 0,
+        "stubs": [],
+        "passed": true
+      }
+    },
+    "findings": [],
+    "error_count": 0,
+    "warning_count": 0
+  }
+}

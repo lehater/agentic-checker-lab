@@ -1,0 +1,109 @@
+version: 1
+kind: harness-decision-explorer-request
+capability: checker.architecture
+knowledge_kind: system-architecture
+authority: SYSTEM-ARCHITECTURE
+mode: CREATE
+accepted_prerequisites:
+  checker.domain: checker-v1-2abd3a6fff3ad8b58bfabf3e
+  checker.requirements: checker-v1-db81ca67ab2f91e4b14806ff
+canonical_inputs:
+- id: domain
+  authority: DOMAIN-USE-CASE-DESIGN
+  path: docs/checker/domain.md
+  provides:
+  - checker.domain
+- id: requirements
+  authority: PRODUCT-REQUIREMENTS
+  path: .harness/knowledge/requirements.yaml
+  provides:
+  - checker.requirements
+downstream_consumers:
+- kind: consumer
+  consumer: CHECKER-PROTOTYPE
+  capabilities:
+  - checker.architecture
+- kind: production
+  consumer: checker.interface
+  authority: MACHINE-INTERFACE-DESIGN
+  capabilities:
+  - checker.architecture
+- kind: production
+  consumer: checker.policy
+  authority: ENGINEERING-POLICY
+  capabilities:
+  - checker.architecture
+axes:
+- axis: runtime-boundaries
+  exploration: EXPLORE
+  material_dimensions:
+  - runtime-count
+  - process-boundary
+  - independent-deployment
+  challenge_strategies:
+  - merge-vs-split
+  - boundary-shift
+  - independent-deployment-perturbation
+  minimum_probes: 2
+- axis: deployment-topology
+  exploration: EXPLORE
+  material_dimensions:
+  - deployable-count
+  - colocation
+  - scaling-boundary
+  challenge_strategies:
+  - co-locate-vs-separate
+  - scaling-perturbation
+  - deployment-boundary-shift
+  minimum_probes: 2
+- axis: interaction-model
+  exploration: EXPLORE
+  material_dimensions:
+  - sync-async
+  - protocol-boundary
+  - coupling
+  challenge_strategies:
+  - sync-vs-async
+  - adapter-substitution
+  - transport-boundary-shift
+  minimum_probes: 2
+- axis: state-placement
+  exploration: EXPLORE
+  material_dimensions:
+  - source-of-truth
+  - state-locality
+  - replication
+  challenge_strategies:
+  - move-source-of-truth
+  - cache-vs-canonical
+  - replication-perturbation
+  minimum_probes: 2
+- axis: dependency-direction
+  exploration: EXPLORE
+  material_dimensions:
+  - dependency-owner
+  - inversion-boundary
+  - framework-coupling
+  challenge_strategies:
+  - reverse-dependency
+  - invert-port
+  - framework-coupling-perturbation
+  minimum_probes: 2
+- axis: failure-isolation
+  exploration: EXPLORE
+  material_dimensions:
+  - failure-domain
+  - containment-boundary
+  - fallback
+  challenge_strategies:
+  - collapse-failure-boundary
+  - isolate-failure-boundary
+  - dependency-outage-perturbation
+  minimum_probes: 2
+forbidden_inputs:
+- future_candidate
+- decision_review
+- preferred_solution
+- selected_solution
+- write_set
+request_id: sha256:475ff44b22111b3be4e10619435d5201b49c7d3dc9cd8049829ac843d1fffa71

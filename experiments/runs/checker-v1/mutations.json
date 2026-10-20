@@ -1,0 +1,420 @@
+{
+  "status": "PASS",
+  "original_source_unchanged": true,
+  "results": [
+    {
+      "mutation": "baseline",
+      "status": "PASS",
+      "cases": [
+        {
+          "case": "SC-ALL",
+          "expected": [
+            "z-deny",
+            "a-permit"
+          ],
+          "actual": [
+            "z-deny",
+            "a-permit"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-UDP",
+          "expected": [
+            "a-permit",
+            "udp-only"
+          ],
+          "actual": [
+            "a-permit",
+            "udp-only"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-SOURCE-OUTSIDE",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-DPORT-LOW",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-DPORT-HIGH",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        }
+      ]
+    },
+    {
+      "mutation": "always_true",
+      "status": "DETECTED",
+      "cases": [
+        {
+          "case": "SC-ALL",
+          "expected": [
+            "z-deny",
+            "a-permit"
+          ],
+          "actual": [
+            "z-deny",
+            "a-permit",
+            "wrong-source",
+            "udp-only"
+          ],
+          "matches": false
+        },
+        {
+          "case": "SC-UDP",
+          "expected": [
+            "a-permit",
+            "udp-only"
+          ],
+          "actual": [
+            "z-deny",
+            "a-permit",
+            "wrong-source",
+            "udp-only"
+          ],
+          "matches": false
+        },
+        {
+          "case": "SC-SOURCE-OUTSIDE",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "z-deny",
+            "a-permit",
+            "wrong-source",
+            "udp-only"
+          ],
+          "matches": false
+        },
+        {
+          "case": "SC-DPORT-LOW",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "z-deny",
+            "a-permit",
+            "wrong-source",
+            "udp-only"
+          ],
+          "matches": false
+        },
+        {
+          "case": "SC-DPORT-HIGH",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "z-deny",
+            "a-permit",
+            "wrong-source",
+            "udp-only"
+          ],
+          "matches": false
+        }
+      ]
+    },
+    {
+      "mutation": "always_false",
+      "status": "DETECTED",
+      "cases": [
+        {
+          "case": "SC-ALL",
+          "expected": [
+            "z-deny",
+            "a-permit"
+          ],
+          "actual": [],
+          "matches": false
+        },
+        {
+          "case": "SC-UDP",
+          "expected": [
+            "a-permit",
+            "udp-only"
+          ],
+          "actual": [],
+          "matches": false
+        },
+        {
+          "case": "SC-SOURCE-OUTSIDE",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [],
+          "matches": false
+        },
+        {
+          "case": "SC-DPORT-LOW",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [],
+          "matches": false
+        },
+        {
+          "case": "SC-DPORT-HIGH",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [],
+          "matches": false
+        }
+      ]
+    },
+    {
+      "mutation": "exclusive_ports",
+      "status": "DETECTED",
+      "cases": [
+        {
+          "case": "SC-ALL",
+          "expected": [
+            "z-deny",
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": false
+        },
+        {
+          "case": "SC-UDP",
+          "expected": [
+            "a-permit",
+            "udp-only"
+          ],
+          "actual": [
+            "a-permit",
+            "udp-only"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-SOURCE-OUTSIDE",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-DPORT-LOW",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [],
+          "matches": false
+        },
+        {
+          "case": "SC-DPORT-HIGH",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [],
+          "matches": false
+        }
+      ]
+    },
+    {
+      "mutation": "first_only",
+      "status": "DETECTED",
+      "cases": [
+        {
+          "case": "SC-ALL",
+          "expected": [
+            "z-deny",
+            "a-permit"
+          ],
+          "actual": [
+            "z-deny"
+          ],
+          "matches": false
+        },
+        {
+          "case": "SC-UDP",
+          "expected": [
+            "a-permit",
+            "udp-only"
+          ],
+          "actual": [
+            "a-permit",
+            "udp-only"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-SOURCE-OUTSIDE",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-DPORT-LOW",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-DPORT-HIGH",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        }
+      ]
+    },
+    {
+      "mutation": "sort_by_id",
+      "status": "DETECTED",
+      "cases": [
+        {
+          "case": "SC-ALL",
+          "expected": [
+            "z-deny",
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit",
+            "z-deny"
+          ],
+          "matches": false
+        },
+        {
+          "case": "SC-UDP",
+          "expected": [
+            "a-permit",
+            "udp-only"
+          ],
+          "actual": [
+            "a-permit",
+            "udp-only"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-SOURCE-OUTSIDE",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-DPORT-LOW",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-DPORT-HIGH",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        }
+      ]
+    },
+    {
+      "mutation": "permit_only",
+      "status": "DETECTED",
+      "cases": [
+        {
+          "case": "SC-ALL",
+          "expected": [
+            "z-deny",
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": false
+        },
+        {
+          "case": "SC-UDP",
+          "expected": [
+            "a-permit",
+            "udp-only"
+          ],
+          "actual": [
+            "a-permit",
+            "udp-only"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-SOURCE-OUTSIDE",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-DPORT-LOW",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        },
+        {
+          "case": "SC-DPORT-HIGH",
+          "expected": [
+            "a-permit"
+          ],
+          "actual": [
+            "a-permit"
+          ],
+          "matches": true
+        }
+      ]
+    }
+  ]
+}

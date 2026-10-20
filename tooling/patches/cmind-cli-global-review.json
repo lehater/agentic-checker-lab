@@ -1,0 +1,14 @@
+{
+  "base_revision": "3303a222eaec42c6a178bddd46ad63d9026ab8fa",
+  "patch_sha256": "eed84b7f3d2f206d9eb3ad15e58bff96e73c6f7bf777d35ed7c13eac62597ded",
+  "files": {
+    "core_pack/scripts/code_gen/global_review.py": {
+      "base_sha256": "ce3d4be31c6264eaff46f636310717beb47d36d46630f7e0e25584ff72662003",
+      "patched_sha256": "c7a1270c7b792824df2f813e06f821e31d49f1d65a9e21bcb8713dbcedfceaeb"
+    },
+    "core_pack/scripts/run_batch.py": {
+      "base_sha256": "9d74ca522f2f66372a3d2e5e628351312d1997980a55b7d08851400aee76053e",
+      "patched_sha256": "b61d3cf632964401beccac5e881bbd257efab4bab5e78bc7abad00e851e4d4ab"
+    }
+  }
+}

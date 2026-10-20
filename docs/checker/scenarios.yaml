@@ -1,0 +1,96 @@
+# Independent expectations authored before any implementation or RPG generation.
+version: 1
+scope: synthetic-checker
+trace: [VC-INPUT, VC-MATCH, VC-CONTEXT, VC-EMPTY, DOM-1, DOM-2]
+base:
+  flow: {source: 10.0.0.1, destination: 192.0.2.10, protocol: tcp, source_port: 50000, destination_port: 443}
+  relevance:
+    - {device: fw-a, acl: outside}
+    - {device: fw-a, acl: inside}
+    - {device: fw-b, acl: global}
+    - {device: fw-a, acl: outside}
+  snapshots:
+    - device: fw-a
+      acl: outside
+      placements: [{interface: wan0, direction: in}]
+      rules:
+        - {id: z-deny, source: 10.0.0.0/24, destination: 192.0.2.10/32, protocol: tcp, source_ports: [50000, 50000], destination_ports: [443, 443], action: deny}
+        - {id: a-permit, source: 0.0.0.0/0, destination: 192.0.2.0/24, protocol: any, source_ports: [0, 65535], destination_ports: [440, 450], action: permit}
+        - {id: wrong-source, source: 10.0.1.0/24, destination: 0.0.0.0/0, protocol: any, source_ports: [0, 65535], destination_ports: [0, 65535], action: permit}
+    - device: fw-a
+      acl: inside
+      placements: [{interface: lan0, direction: out}]
+      rules: []
+    - device: fw-b
+      acl: global
+      placements: [{global: true}]
+      rules:
+        - {id: udp-only, source: 0.0.0.0/0, destination: 0.0.0.0/0, protocol: udp, source_ports: [0, 65535], destination_ports: [0, 65535], action: permit}
+    - device: irrelevant
+      acl: unused
+      placements: []
+      rules: []
+cases:
+  - id: SC-ALL
+    changes: {}
+    expected_groups:
+      - {device: fw-a, acl: outside, status: MATCHES, rules: [z-deny, a-permit], actions: [deny, permit]}
+      - {device: fw-a, acl: inside, status: NO_MATCH, rules: [], actions: []}
+      - {device: fw-b, acl: global, status: NO_MATCH, rules: [], actions: []}
+    reason: All matching actions remain, snapshot order differs from ID order, contexts distinct, duplicate relevance removed.
+  - id: SC-UDP
+    changes: {flow.protocol: udp}
+    expected_rule_ids: [a-permit, udp-only]
+    reason: Protocol mismatch excludes tcp rule while any and udp match.
+  - id: SC-SOURCE-NET-LOW
+    changes: {flow.source: 10.0.0.0}
+    expected_rule_ids: [z-deny, a-permit]
+    reason: Low network boundary included; address matching is not hosts allocation.
+  - id: SC-SOURCE-NET-HIGH
+    changes: {flow.source: 10.0.0.255}
+    expected_rule_ids: [z-deny, a-permit]
+    reason: High network boundary included.
+  - id: SC-SOURCE-OUTSIDE
+    changes: {flow.source: 10.0.2.1}
+    expected_rule_ids: [a-permit]
+    reason: Source field constrains exact network rule.
+  - id: SC-DEST-OUTSIDE
+    changes: {flow.destination: 198.51.100.10}
+    expected_rule_ids: []
+    reason: Destination field constrains both matching rules.
+  - id: SC-SPORT-BELOW
+    changes: {flow.source_port: 49999}
+    expected_rule_ids: [a-permit]
+    reason: Source port not ignored.
+  - id: SC-SPORT-ABOVE
+    changes: {flow.source_port: 50001}
+    expected_rule_ids: [a-permit]
+    reason: Upper bound of exact port enforced.
+  - id: SC-DPORT-LOW
+    changes: {flow.destination_port: 440}
+    expected_rule_ids: [a-permit]
+    reason: Inclusive lower destination port bound.
+  - id: SC-DPORT-HIGH
+    changes: {flow.destination_port: 450}
+    expected_rule_ids: [a-permit]
+    reason: Inclusive upper destination port bound.
+  - id: SC-DPORT-OUTSIDE
+    changes: {flow.destination_port: 451}
+    expected_rule_ids: []
+    reason: Beyond inclusive range.
+  - id: SC-MISSING
+    remove_snapshot: {device: fw-a, acl: outside}
+    expected_error: true
+    reason: Missing snapshot must not be NO_MATCH.
+  - id: SC-IPV6
+    changes: {flow.source: '::1'}
+    expected_error: true
+    reason: IPv6 unsupported in selected prototype.
+  - id: SC-BAD-PORT
+    changes: {flow.source_port: 65536}
+    expected_error: true
+    reason: Port outside supported bounds.
+  - id: SC-UNSUPPORTED-PREDICATE
+    add_rule_field: {negate: true}
+    expected_error: true
+    reason: No silent approximation of unknown predicates.

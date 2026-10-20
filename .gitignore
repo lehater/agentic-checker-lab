@@ -22,3 +22,5 @@ coverage/
 *.log
 .DS_Store
 # Accepted run manifests and sanitized graph snapshots under experiments/ are versioned explicitly.
+
+.harness/.*.lock

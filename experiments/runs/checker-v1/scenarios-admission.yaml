@@ -1,0 +1,51 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: scenarios
+capability: checker.scenarios
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted: []
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: acceptance-scenarios
+  skill: skills/artifacts/acceptance-scenarios/SKILL.md
+  acceptance_id: checker-v1-c68eab9966725eeff1fee4ac
+  authority: VERIFICATION-DESIGN
+  allowed_source_authorities:
+  - DOMAIN-USE-CASE-DESIGN
+  - VERIFICATION-DESIGN
+  changed_paths:
+  - docs/checker/scenarios.yaml
+  canonical_references:
+  - referenced_path: .harness/knowledge/verification.yaml
+  - referenced_path: docs/checker/domain.md
+  accepted_prerequisites: &id001
+    checker.verification: checker-v1-97d0c4a132c300df6c9b018b
+    checker.domain: checker-v1-2abd3a6fff3ad8b58bfabf3e
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:cc1c615818b9d967ad278e5b7bf045f8dcb1c93bb1bfd69f85430bc1791e752c
+  acceptance_policy_fingerprint: sha256:cc1c615818b9d967ad278e5b7bf045f8dcb1c93bb1bfd69f85430bc1791e752c
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: scenarios
+  capability: checker.scenarios
+  acceptance_id: checker-v1-c68eab9966725eeff1fee4ac
+  acceptance_policy_fingerprint: sha256:cc1c615818b9d967ad278e5b7bf045f8dcb1c93bb1bfd69f85430bc1791e752c
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    SCENARIOS: SAF-c6b4bb26b78d3a2a15cf224353fdb9e2ec1ae80bb94ade7e1abf2dcf52d141c3

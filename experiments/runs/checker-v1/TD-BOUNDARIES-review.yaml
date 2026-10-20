@@ -1,0 +1,20 @@
+version: 1
+kind: harness-test-realization-semantic-review
+status: ACCEPTED
+checks:
+- executable-correspondence
+reviewer: Engineering agent; reviewed executable assertions against accepted Test
+  Design, not isolated external attestation
+binding_reviews:
+- binding: TD-BOUNDARIES-OP-BOUNDARY
+  status: ACCEPTED
+  rationale: Nine executed methods cover text output, malformed JSON and unsupported/duplicate/missing
+    inputs, valid repeated rule IDs across ACLs, help/required input, static transitive
+    imports, runtime dependency inventory and injected sources.
+- binding: TD-BOUNDARIES-OR-BOUNDARY
+  status: ACCEPTED
+  rationale: Assertions check required text details and order; explicit errors and
+    empty stdout; strict negative field cases; empty relevance success; inward import
+    direction and stdlib-only runtime; actual source callback arguments, ordered deduplicated
+    results, unchanged inputs and propagated programming errors. These assertions
+    implement VC-ARCH and VC-IF without prescribing private lookup scheduling.

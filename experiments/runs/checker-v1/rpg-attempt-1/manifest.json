@@ -1,0 +1,24 @@
+{
+  "status": "EXPORTED_FOR_SEMANTIC_REVIEW",
+  "cmind_revision": "3303a222eaec42c6a178bddd46ad63d9026ab8fa",
+  "workspace": "/home/alex/.cache/agentic-checker-lab/runs/checker-v1/workspace",
+  "data_directory": "/home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data",
+  "bridge_sha256": "f118044fa056a01e312cffaa1b47b6f7fb827ffb4a78b79c0279ee26e410605a",
+  "files": {
+    "base_classes.json": "9c8cf4909fa788f3bfe4d7f2caa57b182f04992e8ed2633d7e578ca49242d203",
+    "data_flow.json": "c35d3f391f4b0d166234778699045a044283db918d0172175e2062c46a1434f7",
+    "feature-construct.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "feature-construct.stdout": "dc32947c348c87e7530fc6efd9fd51c205e5945e41fde604b6ba55234fde0b74",
+    "feature_build.json": "2064f4c3c56e99ab76d3dbbd56134bf0ba6a8e77758be8171c38c472a790be30",
+    "feature_spec.json": "7ef72e6d7e4432b193748de308545a8a38a80d8bb2fd67e8f16f5cab3d39ab06",
+    "feature_tree.json": "026cbbf5f50b30da23e479a62bca3317a40e045dee06982eafd5dad46dfeb00c",
+    "interfaces.json": "82d7a2229109bddf6c61172ffcfdc6f39227bce8ae04e6631b20b10eb01f0af0",
+    "plan.stderr": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "plan.stdout": "9ef6ce61cb324d08a8749f880688bdee596dd74e66a200ed03ace26860ed02be",
+    "rpg.json": "2865be27161f3c5d643166bf2238ed4727057ee04dcacd817c0e05058bd65e67",
+    "skeleton.json": "4787fc0ca1661d7455dab5ab998860c470fcef50bb9cf1c2adbe328a64c43bf2",
+    "tasks.json": "e424420e0c8f15cc985db49af22eb4e0b0b240cf4a4f2c5fb1f2cf7648de8242"
+  },
+  "model_cost": null,
+  "model_cost_note": "No verified billing/token counters available."
+}

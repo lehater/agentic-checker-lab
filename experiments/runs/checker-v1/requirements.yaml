@@ -1,0 +1,131 @@
+knowledge_kind: product-requirements
+depends_on:
+- problem
+candidate:
+  id: requirements
+  path: .harness/knowledge/requirements.yaml
+  capability: checker.requirements
+  canonical_references:
+  - referenced_path: docs/checker/problem.md
+  semantic_assertions:
+  - id: REQ-CHECKER-101
+    kind: product-requirement
+    subject: REQ-CHECKER-101
+    semantic_value: 'Оператор задаёт один конкретный поток: IP источника и получателя,
+      протокол и порты источника и получателя.'
+    decision_authority: PRODUCT-REQUIREMENTS
+    derived_from:
+    - PE-1
+  - id: REQ-CHECKER-102
+    kind: product-requirement
+    subject: REQ-CHECKER-102
+    semantic_value: 'Checker использует результат отдельного источника релевантности
+      по двум IP: пары устройство/ACL, сохраняя сведения о местах применения; несколько
+      ACL одного устройства различаются.'
+    decision_authority: PRODUCT-REQUIREMENTS
+    derived_from:
+    - PE-1
+  - id: REQ-CHECKER-103
+    kind: product-requirement
+    subject: REQ-CHECKER-103
+    semantic_value: Для релевантных пар Checker показывает все подходящие сохранённые
+      правила, с их сведениями и action, группируя по устройству/ACL и сохраняя порядок
+      строк снимка каждого ACL.
+    decision_authority: PRODUCT-REQUIREMENTS
+    derived_from:
+    - PE-1
+  - id: REQ-CHECKER-104
+    kind: product-requirement
+    subject: REQ-CHECKER-104
+    semantic_value: Checker явно сообщает отсутствие совпадений и не вычисляет общий
+      end-to-end permit/deny verdict.
+    decision_authority: PRODUCT-REQUIREMENTS
+    derived_from:
+    - PE-1
+  semantic_review:
+    status: ACCEPTED
+    checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - observable-product-level
+    - no-downstream-design-promotion
+    - product-requirement-boundary-review
+    reviewer: Engineering agent under current owner assignment
+    record: .harness/knowledge/requirements.yaml
+    rationale: Проверены новая постановка и Problem Evidence, без использования прежних
+      admissions. Четыре изменяемых обязательства; поля/порядок/action не дробятся
+      в REQ. Предикаты, стек и oracle не повышены до продуктовых требований.
+    source_dispositions:
+    - source: brief:traffic-query
+      disposition: PRODUCT_REQUIREMENT
+      assertions:
+      - REQ-CHECKER-101
+      rationale: Один целостный входной контракт; поля не отдельные обязательства.
+    - source: brief:relevance
+      disposition: PRODUCT_REQUIREMENT
+      assertions:
+      - REQ-CHECKER-102
+      rationale: Определяет охват поиска независимо от правил matching.
+    - source: brief:stored-evidence
+      disposition: PRODUCT_REQUIREMENT
+      assertions:
+      - REQ-CHECKER-103
+      rationale: 'Единый выходной контракт: полнота совпадений, принадлежность и порядок
+        — его грани.'
+    - source: brief:interpretation-boundary
+      disposition: PRODUCT_CONSTRAINT
+      assertions:
+      - REQ-CHECKER-104
+      rationale: Отдельное ограничение интерпретации, которое может меняться независимо
+        от представления правил.
+    - source: brief:manual-search
+      disposition: CONTEXT
+      assertions: []
+      rationale: Объясняет потребность, не новая функция.
+    - source: brief:snapshot-attachments
+      disposition: ACCEPTANCE_CRITERION
+      assertions: []
+      rationale: Контекст нескольких ACL и interface/global placements уточняет REQ-102/103.
+    - source: brief:future-routing
+      disposition: DOWNSTREAM_DECISION
+      assertions: []
+      rationale: Потенциальная транзитность не является доказанным маршрутом.
+    - source: brief:acl-predicates
+      disposition: DOWNSTREAM_DECISION
+      assertions: []
+      rationale: Владелец поручил разработчику минимальный поддерживаемый набор; доменная
+        детализация отдельно.
+    - source: brief:prototype-synthetic
+      disposition: NON_GOAL
+      assertions: []
+      rationale: Можно синтетические источники; live сборщик и промышленный стек не
+        обязательны.
+    - source: brief:independent-checks
+      disposition: VERIFICATION_OBLIGATION
+      assertions: []
+      rationale: 'Передать Verification Design: независимые ожидания и фактические
+        запуски.'
+    - source: brief:language-interface-modules
+      disposition: DOWNSTREAM_DECISION
+      assertions: []
+      rationale: Выбор архитектуры и интерфейса делается соответствующими Authorities.
+    requirement_classifications:
+    - assertion: REQ-CHECKER-101
+      role: PRODUCT_BEHAVIOR
+      obligation: traffic-query
+      rationale: Один целостный входной контракт; поля не отдельные обязательства.
+    - assertion: REQ-CHECKER-102
+      role: PRODUCT_BEHAVIOR
+      obligation: relevance
+      rationale: Определяет охват поиска независимо от правил matching.
+    - assertion: REQ-CHECKER-103
+      role: PRODUCT_BEHAVIOR
+      obligation: stored-evidence
+      rationale: 'Единый выходной контракт: полнота совпадений, принадлежность и порядок
+        — его грани.'
+    - assertion: REQ-CHECKER-104
+      role: PRODUCT_CONSTRAINT
+      obligation: interpretation-boundary
+      rationale: Отдельное ограничение интерпретации, которое может меняться независимо
+        от представления правил.

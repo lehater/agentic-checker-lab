@@ -1,0 +1,79 @@
+{
+  "status": "PASS",
+  "pin": "1c31054a8c4af223dc1bb003175c1fbe3f0538d6",
+  "publication_revision": "sha256:eedbce16938e6296805b4100a82a2992f915aa08d54d05f4be46a1ea6270d9ae",
+  "currentness": {
+    "checker.problem": {
+      "state": "CURRENT",
+      "capability": "checker.problem",
+      "artifact": "problem",
+      "acceptance_id": "checker-v1-34317db9923f9f5cd13831e1"
+    },
+    "checker.requirements": {
+      "state": "CURRENT",
+      "capability": "checker.requirements",
+      "artifact": "requirements",
+      "acceptance_id": "checker-v1-db81ca67ab2f91e4b14806ff"
+    },
+    "checker.domain": {
+      "state": "CURRENT",
+      "capability": "checker.domain",
+      "artifact": "domain",
+      "acceptance_id": "checker-v1-2abd3a6fff3ad8b58bfabf3e"
+    },
+    "checker.verification": {
+      "state": "CURRENT",
+      "capability": "checker.verification",
+      "artifact": "verification",
+      "acceptance_id": "checker-v1-97d0c4a132c300df6c9b018b"
+    },
+    "checker.scenarios": {
+      "state": "CURRENT",
+      "capability": "checker.scenarios",
+      "artifact": "scenarios",
+      "acceptance_id": "checker-v1-c68eab9966725eeff1fee4ac"
+    },
+    "checker.architecture": {
+      "state": "CURRENT",
+      "capability": "checker.architecture",
+      "artifact": "architecture",
+      "acceptance_id": "checker-v1-13b83a49054471c3b217f865"
+    },
+    "checker.interface": {
+      "state": "CURRENT",
+      "capability": "checker.interface",
+      "artifact": "interface",
+      "acceptance_id": "checker-v1-7a5af9fc5faa417f2ed58f7d"
+    },
+    "checker.policy": {
+      "state": "CURRENT",
+      "capability": "checker.policy",
+      "artifact": "policy",
+      "acceptance_id": "checker-v1-bb39846d836179a7c699b5a8"
+    },
+    "checker.components": {
+      "state": "CURRENT",
+      "capability": "checker.components",
+      "artifact": "components",
+      "acceptance_id": "checker-v1-6f2fc74984ddb072caf02e66"
+    },
+    "checker.technical-verification": {
+      "state": "CURRENT",
+      "capability": "checker.technical-verification",
+      "artifact": "technical-verification",
+      "acceptance_id": "checker-v1-be855fbf59477999d026a06b"
+    },
+    "checker.tests": {
+      "state": "CURRENT",
+      "capability": "checker.tests",
+      "artifact": "tests",
+      "acceptance_id": "checker-v1-9fd21c4fa0513cf8bf25f5ab"
+    }
+  },
+  "negative_checks": {
+    "stale-CAS": "project publication compare-and-swap failed: expected sha256:0000000000000000000000000000000000000000000000000000000000000000, current sha256:eedbce16938e6296805b4100a82a2992f915aa08d54d05f4be46a1ea6270d9ae",
+    "false-acceptance-identity": "publication acceptance identity mismatch for checker.problem"
+  },
+  "fixed_expected_cases_unchanged": true,
+  "scope": "pre-code engineering contracts at original bridge revision; not implementation readiness"
+}

@@ -1,0 +1,15 @@
+{
+  "status": "REALIZED_SOURCE_BOUND",
+  "cmind_base_revision": "3303a222eaec42c6a178bddd46ad63d9026ab8fa",
+  "planning_snapshot": "experiments/runs/checker-v1/rpg-context-1",
+  "native_source_commit": "956fd748da803bfa3031a7acc9debc64e3b2bf22",
+  "feature_inventory": {
+    "planned": 50,
+    "realized": 50,
+    "identities_and_names_unchanged": true
+  },
+  "files": {
+    "code_gen_state.jsonl": "d0807649db4d14130a506b947e57af61a28328589cbbc48c70b11d569b15f821",
+    "rpg.json": "ae629438ba51033b872292cf5536714da32ae67343ff55e5b911054a871752cd"
+  }
+}

@@ -1,0 +1,8 @@
+[
+  {
+    "test": "test_checker_acceptance.CheckerAcceptance.test_precode_scenarios",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.690s\n\nOK\n"
+  }
+]

@@ -1,0 +1,45 @@
+version: 1
+kind: harness-knowledge-artifact
+artifact: tests
+title: Checker Test Design
+schema: test-design/v1
+content:
+  purpose: Executable public contracts from pre-code expectations, independent of
+    implementation.
+  tests:
+  - id: TD-BEHAVIOR
+    verification_refs:
+    - VC-INPUT
+    - VC-MATCH
+    - VC-CONTEXT
+    - VC-EMPTY
+    precondition: docs/checker/scenarios.yaml fixed cases; input serialized per IF-1.
+    operation: Run every scenario against the public CLI as an isolated process, with
+      JSON output.
+    oracle: Compare fixed expected IDs, actions, groups/status, complete original
+      fields, placements, no verdict; errors exit 2 with empty stdout.
+    operation_obligations:
+    - id: OP-SCENARIOS
+      description: Execute all pre-code scenarios through CLI.
+    oracle_obligations:
+    - id: OR-SCENARIOS
+      description: Assert fixed expected groups/IDs/actions and failure outcomes;
+        preserve input fields and placements.
+  - id: TD-BOUNDARIES
+    verification_refs:
+    - VC-ARCH
+    - VC-IF
+    precondition: Accepted IF-1 and ARCH-1/POL-1; local synthetic fixture.
+    operation: Run text and JSON CLI, malformed JSON and shape/unsupported/absent
+      data cases; inspect inner module imports.
+    oracle: Text shows groups/rules/placements; JSON shape matches contract; bad data
+      never becomes success; inner modules do not import outer adapters or network/filesystem
+      modules.
+    operation_obligations:
+    - id: OP-BOUNDARY
+      description: Execute text/JSON and negative interface checks plus dependency
+        analysis.
+    oracle_obligations:
+    - id: OR-BOUNDARY
+      description: Assert explicit outputs/errors, dependency direction, and fixture
+        unchanged.

@@ -1,0 +1,8 @@
+version: 1
+kind: harness-decision-policy
+# Current owner assignment delegates engineering dependencies/order and minimal prototype.
+# No authority to change accepted Product/Domain meaning or merge main.
+knowledge_kinds:
+  - {knowledge_kind: system-architecture, exploration: EXPLORE, autonomy: BROAD, execution_assurance: REQUEST_BOUND}
+  - {knowledge_kind: component-design, exploration: EXPLORE, autonomy: BROAD, execution_assurance: REQUEST_BOUND}
+  - {knowledge_kind: implementation-design, exploration: EXPLORE, autonomy: BROAD, execution_assurance: REQUEST_BOUND}

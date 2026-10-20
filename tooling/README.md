@@ -23,3 +23,22 @@ P1 — последовательность:
 ## Кандидат Codex из Microsoft PR #96
 
 Подготовлена отдельная [проверка кандидата](../docs/research/p1-codex-pr96.md): `make cmind-codex-smoke` в ветке `tooling/task-003-codex-pr96-spike`. Использует SHA `3303a222...` из поля `rpg_codex_pr96_candidate`, не заменяя уже проверенную версию CoderMind `a4e6966...` и не меняя приложение. Проверяет Codex CLI и запуск адаптера **без реального обращения к модели**.
+
+## Checker CLI global review — ADR-0004
+
+На pin PR96 найдена безусловная проверка screenshots даже для CLI. Исходный
+FAIL сохранён; [ADR-0004](../docs/decisions/0004-cmind-cli-review.md) описывает
+изолированный [patch](patches/cmind-cli-global-review.patch). Base установка
+не меняется. Материализация и regression (из инициализированного native workspace):
+
+```bash
+/home/alex/.cache/agentic-checker-lab/venvs/cmind-codex-pr96/bin/python /path/to/agentic-checker-lab/tools/prepare_cmind_cli_review.py
+/home/alex/.cache/agentic-checker-lab/venvs/cmind-codex-pr96/bin/python /path/to/agentic-checker-lab/tools/test_cmind_cli_review.py
+```
+
+Первый вызов печатает PYTHONPATH изолированного пакета. С ним штатная команда:
+`PYTHONPATH=<printed-path> cmind script run_batch.py --global-review --review-interface cli --json`.
+Нужны существующий native workspace и Codex CLI; это явный model-driven запуск,
+не часть CI и не runtime Checker. Default `visual` остаётся строгим.
+Перед новым сравнительным экспериментом версия инструмента вместе с patch должна
+войти в замороженный протокол; результаты нельзя приписывать чистому upstream.

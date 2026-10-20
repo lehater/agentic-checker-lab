@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "accepted_source_bytes_unchanged": true,
+  "transferred_bytes_unchanged": true,
+  "negative_check": "PASS: changed input cannot reuse accepted transfer identity",
+  "limitation": "Hash binding proves input identity, not correctness of generated semantics."
+}

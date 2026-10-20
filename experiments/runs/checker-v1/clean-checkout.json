@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "git_tree": "9d447190dbdf380aea903417184b27316c89120e",
+  "python": "Python 3.10.12",
+  "command": "make check",
+  "exit_code": 0,
+  "duration_seconds": 3.941,
+  "tool_caches_required": false,
+  "changed_source_identity_rejected": true,
+  "stdout": "python3 tools/check_repository.py\nRepository check PASS: 46 Markdown files checked\npython3 -m unittest discover -s tests -p 'test_checker_*.py' -v\npython3 experiments/runs/checker-v1/mutations.py --check\nPASS: baseline and six semantic mutants; original source unchanged\npython3 tools/check_checker_evidence.py\nChecker evidence PASS: source/input identity, native validation, conformance and closure\n",
+  "stderr": "test_duplicate_snapshot_and_rule_rejected (test_checker_acceptance.CheckerAcceptance) ... ok\ntest_help_and_required_input (test_checker_acceptance.CheckerAcceptance) ... ok\ntest_missing_and_empty_inputs (test_checker_acceptance.CheckerAcceptance) ... ok\ntest_precode_scenarios (test_checker_acceptance.CheckerAcceptance) ... ok\ntest_same_rule_id_in_distinct_acls (test_checker_acceptance.CheckerAcceptance) ... ok\ntest_strict_boundary (test_checker_acceptance.CheckerAcceptance) ... ok\ntest_text_report (test_checker_acceptance.CheckerAcceptance) ... ok\ntest_inward_dependencies (test_checker_structure.CheckerStructure) ... ok\ntest_runtime_dependency_inventory (test_checker_structure.CheckerStructure) ... ok\ntest_source_substitution_and_immutability (test_checker_structure.CheckerStructure) ... ok\n\n----------------------------------------------------------------------\nRan 10 tests in 2.028s\n\nOK\n",
+  "scope": "Product/CI stdlib gate from staged Git tree in fresh temporary directory, not model toolchain restoration"
+}

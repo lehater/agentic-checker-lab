@@ -1,0 +1,15 @@
+test_duplicate_snapshot_and_rule_rejected (test_checker_acceptance.CheckerAcceptance) ... ok
+test_help_and_required_input (test_checker_acceptance.CheckerAcceptance) ... ok
+test_missing_and_empty_inputs (test_checker_acceptance.CheckerAcceptance) ... ok
+test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) ... ok
+test_same_rule_id_in_distinct_acls (test_checker_acceptance.CheckerAcceptance) ... ok
+test_strict_boundary (test_checker_acceptance.CheckerAcceptance) ... ok
+test_text_report (test_checker_acceptance.CheckerAcceptance) ... ok
+test_inward_dependencies (test_checker_structure.CheckerStructure) ... ok
+test_runtime_dependency_inventory (test_checker_structure.CheckerStructure) ... ok
+test_source_substitution_and_immutability (test_checker_structure.CheckerStructure) ... ok
+
+----------------------------------------------------------------------
+Ran 10 tests in 2.018s
+
+OK

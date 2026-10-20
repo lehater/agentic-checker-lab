@@ -1,0 +1,297 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: architecture
+capability: checker.architecture
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted:
+  - engineering.architecture.structure
+  - engineering.architecture.boundaries
+decision_exploration:
+  version: 1
+  kind: harness-decision-exploration-evaluation
+  capability: checker.architecture
+  knowledge_kind: system-architecture
+  status: ACCEPTED
+  findings: []
+  axes:
+  - axis: runtime-boundaries
+    applicability: APPLICABLE
+    exploration: EXPLORE
+    probe_strategies:
+    - boundary-shift
+    - merge-vs-split
+    decision_points:
+    - id: runtime
+      alternatives:
+      - local
+      - service
+      subjects: []
+      scoped_probe_strategies:
+      - boundary-shift
+      - merge-vs-split
+      alternative_material_effects:
+        local:
+          runtime-count: 1
+          process-boundary: local
+          independent-deployment: false
+        service:
+          runtime-count: 2
+          process-boundary: remote
+          independent-deployment: true
+  - axis: deployment-topology
+    applicability: APPLICABLE
+    exploration: EXPLORE
+    probe_strategies:
+    - co-locate-vs-separate
+    - scaling-perturbation
+    decision_points:
+    - id: deployment
+      alternatives:
+      - one
+      - split
+      subjects: []
+      scoped_probe_strategies:
+      - co-locate-vs-separate
+      - scaling-perturbation
+      alternative_material_effects:
+        one:
+          deployable-count: 1
+          colocation: true
+          scaling-boundary: invocation
+        split:
+          deployable-count: 2
+          colocation: false
+          scaling-boundary: service
+  - axis: interaction-model
+    applicability: APPLICABLE
+    exploration: EXPLORE
+    probe_strategies:
+    - adapter-substitution
+    - sync-vs-async
+    decision_points:
+    - id: interaction
+      alternatives:
+      - direct
+      - queued
+      subjects: []
+      scoped_probe_strategies:
+      - adapter-substitution
+      - sync-vs-async
+      alternative_material_effects:
+        direct:
+          sync-async: sync
+          protocol-boundary: in-process
+          coupling: callable-contract
+        queued:
+          sync-async: async
+          protocol-boundary: queue
+          coupling: event-schema
+  - axis: state-placement
+    applicability: APPLICABLE
+    exploration: EXPLORE
+    probe_strategies:
+    - cache-vs-canonical
+    - move-source-of-truth
+    decision_points:
+    - id: state
+      alternatives:
+      - input
+      - database
+      subjects: []
+      scoped_probe_strategies:
+      - cache-vs-canonical
+      - move-source-of-truth
+      alternative_material_effects:
+        input:
+          source-of-truth: supplied-snapshot
+          state-locality: invocation
+          replication: false
+        database:
+          source-of-truth: imported-copy
+          state-locality: persistent-store
+          replication: true
+  - axis: dependency-direction
+    applicability: APPLICABLE
+    exploration: EXPLORE
+    probe_strategies:
+    - invert-port
+    - reverse-dependency
+    decision_points:
+    - id: dependency
+      alternatives:
+      - inward
+      - outward
+      subjects: []
+      scoped_probe_strategies:
+      - invert-port
+      - reverse-dependency
+      alternative_material_effects:
+        inward:
+          dependency-owner: application
+          inversion-boundary: source-port
+          framework-coupling: none
+        outward:
+          dependency-owner: infrastructure
+          inversion-boundary: none
+          framework-coupling: file-format
+  - axis: failure-isolation
+    applicability: APPLICABLE
+    exploration: EXPLORE
+    probe_strategies:
+    - collapse-failure-boundary
+    - isolate-failure-boundary
+    decision_points:
+    - id: failure
+      alternatives:
+      - request
+      - workers
+      subjects: []
+      scoped_probe_strategies:
+      - collapse-failure-boundary
+      - isolate-failure-boundary
+      alternative_material_effects:
+        request:
+          failure-domain: invocation
+          containment-boundary: request
+          fallback: none
+        workers:
+          failure-domain: worker
+          containment-boundary: process
+          fallback: coordinated-rejection
+  explorer_request_id: sha256:475ff44b22111b3be4e10619435d5201b49c7d3dc9cd8049829ac843d1fffa71
+  decision_space_review: ACCEPTED
+decision_execution_assurance:
+  version: 1
+  kind: harness-decision-execution-assurance-evaluation
+  knowledge_kind: system-architecture
+  required: REQUEST_BOUND
+  status: ACCEPTED
+  findings: []
+  executor_trust: UNATTESTED
+  guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+decision_governance:
+  version: 1
+  kind: harness-decision-governance-evaluation
+  artifact: architecture
+  capability: checker.architecture
+  knowledge_kind: system-architecture
+  status: ACCEPTED
+  findings: []
+  axes:
+  - axis: runtime-boundaries
+    applicability: APPLICABLE
+    autonomy: BROAD
+    decisions:
+    - id: runtime
+      owner_authority: SYSTEM-ARCHITECTURE
+      viable:
+      - local
+      - service
+      unknown: []
+      disposition: DELEGATED
+      delegation_allowed: true
+  - axis: deployment-topology
+    applicability: APPLICABLE
+    autonomy: BROAD
+    decisions:
+    - id: deployment
+      owner_authority: SYSTEM-ARCHITECTURE
+      viable:
+      - one
+      - split
+      unknown: []
+      disposition: DELEGATED
+      delegation_allowed: true
+  - axis: interaction-model
+    applicability: APPLICABLE
+    autonomy: BROAD
+    decisions:
+    - id: interaction
+      owner_authority: SYSTEM-ARCHITECTURE
+      viable:
+      - direct
+      - queued
+      unknown: []
+      disposition: DELEGATED
+      delegation_allowed: true
+  - axis: state-placement
+    applicability: APPLICABLE
+    autonomy: BROAD
+    decisions:
+    - id: state
+      owner_authority: SYSTEM-ARCHITECTURE
+      viable:
+      - database
+      - input
+      unknown: []
+      disposition: DELEGATED
+      delegation_allowed: true
+  - axis: dependency-direction
+    applicability: APPLICABLE
+    autonomy: BROAD
+    decisions:
+    - id: dependency
+      owner_authority: SYSTEM-ARCHITECTURE
+      viable:
+      - inward
+      unknown: []
+      disposition: DETERMINED
+      delegation_allowed: true
+  - axis: failure-isolation
+    applicability: APPLICABLE
+    autonomy: BROAD
+    decisions:
+    - id: failure
+      owner_authority: SYSTEM-ARCHITECTURE
+      viable:
+      - request
+      - workers
+      unknown: []
+      disposition: DELEGATED
+      delegation_allowed: true
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: system-architecture
+  skill: skills/artifacts/system-architecture/SKILL.md
+  acceptance_id: checker-v1-13b83a49054471c3b217f865
+  authority: SYSTEM-ARCHITECTURE
+  allowed_source_authorities:
+  - DOMAIN-USE-CASE-DESIGN
+  - PRODUCT-REQUIREMENTS
+  - SYSTEM-ARCHITECTURE
+  changed_paths:
+  - docs/checker/architecture.md
+  canonical_references:
+  - referenced_path: .harness/knowledge/requirements.yaml
+  - referenced_path: docs/checker/domain.md
+  accepted_prerequisites: &id001
+    checker.requirements: checker-v1-db81ca67ab2f91e4b14806ff
+    checker.domain: checker-v1-2abd3a6fff3ad8b58bfabf3e
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:e57f560e2988019ef91c83fbed0f6a9e2f4c2dfb560b2e7474ee31cc8c5d2c68
+  acceptance_policy_fingerprint: sha256:e57f560e2988019ef91c83fbed0f6a9e2f4c2dfb560b2e7474ee31cc8c5d2c68
+  decision_exploration: ACCEPTED
+  decision_explorer_request_id: sha256:475ff44b22111b3be4e10619435d5201b49c7d3dc9cd8049829ac843d1fffa71
+  decision_execution_assurance: ACCEPTED
+  decision_governance: ACCEPTED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: architecture
+  capability: checker.architecture
+  acceptance_id: checker-v1-13b83a49054471c3b217f865
+  acceptance_policy_fingerprint: sha256:e57f560e2988019ef91c83fbed0f6a9e2f4c2dfb560b2e7474ee31cc8c5d2c68
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    ARCH-1: SAF-8fbe12207b7379dc019d26c1501645c9280dd3cfa77272605176ca8cfe16135c

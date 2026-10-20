@@ -1,0 +1,56 @@
+[
+  {
+    "test": "test_checker_acceptance.CheckerAcceptance.test_text_report",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_text_report (test_checker_acceptance.CheckerAcceptance) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.047s\n\nOK\n"
+  },
+  {
+    "test": "test_checker_acceptance.CheckerAcceptance.test_strict_boundary",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_strict_boundary (test_checker_acceptance.CheckerAcceptance) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.924s\n\nOK\n"
+  },
+  {
+    "test": "test_checker_acceptance.CheckerAcceptance.test_duplicate_snapshot_and_rule_rejected",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_duplicate_snapshot_and_rule_rejected (test_checker_acceptance.CheckerAcceptance) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.094s\n\nOK\n"
+  },
+  {
+    "test": "test_checker_acceptance.CheckerAcceptance.test_missing_and_empty_inputs",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_missing_and_empty_inputs (test_checker_acceptance.CheckerAcceptance) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.185s\n\nOK\n"
+  },
+  {
+    "test": "test_checker_acceptance.CheckerAcceptance.test_same_rule_id_in_distinct_acls",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_same_rule_id_in_distinct_acls (test_checker_acceptance.CheckerAcceptance) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.049s\n\nOK\n"
+  },
+  {
+    "test": "test_checker_acceptance.CheckerAcceptance.test_help_and_required_input",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_help_and_required_input (test_checker_acceptance.CheckerAcceptance) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.090s\n\nOK\n"
+  },
+  {
+    "test": "test_checker_structure.CheckerStructure.test_inward_dependencies",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_inward_dependencies (test_checker_structure.CheckerStructure) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.011s\n\nOK\n"
+  },
+  {
+    "test": "test_checker_structure.CheckerStructure.test_runtime_dependency_inventory",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_runtime_dependency_inventory (test_checker_structure.CheckerStructure) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.007s\n\nOK\n"
+  },
+  {
+    "test": "test_checker_structure.CheckerStructure.test_source_substitution_and_immutability",
+    "exit_code": 0,
+    "stdout": "",
+    "stderr": "test_source_substitution_and_immutability (test_checker_structure.CheckerStructure) ... ok\n\n----------------------------------------------------------------------\nRan 1 test in 0.008s\n\nOK\n"
+  }
+]

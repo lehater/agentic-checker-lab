@@ -1,0 +1,43 @@
+knowledge_kind: interface-contract
+depends_on:
+- requirements
+- domain
+- architecture
+candidate:
+  id: interface
+  path: docs/checker/interface.md
+  capability: checker.interface
+  canonical_references:
+  - referenced_path: .harness/knowledge/requirements.yaml
+  - referenced_path: docs/checker/domain.md
+  - referenced_path: docs/checker/architecture.md
+  semantic_assertions:
+  - id: IF-1
+    kind: interface-contract
+    subject: IF-1
+    semantic_value: Versioned local CLI JSON input, text/JSON output per device/ACL
+      with all original rule fields and placements; strict validation, exit 2 without
+      success stdout on errors; no network.
+    decision_authority: MACHINE-INTERFACE-DESIGN
+    derived_from:
+    - REQ-CHECKER-101
+    - REQ-CHECKER-102
+    - REQ-CHECKER-103
+    - REQ-CHECKER-104
+    - DOM-1
+    - DOM-2
+    - ARCH-1
+  semantic_review:
+    status: ACCEPTED
+    checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - preserve-upstream-semantics
+    reviewer: Engineering agent under current owner assignment
+    record: docs/checker/interface.md
+    rationale: Один request/report boundary достаточен для operator job и независимого
+      oracle. Отображаются placement и все rule fields, action и порядок сохраняются.
+      Представление/exit codes не переопределяют domain semantics. JSON/text покрывают
+      машинного и человеческого потребителя без web stack. Версия и unknown fields
+      делают rejection явным.

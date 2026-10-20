@@ -1,0 +1,17 @@
+{
+  "version": 1,
+  "kind": "harness-project-frontier",
+  "target": "CHECKER-CODEGEN-INPUT",
+  "status": "COMPLETE",
+  "next_actions": [],
+  "failed_validation": [],
+  "blocked": [],
+  "waiting": [],
+  "gaps": [],
+  "source_status": {
+    "decision": "COMPLETE",
+    "semantic": "COMPLETE",
+    "structural": "COMPLETE",
+    "coverage_completion_ready": true
+  }
+}

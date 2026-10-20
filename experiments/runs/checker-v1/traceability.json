@@ -1,0 +1,190 @@
+{
+  "status": "SOURCE_BOUND",
+  "rpg_snapshot": "experiments/runs/checker-v1/rpg-realized/rpg.json",
+  "rpg_sha256": "ae629438ba51033b872292cf5536714da32ae67343ff55e5b911054a871752cd",
+  "traceability": [
+    {
+      "requirement": "REQ-CHECKER-101",
+      "canonical_artifact": ".harness/knowledge/requirements.yaml",
+      "capability": "checker.requirements",
+      "design_capabilities": [
+        "checker.domain",
+        "checker.interface",
+        "checker.components"
+      ],
+      "rpg_nodes": [
+        {
+          "id": "validate flow addresses_96df80f0",
+          "feature": "validate flow addresses",
+          "locator": "src/acl_checker/input/validation.py::function validate_document",
+          "source_sha256": "cac4120082e929c4cad449abff4349db32aeda08d027a253e19e524fd8e3da62"
+        },
+        {
+          "id": "validate flow protocol_443d4f4d",
+          "feature": "validate flow protocol",
+          "locator": "src/acl_checker/input/validation.py::function validate_document",
+          "source_sha256": "cac4120082e929c4cad449abff4349db32aeda08d027a253e19e524fd8e3da62"
+        },
+        {
+          "id": "validate flow ports_fbb5fb9b",
+          "feature": "validate flow ports",
+          "locator": "src/acl_checker/input/validation.py::function validate_document",
+          "source_sha256": "cac4120082e929c4cad449abff4349db32aeda08d027a253e19e524fd8e3da62"
+        },
+        {
+          "id": "parse invocation options_25e1369a",
+          "feature": "parse invocation options",
+          "locator": "src/acl_checker/cli/main.py::function parse_invocation",
+          "source_sha256": "8ec927f3a61a91c74be761933280011b06af1a7def8cb3f358853093a52506e3"
+        }
+      ],
+      "test_contracts": [
+        "TD-BEHAVIOR",
+        "TD-BOUNDARIES"
+      ],
+      "independent_oracle": "docs/checker/scenarios.yaml"
+    },
+    {
+      "requirement": "REQ-CHECKER-102",
+      "canonical_artifact": ".harness/knowledge/requirements.yaml",
+      "capability": "checker.requirements",
+      "design_capabilities": [
+        "checker.domain",
+        "checker.interface",
+        "checker.components"
+      ],
+      "rpg_nodes": [
+        {
+          "id": "retrieve relevant pairs_908431ba",
+          "feature": "retrieve relevant pairs",
+          "locator": "src/acl_checker/application/evidence.py::function retrieve_relevant_pairs",
+          "source_sha256": "e77bf5e52391558cd862166d42fee9fa083c5a939d075591c220792706911faf"
+        },
+        {
+          "id": "deduplicate relevant pairs_19fffec6",
+          "feature": "deduplicate relevant pairs",
+          "locator": "src/acl_checker/application/evidence.py::function retrieve_relevant_pairs",
+          "source_sha256": "e77bf5e52391558cd862166d42fee9fa083c5a939d075591c220792706911faf"
+        },
+        {
+          "id": "retrieve relevant snapshot_cfa2b9de",
+          "feature": "retrieve relevant snapshot",
+          "locator": "src/acl_checker/application/evidence.py::function retrieve_required_snapshot",
+          "source_sha256": "e77bf5e52391558cd862166d42fee9fa083c5a939d075591c220792706911faf"
+        },
+        {
+          "id": "reject missing snapshot_b05c3d9d",
+          "feature": "reject missing snapshot",
+          "locator": "src/acl_checker/application/evidence.py::function retrieve_required_snapshot",
+          "source_sha256": "e77bf5e52391558cd862166d42fee9fa083c5a939d075591c220792706911faf"
+        },
+        {
+          "id": "validate snapshot structure_9ce7b83c",
+          "feature": "validate snapshot structure",
+          "locator": "src/acl_checker/input/validation.py::function validate_document",
+          "source_sha256": "cac4120082e929c4cad449abff4349db32aeda08d027a253e19e524fd8e3da62"
+        },
+        {
+          "id": "validate placement entries_e9ad553c",
+          "feature": "validate placement entries",
+          "locator": "src/acl_checker/input/validation.py::function validate_document",
+          "source_sha256": "cac4120082e929c4cad449abff4349db32aeda08d027a253e19e524fd8e3da62"
+        }
+      ],
+      "test_contracts": [
+        "TD-BEHAVIOR",
+        "TD-BOUNDARIES"
+      ],
+      "independent_oracle": "docs/checker/scenarios.yaml"
+    },
+    {
+      "requirement": "REQ-CHECKER-103",
+      "canonical_artifact": ".harness/knowledge/requirements.yaml",
+      "capability": "checker.requirements",
+      "design_capabilities": [
+        "checker.domain",
+        "checker.interface",
+        "checker.components"
+      ],
+      "rpg_nodes": [
+        {
+          "id": "evaluate stored rule match_22411f54",
+          "feature": "evaluate stored rule match",
+          "locator": "src/acl_checker/domain/matching.py::function matches",
+          "source_sha256": "b0870157be53172ef36620dc711ca10f032d3038abed3691cea4d98f57699cb9"
+        },
+        {
+          "id": "collect matching evidence_2b454f75",
+          "feature": "collect matching evidence",
+          "locator": "src/acl_checker/domain/application/check.py::function collect_matching_evidence",
+          "source_sha256": "3f70acc591bc441a53f518d81c5c179aa382ae4407f96e940265994c5e6474ce"
+        },
+        {
+          "id": "build evidence group_03d13800",
+          "feature": "build evidence group",
+          "locator": "src/acl_checker/domain/application/check.py::function build_evidence_group",
+          "source_sha256": "3f70acc591bc441a53f518d81c5c179aa382ae4407f96e940265994c5e6474ce"
+        },
+        {
+          "id": "render json report_f5db3cc8",
+          "feature": "render json report",
+          "locator": "src/acl_checker/cli/rendering.py::function render_json_report",
+          "source_sha256": "0e1f6d2ccc757688d00e0557b70d81a1145b0aba74f201855fd961a8869e0e41"
+        },
+        {
+          "id": "render text groups_3fbc52d0",
+          "feature": "render text groups",
+          "locator": "src/acl_checker/cli/rendering.py::function render_text_report",
+          "source_sha256": "0e1f6d2ccc757688d00e0557b70d81a1145b0aba74f201855fd961a8869e0e41"
+        }
+      ],
+      "test_contracts": [
+        "TD-BEHAVIOR",
+        "TD-BOUNDARIES"
+      ],
+      "independent_oracle": "docs/checker/scenarios.yaml"
+    },
+    {
+      "requirement": "REQ-CHECKER-104",
+      "canonical_artifact": ".harness/knowledge/requirements.yaml",
+      "capability": "checker.requirements",
+      "design_capabilities": [
+        "checker.domain",
+        "checker.interface",
+        "checker.components"
+      ],
+      "rpg_nodes": [
+        {
+          "id": "determine evidence status_7c3a63f5",
+          "feature": "determine evidence status",
+          "locator": "src/acl_checker/domain/application/check.py::function determine_evidence_status",
+          "source_sha256": "3f70acc591bc441a53f518d81c5c179aa382ae4407f96e940265994c5e6474ce"
+        },
+        {
+          "id": "reject missing snapshot_b05c3d9d",
+          "feature": "reject missing snapshot",
+          "locator": "src/acl_checker/application/evidence.py::function retrieve_required_snapshot",
+          "source_sha256": "e77bf5e52391558cd862166d42fee9fa083c5a939d075591c220792706911faf"
+        },
+        {
+          "id": "emit request diagnostic_d0083897",
+          "feature": "emit request diagnostic",
+          "locator": "src/acl_checker/cli/main.py::function main",
+          "source_sha256": "8ec927f3a61a91c74be761933280011b06af1a7def8cb3f358853093a52506e3"
+        },
+        {
+          "id": "describe saved evidence scope_61b93291",
+          "feature": "describe saved evidence scope",
+          "locator": "src/acl_checker/cli/main.py::function parse_invocation",
+          "source_sha256": "8ec927f3a61a91c74be761933280011b06af1a7def8cb3f358853093a52506e3"
+        }
+      ],
+      "test_contracts": [
+        "TD-BEHAVIOR",
+        "TD-BOUNDARIES"
+      ],
+      "independent_oracle": "docs/checker/scenarios.yaml"
+    }
+  ],
+  "limitation": "Traceability is not proof of executable behavior; acceptance/conformance evidence is separate."
+}

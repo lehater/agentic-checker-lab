@@ -1,0 +1,413 @@
+test_duplicate_snapshot_and_rule_rejected (test_checker_acceptance.CheckerAcceptance) ... FAIL
+test_missing_and_empty_inputs (test_checker_acceptance.CheckerAcceptance) ... FAIL
+test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) ... test_strict_boundary (test_checker_acceptance.CheckerAcceptance) ... test_text_report (test_checker_acceptance.CheckerAcceptance) ... FAIL
+
+======================================================================
+FAIL: test_duplicate_snapshot_and_rule_rejected (test_checker_acceptance.CheckerAcceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 117, in test_duplicate_snapshot_and_rule_rejected
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_missing_and_empty_inputs (test_checker_acceptance.CheckerAcceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 125, in test_missing_and_empty_inputs
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-ALL')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 52, in test_precode_scenarios
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-UDP')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 52, in test_precode_scenarios
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-SOURCE-NET-LOW')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 52, in test_precode_scenarios
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-SOURCE-NET-HIGH')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 52, in test_precode_scenarios
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-SOURCE-OUTSIDE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 52, in test_precode_scenarios
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-DEST-OUTSIDE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 52, in test_precode_scenarios
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-SPORT-BELOW')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 52, in test_precode_scenarios
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-SPORT-ABOVE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 52, in test_precode_scenarios
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-DPORT-LOW')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 52, in test_precode_scenarios
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-DPORT-HIGH')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 52, in test_precode_scenarios
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-DPORT-OUTSIDE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 52, in test_precode_scenarios
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-MISSING')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 50, in test_precode_scenarios
+    self.assert_error(result)
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-IPV6')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 50, in test_precode_scenarios
+    self.assert_error(result)
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-BAD-PORT')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 50, in test_precode_scenarios
+    self.assert_error(result)
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_precode_scenarios (test_checker_acceptance.CheckerAcceptance) (case='SC-UNSUPPORTED-PREDICATE')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 50, in test_precode_scenarios
+    self.assert_error(result)
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='version', value=2)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='version', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='flow.source_port', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='flow.destination_port', value=-1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='flow.protocol', value='icmp')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='flow.source', value='not-an-ip')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='flow.extra', value='unsupported')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='snapshots.0.rules.0.source', value='10.0.0.1/24')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='snapshots.0.rules.0.source_ports', value=[5, 4])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='snapshots.0.rules.0.destination_ports', value=[0, 65536])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='snapshots.0.rules.0.action', value='maybe')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='snapshots.0.rules.0.source_ports', value=[True, 50000])
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='snapshots.2.placements.0.global', value=1)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='snapshots.0.rules.0.protocol', value='icmp')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='snapshots.0.placements.0.direction', value='sideways')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='snapshots.0.placements.0.extra', value=True)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='relevance.0.device', value='')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (field='relevance.0.acl', value=7)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 109, in test_strict_boundary
+    self.assert_error(invoke(data))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (raw='{broken')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 112, in test_strict_boundary
+    self.assert_error(invoke(None, raw=raw))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (raw='[]')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 112, in test_strict_boundary
+    self.assert_error(invoke(None, raw=raw))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_strict_boundary (test_checker_acceptance.CheckerAcceptance) (raw='null')
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 112, in test_strict_boundary
+    self.assert_error(invoke(None, raw=raw))
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 28, in assert_error
+    self.assertEqual(result.returncode, 2, result.stderr)
+AssertionError: 1 != 2 : /usr/bin/python3: No module named checker
+
+
+======================================================================
+FAIL: test_text_report (test_checker_acceptance.CheckerAcceptance)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/alex/projects/myown/agentic-checker-lab/tests/test_checker_acceptance.py", line 79, in test_text_report
+    self.assertEqual(result.returncode, 0, result.stderr)
+AssertionError: 1 != 0 : /usr/bin/python3: No module named checker
+
+
+----------------------------------------------------------------------
+Ran 5 tests in 0.712s
+
+FAILED (failures=39)

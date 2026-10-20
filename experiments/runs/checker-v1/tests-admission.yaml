@@ -1,0 +1,60 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: tests
+capability: checker.tests
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted: []
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: test-design
+  skill: skills/artifacts/test-design/SKILL.md
+  acceptance_id: checker-v1-9fd21c4fa0513cf8bf25f5ab
+  authority: TEST-DESIGN
+  allowed_source_authorities:
+  - ENGINEERING-POLICY
+  - MACHINE-INTERFACE-DESIGN
+  - TEST-DESIGN
+  - VERIFICATION-DESIGN
+  changed_paths:
+  - .harness/knowledge/tests.yaml
+  canonical_references:
+  - referenced_path: .harness/knowledge/verification.yaml
+  - referenced_path: docs/checker/scenarios.yaml
+  - referenced_path: docs/checker/interface.md
+  - referenced_path: docs/checker/engineering-policy.md
+  - referenced_path: .harness/knowledge/technical-verification.yaml
+  accepted_prerequisites: &id001
+    checker.verification: checker-v1-97d0c4a132c300df6c9b018b
+    checker.scenarios: checker-v1-c68eab9966725eeff1fee4ac
+    checker.interface: checker-v1-7a5af9fc5faa417f2ed58f7d
+    checker.policy: checker-v1-bb39846d836179a7c699b5a8
+    checker.technical-verification: checker-v1-be855fbf59477999d026a06b
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:08ac8b70820eeac435fd3b810d74f88bd7df6cd246bc91a6a17d6a6e9e5e7d6e
+  acceptance_policy_fingerprint: sha256:08ac8b70820eeac435fd3b810d74f88bd7df6cd246bc91a6a17d6a6e9e5e7d6e
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: tests
+  capability: checker.tests
+  acceptance_id: checker-v1-9fd21c4fa0513cf8bf25f5ab
+  acceptance_policy_fingerprint: sha256:08ac8b70820eeac435fd3b810d74f88bd7df6cd246bc91a6a17d6a6e9e5e7d6e
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    TD-BEHAVIOR: SAF-2d90a81351a71599f60970d5270fbc432c39e9b479f0f597fe08afb692eb8347
+    TD-BOUNDARIES: SAF-aa1d788ad067ca6516a04e617301eb02f5911c9976326c400cde95a85945229f

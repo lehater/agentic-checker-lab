@@ -1,0 +1,622 @@
+{
+  "version": 1,
+  "kind": "harness-engineering-coverage-evaluation",
+  "status": "canonical",
+  "project": "CHECKER-V1",
+  "consumer": "CHECKER-CODEGEN-INPUT",
+  "scope": "CHECKER-PROTOTYPE",
+  "scope_roots": [],
+  "completion_ready": true,
+  "activated_count": 26,
+  "remaining_work_count": 0,
+  "work_item_count": 0,
+  "question_frontier_count": 0,
+  "summary": {
+    "states": {
+      "COVERED": 21,
+      "DEFERRED": 2,
+      "NOT_APPLICABLE": 3
+    },
+    "actions": {
+      "NONE": 26
+    }
+  },
+  "authority_roles": {
+    "version": 1,
+    "kind": "harness-derived-authority-role-bindings",
+    "project": "CHECKER-V1",
+    "bindings": {
+      "COMPONENT-DESIGN": [
+        "engineering"
+      ],
+      "DISCOVERY": [
+        "product"
+      ],
+      "DOMAIN-USE-CASE-DESIGN": [
+        "application"
+      ],
+      "ENGINEERING-POLICY": [
+        "engineering"
+      ],
+      "IMPLEMENTATION-DESIGN": [
+        "delivery"
+      ],
+      "MACHINE-INTERFACE-DESIGN": [
+        "interface"
+      ],
+      "PRODUCT-REQUIREMENTS": [
+        "product"
+      ],
+      "SYSTEM-ARCHITECTURE": [
+        "architecture"
+      ],
+      "TEST-DESIGN": [
+        "verification"
+      ],
+      "VERIFICATION-DESIGN": [
+        "verification"
+      ]
+    },
+    "provenance": {
+      "COMPONENT-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "DISCOVERY": [
+        "STANDARD_ID"
+      ],
+      "DOMAIN-USE-CASE-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "ENGINEERING-POLICY": [
+        "STANDARD_ID"
+      ],
+      "IMPLEMENTATION-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "MACHINE-INTERFACE-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "PRODUCT-REQUIREMENTS": [
+        "STANDARD_ID"
+      ],
+      "SYSTEM-ARCHITECTURE": [
+        "STANDARD_ID"
+      ],
+      "TEST-DESIGN": [
+        "STANDARD_ID"
+      ],
+      "VERIFICATION-DESIGN": [
+        "STANDARD_ID"
+      ]
+    },
+    "unresolved_authorities": []
+  },
+  "activation_signals": {
+    "capabilities": [
+      "checker.architecture",
+      "checker.components",
+      "checker.domain",
+      "checker.interface",
+      "checker.policy",
+      "checker.problem",
+      "checker.requirements",
+      "checker.scenarios",
+      "checker.technical-verification",
+      "checker.tests",
+      "checker.verification"
+    ],
+    "knowledge_kinds": [
+      "acceptance-scenarios",
+      "component-design",
+      "domain-use-case",
+      "engineering-policy",
+      "interface-contract",
+      "problem-evidence",
+      "product-requirements",
+      "system-architecture",
+      "test-design",
+      "verification-strategy"
+    ],
+    "authorities": [
+      "COMPONENT-DESIGN",
+      "DISCOVERY",
+      "DOMAIN-USE-CASE-DESIGN",
+      "ENGINEERING-POLICY",
+      "MACHINE-INTERFACE-DESIGN",
+      "PRODUCT-REQUIREMENTS",
+      "SYSTEM-ARCHITECTURE",
+      "TEST-DESIGN",
+      "VERIFICATION-DESIGN"
+    ],
+    "authority_roles": [
+      "application",
+      "architecture",
+      "engineering",
+      "interface",
+      "product",
+      "verification"
+    ],
+    "consumers": [
+      "CHECKER-CODEGEN-INPUT"
+    ]
+  },
+  "rows": [
+    {
+      "concern": "application.failures",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.application.failures": [
+          "checker.domain"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "BASELINE",
+          "policy": "software-engineering-concern-activation/v1"
+        }
+      ]
+    },
+    {
+      "concern": "architecture.boundaries",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.architecture.boundaries": [
+          "checker.architecture"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "BASELINE",
+          "policy": "software-engineering-concern-activation/v1"
+        }
+      ]
+    },
+    {
+      "concern": "architecture.structure",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.architecture.structure": [
+          "checker.architecture"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "BASELINE",
+          "policy": "software-engineering-concern-activation/v1"
+        }
+      ]
+    },
+    {
+      "concern": "engineering.code-quality",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.engineering.code-quality": [
+          "checker.policy"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "engineering.components",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.engineering.components": [
+          "checker.components"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "engineering.error-handling",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.engineering.error-handling": [
+          "checker.policy"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "BASELINE",
+          "policy": "software-engineering-concern-activation/v1"
+        }
+      ]
+    },
+    {
+      "concern": "engineering.principles",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.engineering.principles": [
+          "checker.policy"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "governance.external-obligations",
+      "state": "DEFERRED",
+      "action": "NONE",
+      "reason": "explicit project applicability decision",
+      "activation_provenance": [
+        {
+          "source": "MANUAL_ACTIVATION_CLASS",
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Legal/regulatory/contractual applicability cannot be inferred safely from generic software topology alone."
+        }
+      ]
+    },
+    {
+      "concern": "governance.privacy",
+      "state": "NOT_APPLICABLE",
+      "action": "NONE",
+      "reason": "explicit project applicability decision",
+      "activation_provenance": [
+        {
+          "source": "MANUAL_ACTIVATION_CLASS",
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Personal/sensitive-data applicability requires explicit project evidence or classification."
+        }
+      ]
+    },
+    {
+      "concern": "intent.behavior",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.intent.behavior": [
+          "checker.requirements"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "BASELINE",
+          "policy": "software-engineering-concern-activation/v1"
+        }
+      ]
+    },
+    {
+      "concern": "intent.scope",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.intent.scope": [
+          "checker.requirements"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "BASELINE",
+          "policy": "software-engineering-concern-activation/v1"
+        }
+      ]
+    },
+    {
+      "concern": "interface.machine.compatibility",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.interface.machine.compatibility": [
+          "checker.interface"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "MACHINE-INTERFACE",
+          "signals": [
+            "knowledge_kind:interface-contract"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "interface.machine.contract",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.interface.machine.contract": [
+          "checker.interface"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "MACHINE-INTERFACE",
+          "signals": [
+            "knowledge_kind:interface-contract"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "interface.machine.errors",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.interface.machine.errors": [
+          "checker.interface"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "MACHINE-INTERFACE",
+          "signals": [
+            "knowledge_kind:interface-contract"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "quality.maintainability.analysability",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.quality.maintainability.analysability": [
+          "checker.policy"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "quality.maintainability.modifiability",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.quality.maintainability.modifiability": [
+          "checker.policy"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "quality.maintainability.modularity",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.quality.maintainability.modularity": [
+          "checker.policy"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "quality.maintainability.testability",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.quality.maintainability.testability": [
+          "checker.policy"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "MODULAR-COMPONENT-DESIGN",
+          "signals": [
+            "knowledge_kind:component-design",
+            "knowledge_kind:engineering-policy",
+            "authority_role:engineering"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "specialized.ai",
+      "state": "NOT_APPLICABLE",
+      "action": "NONE",
+      "reason": "explicit project applicability decision",
+      "activation_provenance": [
+        {
+          "source": "MANUAL_ACTIVATION_CLASS",
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "AI/ML/agentic behavior requires explicit project classification."
+        }
+      ]
+    },
+    {
+      "concern": "specialized.regulated",
+      "state": "DEFERRED",
+      "action": "NONE",
+      "reason": "explicit project applicability decision",
+      "activation_provenance": [
+        {
+          "source": "MANUAL_ACTIVATION_CLASS",
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Sector regulation requires explicit project classification."
+        }
+      ]
+    },
+    {
+      "concern": "specialized.safety",
+      "state": "NOT_APPLICABLE",
+      "action": "NONE",
+      "reason": "explicit project applicability decision",
+      "activation_provenance": [
+        {
+          "source": "MANUAL_ACTIVATION_CLASS",
+          "policy": "software-engineering-concern-activation/v1",
+          "reason": "Harm potential requires domain/risk assessment."
+        }
+      ]
+    },
+    {
+      "concern": "verification.architecture",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.verification.architecture": [
+          "checker.technical-verification"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "BASELINE",
+          "policy": "software-engineering-concern-activation/v1"
+        }
+      ]
+    },
+    {
+      "concern": "verification.functional",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.verification.functional": [
+          "checker.verification"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "BASELINE",
+          "policy": "software-engineering-concern-activation/v1"
+        }
+      ]
+    },
+    {
+      "concern": "verification.interface.machine",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.verification.interface.machine": [
+          "checker.technical-verification"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "RULE",
+          "rule": "MACHINE-INTERFACE",
+          "signals": [
+            "knowledge_kind:interface-contract"
+          ]
+        }
+      ]
+    },
+    {
+      "concern": "verification.requirement-traceability",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.verification.requirement-traceability": [
+          "checker.verification"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "BASELINE",
+          "policy": "software-engineering-concern-activation/v1"
+        }
+      ]
+    },
+    {
+      "concern": "verification.strategy",
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
+        "engineering.verification.strategy": [
+          "checker.verification"
+        ]
+      },
+      "activation_provenance": [
+        {
+          "source": "BASELINE",
+          "policy": "software-engineering-concern-activation/v1"
+        }
+      ]
+    }
+  ],
+  "subject_obligation_rows": [
+    {
+      "concern": "meta.subject-inventory",
+      "subject": "__accepted_scope__",
+      "state": "NOT_APPLICABLE",
+      "action": "NONE",
+      "reason": "Single coherent synthetic inspect-flow subject; all four current requirements explicitly covered by verification. No independently scoped subproducts or source entity inventory in this slice. Reopen on additional use cases or import domains."
+    }
+  ],
+  "subject_obligation_evaluation": {
+    "kind": "harness-derived-subject-obligation-evaluation",
+    "consumer": "CHECKER-CODEGEN-INPUT",
+    "scope": "CHECKER-PROTOTYPE",
+    "source_validation": null,
+    "rows": [
+      {
+        "concern": "meta.subject-inventory",
+        "subject": "__accepted_scope__",
+        "state": "NOT_APPLICABLE",
+        "action": "NONE",
+        "reason": "Single coherent synthetic inspect-flow subject; all four current requirements explicitly covered by verification. No independently scoped subproducts or source entity inventory in this slice. Reopen on additional use cases or import domains."
+      }
+    ],
+    "remaining_work": [],
+    "completion_ready": true
+  },
+  "remaining_work": [],
+  "work_items": [],
+  "question_frontier": []
+}

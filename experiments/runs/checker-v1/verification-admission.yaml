@@ -1,0 +1,58 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: verification
+capability: checker.verification
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted:
+  - engineering.verification.strategy
+  - engineering.verification.requirement-traceability
+  - engineering.verification.functional
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: verification-strategy
+  skill: skills/artifacts/verification-strategy/SKILL.md
+  acceptance_id: checker-v1-97d0c4a132c300df6c9b018b
+  authority: VERIFICATION-DESIGN
+  allowed_source_authorities:
+  - DOMAIN-USE-CASE-DESIGN
+  - PRODUCT-REQUIREMENTS
+  - VERIFICATION-DESIGN
+  changed_paths:
+  - .harness/knowledge/verification.yaml
+  canonical_references:
+  - referenced_path: .harness/knowledge/requirements.yaml
+  - referenced_path: docs/checker/domain.md
+  accepted_prerequisites: &id001
+    checker.requirements: checker-v1-db81ca67ab2f91e4b14806ff
+    checker.domain: checker-v1-2abd3a6fff3ad8b58bfabf3e
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+  acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: verification
+  capability: checker.verification
+  acceptance_id: checker-v1-97d0c4a132c300df6c9b018b
+  acceptance_policy_fingerprint: sha256:859717c0e9da3cf45479ae4ba41d6eeb2b3feff09f922d78a97cef8357f9244a
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    VC-INPUT: SAF-bcdb9114bf0c080c00d94b8d4c0267a0d3e091f7959c36dcdd7fe6e819862d14
+    VC-MATCH: SAF-83b1ebf6d5664007d731e4056d6ba25e751822596f13e7e2b3319c6823a954a9
+    VC-CONTEXT: SAF-338b895d044b0188d67aae8e308a8cf8ae9452c6b3da5dac21b4cdcf8cbe1217
+    VC-EMPTY: SAF-20d970a28e17cd30bf47c369f397632980190ef76df4c759f2fd5076d130e920

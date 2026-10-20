@@ -1,0 +1,38 @@
+knowledge_kind: acceptance-scenarios
+depends_on:
+- verification
+- domain
+candidate:
+  id: scenarios
+  path: docs/checker/scenarios.yaml
+  capability: checker.scenarios
+  canonical_references:
+  - referenced_path: .harness/knowledge/verification.yaml
+  - referenced_path: docs/checker/domain.md
+  semantic_assertions:
+  - id: SCENARIOS
+    kind: acceptance-scenarios
+    subject: SCENARIOS
+    semantic_value: 15 fixed pre-code scenarios cover all VC checks, all five predicates,
+      order/action/multiple ACL, no-match versus missing, and unsupported input.
+    decision_authority: VERIFICATION-DESIGN
+    derived_from:
+    - VC-INPUT
+    - VC-MATCH
+    - VC-CONTEXT
+    - VC-EMPTY
+    - DOM-1
+    - DOM-2
+  semantic_review:
+    status: ACCEPTED
+    checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - scenario-not-semantic-owner
+    reviewer: Engineering agent under current owner assignment
+    record: docs/checker/scenarios.yaml
+    rationale: 'Вручную проверены ожидаемые ID: z-deny before a-permit, UDP excludes
+      tcp, 440/450 inclusive, 451 excluded; empty inside и nonmatched global имеют
+      NO_MATCH. Ожидания определены из DOM-1/2 без алгоритма/SQL. Недопустимые вводы
+      ожидают ошибку; runtime evidence ещё нет.'

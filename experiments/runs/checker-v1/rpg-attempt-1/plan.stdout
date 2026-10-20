@@ -1,0 +1,738 @@
+Planning pipeline: 5 of 5 stages to run.
+Stage           Type     Done   Action
+--------------------------------------------------
+skeleton        · init     no    run
+data_flow       · init     no    run
+base_classes    · init     no    run
+interfaces      ✗ error    no    run
+tasks           ✗ error    no    run
+
+▶  skeleton       running build_skeleton.py ...
+2026-10-16 09:50:28,002 - INFO - Loaded repository data: acl-checker
+2026-10-16 09:50:28,002 - INFO - Found 5 components
+
+======================================================================
+SKELETON BUILDING
+======================================================================
+Repository: acl-checker
+Components: 5
+Total Features: 50
+======================================================================
+
+[Step 1] Building RPG (Repository Program Graph)...
+2026-10-16 09:50:28,004 - INFO - Creating initial RPG for repository: acl-checker
+2026-10-16 09:50:28,004 - INFO - Found 5 components to process
+2026-10-16 09:50:28,005 - INFO - Recalculated levels top-down
+2026-10-16 09:50:28,005 - INFO - RPG creation completed:
+2026-10-16 09:50:28,005 - INFO -   - Components processed: 5
+2026-10-16 09:50:28,005 - INFO -   - Total nodes: 81
+2026-10-16 09:50:28,005 - INFO -   - Total edges: 0
+2026-10-16 09:50:28,005 - INFO -   - Features added: 75
+   [OK] RPG built successfully:
+     - Total nodes: 81
+     - Node types: {'repo': 1, 'functional_area': 5, 'feature_group': 25, 'feature': 50}
+     - Level distribution: {'L0': 1, 'L1': 5, 'L2': 25, 'L3': 50}
+   [OK] RPG saved to: rpg.json
+
+[Step 2] Generating skeleton with FileDesigner...
+2026-10-16 09:50:28,010 - INFO - ======================================================================
+2026-10-16 09:50:28,010 - INFO - FILE DESIGNER - SKELETON BUILDING
+2026-10-16 09:50:28,010 - INFO - ======================================================================
+2026-10-16 09:50:28,011 - INFO - Extracted 5 components from RPG
+2026-10-16 09:50:28,011 - INFO - 
+[Step 1] Generating directory structure...
+2026-10-16 09:50:28,011 - INFO -    Directory structure generation attempt 1/3
+2026-10-16 09:50:56,441 - INFO - [OK] Structure validation passed: DirectoryStructureOutput
+2026-10-16 09:50:56,442 - INFO - [OK] LLM structured call successful
+2026-10-16 09:50:56,442 - INFO - 
+   Directory Structure (validated):
+2026-10-16 09:50:56,442 - INFO -    -  Приём и валидация запроса → src/acl_checker/inputs/
+2026-10-16 09:50:56,442 - INFO -    -  Отбор и получение снимков ACL → src/acl_checker/sources/
+2026-10-16 09:50:56,442 - INFO -    -  Исследование совпадений ACL → src/acl_checker/domain/
+2026-10-16 09:50:56,442 - INFO -    -  Командный интерфейс и публикация отчёта → src/acl_checker/cli/
+2026-10-16 09:50:56,442 - INFO -    -  Проверка контрактов и ограничений → tests/
+2026-10-16 09:50:56,442 - INFO - 
+   Reasoning: Используется неглубокий src-layout. Дополнительный пакет src/acl_checker/application содержит check(flow, relevance, snapshot), принадлежащие сценарию контракты источников и формирование групп отчёта. Направление зависимостей: application → domain; inputs, sources и cli зависят внутрь. Сценарий сохраняет исходные свидетельства, placements и порядок снимков, явно различает NO_MATCH и ошибку всего запроса. src/acl_checker/__main__.py служит точкой запуска. Каждый каталог Python-пакета, включая tests, содержит __init__.py; tests/fixtures является каталогом данных. docs хранит правила домена и границы, docs/adr — архитектурные решения. Все имена файлов и каталогов используют snake_case. Общий utils и дополнительные инфраструктурные каталоги не создаются без конкретной необходимости.
+2026-10-16 09:50:56,442 - INFO - 
+[Step 2] Assigning features to files...
+2026-10-16 09:50:56,442 - INFO -    Processing: Приём и валидация запроса
+2026-10-16 09:50:56,442 - INFO -    Directory: src/acl_checker/inputs/
+2026-10-16 09:50:56,442 - INFO -    Features: 16
+2026-10-16 09:51:17,783 - INFO - [OK] Structure validation passed: FileAssignmentOutput
+2026-10-16 09:51:17,784 - INFO - [OK] LLM structured call successful
+2026-10-16 09:51:17,784 - INFO -       Assigned 16 features to 3 files
+2026-10-16 09:51:17,784 - INFO -    Processing: Отбор и получение снимков ACL
+2026-10-16 09:51:17,784 - INFO -    Directory: src/acl_checker/sources/
+2026-10-16 09:51:17,784 - INFO -    Features: 6
+2026-10-16 09:51:33,608 - INFO - [OK] Structure validation passed: FileAssignmentOutput
+2026-10-16 09:51:33,609 - INFO - [OK] LLM structured call successful
+2026-10-16 09:51:33,609 - INFO -       Assigned 6 features to 1 files
+2026-10-16 09:51:33,609 - INFO -    Processing: Исследование совпадений ACL
+2026-10-16 09:51:33,609 - INFO -    Directory: src/acl_checker/domain/
+2026-10-16 09:51:33,609 - INFO -    Features: 5
+2026-10-16 09:51:49,478 - INFO - [OK] Structure validation passed: FileAssignmentOutput
+2026-10-16 09:51:49,479 - INFO - [OK] LLM structured call successful
+2026-10-16 09:51:49,479 - INFO -       Assigned 5 features to 2 files
+2026-10-16 09:51:49,479 - INFO -    Processing: Командный интерфейс и публикация отчёта
+2026-10-16 09:51:49,479 - INFO -    Directory: src/acl_checker/cli/
+2026-10-16 09:51:49,480 - INFO -    Features: 8
+2026-10-16 09:52:07,125 - INFO - [OK] Structure validation passed: FileAssignmentOutput
+2026-10-16 09:52:07,126 - INFO - [OK] LLM structured call successful
+2026-10-16 09:52:07,126 - INFO -       Assigned 8 features to 2 files
+2026-10-16 09:52:07,126 - INFO -    Processing: Проверка контрактов и ограничений
+2026-10-16 09:52:07,126 - INFO -    Directory: tests/
+2026-10-16 09:52:07,126 - INFO -    Features: 15
+2026-10-16 09:52:25,282 - INFO - [OK] Structure validation passed: FileAssignmentOutput
+2026-10-16 09:52:25,283 - INFO - [OK] LLM structured call successful
+2026-10-16 09:52:25,284 - INFO -       Assigned 15 features to 4 files
+2026-10-16 09:52:25,284 - INFO - 
+[Step 3] Building final skeleton structure...
+2026-10-16 09:52:25,284 - INFO - Added 7 __init__.py files to skeleton
+2026-10-16 09:52:25,284 - INFO - Added 7 package marker files
+2026-10-16 09:52:25,284 - INFO - Created skeleton with 27 total nodes
+2026-10-16 09:52:25,285 - INFO - 
+[Step 4] Updating RPG with directory assignments...
+2026-10-16 09:52:25,285 - INFO -    Updated 5 RPG nodes with directory paths
+2026-10-16 09:52:25,285 - INFO - 
+======================================================================
+2026-10-16 09:52:25,285 - INFO - SKELETON BUILDING COMPLETED SUCCESSFULLY
+2026-10-16 09:52:25,285 - INFO - ======================================================================
+Statistics:
+  Components processed: 5
+  Features assigned: 50
+  Files created: 12
+  __init__.py files added: 7
+  LLM calls made: 6
+  Total skeleton nodes: 27
+  File nodes: 19
+  Directory nodes: 8
+  __init__.py files: 7
+   [OK] Skeleton generated successfully:
+     - Components processed: 5
+     - Features assigned: 50
+     - Files created: 12
+     - LLM calls made: 6
+
+[Step 2.5] Updating RPG paths from skeleton...
+2026-10-16 09:52:25,287 - INFO - Updated 50 RPG nodes with path information
+   [OK] Updated 50 nodes with path information
+
+[Step 3] Converting to CoderMind format...
+   [OK] Updated RPG saved to: rpg.json
+
+======================================================================
+SKELETON BUILDING COMPLETE
+======================================================================
+Total Components: 5
+Total Features: 50
+Assigned Features: 50
+Total Files: 12
+LLM Calls Made: 6
+Skeleton Nodes: 27
+__init__.py Files: 7
+
+   File Assignments (Top 20)
+   ┌──────────────────────────────────────┬──────────┐
+   │ File Path                            │ Features │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/__init__.py                      │ 0        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/__init__.py          │ 0        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/cli/__init__.py      │ 0        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/cli/main.py          │ 4        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/cli/reporting.py     │ 4        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/domain/__init__.py   │ 0        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/domain/evidence.py   │ 4        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/domain/matching.py   │ 1        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/inputs/__init__.py   │ 0        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/inputs/document.py   │ 3        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/inputs/evidence.py   │ 10       │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/inputs/flow.py       │ 3        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/sources/__init__.py  │ 0        │
+   ├──────────────────────────────────────┼──────────┤
+   │ src/acl_checker/sources/synthetic.py │ 6        │
+   ├──────────────────────────────────────┼──────────┤
+   │ tests/__init__.py                    │ 0        │
+   ├──────────────────────────────────────┼──────────┤
+   │ tests/test_application_contracts.py  │ 5        │
+   ├──────────────────────────────────────┼──────────┤
+   │ tests/test_architecture.py           │ 4        │
+   ├──────────────────────────────────────┼──────────┤
+   │ tests/test_cli_acceptance.py         │ 5        │
+   ├──────────────────────────────────────┼──────────┤
+   │ tests/test_matching.py               │ 1        │
+   └──────────────────────────────────────┴──────────┘
+2026-10-16 09:52:25,291 - INFO - [OK] Skeleton saved to: /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/skeleton.json
+
+[OK] Skeleton saved to: skeleton.json
+[OK] RPG saved to: rpg.json
+[OK] Trajectory saved to: build_skeleton_trajectory_20261016_095028.json
+✓  skeleton       done in 118.7s
+▶  data_flow      running build_data_flow.py ...
+
+======================================================================
+DATA FLOW DESIGN
+======================================================================
+Repository: acl-checker
+Components: 5
+  -  Исследование совпадений ACL [src/acl_checker/domain]
+  -  Командный интерфейс и публикация отчёта [src/acl_checker/cli]
+  -  Отбор и получение снимков ACL [src/acl_checker/sources]
+  -  Приём и валидация запроса [src/acl_checker/inputs]
+  -  Проверка контрактов и ограничений [tests]
+======================================================================
+2026-10-16 09:52:26,428 - INFO - [DataFlowAgent] Building data flow for 5 components
+2026-10-16 09:52:26,428 - INFO - [DataFlowAgent] Iteration 1/5
+2026-10-16 09:53:21,900 - INFO - [OK] Structure validation passed: DataFlowOutput
+2026-10-16 09:53:21,900 - INFO - [OK] LLM structured call successful
+2026-10-16 09:53:21,901 - WARNING - [DataFlowAgent] Validation failed: Item 0: 'source' node 'src/acl_checker/inputs' is not in required_keys.
+Item 0: 'target' node 'src/acl_checker/sources' is not in required_keys.
+Item 1: 'source' node 'src/acl_checker/inputs' is not in required_keys.
+Item 1: 'target' node 'src/acl_checker/domain' is not in required_keys.
+Item 2: 'source' node 'src/acl_checker/sources' is not in required_keys.
+Item 2: 'target' node 'src/acl_checker/domain' is not in required_keys.
+Item 3: 'source' node 'src/acl_checker/sources' is not in required_keys.
+Item 3: 'target' node 'src/acl_checker/domain' is not in required_keys.
+Item 4: 'source' node 'src/acl_checker/domain' is not in required_keys.
+Item 4: 'target' node 'src/acl_checker/cli' is not in required_keys.
+Item 5: 'source' node 'src/acl_checker/inputs' is not in required_keys.
+Item 5: 'target' node 'src/acl_checker/cli' is not in required_keys.
+Item 6: 'source' node 'src/acl_checker/sources' is not in required_keys.
+Item 6: 'target' node 'src/acl_checker/cli' is not in required_keys.
+Item 7: 'source' node 'src/acl_checker/cli' is not in required_keys.
+Item 7: 'target' node 'tests' is not in required_keys.
+Item 8: 'source' node 'src/acl_checker/domain' is not in required_keys.
+Item 8: 'target' node 'tests' is not in required_keys.
+Item 9: 'source' node 'src/acl_checker/inputs' is not in required_keys.
+Item 9: 'target' node 'tests' is not in required_keys.
+Item 10: 'source' node 'src/acl_checker/sources' is not in required_keys.
+Item 10: 'target' node 'tests' is not in required_keys.
+Item 11: 'source' node 'src/acl_checker/domain' is not in required_keys.
+Item 11: 'target' node 'tests' is not in required_keys.
+Item 12: 'source' node 'src/acl_checker/cli' is not in required_keys.
+Item 12: 'target' node 'tests' is not in required_keys.
+Unused nodes from required_keys (i.e., no data flow defined): ['Исследование совпадений ACL', 'Командный интерфейс и публикация отчёта', 'Отбор и получение снимков ACL', 'Приём и валидация запроса', 'Проверка контрактов и ограничений']
+2026-10-16 09:53:21,901 - INFO - [DataFlowAgent] Iteration 2/5
+2026-10-16 09:53:59,736 - INFO - [OK] Structure validation passed: DataFlowOutput
+2026-10-16 09:53:59,737 - INFO - [OK] LLM structured call successful
+2026-10-16 09:53:59,737 - INFO - [DataFlowAgent] Data flow validated successfully with 12 edges
+2026-10-16 09:53:59,739 - INFO - [OK] Data flow saved to: /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/data_flow.json
+
+============================================================
+DATA FLOW DESIGN SUMMARY
+============================================================
+
+Components: 5
+Data Flow Edges: 12
+
+Subtree Processing Order:
+  1. Приём и валидация запроса
+  2. Отбор и получение снимков ACL
+  3. Исследование совпадений ACL
+  4. Командный интерфейс и публикация отчёта
+  5. Проверка контрактов и ограничений
+
+   Data Flow Edges
+   ┌──────────────────────┬───┬──────────────────────┬───────────────────────────┬──────────────────────┐
+   │ Source               │   │ Target               │ Data ID                   │ Data Type            │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Приём и валидация за │ → │ Отбор и получение сн │ validated_synthetic_evide │ ValidatedSyntheticEv │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Приём и валидация за │ → │ Исследование совпаде │ validated_ipv4_flow       │ IPv4Flow { source: I │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Отбор и получение сн │ → │ Исследование совпаде │ ordered_relevant_acl_pair │ OrderedSequence<Rele │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Отбор и получение сн │ → │ Исследование совпаде │ saved_acl_snapshot        │ AclSnapshot { device │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Исследование совпаде │ → │ Командный интерфейс  │ complete_match_report     │ OrderedSequence<Repo │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Приём и валидация за │ → │ Командный интерфейс  │ input_validation_failure  │ RequestFailure { cat │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Отбор и получение сн │ → │ Командный интерфейс  │ required_evidence_failure │ RequestFailure { cat │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Командный интерфейс  │ → │ Проверка контрактов  │ public_cli_observation    │ CliObservation { std │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Исследование совпаде │ → │ Проверка контрактов  │ matching_contract_observa │ MatchingContractObse │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Приём и валидация за │ → │ Проверка контрактов  │ input_contract_observatio │ InputContractObserva │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Отбор и получение сн │ → │ Проверка контрактов  │ synthetic_source_contract │ SourceContractObserv │
+   ├──────────────────────┼───┼──────────────────────┼───────────────────────────┼──────────────────────┤
+   │ Исследование совпаде │ → │ Проверка контрактов  │ core_architecture_evidenc │ PythonSourceEvidence │
+   └──────────────────────┴───┴──────────────────────┴───────────────────────────┴──────────────────────┘
+============================================================
+
+[OK] Data flow saved to: data_flow.json
+2026-10-16 09:53:59,749 - INFO - Added data flow edge: Приём и валидация запроса -> Отбор и получение снимков ACL (validated_synthetic_evidence)
+2026-10-16 09:53:59,749 - INFO - Added data flow edge: Приём и валидация запроса -> Исследование совпадений ACL (validated_ipv4_flow)
+2026-10-16 09:53:59,749 - INFO - Added data flow edge: Отбор и получение снимков ACL -> Исследование совпадений ACL (ordered_relevant_acl_pairs)
+2026-10-16 09:53:59,749 - INFO - Edge already exists (by signature): Отбор и получение снимков ACL -> Исследование совпадений ACL
+2026-10-16 09:53:59,750 - INFO - Added data flow edge: Исследование совпадений ACL -> Командный интерфейс и публикация отчёта (complete_match_report)
+2026-10-16 09:53:59,750 - INFO - Added data flow edge: Приём и валидация запроса -> Командный интерфейс и публикация отчёта (input_validation_failure)
+2026-10-16 09:53:59,750 - INFO - Added data flow edge: Отбор и получение снимков ACL -> Командный интерфейс и публикация отчёта (required_evidence_failure)
+2026-10-16 09:53:59,750 - INFO - Added data flow edge: Командный интерфейс и публикация отчёта -> Проверка контрактов и ограничений (public_cli_observation)
+2026-10-16 09:53:59,750 - INFO - Added data flow edge: Исследование совпадений ACL -> Проверка контрактов и ограничений (matching_contract_observation)
+2026-10-16 09:53:59,750 - INFO - Added data flow edge: Приём и валидация запроса -> Проверка контрактов и ограничений (input_contract_observation)
+2026-10-16 09:53:59,750 - INFO - Added data flow edge: Отбор и получение снимков ACL -> Проверка контрактов и ограничений (synthetic_source_contract_observation)
+2026-10-16 09:53:59,750 - INFO - Edge already exists (by signature): Исследование совпадений ACL -> Проверка контрактов и ограничений
+[OK] Added 10 data flow edges to: rpg.json
+[OK] Trajectory saved to: build_data_flow_trajectory_20261016_095226.json
+✓  data_flow      done in 94.4s
+▶  base_classes   running design_base_classes.py ...
+
+======================================================================
+BASE CLASS DESIGN
+======================================================================
+Repository: acl-checker
+Functional Areas: 5
+Data Flow Edges: 12
+======================================================================
+2026-10-16 09:54:00,835 - INFO - [BaseClassAgent] Designing base classes for acl-checker
+2026-10-16 09:54:00,835 - INFO - [BaseClassAgent] Iteration 1/5
+2026-10-16 09:54:56,873 - INFO - [OK] Structure validation passed: BaseClassOutput
+2026-10-16 09:54:56,874 - INFO - [OK] LLM structured call successful
+2026-10-16 09:54:56,877 - INFO - [BaseClassAgent] Validated: 0 base classes, 3 data structures, 0 uncovered data flow types
+2026-10-16 09:54:56,878 - INFO - [OK] Base classes saved to: /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/base_classes.json
+
+============================================================
+BASE CLASS DESIGN SUMMARY
+============================================================
+
+Base Class Files: 0
+Total Base Classes: 0
+Data Structure Entries: 3
+Total Data Structures: 16
+
+   Data Flow Data Structure Stubs
+   ┌────────────────────────────────┬──────────────────────────────────────────────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+   │ Subtree                        │ Data Structures                                              │ Covers Data Flow Types                                                                                                                                                                                                                                                                                                                   │
+   ├────────────────────────────────┼──────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+   │ Исследование совпадений ACL    │ IPv4Flow, RulePredicate, SavedAclRule (+4)                   │ IPv4Flow { source: IPv4Address, destination: IPv4Address, protocol: Protocol, source_port: Optional<Port>, destination_port: Optional<Port> }, OrderedSequence<RelevantAclPair { device_id, acl_id, placements }>, AclSnapshot { device_id, acl_id, rules: OrderedSequence<SavedAclRule> }                                               │
+   ├────────────────────────────────┼──────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+   │ Приём и валидация запроса      │ RelevanceRecord, ValidatedSyntheticEvidence, ValidatedInput  │ ValidatedSyntheticEvidence                                                                                                                                                                                                                                                                                                               │
+   ├────────────────────────────────┼──────────────────────────────────────────────────────────────┼──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┤
+   │ Проверка контрактов и ограниче │ CliObservation, SourceCall, MatchingContractObservation (+3) │ CliObservation { stdout: Text, stderr: Text, exit_code: Integer }, MatchingContractObservation { match_results: Sequence<Boolean>, report_groups: OrderedSequence<ReportGroup>, source_calls: Sequence<SourceCall> }, InputContractObservation { outcome: ValidatedInput | RequestFailure, fixture_before: Bytes, fixture_after: Bytes } │
+   └────────────────────────────────┴──────────────────────────────────────────────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+============================================================
+
+[OK] Base classes saved to: base_classes.json
+[OK] Trajectory saved to: design_base_classes_trajectory_20261016_095400.json
+✓  base_classes   done in 57.2s
+▶  interfaces     running design_interfaces.py ...
+
+======================================================================
+INTERFACE DESIGN
+======================================================================
+Repository: acl-checker
+Total Files: 12
+Total Features: 50
+Subtrees: 5
+Processing Order:
+  1. Приём и валидация запроса
+  2. Отбор и получение снимков ACL
+  3. Исследование совпадений ACL
+  4. Командный интерфейс и публикация отчёта
+  5. Проверка контрактов и ограничений
+======================================================================
+2026-10-16 09:54:58,080 - INFO - [InterfaceOrchestrator] Processing 5 subtrees
+2026-10-16 09:54:58,080 - INFO - [InterfaceOrchestrator] Subtree order: ['Приём и валидация запроса', 'Отбор и получение снимков ACL', 'Исследование совпадений ACL', 'Командный интерфейс и публикация отчёта', 'Проверка контрактов и ограничений']
+[InterfaceOrchestrator] Subtrees to process: 5 (Приём и валидация запроса, Отбор и получение снимков ACL, Исследование совпадений ACL, Командный интерфейс и публикация отчёта, Проверка контрактов и ограничений)
+2026-10-16 09:54:58,080 - INFO - [InterfaceOrchestrator] Processing subtree: Приём и валидация запроса
+2026-10-16 09:54:58,080 - INFO - [InterfaceOrchestrator] Found 3 files for Приём и валидация запроса
+[InterfaceOrchestrator] Subtree 1/5: Приём и валидация запроса (3 files, 16 features)
+2026-10-16 09:55:07,984 - INFO - [SubtreeInterfaceAgent] Iteration 1/10, 3 files remaining
+2026-10-16 09:56:41,316 - INFO - [OK] Structure validation passed: SubtreeInterfaceOutput
+2026-10-16 09:56:41,317 - INFO - [OK] LLM structured call successful
+2026-10-16 09:56:41,321 - INFO - [SubtreeInterfaceAgent] All files fully covered
+2026-10-16 09:56:41,321 - INFO - [InterfaceOrchestrator] [OK] Completed src/acl_checker/inputs/flow.py
+2026-10-16 09:56:41,321 - INFO - [InterfaceOrchestrator] [OK] Completed src/acl_checker/inputs/evidence.py
+2026-10-16 09:56:41,321 - INFO - [InterfaceOrchestrator] [OK] Completed src/acl_checker/inputs/document.py
+2026-10-16 09:56:41,322 - INFO - [InterfaceOrchestrator] Registered 3 files from 'Приём и валидация запроса' to GlobalInterfaceRegistry (total symbols: 5)
+2026-10-16 09:56:41,323 - INFO - [ImportValidation] 'validate_ipv4_address' is imported from 'src.acl_checker.inputs.flow' and is a known interface in 'src/acl_checker/inputs/flow.py', but not declared in dependencies.calls
+2026-10-16 09:56:41,323 - INFO - [ImportValidation] 'validate_port' is imported from 'src.acl_checker.inputs.flow' and is a known interface in 'src/acl_checker/inputs/flow.py', but not declared in dependencies.calls
+2026-10-16 09:56:41,323 - INFO - [ImportValidation] 'validate_evidence' is imported from 'src.acl_checker.inputs.evidence' and is a known interface in 'src/acl_checker/inputs/evidence.py', but not declared in dependencies.calls
+2026-10-16 09:56:41,323 - INFO - [ImportValidation] 'validate_flow' is imported from 'src.acl_checker.inputs.flow' and is a known interface in 'src/acl_checker/inputs/flow.py', but not declared in dependencies.calls
+2026-10-16 09:56:41,323 - INFO - [InterfaceOrchestrator] Saved interfaces to /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/interfaces.json.partial
+[InterfaceOrchestrator] Progress: 1/5 subtrees, 16/16 processed features covered, issues=0
+2026-10-16 09:56:41,324 - INFO - [InterfaceOrchestrator] Processing subtree: Отбор и получение снимков ACL
+2026-10-16 09:56:41,324 - INFO - [InterfaceOrchestrator] Found 1 files for Отбор и получение снимков ACL
+[InterfaceOrchestrator] Subtree 2/5: Отбор и получение снимков ACL (1 files, 6 features)
+2026-10-16 09:56:41,324 - INFO - [SubtreeInterfaceAgent] Iteration 1/10, 1 files remaining
+[heartbeat] design_interfaces still running (120s elapsed)
+2026-10-16 09:57:43,061 - INFO - [OK] Structure validation passed: SubtreeInterfaceOutput
+2026-10-16 09:57:43,062 - INFO - [OK] LLM structured call successful
+2026-10-16 09:57:43,065 - INFO - [SubtreeInterfaceAgent] All files fully covered
+2026-10-16 09:57:43,065 - INFO - [InterfaceOrchestrator] [OK] Completed src/acl_checker/sources/synthetic.py
+2026-10-16 09:57:43,066 - INFO - [InterfaceOrchestrator] Registered 1 files from 'Отбор и получение снимков ACL' to GlobalInterfaceRegistry (total symbols: 9)
+2026-10-16 09:57:43,067 - INFO - [InterfaceOrchestrator] Saved interfaces to /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/interfaces.json.partial
+[InterfaceOrchestrator] Progress: 2/5 subtrees, 22/22 processed features covered, issues=0
+2026-10-16 09:57:43,067 - INFO - [InterfaceOrchestrator] Processing subtree: Исследование совпадений ACL
+2026-10-16 09:57:43,067 - INFO - [InterfaceOrchestrator] Found 2 files for Исследование совпадений ACL
+[InterfaceOrchestrator] Subtree 3/5: Исследование совпадений ACL (2 files, 5 features)
+2026-10-16 09:57:52,743 - INFO - [SubtreeInterfaceAgent] Iteration 1/10, 2 files remaining
+2026-10-16 09:58:51,153 - INFO - [OK] Structure validation passed: SubtreeInterfaceOutput
+2026-10-16 09:58:51,155 - INFO - [OK] LLM structured call successful
+2026-10-16 09:58:51,158 - INFO - [SubtreeInterfaceAgent] All files fully covered
+2026-10-16 09:58:51,158 - INFO - [InterfaceOrchestrator] [OK] Completed src/acl_checker/domain/matching.py
+2026-10-16 09:58:51,158 - INFO - [InterfaceOrchestrator] [OK] Completed src/acl_checker/domain/evidence.py
+2026-10-16 09:58:51,159 - INFO - [InterfaceOrchestrator] Registered 2 files from 'Исследование совпадений ACL' to GlobalInterfaceRegistry (total symbols: 14)
+2026-10-16 09:58:51,160 - INFO - [ImportValidation] 'matches' is imported from 'src.acl_checker.domain.matching' and is a known interface in 'src/acl_checker/domain/matching.py', but not declared in dependencies.calls
+2026-10-16 09:58:51,160 - INFO - [InterfaceOrchestrator] Saved interfaces to /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/interfaces.json.partial
+[InterfaceOrchestrator] Progress: 3/5 subtrees, 27/27 processed features covered, issues=0
+2026-10-16 09:58:51,161 - INFO - [InterfaceOrchestrator] Processing subtree: Командный интерфейс и публикация отчёта
+2026-10-16 09:58:51,161 - INFO - [InterfaceOrchestrator] Found 2 files for Командный интерфейс и публикация отчёта
+[InterfaceOrchestrator] Subtree 4/5: Командный интерфейс и публикация отчёта (2 files, 8 features)
+[heartbeat] design_interfaces still running (240s elapsed)
+2026-10-16 09:59:01,427 - INFO - [SubtreeInterfaceAgent] Iteration 1/10, 2 files remaining
+2026-10-16 10:00:24,191 - INFO - [OK] Structure validation passed: SubtreeInterfaceOutput
+2026-10-16 10:00:24,194 - INFO - [OK] LLM structured call successful
+2026-10-16 10:00:24,196 - WARNING - [SubtreeInterfaceAgent] Validation failed for src/acl_checker/cli/main.py: Interface must cover at least one uncovered target feature
+2026-10-16 10:00:24,196 - WARNING - [SubtreeInterfaceAgent] Validation failed for src/acl_checker/cli/main.py: Interface must cover at least one uncovered target feature
+2026-10-16 10:00:24,198 - WARNING - [SubtreeInterfaceAgent] Validation failed for src/acl_checker/cli/main.py: Interface must cover at least one uncovered target feature
+2026-10-16 10:00:24,198 - INFO - [SubtreeInterfaceAgent] All files fully covered
+2026-10-16 10:00:24,198 - INFO - [InterfaceOrchestrator] [OK] Completed src/acl_checker/cli/reporting.py
+2026-10-16 10:00:24,198 - INFO - [InterfaceOrchestrator] [OK] Completed src/acl_checker/cli/main.py
+2026-10-16 10:00:24,199 - INFO - [InterfaceOrchestrator] Registered 2 files from 'Командный интерфейс и публикация отчёта' to GlobalInterfaceRegistry (total symbols: 22)
+2026-10-16 10:00:24,201 - INFO - [InterfaceOrchestrator] Saved interfaces to /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/interfaces.json.partial
+[InterfaceOrchestrator] Progress: 4/5 subtrees, 35/35 processed features covered, issues=0
+2026-10-16 10:00:24,201 - INFO - [InterfaceOrchestrator] Processing subtree: Проверка контрактов и ограничений
+2026-10-16 10:00:24,201 - INFO - [InterfaceOrchestrator] Found 4 files for Проверка контрактов и ограничений
+[InterfaceOrchestrator] Subtree 5/5: Проверка контрактов и ограничений (4 files, 15 features)
+2026-10-16 10:00:35,391 - INFO - [SubtreeInterfaceAgent] Iteration 1/10, 4 files remaining
+[heartbeat] design_interfaces still running (360s elapsed)
+2026-10-16 10:02:50,528 - INFO - [OK] Structure validation passed: SubtreeInterfaceOutput
+2026-10-16 10:02:50,531 - INFO - [OK] LLM structured call successful
+2026-10-16 10:02:50,532 - WARNING - [SubtreeInterfaceAgent] Validation failed for tests/test_architecture.py: Interface must cover at least one uncovered target feature
+2026-10-16 10:02:50,533 - WARNING - [SubtreeInterfaceAgent] Validation failed for tests/test_matching.py: Interface must cover at least one uncovered target feature
+2026-10-16 10:02:50,537 - INFO - [SubtreeInterfaceAgent] All files fully covered
+2026-10-16 10:02:50,538 - INFO - [InterfaceOrchestrator] [OK] Completed tests/test_architecture.py
+2026-10-16 10:02:50,538 - INFO - [InterfaceOrchestrator] [OK] Completed tests/test_matching.py
+2026-10-16 10:02:50,538 - INFO - [InterfaceOrchestrator] [OK] Completed tests/test_application_contracts.py
+2026-10-16 10:02:50,538 - INFO - [InterfaceOrchestrator] [OK] Completed tests/test_cli_acceptance.py
+2026-10-16 10:02:50,545 - INFO - [InterfaceOrchestrator] Registered 4 files from 'Проверка контрактов и ограничений' to GlobalInterfaceRegistry (total symbols: 27)
+2026-10-16 10:02:50,547 - INFO - [InterfaceOrchestrator] Saved interfaces to /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/interfaces.json.partial
+[InterfaceOrchestrator] Progress: 5/5 subtrees, 50/50 processed features covered, issues=0
+2026-10-16 10:02:50,549 - INFO - [InterfaceOrchestrator] Saved interfaces to /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/interfaces.json
+2026-10-16 10:02:50,549 - INFO - Post-processed invocation edges: {'original_edges': 12, 'inheritance_edges': 0, 'invocation_edges': 44, 'reference_edges': 61}
+2026-10-16 10:02:50,549 - INFO - Collected dependencies: {'original_edges': 12, 'inheritance_edges': 0, 'invocation_edges': 44, 'reference_edges': 61}
+2026-10-16 10:02:50,549 - INFO - Starting global interface review phase...
+
+======================================================================
+GLOBAL INTERFACE REVIEW
+======================================================================
+2026-10-16 10:02:50,551 - INFO - [InterfaceReviewer] Starting global interface review
+2026-10-16 10:02:50,551 - INFO - [InterfaceReviewer] Review iteration 1/3
+[heartbeat] design_interfaces still running (480s elapsed)
+2026-10-16 10:03:44,990 - INFO - [InterfaceReviewer] LLM identified 15 entry points
+2026-10-16 10:03:44,990 - INFO -   Entry point: function load_request_document in src/acl_checker/inputs/document.py — Публичный интерфейс загрузки запроса для внешней композиции и контрактных проверок.
+2026-10-16 10:03:44,990 - INFO -   Entry point: function check in src/acl_checker/domain/evidence.py — Публичный интерфейс исследования с внедряемыми провайдерами; допускает вызов внешним кодом.
+2026-10-16 10:03:44,990 - INFO -   Entry point: function execute_local in src/acl_checker/cli/main.py — Интерфейс локального выполнения и композиции запроса; может вызываться внешним адаптером команды.
+2026-10-16 10:03:44,990 - INFO -   Entry point: class TestApplicationContracts in tests/test_application_contracts.py — Тестовый класс обнаруживается и запускается unittest.
+2026-10-16 10:03:44,990 - INFO -   Entry point: method test_invocation_isolation in tests/test_application_contracts.py — Метод автоматически вызывается тестовым раннером.
+2026-10-16 10:03:44,990 - INFO -   Entry point: method test_provider_compatibility in tests/test_application_contracts.py — Метод автоматически вызывается тестовым раннером.
+2026-10-16 10:03:44,990 - INFO -   Entry point: method test_atomic_request_failure in tests/test_application_contracts.py — Метод автоматически вызывается тестовым раннером.
+2026-10-16 10:03:44,991 - INFO -   Entry point: method test_input_immutability in tests/test_application_contracts.py — Метод автоматически вызывается тестовым раннером.
+2026-10-16 10:03:44,991 - INFO -   Entry point: method test_invalid_request_rejection in tests/test_application_contracts.py — Метод автоматически вызывается тестовым раннером.
+2026-10-16 10:03:44,991 - INFO -   Entry point: class TestCliAcceptance in tests/test_cli_acceptance.py — Тестовый класс обнаруживается и запускается тестовым раннером.
+2026-10-16 10:03:44,991 - INFO -   Entry point: method test_isolated_public_invocation in tests/test_cli_acceptance.py — Метод автоматически вызывается тестовым раннером.
+2026-10-16 10:03:44,991 - INFO -   Entry point: method test_exit_behavior in tests/test_cli_acceptance.py — Метод автоматически вызывается тестовым раннером.
+2026-10-16 10:03:44,991 - INFO -   Entry point: method test_exact_evidence_groups in tests/test_cli_acceptance.py — Метод автоматически вызывается тестовым раннером.
+2026-10-16 10:03:44,991 - INFO -   Entry point: method test_evidence_interpretation_limits in tests/test_cli_acceptance.py — Метод автоматически вызывается тестовым раннером.
+2026-10-16 10:03:44,991 - INFO -   Entry point: method test_public_output_formats in tests/test_cli_acceptance.py — Метод автоматически вызывается тестовым раннером.
+2026-10-16 10:03:44,992 - INFO - [InterfaceReviewer] Connectivity: 38 total units, 15 entry points, 3 orphan units
+2026-10-16 10:03:44,992 - INFO - [InterfaceReviewer] Feature coverage: 3 orphan features
+2026-10-16 10:03:44,992 - INFO - [InterfaceReviewer] Added dependency: function validate_evidence (src/acl_checker/inputs/evidence.py) -> function validate_ipv4_address (src/acl_checker/inputs/flow.py)
+2026-10-16 10:03:44,992 - INFO - [InterfaceReviewer] Added dependency: function validate_evidence (src/acl_checker/inputs/evidence.py) -> function validate_port (src/acl_checker/inputs/flow.py)
+2026-10-16 10:03:44,992 - INFO - [InterfaceReviewer] Added dependency: function load_request_document (src/acl_checker/inputs/document.py) -> function validate_flow (src/acl_checker/inputs/flow.py)
+2026-10-16 10:03:44,992 - INFO - [InterfaceReviewer] Added dependency: function load_request_document (src/acl_checker/inputs/document.py) -> function validate_evidence (src/acl_checker/inputs/evidence.py)
+2026-10-16 10:03:44,992 - INFO - [InterfaceReviewer] Added dependency: function collect_matching_evidence (src/acl_checker/domain/evidence.py) -> function matches (src/acl_checker/domain/matching.py)
+2026-10-16 10:03:44,992 - INFO - [InterfaceReviewer] Added interface function main in src/acl_checker/cli/main.py (subtree=Командный интерфейс и публикация отчёта, feature=Командный интерфейс и публикация отчёта/command entry/parse invocation options, +0 edge(s))
+2026-10-16 10:03:44,993 - WARNING - [InterfaceReviewer] modify_interface fix requested but not auto-applied: Уточнить происхождение CliObservation и полный контракт результата. Если используется tests.contract_models.CliObservation, устранить обратную зависимость: production-результат объявить во внешнем production-слое, а тестовое наблюдение формировать в run_isolated_cli. Зафиксировать изменение границы в ADR. (file: src/acl_checker/cli/main.py, unit: function execute_local)
+2026-10-16 10:03:44,993 - WARNING - [InterfaceReviewer] modify_interface fix requested but not auto-applied: Согласовать контракт портов с включительными диапазонами входного слоя и определением RulePredicate. После анализа бизнес-правил обновить DDD-документацию и явно определить проверку границ и поведение при отсутствии порта. (file: src/acl_checker/domain/matching.py, unit: function matches)
+2026-10-16 10:03:44,993 - INFO - [InterfaceReviewer] Applied 5 edge(s) from 4/6 fix request(s) (2 unapplied)
+2026-10-16 10:03:44,993 - INFO - [InterfaceReviewer] Review iteration 2/3
+2026-10-16 10:04:30,801 - INFO - [InterfaceReviewer] LLM identified 15 entry points
+2026-10-16 10:04:30,802 - INFO -   Entry point: function main in src/acl_checker/cli/main.py — Публичная точка запуска CLI, вызываемая средой исполнения.
+2026-10-16 10:04:30,802 - INFO -   Entry point: function load_request_document in src/acl_checker/inputs/document.py — Документированный публичный API загрузки запроса для внешних потребителей и контрактных проверок.
+2026-10-16 10:04:30,802 - INFO -   Entry point: function check in src/acl_checker/domain/evidence.py — Публичный API исследования потока с внедряемыми провайдерами, доступный внешнему коду независимо от CLI.
+2026-10-16 10:04:30,802 - INFO -   Entry point: class TestApplicationContracts in tests/test_application_contracts.py — Тестовый набор обнаруживается и создаётся unittest.
+2026-10-16 10:04:30,802 - INFO -   Entry point: method test_invocation_isolation in tests/test_application_contracts.py — Тестовый метод автоматически вызывается unittest.
+2026-10-16 10:04:30,802 - INFO -   Entry point: method test_provider_compatibility in tests/test_application_contracts.py — Тестовый метод автоматически вызывается unittest.
+2026-10-16 10:04:30,802 - INFO -   Entry point: method test_atomic_request_failure in tests/test_application_contracts.py — Тестовый метод автоматически вызывается unittest.
+2026-10-16 10:04:30,802 - INFO -   Entry point: method test_input_immutability in tests/test_application_contracts.py — Тестовый метод автоматически вызывается unittest.
+2026-10-16 10:04:30,802 - INFO -   Entry point: method test_invalid_request_rejection in tests/test_application_contracts.py — Тестовый метод автоматически вызывается unittest.
+2026-10-16 10:04:30,802 - INFO -   Entry point: class TestCliAcceptance in tests/test_cli_acceptance.py — Тестовый набор обнаруживается и создаётся unittest.
+2026-10-16 10:04:30,802 - INFO -   Entry point: method test_isolated_public_invocation in tests/test_cli_acceptance.py — Тестовый метод автоматически вызывается тестовым раннером.
+2026-10-16 10:04:30,802 - INFO -   Entry point: method test_exit_behavior in tests/test_cli_acceptance.py — Тестовый метод автоматически вызывается тестовым раннером.
+2026-10-16 10:04:30,802 - INFO -   Entry point: method test_exact_evidence_groups in tests/test_cli_acceptance.py — Тестовый метод автоматически вызывается тестовым раннером.
+2026-10-16 10:04:30,802 - INFO -   Entry point: method test_evidence_interpretation_limits in tests/test_cli_acceptance.py — Тестовый метод автоматически вызывается тестовым раннером.
+2026-10-16 10:04:30,802 - INFO -   Entry point: method test_public_output_formats in tests/test_cli_acceptance.py — Тестовый метод автоматически вызывается тестовым раннером.
+2026-10-16 10:04:30,803 - INFO - [InterfaceReviewer] Connectivity: 39 total units, 15 entry points, 2 orphan units
+2026-10-16 10:04:30,803 - INFO - [InterfaceReviewer] Feature coverage: 2 orphan features
+2026-10-16 10:04:30,803 - INFO - [InterfaceReviewer] Applied 0 edge(s) from 3/3 fix request(s)
+2026-10-16 10:04:30,803 - INFO - [InterfaceReviewer] Review iteration 3/3
+[heartbeat] design_interfaces still running (600s elapsed)
+2026-10-16 10:05:11,667 - INFO - [InterfaceReviewer] LLM identified 15 entry points
+2026-10-16 10:05:11,667 - INFO -   Entry point: function main in src/acl_checker/cli/main.py — Публичная точка запуска CLI, вызываемая внешней командой.
+2026-10-16 10:05:11,667 - INFO -   Entry point: function load_request_document in src/acl_checker/inputs/document.py — Явно объявленный внешний интерфейс загрузки и проверки запроса; также используется внутренней композицией.
+2026-10-16 10:05:11,667 - INFO -   Entry point: function check in src/acl_checker/domain/evidence.py — Публичный интерфейс исследования ACL с подменяемыми провайдерами, доступный внешним вызывающим сторонам.
+2026-10-16 10:05:11,667 - INFO -   Entry point: class TestApplicationContracts in tests/test_application_contracts.py — Тестовый класс, обнаруживаемый и запускаемый unittest.
+2026-10-16 10:05:11,667 - INFO -   Entry point: method test_invocation_isolation in tests/test_application_contracts.py — Тестовый метод, автоматически вызываемый unittest.
+2026-10-16 10:05:11,667 - INFO -   Entry point: method test_provider_compatibility in tests/test_application_contracts.py — Тестовый метод, автоматически вызываемый unittest.
+2026-10-16 10:05:11,667 - INFO -   Entry point: method test_atomic_request_failure in tests/test_application_contracts.py — Тестовый метод, автоматически вызываемый unittest.
+2026-10-16 10:05:11,667 - INFO -   Entry point: method test_input_immutability in tests/test_application_contracts.py — Тестовый метод, автоматически вызываемый unittest.
+2026-10-16 10:05:11,667 - INFO -   Entry point: method test_invalid_request_rejection in tests/test_application_contracts.py — Тестовый метод, автоматически вызываемый unittest.
+2026-10-16 10:05:11,667 - INFO -   Entry point: class TestCliAcceptance in tests/test_cli_acceptance.py — Тестовый класс, обнаруживаемый и запускаемый тестовым фреймворком.
+2026-10-16 10:05:11,667 - INFO -   Entry point: method test_isolated_public_invocation in tests/test_cli_acceptance.py — Тестовый метод, автоматически вызываемый тестовым фреймворком.
+2026-10-16 10:05:11,667 - INFO -   Entry point: method test_exit_behavior in tests/test_cli_acceptance.py — Тестовый метод, автоматически вызываемый тестовым фреймворком.
+2026-10-16 10:05:11,667 - INFO -   Entry point: method test_exact_evidence_groups in tests/test_cli_acceptance.py — Тестовый метод, автоматически вызываемый тестовым фреймворком.
+2026-10-16 10:05:11,667 - INFO -   Entry point: method test_evidence_interpretation_limits in tests/test_cli_acceptance.py — Тестовый метод, автоматически вызываемый тестовым фреймворком.
+2026-10-16 10:05:11,667 - INFO -   Entry point: method test_public_output_formats in tests/test_cli_acceptance.py — Тестовый метод, автоматически вызываемый тестовым фреймворком.
+2026-10-16 10:05:11,668 - INFO - [InterfaceReviewer] Connectivity: 39 total units, 15 entry points, 2 orphan units
+2026-10-16 10:05:11,668 - INFO - [InterfaceReviewer] Feature coverage: 2 orphan features
+2026-10-16 10:05:11,668 - INFO - [InterfaceReviewer] Applied 0 edge(s) from 3/3 fix request(s)
+2026-10-16 10:05:11,668 - INFO - [InterfaceReviewer] Final re-check: 2 orphan unit(s), 2 orphan feature(s)
+
+============================================================
+GLOBAL INTERFACE REVIEW SUMMARY
+============================================================
+Iterations: 3
+Final Status: [FAIL] NEEDS ATTENTION
+
+Entry Points (15):
+  -  function main in src/acl_checker/cli/main.py
+    Reason: Публичная точка запуска CLI, вызываемая внешней командой.
+  -  function load_request_document in src/acl_checker/inputs/document.py
+    Reason: Явно объявленный внешний интерфейс загрузки и проверки запроса; также используется внутренней композицией.
+  -  function check in src/acl_checker/domain/evidence.py
+    Reason: Публичный интерфейс исследования ACL с подменяемыми провайдерами, доступный внешним вызывающим сторонам.
+  -  class TestApplicationContracts in tests/test_application_contracts.py
+    Reason: Тестовый класс, обнаруживаемый и запускаемый unittest.
+  -  method test_invocation_isolation in tests/test_application_contracts.py
+    Reason: Тестовый метод, автоматически вызываемый unittest.
+  -  method test_provider_compatibility in tests/test_application_contracts.py
+    Reason: Тестовый метод, автоматически вызываемый unittest.
+  -  method test_atomic_request_failure in tests/test_application_contracts.py
+    Reason: Тестовый метод, автоматически вызываемый unittest.
+  -  method test_input_immutability in tests/test_application_contracts.py
+    Reason: Тестовый метод, автоматически вызываемый unittest.
+  -  method test_invalid_request_rejection in tests/test_application_contracts.py
+    Reason: Тестовый метод, автоматически вызываемый unittest.
+  -  class TestCliAcceptance in tests/test_cli_acceptance.py
+    Reason: Тестовый класс, обнаруживаемый и запускаемый тестовым фреймворком.
+  -  method test_isolated_public_invocation in tests/test_cli_acceptance.py
+    Reason: Тестовый метод, автоматически вызываемый тестовым фреймворком.
+  -  method test_exit_behavior in tests/test_cli_acceptance.py
+    Reason: Тестовый метод, автоматически вызываемый тестовым фреймворком.
+  -  method test_exact_evidence_groups in tests/test_cli_acceptance.py
+    Reason: Тестовый метод, автоматически вызываемый тестовым фреймворком.
+  -  method test_evidence_interpretation_limits in tests/test_cli_acceptance.py
+    Reason: Тестовый метод, автоматически вызываемый тестовым фреймворком.
+  -  method test_public_output_formats in tests/test_cli_acceptance.py
+    Reason: Тестовый метод, автоматически вызываемый тестовым фреймворком.
+
+Orphan Features (2):
+  -  function parse_invocation_options in src/acl_checker/cli/main.py (Командный интерфейс и публикация отчёта)
+  -  function display_prototype_help in src/acl_checker/cli/main.py (Командный интерфейс и публикация отчёта)
+============================================================
+
+Found 3 orphan interface units (no incoming and no outgoing call edges)
+   Reviewing orphan units with LLM (by subtree)...
+2026-10-16 10:05:24,755 - INFO - [orphan_review] src/acl_checker/cli/main.py::function parse_invocation_options: retain - Проверяет параметры публичного CLI; интерфейс явно предусматривает вызов из main, отсутствующий в графе. (+1 edges)
+2026-10-16 10:05:24,755 - INFO - [orphan_review] src/acl_checker/cli/main.py::function display_prototype_help: retain - Формирует справку публичного CLI; интерфейс явно предусматривает вызов из main при help_requested, отсутствующий в графе. (+1 edges)
+2026-10-16 10:05:37,226 - INFO - [orphan_review] tests/test_application_contracts.py::method assert_contract_observations: retain - Общий помощник проверки контрактов явно вызывается по проекту интерфейса из test_provider_compatibility и test_input_immutability. Отсутствие этих связей отражает неполноту графа. (+2 edges)
+2026-10-16 10:05:37,226 - INFO - [review_orphan_units] Reviewed 3 orphan units across 2 subtrees: 3 retain, 0 prune, 3 with completed edges
+2026-10-16 10:05:37,226 - INFO - [InterfacesStore.add_edges] Added invocation: function main -> function parse_invocation_options
+2026-10-16 10:05:37,226 - INFO - [InterfacesStore.add_edges] Added invocation: function main -> function display_prototype_help
+2026-10-16 10:05:37,226 - INFO - [InterfacesStore.add_edges] Added invocation: method test_provider_compatibility -> method assert_contract_observations
+2026-10-16 10:05:37,226 - INFO - [InterfacesStore.add_edges] Added invocation: method test_input_immutability -> method assert_contract_observations
+   [OK] Added 4 missing edges (design completion)
+   [OK] Retaining 3 units (deemed necessary)
+      -  src/acl_checker/cli/main.py::function parse_invocation_options
+      -  src/acl_checker/cli/main.py::function display_prototype_help
+      -  tests/test_application_contracts.py::method assert_contract_observations
+
+[OK] All orphan units retained after review
+  RPG updated: 101 features updated, 72 SAME_UNIT, 24 dependency edges, 5 entry points
+2026-10-16 10:05:37,256 - INFO - Final store stats: {'units': 39, 'files': 12, 'subtrees': 5, 'features': 50, 'inheritance_edges': 0, 'invocation_edges': 53, 'reference_edges': 61, 'entry_points': 15}
+2026-10-16 10:05:37,263 - INFO - [OK] Interfaces saved to: /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/interfaces.json
+
+============================================================
+INTERFACE DESIGN SUMMARY
+============================================================
+
+[Stage 1] Generation — did the LLM produce signatures for every file?
+
+   Per-Subtree Summary
+   ┌───────────────────────────┬───────┬────────────┬────────┐
+   │ Subtree                   │ Files │ Interfaces │ Status │
+   ├───────────────────────────┼───────┼────────────┼────────┤
+   │ Приём и валидация запроса │ 3     │ 5          │ [OK]   │
+   ├───────────────────────────┼───────┼────────────┼────────┤
+   │ Отбор и получение снимков │ 1     │ 4          │ [OK]   │
+   ├───────────────────────────┼───────┼────────────┼────────┤
+   │ Исследование совпадений A │ 2     │ 5          │ [OK]   │
+   ├───────────────────────────┼───────┼────────────┼────────┤
+   │ Командный интерфейс и пуб │ 2     │ 9          │ [OK]   │
+   ├───────────────────────────┼───────┼────────────┼────────┤
+   │ Проверка контрактов и огр │ 4     │ 16         │ [OK]   │
+   └───────────────────────────┴───────┴────────────┴────────┘
+  Files attempted: 12
+  Files successful: 12  (100.0%)
+  Total interfaces (units): 39
+  Dependency edges collected:
+    - Inheritance: 0
+    - Invocation: 53
+    - Reference:  61
+    - Cross-file invocations: 19
+    - Unresolved callee_file: 17
+
+[Stage 2] Coverage — is every skeleton feature mapped to some unit?
+  Files fully covered: 12/12
+  Features covered: 50/50
+
+[Stage 3] Global Review — is the call graph connected and self-consistent?
+  Entry points: 15
+  Orphan units (isolated: no incoming or outgoing call edges): 0
+  Orphan features attached to isolated units: 0
+  Unapplied fix requests: 2 (0 blocking, 2 advisory)
+    - [modify_interface] src/acl_checker/cli/main.py::function execute_local — modify_interface has no auto-handler
+    - [modify_interface] src/acl_checker/domain/matching.py::function matches — modify_interface has no auto-handler
+  Import cross-validation warnings: 5
+  Handler-added units (review-time interface completion): 1
+    + src/acl_checker/cli/main.py::function main
+
+Overall: ✓ PASS
+(Stage 3 is the strictest; PASS requires Stages 1+2 also clean.)
+============================================================
+
+[OK] Interfaces saved to: interfaces.json
+[OK] Trajectory saved to: design_interfaces_trajectory_20261016_095458.json
+✓  interfaces     done in 640.3s
+▶  tasks          running plan_tasks.py ...
+
+╔══════════════════════════════════════════════════════════════╗
+║       PLAN TASKS - Implementation Level                      ║
+╚══════════════════════════════════════════════════════════════╝
+
+   Loading interfaces from: /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/interfaces.json
+   Loading data flow from: /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/data_flow.json
+   Repository: acl-checker
+
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+   PLANNING IMPLEMENTATION TASKS (LLM-based)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+   Subtree order: ['Приём и валидация запроса', 'Отбор и получение снимков ACL', 'Исследование совпадений ACL', 'Командный интерфейс и публикация отчёта', 'Проверка контрактов и ограничений']
+INFO:__main__:[TaskPlanner] Corrected files_order for subtree 'Приём и валидация запроса' using python backend dependencies: ['src/acl_checker/inputs/document.py', 'src/acl_checker/inputs/evidence.py', 'src/acl_checker/inputs/flow.py'] -> ['src/acl_checker/inputs/flow.py', 'src/acl_checker/inputs/evidence.py', 'src/acl_checker/inputs/document.py']
+
+   Subtree: Приём и валидация запроса (3 files)
+      ↺ Corrected file order from interface imports
+      -  src/acl_checker/inputs/flow.py: 3 units
+      -  src/acl_checker/inputs/evidence.py: 1 units
+      -  src/acl_checker/inputs/document.py: 1 units
+INFO:__main__:[TaskPlannerAgent] Planning 5 units across 3 files for subtree 'Приём и валидация запроса'
+INFO:__main__:[TaskPlannerAgent] Step 1/5 for subtree 'Приём и валидация запроса'
+INFO:__main__:[TaskPlannerAgent] [OK] Planned 4 tasks covering all 5 units across 3 files.
+      [OK] 4 tasks planned for subtree
+
+   Subtree: Отбор и получение снимков ACL (1 files)
+      -  src/acl_checker/sources/synthetic.py: 4 units
+INFO:__main__:[TaskPlannerAgent] Planning 4 units across 1 files for subtree 'Отбор и получение снимков ACL'
+INFO:__main__:[TaskPlannerAgent] Step 1/5 for subtree 'Отбор и получение снимков ACL'
+INFO:__main__:[TaskPlannerAgent] [OK] Planned 2 tasks covering all 4 units across 1 files.
+      [OK] 2 tasks planned for subtree
+INFO:__main__:[TaskPlanner] Corrected files_order for subtree 'Исследование совпадений ACL' using python backend dependencies: ['src/acl_checker/domain/evidence.py', 'src/acl_checker/domain/matching.py'] -> ['src/acl_checker/domain/matching.py', 'src/acl_checker/domain/evidence.py']
+
+   Subtree: Исследование совпадений ACL (2 files)
+      ↺ Corrected file order from interface imports
+      -  src/acl_checker/domain/matching.py: 1 units
+      -  src/acl_checker/domain/evidence.py: 4 units
+INFO:__main__:[TaskPlannerAgent] Planning 5 units across 2 files for subtree 'Исследование совпадений ACL'
+INFO:__main__:[TaskPlannerAgent] Step 1/5 for subtree 'Исследование совпадений ACL'
+INFO:__main__:[TaskPlannerAgent] [OK] Planned 3 tasks covering all 5 units across 2 files.
+      [OK] 3 tasks planned for subtree
+INFO:__main__:[TaskPlanner] Corrected files_order for subtree 'Командный интерфейс и публикация отчёта' using python backend dependencies: ['src/acl_checker/cli/main.py', 'src/acl_checker/cli/reporting.py'] -> ['src/acl_checker/cli/reporting.py', 'src/acl_checker/cli/main.py']
+
+   Subtree: Командный интерфейс и публикация отчёта (2 files)
+      ↺ Corrected file order from interface imports
+      -  src/acl_checker/cli/reporting.py: 4 units
+      -  src/acl_checker/cli/main.py: 5 units
+INFO:__main__:[TaskPlannerAgent] Planning 9 units across 2 files for subtree 'Командный интерфейс и публикация отчёта'
+INFO:__main__:[TaskPlannerAgent] Step 1/5 for subtree 'Командный интерфейс и публикация отчёта'
+INFO:__main__:[TaskPlannerAgent] [OK] Planned 4 tasks covering all 9 units across 2 files.
+      [OK] 4 tasks planned for subtree
+INFO:__main__:[TaskPlanner] Corrected files_order for subtree 'Проверка контрактов и ограничений' using python backend dependencies: ['tests/test_application_contracts.py', 'tests/test_architecture.py', 'tests/test_cli_acceptance.py', 'tests/test_matching.py'] -> ['tests/test_architecture.py', 'tests/test_cli_acceptance.py', 'tests/test_matching.py', 'tests/test_application_contracts.py']
+
+   Subtree: Проверка контрактов и ограничений (4 files)
+      ↺ Corrected file order from interface imports
+      -  tests/test_architecture.py: 1 units
+      -  tests/test_cli_acceptance.py: 7 units
+      -  tests/test_matching.py: 1 units
+      -  tests/test_application_contracts.py: 7 units
+INFO:__main__:[TaskPlannerAgent] Planning 16 units across 4 files for subtree 'Проверка контрактов и ограничений'
+INFO:__main__:[TaskPlannerAgent] Step 1/5 for subtree 'Проверка контрактов и ограничений'
+INFO:__main__:[TaskPlannerAgent] [OK] Planned 7 tasks covering all 16 units across 4 files.
+      [OK] 7 tasks planned for subtree
+
+   Planned 20 tasks for 39 units across 12 files
+
+   Adding integration test and documentation tasks...
+INFO:__main__:Added integration test task for subtree: Приём и валидация запроса (path: src/acl_checker/inputs)
+      -  Added integration test task for subtree: Приём и валидация запроса
+INFO:__main__:Added integration test task for subtree: Отбор и получение снимков ACL (path: src/acl_checker/sources/synthetic.py)
+      -  Added integration test task for subtree: Отбор и получение снимков ACL
+INFO:__main__:Added integration test task for subtree: Исследование совпадений ACL (path: src/acl_checker/domain)
+      -  Added integration test task for subtree: Исследование совпадений ACL
+INFO:__main__:Added integration test task for subtree: Командный интерфейс и публикация отчёта (path: src/acl_checker/cli)
+      -  Added integration test task for subtree: Командный интерфейс и публикация отчёта
+INFO:__main__:Added integration test task for subtree: Проверка контрактов и ограничений (path: tests)
+      -  Added integration test task for subtree: Проверка контрактов и ограничений
+INFO:__main__:Added cross-module wiring task with 12 data flow edges
+      -  Added cross-module wiring verification task (12 edges)
+INFO:__main__:Added UI polish task
+      -  Added UI polish task
+INFO:__main__:Added final comprehensive test and documentation tasks
+      -  Added final comprehensive test and documentation task
+      -  Added main entry point task (with run test)
+
+   Adding project file tasks...
+      -  Added dependency metadata task (with validation test)
+      -  Added README.md generation task (no test)
+INFO:__main__:Added 2 project file tasks
+   [OK] Added project file tasks (total tasks: 31)
+
+   [OK] Tasks saved to: tasks.json
+   [OK] Trajectory saved
+
+╔══════════════════════════════════════════════════════════════╗
+║              TASK PLANNING COMPLETE                          ║
+║  Total Tasks:   31                                        ║
+╚══════════════════════════════════════════════════════════════╝
+
+   [PIN] Implementation can now begin!
+   Use the tasks.json to guide the implementation order.
+✓  tasks          done in 128.0s
+
+Running post-pipeline helpers ...
+▶  summary_skeleton.py
+Summary saved to: skeleton_summary.txt
+▶  generate_viz.py
+Reading data from: /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/data_flow.json
+Writing visualization to: /home/alex/.cmind/workspaces/home-alex-cache-agentic-checker-lab-runs-checker-v1-workspace/data/data_flow_viz.html
+Done!
+
+Plan complete in 1039.6s.
+Next: `/cmind.code_gen` to generate source code.
+Graph: see the 'Writing visualization to:' line above for the generated HTML path.

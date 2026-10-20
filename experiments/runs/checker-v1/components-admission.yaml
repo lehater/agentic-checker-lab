@@ -1,0 +1,195 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: components
+capability: checker.components
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted:
+  - engineering.engineering.components
+decision_exploration:
+  version: 1
+  kind: harness-decision-exploration-evaluation
+  capability: checker.components
+  knowledge_kind: component-design
+  status: ACCEPTED
+  findings: []
+  axes:
+  - axis: responsibility-boundaries
+    applicability: APPLICABLE
+    exploration: EXPLORE
+    probe_strategies:
+    - feature-vs-technical
+    - split-vs-merge
+    decision_points:
+    - id: components
+      alternatives:
+      - functions
+      - objects
+      subjects: []
+      scoped_probe_strategies:
+      - feature-vs-technical
+      - split-vs-merge
+      alternative_material_effects:
+        functions:
+          boundary-granularity: cohesive-functions
+          ownership-basis: semantic-responsibility
+          cross-feature-sharing: none
+        objects:
+          boundary-granularity: service-classes
+          ownership-basis: operation-object
+          cross-feature-sharing: service-base
+  - axis: provider-seams
+    applicability: APPLICABLE
+    exploration: EXPLORE
+    probe_strategies:
+    - direct-vs-port
+    - provider-substitution
+    decision_points:
+    - id: sources
+      alternatives:
+      - callables
+      - protocols
+      subjects: []
+      scoped_probe_strategies:
+      - direct-vs-port
+      - provider-substitution
+      alternative_material_effects:
+        callables:
+          seam-location: application-parameters
+          provider-leakage: none
+          substitution-scope: source-callable
+        protocols:
+          seam-location: provider-interface
+          provider-leakage: none
+          substitution-scope: provider-object
+  - axis: state-ownership
+    applicability: APPLICABLE
+    exploration: EXPLORE
+    probe_strategies:
+    - lifecycle-perturbation
+    - local-vs-global
+    decision_points:
+    - id: state
+      alternatives:
+      - invocation
+      - cache
+      subjects: []
+      scoped_probe_strategies:
+      - lifecycle-perturbation
+      - local-vs-global
+      alternative_material_effects:
+        invocation:
+          state-owner: invocation
+          sharing-scope: none
+          lifecycle: query
+        cache:
+          state-owner: cache
+          sharing-scope: multiple-queries
+          lifecycle: process
+  explorer_request_id: sha256:9544de9d72fa537cd323bffc8a79ac4c30e82ca59cdbbe5d7c19a854d3675175
+  decision_space_review: ACCEPTED
+decision_execution_assurance:
+  version: 1
+  kind: harness-decision-execution-assurance-evaluation
+  knowledge_kind: component-design
+  required: REQUEST_BOUND
+  status: ACCEPTED
+  findings: []
+  executor_trust: UNATTESTED
+  guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+decision_governance:
+  version: 1
+  kind: harness-decision-governance-evaluation
+  artifact: components
+  capability: checker.components
+  knowledge_kind: component-design
+  status: ACCEPTED
+  findings: []
+  axes:
+  - axis: responsibility-boundaries
+    applicability: APPLICABLE
+    autonomy: BROAD
+    decisions:
+    - id: components
+      owner_authority: COMPONENT-DESIGN
+      viable:
+      - functions
+      - objects
+      unknown: []
+      disposition: DELEGATED
+      delegation_allowed: true
+  - axis: provider-seams
+    applicability: APPLICABLE
+    autonomy: BROAD
+    decisions:
+    - id: sources
+      owner_authority: COMPONENT-DESIGN
+      viable:
+      - callables
+      - protocols
+      unknown: []
+      disposition: DELEGATED
+      delegation_allowed: true
+  - axis: state-ownership
+    applicability: APPLICABLE
+    autonomy: BROAD
+    decisions:
+    - id: state
+      owner_authority: COMPONENT-DESIGN
+      viable:
+      - cache
+      - invocation
+      unknown: []
+      disposition: DELEGATED
+      delegation_allowed: true
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: component-design
+  skill: skills/artifacts/component-design/SKILL.md
+  acceptance_id: checker-v1-6f2fc74984ddb072caf02e66
+  authority: COMPONENT-DESIGN
+  allowed_source_authorities:
+  - COMPONENT-DESIGN
+  - DOMAIN-USE-CASE-DESIGN
+  - ENGINEERING-POLICY
+  - MACHINE-INTERFACE-DESIGN
+  - SYSTEM-ARCHITECTURE
+  changed_paths:
+  - docs/checker/components.md
+  canonical_references:
+  - referenced_path: docs/checker/architecture.md
+  - referenced_path: docs/checker/interface.md
+  - referenced_path: docs/checker/domain.md
+  - referenced_path: docs/checker/engineering-policy.md
+  accepted_prerequisites: &id001
+    checker.architecture: checker-v1-13b83a49054471c3b217f865
+    checker.interface: checker-v1-7a5af9fc5faa417f2ed58f7d
+    checker.domain: checker-v1-2abd3a6fff3ad8b58bfabf3e
+    checker.policy: checker-v1-bb39846d836179a7c699b5a8
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:9ce3e86fb41ce04ed66e7612f287c595d970f0dae6f0e1d78e02d42d6310fd35
+  acceptance_policy_fingerprint: sha256:9ce3e86fb41ce04ed66e7612f287c595d970f0dae6f0e1d78e02d42d6310fd35
+  decision_exploration: ACCEPTED
+  decision_explorer_request_id: sha256:9544de9d72fa537cd323bffc8a79ac4c30e82ca59cdbbe5d7c19a854d3675175
+  decision_execution_assurance: ACCEPTED
+  decision_governance: ACCEPTED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: components
+  capability: checker.components
+  acceptance_id: checker-v1-6f2fc74984ddb072caf02e66
+  acceptance_policy_fingerprint: sha256:9ce3e86fb41ce04ed66e7612f287c595d970f0dae6f0e1d78e02d42d6310fd35
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    COMP-1: SAF-a583855976bfed1b1c50de4d082240a52e1cf0560f3a1cc0923a13b2441851a6

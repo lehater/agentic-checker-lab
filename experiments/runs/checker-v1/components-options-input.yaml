@@ -1,0 +1,116 @@
+axes:
+- axis: responsibility-boundaries
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: split-vs-merge
+    challenge: Would merging matching and I/O hide independent change?
+    alternatives:
+    - functions
+    - objects
+    decision_points:
+    - components
+  - strategy: feature-vs-technical
+    challenge: Would service base classes add current sharing value?
+    alternatives:
+    - functions
+    - objects
+    decision_points:
+    - components
+  decision_points:
+  - id: components
+    alternatives:
+    - id: functions
+      difference: Small matching, use-case, boundary function modules.
+      material_effects:
+        boundary-granularity: cohesive-functions
+        ownership-basis: semantic-responsibility
+        cross-feature-sharing: none
+    - id: objects
+      difference: Object graph with one service class per operation.
+      material_effects:
+        boundary-granularity: service-classes
+        ownership-basis: operation-object
+        cross-feature-sharing: service-base
+- axis: provider-seams
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: direct-vs-port
+    challenge: Can replacing sources avoid touching matching?
+    alternatives:
+    - callables
+    - protocols
+    decision_points:
+    - sources
+  - strategy: provider-substitution
+    challenge: Would object lifetime/state be meaningful here?
+    alternatives:
+    - callables
+    - protocols
+    decision_points:
+    - sources
+  decision_points:
+  - id: sources
+    alternatives:
+    - id: callables
+      difference: Use case accepts narrow relevance and snapshot functions.
+      material_effects:
+        seam-location: application-parameters
+        provider-leakage: none
+        substitution-scope: source-callable
+    - id: protocols
+      difference: Use case accepts two explicit provider objects.
+      material_effects:
+        seam-location: provider-interface
+        provider-leakage: none
+        substitution-scope: provider-object
+- axis: state-ownership
+  applicability: APPLICABLE
+  exploration_level: EXPLORE
+  probes:
+  - strategy: local-vs-global
+    challenge: Does global snapshot cache need invalidation?
+    alternatives:
+    - invocation
+    - cache
+    decision_points:
+    - state
+  - strategy: lifecycle-perturbation
+    challenge: Does one query require longer-lived state?
+    alternatives:
+    - invocation
+    - cache
+    decision_points:
+    - state
+  decision_points:
+  - id: state
+    alternatives:
+    - id: invocation
+      difference: Validated values owned by each invocation.
+      material_effects:
+        state-owner: invocation
+        sharing-scope: none
+        lifecycle: query
+    - id: cache
+      difference: Shared cache of normalized snapshot values.
+      material_effects:
+        state-owner: cache
+        sharing-scope: multiple-queries
+        lifecycle: process
+decision_space_review:
+  status: COMPLETE
+  checks:
+  - mixed-decision-split
+  - missing-material-case-search
+  - impact-and-reversal-frontier-check
+  - accepted-constraint-cross-check
+  - authority-boundary-cross-check
+  reviewed_decisions:
+  - components
+  - sources
+  - state
+  open_gaps: []
+  rationale: Checked public responsibilities, substitution and state lifetimes; matching/representation
+    boundaries already accepted, language/private helpers remain free. No additional
+    lifecycle or state identity.

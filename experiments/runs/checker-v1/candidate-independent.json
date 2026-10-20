@@ -1,0 +1,32 @@
+{
+  "status": "PASS_CANDIDATE",
+  "native_source_commit": "3f0cbdabb099632f8ad538fecf3ce21c504b1d82",
+  "exit_code": 0,
+  "python": "3.10.12 (main, Aug 31 2026, 10:18:17) [GCC 11.4.0]",
+  "source_sha256": {
+    "checker/__init__.py": "0d94de4e6c9acb3a32d5104d7ae9f1c8c409f0fdc3395946681b7ace4377b9b0",
+    "checker/__main__.py": "134ee4484d23551c8f4fcc4a46e5378ce679dd02d0216fabd65071ab04539f4a",
+    "src/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/acl_checker/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/acl_checker/domain/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/acl_checker/domain/matching.py": "b0870157be53172ef36620dc711ca10f032d3038abed3691cea4d98f57699cb9",
+    "src/acl_checker/domain/types.py": "8c5ca8211a8b2d87cfbf832d7bb4800da4ded65c32cfcbe5cac8fba1294e23ea",
+    "src/acl_checker/domain/application/__init__.py": "3e13ca38976e1dbc294ee2b6e046727a8cb4c5b450d32df6eeb6f09b7ef3ec1b",
+    "src/acl_checker/domain/application/check.py": "3f70acc591bc441a53f518d81c5c179aa382ae4407f96e940265994c5e6474ce",
+    "src/acl_checker/input/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/acl_checker/input/types.py": "3ecf47ea69f9452c156ed62970c56356d73a25db57e7cd07ef5771c6711a0a41",
+    "src/acl_checker/input/validation.py": "cac4120082e929c4cad449abff4349db32aeda08d027a253e19e524fd8e3da62",
+    "src/acl_checker/input/document.py": "19fdab25137664e6aaa0f734b900d9b20971879c673658e0fd7ae8f736224a8a",
+    "src/acl_checker/cli/main.py": "5dfd257bd73639bc61a8fc65e7b21c25c88f1334fba59c7f826fe3ddef475b7a",
+    "src/acl_checker/cli/rendering.py": "0e1f6d2ccc757688d00e0557b70d81a1145b0aba74f201855fd961a8869e0e41",
+    "src/acl_checker/application/__init__.py": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "src/acl_checker/application/types.py": "a6892971bbc0382b510748bc22f0da4582bcd820466b221c6c28df357a1e03ce",
+    "src/acl_checker/application/sources.py": "6d95ee6f81d266e599c3efd5dc7f6a987dd09d51f71c6215d772b2d5157728f7",
+    "src/acl_checker/application/evidence.py": "e77bf5e52391558cd862166d42fee9fa083c5a939d075591c220792706911faf"
+  },
+  "test_sha256": {
+    "test_checker_acceptance.py": "bc87645474589b39ec6cf51ea3c15890978d59fff9ea930175ab79023ed052ff",
+    "test_checker_structure.py": "e69e9b15ff7345f337a6dd184f8bad9f3a7d6f689ab9630de154614167f44fec"
+  },
+  "scope": "Independent frozen public and structural checks against immutable candidate Git tree; native pipeline still running."
+}

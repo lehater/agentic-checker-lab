@@ -1,0 +1,110 @@
+{
+  "data_flow": [
+    {
+      "source": "Приём и валидация запроса",
+      "target": "Исследование совпадений ACL",
+      "data_id": "validated_matching_values",
+      "data_type": "MatchingValues{flow:{source:IPv4,destination:IPv4,protocol:tcp|udp,source_port:Port,destination_port:Port},rule:{id,source:IPv4HostOrCanonicalCIDR,destination:IPv4HostOrCanonicalCIDR,protocol:tcp|udp|any,source_ports:[Port,Port],destination_ports:[Port,Port],action:permit|deny}}",
+      "transformation": "Внешний адаптер проверяет значения, обязательность полей и отсутствие неизвестных полей; Port — целое 0..65535, исключая bool, а диапазоны имеют две включительные упорядоченные границы. Application передаёт проверенные flow и rule в чистую matches(flow, rule), сохраняя исходные объекты правил."
+    },
+    {
+      "source": "Приём и валидация запроса",
+      "target": "Отбор и получение снимков ACL",
+      "data_id": "validated_invocation_and_sources",
+      "data_type": "ValidatedInvocation{flow:Flow,relevance:(IPv4,IPv4)->List<DeviceAclPair>,snapshot:(device,acl)->Snapshot}",
+      "transformation": "JSON версии 1 содержит flow, relevance и snapshots; все предоставленные снимки валидируются до обработки. Внешняя композиция передаёт check(flow, relevance, snapshot) узкие функции, замыкающие данные одного запуска; placements берутся из снимков, дополнительные relevance_records не поддерживаются."
+    },
+    {
+      "source": "Исследование совпадений ACL",
+      "target": "Отбор и получение снимков ACL",
+      "data_id": "rule_match_boolean",
+      "data_type": "bool",
+      "transformation": "matches возвращает конъюнкцию принадлежности обоих IPv4 адресов предикатам правила, совпадения протокола либо any и вхождения обоих портов во включительные диапазоны. Application проверяет каждое правило в порядке снимка без остановки на первом совпадении; action не влияет на предикат."
+    },
+    {
+      "source": "Отбор и получение снимков ACL",
+      "target": "Командный интерфейс и публикация отчёта",
+      "data_id": "ordered_report_groups",
+      "data_type": "List<ReportGroup{device,acl,placements,status:MATCHES|NO_MATCH,rules:List<OriginalRule>}>",
+      "transformation": "Application удаляет повторные relevance-пары с сохранением первого появления и формирует группы только для релевантных снимков, сохраняя placements и полные совпавшие правила в порядке снимка. CLI публикует ровно {version:1,groups:[...]} в JSON либо согласованный текст, без общего verdict, implicit deny или интерпретации порядка как сетевого пути."
+    },
+    {
+      "source": "Приём и валидация запроса",
+      "target": "Командный интерфейс и публикация отчёта",
+      "data_id": "input_boundary_failure",
+      "data_type": "ExpectedInputFailure{reason:string}",
+      "transformation": "Ошибка чтения, некорректный JSON, неподдерживаемая версия, неверная форма или неподдерживаемый предикат отклоняют весь запрос. CLI завершает процесс с кодом 2, пустым stdout и диагностикой stderr вида 'Checker error: <reason>'."
+    },
+    {
+      "source": "Отбор и получение снимков ACL",
+      "target": "Командный интерфейс и публикация отчёта",
+      "data_id": "missing_snapshot_failure",
+      "data_type": "ExpectedApplicationFailure{reason:string}",
+      "transformation": "Отсутствие снимка для релевантной пары прерывает запрос без успешного частичного отчёта и без подмены ошибки статусом NO_MATCH. CLI выдаёт код 2, пустой stdout и 'Checker error: <reason>' в stderr; ошибки программиста не подавляются blanket except Exception."
+    },
+    {
+      "source": "Командный интерфейс и публикация отчёта",
+      "target": "Проверка контрактов и ограничений",
+      "data_id": "public_process_observation",
+      "data_type": "ProcessObservation{argv:List<string>,exit_code:integer,stdout:string,stderr:string}",
+      "transformation": "Изолированные приёмочные запуски вызывают python3 -m checker --input PATH с text и json, сопоставляя наблюдения с независимыми фиксированными ожиданиями. Проверяются точная публичная схема, группы, статусы, полные правила, placements, отсутствие verdict и поведение ошибок."
+    },
+    {
+      "source": "Исследование совпадений ACL",
+      "target": "Проверка контрактов и ограничений",
+      "data_id": "matching_contract_observation",
+      "data_type": "MatchingObservation{actual:boolean,input_unchanged:boolean}",
+      "transformation": "Тесты сопоставляют результаты чистой matches с заранее заданными ожиданиями для адресов, протоколов и границ обоих диапазонов портов. Дополнительно проверяется отсутствие изменения переданных значений."
+    },
+    {
+      "source": "Отбор и получение снимков ACL",
+      "target": "Проверка контрактов и ограничений",
+      "data_id": "application_contract_observation",
+      "data_type": "ApplicationObservation{outcome:ReportGroupsOrExpectedFailure,source_calls:List<SourceCall>,inputs_unchanged:boolean}",
+      "transformation": "Интеграционные тесты подставляют relevance и snapshot callables и проверяют их аргументы, дедупликацию пар, порядок групп и правил, все совпадения и явные NO_MATCH. Отдельно проверяются отказ при отсутствующем снимке и неизменность исходных данных."
+    },
+    {
+      "source": "Приём и валидация запроса",
+      "target": "Проверка контрактов и ограничений",
+      "data_id": "validation_contract_observation",
+      "data_type": "ValidationObservation{outcome:ValidatedInvocationOrExpectedFailure,fixtures_unchanged:boolean}",
+      "transformation": "Тесты проверяют принятие корректного JSON и отклонение неизвестных полей, bool вместо портов, неверных CIDR, диапазонов и placements, включая ошибки в нерелевантных снимках. Ожидания остаются независимыми от реализации, фикстуры не изменяются."
+    },
+    {
+      "source": "Исследование совпадений ACL",
+      "target": "Проверка контрактов и ограничений",
+      "data_id": "domain_source_for_architecture_check",
+      "data_type": "PythonSourceText",
+      "transformation": "Тесты читают исходный код domain и анализируют AST и импорты. Проверяется отсутствие зависимостей от CLI, внешних адаптеров, JSON, файлового и сетевого инструментария."
+    },
+    {
+      "source": "Отбор и получение снимков ACL",
+      "target": "Проверка контрактов и ограничений",
+      "data_id": "application_source_for_architecture_check",
+      "data_type": "PythonSourceText",
+      "transformation": "Тесты анализируют AST и импорты application на соответствие направленным внутрь зависимостям и собственным контрактам источников. Проверки остаются вне рабочего выполнения и не передают результаты обратно компонентам."
+    }
+  ],
+  "subtree_order": [
+    "Приём и валидация запроса",
+    "Исследование совпадений ACL",
+    "Отбор и получение снимков ACL",
+    "Командный интерфейс и публикация отчёта",
+    "Проверка контрактов и ограничений"
+  ],
+  "success": true,
+  "iterations": 2,
+  "components": [
+    "Исследование совпадений ACL",
+    "Командный интерфейс и публикация отчёта",
+    "Отбор и получение снимков ACL",
+    "Приём и валидация запроса",
+    "Проверка контрактов и ограничений"
+  ],
+  "meta": {
+    "primary_language": "python",
+    "target_languages": [
+      "python"
+    ]
+  }
+}

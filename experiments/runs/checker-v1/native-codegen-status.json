@@ -1,0 +1,14 @@
+{
+  "type": "complete",
+  "message": "All 30 tasks completed successfully!",
+  "current_batch": null,
+  "next_batch": null,
+  "stats": {
+    "total_tasks": 30,
+    "completed": 30,
+    "failed": 0,
+    "remaining": 0,
+    "success_rate": 100.0
+  },
+  "next_action": "Run: cmind script run_batch.py --final-test --json"
+}

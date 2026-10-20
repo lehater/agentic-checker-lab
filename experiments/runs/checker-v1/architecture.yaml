@@ -1,0 +1,367 @@
+knowledge_kind: system-architecture
+depends_on:
+- requirements
+- domain
+candidate:
+  id: architecture
+  path: docs/checker/architecture.md
+  capability: checker.architecture
+  canonical_references:
+  - referenced_path: .harness/knowledge/requirements.yaml
+  - referenced_path: docs/checker/domain.md
+  semantic_assertions:
+  - id: ARCH-1
+    kind: architecture
+    subject: ARCH-1
+    semantic_value: One local read-only process; pure domain, application-owned source
+      callables, outer adapters/composition; inward dependencies; invocation-level
+      all-or-error; no production network.
+    decision_authority: SYSTEM-ARCHITECTURE
+    derived_from:
+    - REQ-CHECKER-101
+    - REQ-CHECKER-102
+    - REQ-CHECKER-103
+    - REQ-CHECKER-104
+    - DOM-1
+    - DOM-2
+  semantic_review:
+    status: ACCEPTED
+    checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - architecture-not-product-requirement
+    - dependency-topology-explicit-where-material
+    reviewer: Engineering agent under current owner assignment
+    record: docs/checker/architecture.md
+    rationale: Driver closure содержит все 12 concerns с основаниями; нет material
+      unresolved driver выбранного synthetic slice. Варианты сформированы до candidate
+      и проверены; нет технической причины для distribution. Зависимости направлены
+      внутрь, boundary проверяется mechanically. Отказ не меняет DOM-2.
+  decision_review:
+    axes:
+    - axis: runtime-boundaries
+      decisions:
+      - id: runtime
+        owner_authority: SYSTEM-ARCHITECTURE
+        alternatives:
+        - id: local
+          state: VIABLE
+        - id: service
+          state: VIABLE
+        disposition: DELEGATED
+        selected: local
+        rationale: Smallest satisfying prototype under current owner engineering delegation;
+          trade-off recorded in architecture.
+    - axis: deployment-topology
+      decisions:
+      - id: deployment
+        owner_authority: SYSTEM-ARCHITECTURE
+        alternatives:
+        - id: one
+          state: VIABLE
+        - id: split
+          state: VIABLE
+        disposition: DELEGATED
+        selected: one
+        rationale: Smallest satisfying prototype under current owner engineering delegation;
+          trade-off recorded in architecture.
+    - axis: interaction-model
+      decisions:
+      - id: interaction
+        owner_authority: SYSTEM-ARCHITECTURE
+        alternatives:
+        - id: direct
+          state: VIABLE
+        - id: queued
+          state: VIABLE
+        disposition: DELEGATED
+        selected: direct
+        rationale: Smallest satisfying prototype under current owner engineering delegation;
+          trade-off recorded in architecture.
+    - axis: state-placement
+      decisions:
+      - id: state
+        owner_authority: SYSTEM-ARCHITECTURE
+        alternatives:
+        - id: input
+          state: VIABLE
+        - id: database
+          state: VIABLE
+        disposition: DELEGATED
+        selected: input
+        rationale: Smallest satisfying prototype under current owner engineering delegation;
+          trade-off recorded in architecture.
+    - axis: dependency-direction
+      decisions:
+      - id: dependency
+        owner_authority: SYSTEM-ARCHITECTURE
+        alternatives:
+        - id: inward
+          state: VIABLE
+        - id: outward
+          state: REJECTED
+          rationale: Outward domain dependency violates project Clean Architecture
+            and domain independence.
+        disposition: DETERMINED
+        selected: inward
+        rationale: Smallest satisfying prototype under current owner engineering delegation;
+          trade-off recorded in architecture.
+    - axis: failure-isolation
+      decisions:
+      - id: failure
+        owner_authority: SYSTEM-ARCHITECTURE
+        alternatives:
+        - id: request
+          state: VIABLE
+        - id: workers
+          state: VIABLE
+        disposition: DELEGATED
+        selected: request
+        rationale: Smallest satisfying prototype under current owner engineering delegation;
+          trade-off recorded in architecture.
+decision_policy:
+  version: 1
+  kind: harness-decision-policy
+  knowledge_kinds:
+  - knowledge_kind: system-architecture
+    exploration: EXPLORE
+    autonomy: BROAD
+    execution_assurance: REQUEST_BOUND
+  - knowledge_kind: component-design
+    exploration: EXPLORE
+    autonomy: BROAD
+    execution_assurance: REQUEST_BOUND
+  - knowledge_kind: implementation-design
+    exploration: EXPLORE
+    autonomy: BROAD
+    execution_assurance: REQUEST_BOUND
+decision_exploration:
+  axes:
+  - axis: runtime-boundaries
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+    - strategy: merge-vs-split
+      challenge: Can matching and adapters run together or separately?
+      alternatives:
+      - local
+      - service
+      decision_points:
+      - runtime
+    - strategy: boundary-shift
+      challenge: Does moving matching behind a process help the synthetic operator
+        job?
+      alternatives:
+      - local
+      - service
+      decision_points:
+      - runtime
+    decision_points:
+    - id: runtime
+      alternatives:
+      - id: local
+        difference: Single invocation with pure matching and outer adapters.
+        material_effects:
+          runtime-count: 1
+          process-boundary: local
+          independent-deployment: false
+      - id: service
+        difference: Client and separately managed matching service.
+        material_effects:
+          runtime-count: 2
+          process-boundary: remote
+          independent-deployment: true
+  - axis: deployment-topology
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+    - strategy: co-locate-vs-separate
+      challenge: One install versus client/server deployment?
+      alternatives:
+      - one
+      - split
+      decision_points:
+      - deployment
+    - strategy: scaling-perturbation
+      challenge: Is independent scaling useful for this local synthetic slice?
+      alternatives:
+      - one
+      - split
+      decision_points:
+      - deployment
+    decision_points:
+    - id: deployment
+      alternatives:
+      - id: one
+        difference: One local deployable.
+        material_effects:
+          deployable-count: 1
+          colocation: true
+          scaling-boundary: invocation
+      - id: split
+        difference: Two independently deployed components.
+        material_effects:
+          deployable-count: 2
+          colocation: false
+          scaling-boundary: service
+  - axis: interaction-model
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+    - strategy: sync-vs-async
+      challenge: Direct request/result versus queued job?
+      alternatives:
+      - direct
+      - queued
+      decision_points:
+      - interaction
+    - strategy: adapter-substitution
+      challenge: Can relevance source be replaced without changing matching?
+      alternatives:
+      - direct
+      - queued
+      decision_points:
+      - interaction
+    decision_points:
+    - id: interaction
+      alternatives:
+      - id: direct
+        difference: Synchronous calls through consumer-owned function contracts.
+        material_effects:
+          sync-async: sync
+          protocol-boundary: in-process
+          coupling: callable-contract
+      - id: queued
+        difference: Queue request and retrieve report later.
+        material_effects:
+          sync-async: async
+          protocol-boundary: queue
+          coupling: event-schema
+  - axis: state-placement
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+    - strategy: move-source-of-truth
+      challenge: Keep supplied snapshots immutable or copy into a database?
+      alternatives:
+      - input
+      - database
+      decision_points:
+      - state
+    - strategy: cache-vs-canonical
+      challenge: Does caching add useful truth for this one-shot query?
+      alternatives:
+      - input
+      - database
+      decision_points:
+      - state
+    decision_points:
+    - id: state
+      alternatives:
+      - id: input
+        difference: Supplied snapshots remain sole query evidence; no durable mutable
+          state.
+        material_effects:
+          source-of-truth: supplied-snapshot
+          state-locality: invocation
+          replication: false
+      - id: database
+        difference: Import snapshots into local durable query storage.
+        material_effects:
+          source-of-truth: imported-copy
+          state-locality: persistent-store
+          replication: true
+  - axis: dependency-direction
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+    - strategy: reverse-dependency
+      challenge: Would domain loading files couple semantics to representation?
+      alternatives:
+      - inward
+      - outward
+      decision_points:
+      - dependency
+    - strategy: invert-port
+      challenge: Can application own relevance/snapshot contracts instead?
+      alternatives:
+      - inward
+      - outward
+      decision_points:
+      - dependency
+    decision_points:
+    - id: dependency
+      alternatives:
+      - id: inward
+        difference: Outer adapters depend on application/domain; application receives
+          source callables.
+        material_effects:
+          dependency-owner: application
+          inversion-boundary: source-port
+          framework-coupling: none
+      - id: outward
+        difference: Domain imports file/provider implementations.
+        material_effects:
+          dependency-owner: infrastructure
+          inversion-boundary: none
+          framework-coupling: file-format
+  - axis: failure-isolation
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+    - strategy: collapse-failure-boundary
+      challenge: What fails if a source is malformed?
+      alternatives:
+      - request
+      - workers
+      decision_points:
+      - failure
+    - strategy: isolate-failure-boundary
+      challenge: Does a separate worker improve safety without partial semantics?
+      alternatives:
+      - request
+      - workers
+      decision_points:
+      - failure
+    decision_points:
+    - id: failure
+      alternatives:
+      - id: request
+        difference: Reject invocation with diagnostic; no success report on invalid
+          input.
+        material_effects:
+          failure-domain: invocation
+          containment-boundary: request
+          fallback: none
+      - id: workers
+        difference: Dedicated worker per source with failure coordinator.
+        material_effects:
+          failure-domain: worker
+          containment-boundary: process
+          fallback: coordinated-rejection
+  decision_space_review:
+    status: COMPLETE
+    checks:
+    - mixed-decision-split
+    - missing-material-case-search
+    - impact-and-reversal-frontier-check
+    - accepted-constraint-cross-check
+    - authority-boundary-cross-check
+    reviewed_decisions:
+    - runtime
+    - deployment
+    - interaction
+    - state
+    - dependency
+    - failure
+    open_gaps: []
+    rationale: Reviewed topology, state, substitution and failure frontier against
+      synthetic owner scope and DOM-2 all-or-error. No live security, persistence
+      history or concurrency requirement. CLI/file representation remains Interface
+      decision; language and physical modules remain downstream.
+  version: 1
+  kind: harness-decision-exploration
+  capability: checker.architecture
+  knowledge_kind: system-architecture
+  explorer_request_id: sha256:475ff44b22111b3be4e10619435d5201b49c7d3dc9cd8049829ac843d1fffa71

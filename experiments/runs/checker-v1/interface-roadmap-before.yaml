@@ -1,0 +1,74 @@
+version: 1
+kind: harness-decision-roadmap
+target: CHECKER-PROTOTYPE
+frontier_status: READY
+ready:
+- capability: checker.interface
+  authority: MACHINE-INTERFACE-DESIGN
+  knowledge_kind: interface-contract
+  reason: REVISE_NONCURRENT_PROVIDER
+  decision_governed: false
+  decision_request_mode: REVISION
+  read_set:
+  - artifact: architecture
+    authority: SYSTEM-ARCHITECTURE
+    path: docs/checker/architecture.md
+    provides:
+    - checker.architecture
+  - artifact: domain
+    authority: DOMAIN-USE-CASE-DESIGN
+    path: docs/checker/domain.md
+    provides:
+    - checker.domain
+  - artifact: interface
+    authority: MACHINE-INTERFACE-DESIGN
+    path: docs/checker/interface.md
+    provides:
+    - checker.interface
+    purpose: CURRENT_ACCEPTED_BASELINE
+  - artifact: requirements
+    authority: PRODUCT-REQUIREMENTS
+    path: .harness/knowledge/requirements.yaml
+    provides:
+    - checker.requirements
+  decision_request: null
+  pipeline:
+  - PRODUCE_CANDIDATE
+  - SEMANTIC_ADMISSION
+  terminal_outcomes:
+  - CURRENT
+  - BLOCKED
+  - FAILED_VALIDATION
+completed:
+- capability: checker.architecture
+  authority: SYSTEM-ARCHITECTURE
+  state: CURRENT
+- capability: checker.domain
+  authority: DOMAIN-USE-CASE-DESIGN
+  state: CURRENT
+- capability: checker.problem
+  authority: DISCOVERY
+  state: CURRENT
+- capability: checker.requirements
+  authority: PRODUCT-REQUIREMENTS
+  state: CURRENT
+- capability: checker.scenarios
+  authority: VERIFICATION-DESIGN
+  state: CURRENT
+- capability: checker.verification
+  authority: VERIFICATION-DESIGN
+  state: CURRENT
+blocked: []
+failed_validation: []
+lifecycle_gaps: []
+waiting_upstream:
+- capability: checker.policy
+  authority: ENGINEERING-POLICY
+  state: WAITING_UPSTREAM
+  prerequisites:
+  - capability: checker.interface
+    state: STALE
+    questions: []
+execution_rule: Run one READY capability through the complete pipeline, persist its
+  outcome, then recompute this roadmap. FAILED_VALIDATION remains non-READY until
+  explicitly retried.

@@ -1,0 +1,262 @@
+version: 1
+kind: harness-engineering-graph
+id: CHECKER-V1
+default_subject: CHECKER-PROTOTYPE
+authorities:
+- id: DISCOVERY
+  responsibility: Own problem observations, actors, desired outcomes and motivating
+    evidence without deciding product requirements or solution semantics.
+  boundary:
+    semantic_cohesion: Evidence and observations about the problem space.
+    independent_change: Evidence can be refined before accepted product requirements
+      change.
+    public_contract: Provides accepted problem evidence and unresolved discovery questions.
+  produces:
+  - capability: checker.problem
+    knowledge_kind: problem-evidence
+    requires: []
+    semantic_claims:
+    - engineering.intent.problem
+- id: PRODUCT-REQUIREMENTS
+  responsibility: Own accepted product intent, scope, externally observable behavior,
+    constraints and acceptance expectations.
+  boundary:
+    semantic_cohesion: Decisions about what the product must achieve.
+    independent_change: Product intent can change without directly deciding domain
+      or technical realization.
+    public_contract: Provides accepted behavioral and acceptance semantics to downstream
+      design.
+  produces:
+  - capability: checker.requirements
+    knowledge_kind: product-requirements
+    requires:
+    - checker.problem
+    semantic_claims:
+    - engineering.intent.scope
+    - engineering.intent.behavior
+- id: DOMAIN-USE-CASE-DESIGN
+  responsibility: Own domain-focused use-case behavior without deciding internal tactical
+    structures or technical transport.
+  boundary:
+    semantic_cohesion: Observable domain behavior for bounded problem slices.
+    independent_change: Use-case behavior can be refined before tactical identities,
+      invariants or persistence are selected.
+    public_contract: Provides accepted domain behavior to tactical modeling and application
+      composition.
+  produces:
+  - capability: checker.domain
+    knowledge_kind: domain-use-case
+    requires:
+    - checker.requirements
+    semantic_claims:
+    - engineering.application.failures
+- id: VERIFICATION-DESIGN
+  responsibility: Own verification levels, traceability, scenarios and evidence proving
+    implementation realizes accepted engineering knowledge.
+  boundary:
+    semantic_cohesion: Decisions about what executable or inspectable evidence proves
+      accepted design.
+    independent_change: Verification strategy can evolve without taking ownership
+      of product/domain/architecture semantics.
+    public_contract: Provides verification strategy and acceptance evidence; routes
+      design gaps to owning Authorities.
+  produces:
+  - capability: checker.verification
+    knowledge_kind: verification-strategy
+    requires:
+    - checker.requirements
+    - checker.domain
+    semantic_claims:
+    - engineering.verification.strategy
+    - engineering.verification.requirement-traceability
+    - engineering.verification.functional
+  - capability: checker.scenarios
+    knowledge_kind: acceptance-scenarios
+    requires:
+    - checker.verification
+    - checker.domain
+    semantic_claims: []
+  - capability: checker.technical-verification
+    knowledge_kind: verification-strategy
+    requires:
+    - checker.architecture
+    - checker.interface
+    - checker.policy
+    - checker.components
+    semantic_claims:
+    - engineering.verification.architecture
+    - engineering.verification.interface.machine
+- id: SYSTEM-ARCHITECTURE
+  responsibility: Own system structure, runtime boundaries, dependency topology and
+    technical interaction topology.
+  boundary:
+    semantic_cohesion: Structural and runtime decisions that constrain implementation.
+    independent_change: Architecture can evolve behind stable product/domain contracts
+      without changing their semantic ownership.
+    public_contract: Provides accepted system topology and architectural constraints.
+  produces:
+  - capability: checker.architecture
+    knowledge_kind: system-architecture
+    requires:
+    - checker.requirements
+    - checker.domain
+    semantic_claims:
+    - engineering.architecture.structure
+    - engineering.architecture.boundaries
+- id: MACHINE-INTERFACE-DESIGN
+  responsibility: Own supported external machine interaction and representation contracts.
+  boundary:
+    semantic_cohesion: Machine-consumed protocol, API, message and representation
+      semantics.
+    independent_change: Machine interface contracts can evolve while preserving accepted
+      product/domain semantics and human interaction design.
+    public_contract: Provides canonical machine interface contracts to integrations
+      and technical consumers.
+  produces:
+  - capability: checker.interface
+    knowledge_kind: interface-contract
+    requires:
+    - checker.requirements
+    - checker.domain
+    - checker.architecture
+    semantic_claims:
+    - engineering.interface.machine.contract
+    - engineering.interface.machine.errors
+    - engineering.interface.machine.compatibility
+- id: ENGINEERING-POLICY
+  responsibility: Own project-selected engineering design obligations and explicit
+    anti-pattern constraints without owning the project semantics to which they apply.
+  boundary:
+    semantic_cohesion: Normative cross-cutting rules for how accepted engineering
+      knowledge may be realized.
+    independent_change: Engineering discipline can be refined without redefining product/domain
+      semantics, while downstream realization may require reevaluation.
+    public_contract: Provides reviewable engineering obligations to applicable design
+      and implementation consumers.
+  produces:
+  - capability: checker.policy
+    knowledge_kind: engineering-policy
+    requires:
+    - checker.architecture
+    - checker.interface
+    semantic_claims:
+    - engineering.engineering.error-handling
+    - engineering.engineering.principles
+    - engineering.engineering.code-quality
+    - engineering.quality.maintainability.modularity
+    - engineering.quality.maintainability.analysability
+    - engineering.quality.maintainability.modifiability
+    - engineering.quality.maintainability.testability
+- id: TEST-DESIGN
+  responsibility: Own executable observable test contracts derived from accepted verification
+    and semantic design without owning production semantics or concrete test-code
+    mechanics.
+  boundary:
+    semantic_cohesion: Preconditions, controlled operations, observable oracles, invariants,
+      state transitions, failure/atomicity distinctions and property/state-machine
+      obligations.
+    independent_change: Test contracts can survive changes in implementation slicing,
+      code structure, frameworks and test mechanics while accepted behavior remains
+      stable.
+    public_contract: Provides traceable executable test semantics sufficient for test-first
+      or implementation work without allowing tests to invent upstream truth.
+  produces:
+  - capability: checker.tests
+    knowledge_kind: test-design
+    requires:
+    - checker.verification
+    - checker.scenarios
+    - checker.interface
+    - checker.policy
+    - checker.technical-verification
+- id: COMPONENT-DESIGN
+  responsibility: Own implementation-facing component decomposition and dependency
+    contracts without deciding implementation sequencing or private code structure.
+  boundary:
+    semantic_cohesion: Public component responsibilities, consumer/provider contracts,
+      dependency direction, abstraction ownership and composition/mapping boundaries.
+    independent_change: Component realization can evolve behind accepted architecture/application/interface
+      contracts without changing their semantics.
+    public_contract: Provides code-design boundaries sufficient for implementation
+      agents to avoid inventing architecturally significant structure.
+  produces:
+  - capability: checker.components
+    knowledge_kind: component-design
+    requires:
+    - checker.architecture
+    - checker.interface
+    - checker.domain
+    - checker.policy
+    semantic_claims:
+    - engineering.engineering.components
+- id: IMPLEMENTATION-DESIGN
+  responsibility: Own implementation slicing, sequencing, repository realization,
+    concrete toolchain/gate wiring and completion criteria after upstream engineering
+    decisions are available.
+  boundary:
+    semantic_cohesion: Decisions about how accepted design will be realized as bounded
+      implementation work and a reproducible physical codebase/toolchain.
+    independent_change: Realization order, physical mapping and replaceable tools
+      can change without redefining upstream truth when accepted boundaries and obligations
+      remain satisfied.
+    public_contract: Provides implementation plan, repository/tooling realization,
+      quality-gate wiring and completion criteria while routing missing semantic decisions
+      upstream.
+  produces:
+  - capability: checker.implementation
+    knowledge_kind: implementation-design
+    requires:
+    - checker.requirements
+    - checker.domain
+    - checker.architecture
+    - checker.interface
+    - checker.policy
+    - checker.components
+    - checker.tests
+    semantic_claims:
+    - engineering.delivery.release
+    - engineering.delivery.rollback
+    - engineering.transition.revalidation
+consumers:
+- id: CHECKER-PROTOTYPE
+  purpose: Small runnable synthetic Checker requested by owner; progressively reconciled
+    engineering closure.
+  requires:
+  - &id001
+    capability: checker.problem
+  - &id002
+    capability: checker.requirements
+  - &id003
+    capability: checker.domain
+  - &id004
+    capability: checker.verification
+  - &id005
+    capability: checker.scenarios
+  - &id006
+    capability: checker.architecture
+  - &id007
+    capability: checker.interface
+  - &id008
+    capability: checker.policy
+  - &id009
+    capability: checker.tests
+  - &id010
+    capability: checker.components
+  - &id011
+    capability: checker.technical-verification
+  - capability: checker.implementation
+- id: CHECKER-CODEGEN-INPUT
+  purpose: Accepted canonical knowledge consumed by RPG/CoderMind to produce candidate
+    source. Excludes downstream executable readiness; cannot claim a working product.
+  requires:
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  - *id009
+  - *id010
+  - *id011

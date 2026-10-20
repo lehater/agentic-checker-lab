@@ -1,0 +1,19 @@
+version: 1
+kind: harness-test-realization-semantic-review
+status: ACCEPTED
+checks:
+- executable-correspondence
+reviewer: Engineering agent; reviewed executable assertions against accepted Test
+  Design, not isolated external attestation
+binding_reviews:
+- binding: TD-BEHAVIOR-OP-SCENARIOS
+  status: ACCEPTED
+  rationale: test_precode_scenarios iterates every frozen case and launches the public
+    python -m checker CLI with a serialized temporary JSON document; expectations
+    remain the pre-code fixture, not generated matching results.
+- binding: TD-BEHAVIOR-OR-SCENARIOS
+  status: ACCEPTED
+  rationale: The same method compares predeclared IDs and group/action expectations,
+    status and exact report keys, full original rules and placements. Error scenarios
+    assert exit 2, empty stdout and diagnostic without traceback. Fixture bytes are
+    compared after every invocation.

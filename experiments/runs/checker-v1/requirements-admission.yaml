@@ -1,0 +1,54 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: requirements
+capability: checker.requirements
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted:
+  - engineering.intent.scope
+  - engineering.intent.behavior
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: product-requirements
+  skill: skills/artifacts/product-requirements/SKILL.md
+  acceptance_id: checker-v1-db81ca67ab2f91e4b14806ff
+  authority: PRODUCT-REQUIREMENTS
+  allowed_source_authorities:
+  - DISCOVERY
+  - PRODUCT-REQUIREMENTS
+  changed_paths:
+  - .harness/knowledge/requirements.yaml
+  canonical_references:
+  - referenced_path: docs/checker/problem.md
+  accepted_prerequisites: &id001
+    checker.problem: checker-v1-34317db9923f9f5cd13831e1
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:2fb4620d32987bf389ecb0ed8935193a2cfe6eda9c4a8259083da3792a0f1847
+  acceptance_policy_fingerprint: sha256:2fb4620d32987bf389ecb0ed8935193a2cfe6eda9c4a8259083da3792a0f1847
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: requirements
+  capability: checker.requirements
+  acceptance_id: checker-v1-db81ca67ab2f91e4b14806ff
+  acceptance_policy_fingerprint: sha256:2fb4620d32987bf389ecb0ed8935193a2cfe6eda9c4a8259083da3792a0f1847
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    REQ-CHECKER-101: SAF-96ae6b347ca2a6743418115063254b9edde0ab7d62e8b375a14947560ca8ca39
+    REQ-CHECKER-102: SAF-140c1a03813de12aa365cf66e35566cb4b8720d93a831c7a10989056af8637ff
+    REQ-CHECKER-103: SAF-79905416ce3f7e2530dc6d2440b242416daa820594162650577fbadb97d5e292
+    REQ-CHECKER-104: SAF-68a08261bd3ca3d6206484ebadb3fab3d4ad8f522398273d1a5ff05e9f443c40

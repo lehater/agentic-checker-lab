@@ -2,6 +2,9 @@
 
 check:
 	python3 tools/check_repository.py
+	python3 -m unittest discover -s tests -p 'test_checker_*.py' -v
+	python3 experiments/runs/checker-v1/mutations.py --check
+	python3 tools/check_checker_evidence.py
 
 harness-smoke:
 	bash tools/harness_smoke.sh

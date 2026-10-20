@@ -1,0 +1,50 @@
+project: CHECKER-V1
+scope: CHECKER-PROTOTYPE
+consumer: CHECKER-PROTOTYPE
+decisions:
+- concern: governance.external-obligations
+  state: DEFERRED
+  rationale: Only synthetic demonstration; no real-network operation or production
+    distribution in scope. Reassess external obligations before deployment to real
+    operational use.
+  evidence:
+  - docs/scenario/owner-problem-brief.md
+  - docs/checker/domain.md
+  - docs/checker/architecture.md
+- concern: governance.privacy
+  state: NOT_APPLICABLE
+  rationale: Only supplied synthetic RFC1918/documentation addresses and invented
+    devices; no personal data, production credentials or network collection.
+  evidence:
+  - docs/scenario/owner-problem-brief.md
+  - docs/checker/domain.md
+  - docs/checker/architecture.md
+- concern: specialized.ai
+  state: NOT_APPLICABLE
+  rationale: Checker runtime is deterministic matching; Harness/CoderMind are development
+    tools, not model-dependent product behavior.
+  evidence:
+  - docs/scenario/owner-problem-brief.md
+  - docs/checker/domain.md
+  - docs/checker/architecture.md
+- concern: specialized.regulated
+  state: DEFERRED
+  rationale: Synthetic prototype has no selected regulated deployment; reconsider
+    when actual operational context is introduced.
+  evidence:
+  - docs/scenario/owner-problem-brief.md
+  - docs/checker/domain.md
+  - docs/checker/architecture.md
+- concern: specialized.safety
+  state: NOT_APPLICABLE
+  rationale: Read-only synthetic report does not operate devices, assert real path
+    or universal verdict; no live safety control.
+  evidence:
+  - docs/scenario/owner-problem-brief.md
+  - docs/checker/domain.md
+  - docs/checker/architecture.md
+subject_inventory:
+  state: NOT_APPLICABLE
+  rationale: Single coherent synthetic inspect-flow subject; all four current requirements
+    explicitly covered by verification. No independently scoped subproducts or source
+    entity inventory in this slice. Reopen on additional use cases or import domains.

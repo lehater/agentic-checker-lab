@@ -1,0 +1,15 @@
+{
+  "status": "NO_SEMANTIC_CHANGE",
+  "native_editor_reported_modify": true,
+  "unchanged_sections": [
+    "repository_name",
+    "repository_purpose",
+    "repository_specification",
+    "meta",
+    "features",
+    "components"
+  ],
+  "instruction_sha256": "d70395f575e49638bf3e7b017c4455b5f44a00b65eb7505d1fa8c0b9de43d134",
+  "interrupted_run": "Second force-run after native no-op; no downstream output used",
+  "repair": "New stable scoped workspace AGENTS; same pinned native pipeline; no source patches"
+}

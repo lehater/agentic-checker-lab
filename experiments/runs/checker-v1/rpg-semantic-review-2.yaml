@@ -1,0 +1,21 @@
+version: 1
+status: ACCEPTED_AS_CANDIDATE_CODE_INPUT
+reviewer: engineering agent against accepted Harness contracts
+snapshot: experiments/runs/checker-v1/rpg-context-1/manifest.json
+native_pipeline: PASS, all five stages; 1118.8 seconds
+resolved_findings:
+  RPG-DRIFT-PORTS: Flow requires both ports; OriginalRule preserves both inclusive ranges; matches explicitly uses CIDR membership and both inclusive intervals with protocol equal-or-any.
+  RPG-DRIFT-CLI: Required --input, no default stdin; main documents explicit exit/streams and checker/__main__.py is materialized as an implementation unit.
+  RPG-DRIFT-REPORT: Rendering emits version/groups with exact group fields device/acl/placements/status/rules; MATCHES/NO_MATCH; placements and original rules from snapshots.
+behavior_review:
+  - all matching permit and deny rules retained in snapshot order
+  - relevance and snapshot are injected narrow consumer-owned callables
+  - snapshot missing/errors remain whole-request failure, not NO_MATCH
+  - empty snapshot and empty relevance outcomes preserved
+  - no universal verdict, implicit deny, live-device path or runtime AI added
+implementation_risks:
+  - Internal src/acl_checker and nested application module paths need native scaffolding/import verification; public checker launcher is separate outer glue.
+  - Generated import paths and shared types are implementation candidates, not evidence that imports or runtime behavior already work.
+  - Native self-tests cannot replace independent fixed acceptance cases and source substitution/import checks.
+next_action: Native check_code_gen returned init; run init_codebase then file-merged run_batch loop. Preserve accepted contracts and independent oracle.
+readiness: NOT_CLAIMED; CHECKER-PROTOTYPE remains incomplete until actual tests and realization conformance.

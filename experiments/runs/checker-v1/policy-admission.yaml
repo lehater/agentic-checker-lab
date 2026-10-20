@@ -1,0 +1,59 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: policy
+capability: checker.policy
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted:
+  - engineering.engineering.error-handling
+  - engineering.engineering.principles
+  - engineering.engineering.code-quality
+  - engineering.quality.maintainability.modularity
+  - engineering.quality.maintainability.analysability
+  - engineering.quality.maintainability.modifiability
+  - engineering.quality.maintainability.testability
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: engineering-policy
+  skill: skills/artifacts/engineering-policy/SKILL.md
+  acceptance_id: checker-v1-bb39846d836179a7c699b5a8
+  authority: ENGINEERING-POLICY
+  allowed_source_authorities:
+  - ENGINEERING-POLICY
+  - MACHINE-INTERFACE-DESIGN
+  - SYSTEM-ARCHITECTURE
+  changed_paths:
+  - docs/checker/engineering-policy.md
+  canonical_references:
+  - referenced_path: docs/checker/architecture.md
+  - referenced_path: docs/checker/interface.md
+  accepted_prerequisites: &id001
+    checker.architecture: checker-v1-13b83a49054471c3b217f865
+    checker.interface: checker-v1-7a5af9fc5faa417f2ed58f7d
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:0b050d94cf5c724f8554d5be8e57541655da90858566a34e3eb3f321808f2dfe
+  acceptance_policy_fingerprint: sha256:0b050d94cf5c724f8554d5be8e57541655da90858566a34e3eb3f321808f2dfe
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: policy
+  capability: checker.policy
+  acceptance_id: checker-v1-bb39846d836179a7c699b5a8
+  acceptance_policy_fingerprint: sha256:0b050d94cf5c724f8554d5be8e57541655da90858566a34e3eb3f321808f2dfe
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    POL-1: SAF-36f34e26922fe9e9e5bfcc35afcfaa28b32ead0d01f3958ec473c19462e795c3

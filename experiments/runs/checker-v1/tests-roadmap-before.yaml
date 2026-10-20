@@ -1,0 +1,89 @@
+version: 1
+kind: harness-decision-roadmap
+target: CHECKER-PROTOTYPE
+frontier_status: READY
+ready:
+- capability: checker.tests
+  authority: TEST-DESIGN
+  knowledge_kind: test-design
+  reason: REVISE_NONCURRENT_PROVIDER
+  decision_governed: false
+  decision_request_mode: REVISION
+  read_set:
+  - artifact: interface
+    authority: MACHINE-INTERFACE-DESIGN
+    path: docs/checker/interface.md
+    provides:
+    - checker.interface
+  - artifact: policy
+    authority: ENGINEERING-POLICY
+    path: docs/checker/engineering-policy.md
+    provides:
+    - checker.policy
+  - artifact: scenarios
+    authority: VERIFICATION-DESIGN
+    path: docs/checker/scenarios.yaml
+    provides:
+    - checker.scenarios
+  - artifact: technical-verification
+    authority: VERIFICATION-DESIGN
+    path: .harness/knowledge/technical-verification.yaml
+    provides:
+    - checker.technical-verification
+  - artifact: tests
+    authority: TEST-DESIGN
+    path: .harness/knowledge/tests.yaml
+    provides:
+    - checker.tests
+    purpose: CURRENT_ACCEPTED_BASELINE
+  - artifact: verification
+    authority: VERIFICATION-DESIGN
+    path: .harness/knowledge/verification.yaml
+    provides:
+    - checker.verification
+  decision_request: null
+  pipeline:
+  - PRODUCE_CANDIDATE
+  - SEMANTIC_ADMISSION
+  terminal_outcomes:
+  - CURRENT
+  - BLOCKED
+  - FAILED_VALIDATION
+completed:
+- capability: checker.architecture
+  authority: SYSTEM-ARCHITECTURE
+  state: CURRENT
+- capability: checker.components
+  authority: COMPONENT-DESIGN
+  state: CURRENT
+- capability: checker.domain
+  authority: DOMAIN-USE-CASE-DESIGN
+  state: CURRENT
+- capability: checker.interface
+  authority: MACHINE-INTERFACE-DESIGN
+  state: CURRENT
+- capability: checker.policy
+  authority: ENGINEERING-POLICY
+  state: CURRENT
+- capability: checker.problem
+  authority: DISCOVERY
+  state: CURRENT
+- capability: checker.requirements
+  authority: PRODUCT-REQUIREMENTS
+  state: CURRENT
+- capability: checker.scenarios
+  authority: VERIFICATION-DESIGN
+  state: CURRENT
+- capability: checker.technical-verification
+  authority: VERIFICATION-DESIGN
+  state: CURRENT
+- capability: checker.verification
+  authority: VERIFICATION-DESIGN
+  state: CURRENT
+blocked: []
+failed_validation: []
+lifecycle_gaps: []
+waiting_upstream: []
+execution_rule: Run one READY capability through the complete pipeline, persist its
+  outcome, then recompute this roadmap. FAILED_VALIDATION remains non-READY until
+  explicitly retried.

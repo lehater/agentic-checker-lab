@@ -1,0 +1,74 @@
+{
+  "version": 1,
+  "kind": "harness-decision-roadmap",
+  "target": "CHECKER-PROTOTYPE",
+  "frontier_status": "COMPLETE",
+  "ready": [],
+  "completed": [
+    {
+      "capability": "checker.architecture",
+      "authority": "SYSTEM-ARCHITECTURE",
+      "state": "CURRENT"
+    },
+    {
+      "capability": "checker.components",
+      "authority": "COMPONENT-DESIGN",
+      "state": "CURRENT"
+    },
+    {
+      "capability": "checker.domain",
+      "authority": "DOMAIN-USE-CASE-DESIGN",
+      "state": "CURRENT"
+    },
+    {
+      "capability": "checker.implementation",
+      "authority": "IMPLEMENTATION-DESIGN",
+      "state": "CURRENT"
+    },
+    {
+      "capability": "checker.interface",
+      "authority": "MACHINE-INTERFACE-DESIGN",
+      "state": "CURRENT"
+    },
+    {
+      "capability": "checker.policy",
+      "authority": "ENGINEERING-POLICY",
+      "state": "CURRENT"
+    },
+    {
+      "capability": "checker.problem",
+      "authority": "DISCOVERY",
+      "state": "CURRENT"
+    },
+    {
+      "capability": "checker.requirements",
+      "authority": "PRODUCT-REQUIREMENTS",
+      "state": "CURRENT"
+    },
+    {
+      "capability": "checker.scenarios",
+      "authority": "VERIFICATION-DESIGN",
+      "state": "CURRENT"
+    },
+    {
+      "capability": "checker.technical-verification",
+      "authority": "VERIFICATION-DESIGN",
+      "state": "CURRENT"
+    },
+    {
+      "capability": "checker.tests",
+      "authority": "TEST-DESIGN",
+      "state": "CURRENT"
+    },
+    {
+      "capability": "checker.verification",
+      "authority": "VERIFICATION-DESIGN",
+      "state": "CURRENT"
+    }
+  ],
+  "blocked": [],
+  "failed_validation": [],
+  "lifecycle_gaps": [],
+  "waiting_upstream": [],
+  "execution_rule": "Run one READY capability through the complete pipeline, persist its outcome, then recompute this roadmap. FAILED_VALIDATION remains non-READY until explicitly retried."
+}

@@ -1,0 +1,17 @@
+{
+  "harness_pin": "1c31054a8c4af223dc1bb003175c1fbe3f0538d6",
+  "publication_revision": "sha256:eedbce16938e6296805b4100a82a2992f915aa08d54d05f4be46a1ea6270d9ae",
+  "source_commit": "185d70a",
+  "inputs": {
+    ".harness/knowledge/requirements.yaml": "56f683390d37b5e7578a5885153d14ac6717a098aea75dd9b7a5fd97878b60fd",
+    "docs/checker/domain.md": "3fb8506b7878c081c5585a714c787b9ccbfb2317ab2a5c8e3d56980a2cda9af6",
+    "docs/checker/architecture.md": "e6eb019e85662e8de97f9aaf91fb70058770cd04983a623b9275fddc6835acfc",
+    "docs/checker/interface.md": "61210e74f6081f292db2a5a2b1d7119f5d709b53c9564867ba50256afa63daef",
+    "docs/checker/components.md": "f6ab812c381058478cbb1c5abbecb5ae9b571c5500f487cca309c755b8b66971",
+    "docs/checker/engineering-policy.md": "4fedb343529a252ebf95591496cdf7c8bcee8857c691785f6111d9fdffa2c1fb",
+    ".harness/knowledge/tests.yaml": "6239c7b98d6301a6e655ea2455f6f47bd2810205ad73a0ef62c13629f0fbe08d",
+    "docs/checker/scenarios.yaml": "75e7a8c3cb609592df227a7c712e938ce708a542d41f0bc257476ef7b2a44e0b"
+  },
+  "transferred_sha256": "ab807044336a1c43860d728f9ee0d98649b62602891079b865a58df5ba1dde1a",
+  "constraints": "Generated artifacts cannot redefine canonical semantics; independent expected cases predate generation."
+}

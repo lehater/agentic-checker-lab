@@ -1,0 +1,46 @@
+knowledge_kind: verification-strategy
+depends_on:
+- architecture
+- interface
+- policy
+- components
+candidate:
+  id: technical-verification
+  path: .harness/knowledge/technical-verification.yaml
+  capability: checker.technical-verification
+  canonical_references:
+  - referenced_path: docs/checker/architecture.md
+  - referenced_path: docs/checker/interface.md
+  - referenced_path: docs/checker/engineering-policy.md
+  - referenced_path: docs/checker/components.md
+  semantic_assertions:
+  - id: VC-ARCH
+    kind: verification-check
+    subject: VC-ARCH
+    semantic_value: Domain/application imports obey ARCH-1/POL-1; no mutation and
+      sources substitutable.
+    decision_authority: VERIFICATION-DESIGN
+    derived_from:
+    - ARCH-1
+    - POL-1
+    - COMP-1
+  - id: VC-IF
+    kind: verification-check
+    subject: VC-IF
+    semantic_value: CLI contract text/JSON, full field/placement preservation, explicit
+      errors and version validation.
+    decision_authority: VERIFICATION-DESIGN
+    derived_from:
+    - IF-1
+  semantic_review:
+    status: ACCEPTED
+    checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - verification-not-semantic-owner
+    reviewer: Engineering agent under current owner assignment
+    record: .harness/knowledge/technical-verification.yaml
+    rationale: Structural import and source substitution directly observe ARCH/POL/COMP;
+      interface subprocess checks verify IF-1. No numeric targets or new semantics.
+      Behavioral REQs remain covered by original strategy, not duplicated.

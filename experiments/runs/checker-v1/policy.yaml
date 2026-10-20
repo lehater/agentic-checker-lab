@@ -1,0 +1,36 @@
+knowledge_kind: engineering-policy
+depends_on:
+- architecture
+- interface
+candidate:
+  id: policy
+  path: docs/checker/engineering-policy.md
+  capability: checker.policy
+  canonical_references:
+  - referenced_path: docs/checker/architecture.md
+  - referenced_path: docs/checker/interface.md
+  semantic_assertions:
+  - id: POL-1
+    kind: engineering-policy
+    subject: POL-1
+    semantic_value: Pure inner modules, consumer-owned narrow source callables, strict
+      boundary errors without swallowing programming errors, no mutation/unsupported
+      predicate approximation, deterministic dependency/acceptance checks.
+    decision_authority: ENGINEERING-POLICY
+    derived_from:
+    - ARCH-1
+    - IF-1
+  semantic_review:
+    status: ACCEPTED
+    checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - policy-not-product-domain-owner
+    - obligations-concrete-and-reviewable
+    - optional-patterns-not-defaults
+    reviewer: Engineering agent under current owner assignment
+    record: docs/checker/engineering-policy.md
+    rationale: Принципы пользователя переведены в наблюдаемые imports/mutation/error
+      обязательства. Ненужные patterns явно не обязательны. Policy не меняет Domain/Interface;
+      применима к одному read-only query и outer adapter.

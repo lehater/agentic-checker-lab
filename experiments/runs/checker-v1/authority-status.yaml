@@ -1,0 +1,130 @@
+version: 1
+kind: harness-project-engineering-status
+rows:
+- authority: DISCOVERY
+  applicability: REQUIRED
+  operational_status: IN_PROGRESS
+  artifacts:
+  - problem
+  blocking: []
+- authority: PRODUCT-REQUIREMENTS
+  applicability: REQUIRED
+  operational_status: IN_PROGRESS
+  artifacts:
+  - requirements
+  blocking: []
+- authority: DOMAIN-STRATEGY
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: MODEL-CONTEXT-STRATEGY
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: DOMAIN-USE-CASE-DESIGN
+  applicability: REQUIRED
+  operational_status: IN_PROGRESS
+  artifacts:
+  - domain
+  blocking: []
+- authority: TACTICAL-DOMAIN-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: APPLICATION-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: SYSTEM-ARCHITECTURE
+  applicability: REQUIRED
+  operational_status: IN_PROGRESS
+  artifacts:
+  - architecture
+  blocking: []
+- authority: CONCURRENCY-CONSISTENCY-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: SECURITY-ARCHITECTURE
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: MACHINE-INTERFACE-DESIGN
+  applicability: REQUIRED
+  operational_status: IN_PROGRESS
+  artifacts:
+  - interface
+  blocking: []
+- authority: HUMAN-INTERFACE-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: DATA-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: QUALITY-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: SECURITY-ANALYSIS
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: OBLIGATION-ANALYSIS
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: CHANGE-TRANSITION-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: OPERABILITY-DESIGN
+  applicability: UNASSESSED
+  operational_status: null
+  artifacts: []
+  blocking: []
+- authority: ENGINEERING-POLICY
+  applicability: REQUIRED
+  operational_status: IN_PROGRESS
+  artifacts:
+  - policy
+  blocking: []
+- authority: COMPONENT-DESIGN
+  applicability: REQUIRED
+  operational_status: IN_PROGRESS
+  artifacts:
+  - components
+  blocking: []
+- authority: TEST-DESIGN
+  applicability: REQUIRED
+  operational_status: IN_PROGRESS
+  artifacts:
+  - tests
+  blocking: []
+- authority: IMPLEMENTATION-DESIGN
+  applicability: REQUIRED
+  operational_status: IN_PROGRESS
+  artifacts:
+  - implementation
+  blocking: []
+- authority: VERIFICATION-DESIGN
+  applicability: REQUIRED
+  operational_status: IN_PROGRESS
+  artifacts:
+  - verification
+  - scenarios
+  - technical-verification
+  blocking: []

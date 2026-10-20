@@ -1,11 +1,11 @@
 schema: agentic-checker-lab/tooling-v1
-status: PINNED_CLI_PREFLIGHT_OPERATOR_REPORTED
+status: PINNED_CHECKER_NATIVE_GENERATION_VERIFIED
 os: Ubuntu
 sources:
   harness:
     repository: https://github.com/lehater/harness
-    revision: 442db854c3a736a5e500b4a41664b80981b0d94c
-    installation: OPERATOR_REPORTED_SMOKE_PASS
+    revision: 1c31054a8c4af223dc1bb003175c1fbe3f0538d6
+    installation: CONSUMER_PACK_SYNC_AND_ADMISSION_VERIFIED_CHECKER_V1
   rpg_zerorepo:
     repository: https://github.com/microsoft/RPG-ZeroRepo
     revision: a4e6966c4ff59d84299bc56d6a47ae1f4f7b2885
@@ -15,22 +15,27 @@ sources:
     repository: https://github.com/microsoft/RPG-ZeroRepo
     pull_request: https://github.com/microsoft/RPG-ZeroRepo/pull/96
     revision: 3303a222eaec42c6a178bddd46ad63d9026ab8fa
-    status: OPEN_UPSTREAM_PR
-    adoption: SYNTHETIC_FORWARD_RPG_VERIFIED_CANDIDATE_ONLY
-    installation: OPERATOR_REPORTED_LIVE_LLM_CLIENT_PASS
+    status: PINNED_CANDIDATE_UPSTREAM_PR_STATE_NOT_RECHECKED
+    adoption: CHECKER_NATIVE_GENERATION_AND_FINAL_TEST_VERIFIED_LOCAL_REVIEW_PATCH
+    installation: NATIVE_CHECKER_GENERATION_FINAL_TEST_AND_REPLAY_VERIFIED
+    review_patch: tooling/patches/cmind-cli-global-review.patch
+    review_patch_contract: docs/decisions/0004-cmind-cli-review.md
   coding_agent_cli:
-    chosen: UNDECIDED
+    chosen: codex
     executable_observed: codex
     claude_present: false
     copilot_present: false
     authentication: OPERATOR_REPORTED_SUCCESSFUL_MODEL_CALL
-    compatibility_check: OPERATOR_REPORTED_LIVE_LLM_CLIENT_PASS
+    compatibility_check: LIVE_LLM_CLIENT_PASS_2026_10_20
+    version_observed: 0.162.0-alpha.17.2
   python:
-    minimum_for_cmind: "3.12"
+    minimum_for_cmind: '3.12'
     actual: 3.12.15_OPERATOR_REPORTED
+    checker_minimum: '3.10'
   uv:
     actual: UNKNOWN
 reproducibility:
-  snapshot_export: SYNTHETIC_RPG_HASHES_VERIFIED_COMMIT_b20a93b
-  clean_checkout: NOT_RUN
+  snapshot_export: CHECKER_V1_REALIZED_RPG_SOURCE_HASH_BOUND
+  clean_checkout: FULL_MODEL_TOOLCHAIN_NOT_RUN_PRODUCT_GATE_RECORDED_SEPARATELY
   model_and_cost_metadata: NOT_COLLECTED
+  product_checkout: experiments/runs/checker-v1/clean-checkout.json

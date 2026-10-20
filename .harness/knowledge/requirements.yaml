@@ -1,0 +1,45 @@
+schema: product-requirements/v1
+version: 1
+kind: harness-knowledge-artifact
+content:
+  purpose: Проверяемый синтетический прототип исследования сохранённых ACL.
+  requirements:
+  - id: REQ-CHECKER-101
+    statement: 'Оператор задаёт один конкретный поток: IP источника и получателя,
+      протокол и порты источника и получателя.'
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/owner-problem-brief.md#traffic-query
+    rationale: Один целостный входной контракт; поля не отдельные обязательства.
+  - id: REQ-CHECKER-102
+    statement: 'Checker использует результат отдельного источника релевантности по
+      двум IP: пары устройство/ACL, сохраняя сведения о местах применения; несколько
+      ACL одного устройства различаются.'
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/owner-problem-brief.md#relevance
+    rationale: Определяет охват поиска независимо от правил matching.
+  - id: REQ-CHECKER-103
+    statement: Для релевантных пар Checker показывает все подходящие сохранённые правила,
+      с их сведениями и action, группируя по устройству/ACL и сохраняя порядок строк
+      снимка каждого ACL.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/owner-problem-brief.md#stored-evidence
+    rationale: 'Единый выходной контракт: полнота совпадений, принадлежность и порядок
+      — его грани.'
+  - id: REQ-CHECKER-104
+    statement: Checker явно сообщает отсутствие совпадений и не вычисляет общий end-to-end
+      permit/deny verdict.
+    status: ACCEPTED
+    source_refs:
+    - docs/scenario/owner-problem-brief.md#interpretation-boundary
+    rationale: Отдельное ограничение интерпретации, которое может меняться независимо
+      от представления правил.
+  non_goals:
+  - Implicit deny не обязателен.
+  - Реальные устройства, действующий сборщик, сложная сеть, промышленное хранилище
+    и полный vendor parser не нужны.
+  - Точный routing heuristic не принят; допускается имитация релевантности.
+artifact: requirements
+title: Checker product requirements

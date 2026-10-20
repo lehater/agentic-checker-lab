@@ -1,0 +1,65 @@
+{
+  "base_classes": [],
+  "data_structures": [
+    {
+      "code": "from __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom ipaddress import IPv4Address, IPv4Network\nfrom typing import Literal, Mapping, TypeAlias\n\nJsonValue: TypeAlias = str | int | float | bool | None | tuple['JsonValue', ...] | Mapping[str, 'JsonValue']\nProtocol: TypeAlias = str\nPort: TypeAlias = int\nPlacement: TypeAlias = Mapping[str, JsonValue]\n\n\n@dataclass(frozen=True)\nclass IPv4Flow:\n    \"\"\"Конкретный поток; протокол и ограничения портов проверяет входная граница.\"\"\"\n    source: IPv4Address\n    destination: IPv4Address\n    protocol: Protocol\n    source_port: Port | None = None\n    destination_port: Port | None = None\n\n\n@dataclass(frozen=True)\nclass RulePredicate:\n    \"\"\"Заглушка нормализованного предиката. Семантику None задаст схема правил.\"\"\"\n    source_network: IPv4Network | None = None\n    destination_network: IPv4Network | None = None\n    protocol: Protocol | None = None\n    source_port: Port | None = None\n    destination_port: Port | None = None\n\n\n@dataclass(frozen=True)\nclass SavedAclRule:\n    \"\"\"Сохранённое правило с исходными ID, действием и свидетельством без переписывания.\"\"\"\n    rule_id: str\n    action: str\n    predicate: RulePredicate\n    evidence: JsonValue = None\n\n\n@dataclass(frozen=True)\nclass RelevantAclPair:\n    \"\"\"Синтетически релевантная пара; placements не устанавливают сетевой путь.\"\"\"\n    device_id: str\n    acl_id: str\n    placements: tuple[Placement, ...] = ()\n\n\nOrderedRelevantAclPairs: TypeAlias = tuple[RelevantAclPair, ...]\n\n\n@dataclass(frozen=True)\nclass AclSnapshot:\n    \"\"\"Снимок с правилами в исходном порядке; пустой снимок отличается от отсутствующего.\"\"\"\n    device_id: str\n    acl_id: str\n    rules: tuple[SavedAclRule, ...] = ()\n\n\n@dataclass(frozen=True)\nclass ReportGroup:\n    \"\"\"Все совпавшие правила одной пары; общего вердикта нет.\"\"\"\n    device_id: str\n    acl_id: str\n    status: Literal['MATCH', 'NO_MATCH']\n    placements: tuple[Placement, ...] = ()\n    matches: tuple[SavedAclRule, ...] = ()\n\n\nMatchReport: TypeAlias = tuple[ReportGroup, ...]\nInputLocation: TypeAlias = tuple[str | int, ...]\n\n\n@dataclass(frozen=True)\nclass RequestFailure:\n    \"\"\"Данные ожидаемого отказа всего запроса; не статус результата сопоставления.\"\"\"\n    category: str\n    message: str\n    location: InputLocation | None = None\n\n# Mapping обозначает интерфейс чтения, но не обеспечивает глубокую неизменяемость.\n# Входная граница должна создавать независимые неизменяемые вложенные значения.\n",
+      "subtree": "Исследование совпадений ACL",
+      "data_flow_types": [
+        "IPv4Flow { source: IPv4Address, destination: IPv4Address, protocol: Protocol, source_port: Optional<Port>, destination_port: Optional<Port> }",
+        "OrderedSequence<RelevantAclPair { device_id, acl_id, placements }>",
+        "AclSnapshot { device_id, acl_id, rules: OrderedSequence<SavedAclRule> }",
+        "OrderedSequence<ReportGroup { device_id, acl_id, placements, status: MATCH | NO_MATCH, matches: OrderedSequence<SavedAclRule> }>",
+        "RequestFailure { category, message, location: Optional<InputLocation> }"
+      ],
+      "file_path": ""
+    },
+    {
+      "code": "from __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom ipaddress import IPv4Address\nfrom typing import TYPE_CHECKING\n\nif TYPE_CHECKING:\n    # Interface designer добавит импорты IPv4Flow, RelevantAclPair и AclSnapshot.\n    pass\n\n\n@dataclass(frozen=True)\nclass RelevanceRecord:\n    \"\"\"Проверенная запись синтетического источника для двух адресов запроса.\"\"\"\n    source: IPv4Address\n    destination: IPv4Address\n    pairs: tuple[RelevantAclPair, ...] = ()\n\n\n@dataclass(frozen=True)\nclass ValidatedSyntheticEvidence:\n    \"\"\"Локальные данные одного вызова с сохранением порядка записей и снимков.\"\"\"\n    relevance_records: tuple[RelevanceRecord, ...] = ()\n    snapshots: tuple[AclSnapshot, ...] = ()\n\n\n@dataclass(frozen=True)\nclass ValidatedInput:\n    \"\"\"Полностью проверенные поток и предоставленные синтетические данные.\"\"\"\n    flow: IPv4Flow\n    evidence: ValidatedSyntheticEvidence\n",
+      "subtree": "Приём и валидация запроса",
+      "data_flow_types": [
+        "ValidatedSyntheticEvidence"
+      ],
+      "file_path": ""
+    },
+    {
+      "code": "from __future__ import annotations\n\nfrom dataclasses import dataclass\nfrom ipaddress import IPv4Address\nfrom typing import TYPE_CHECKING, Literal\n\nif TYPE_CHECKING:\n    # Interface designer добавит импорты ReportGroup, RelevantAclPair,\n    # AclSnapshot, RequestFailure и ValidatedInput из областей-владельцев.\n    pass\n\n\n@dataclass(frozen=True)\nclass CliObservation:\n    \"\"\"Наблюдаемые результаты изолированного запуска публичной CLI.\"\"\"\n    stdout: str\n    stderr: str\n    exit_code: int\n\n\n@dataclass(frozen=True)\nclass SourceCall:\n    \"\"\"Аргументы одного вызова подставленного источника в порядке наблюдения.\"\"\"\n    operation: Literal['relevance', 'snapshot']\n    arguments: tuple[IPv4Address | str, ...] = ()\n\n\n@dataclass(frozen=True)\nclass MatchingContractObservation:\n    \"\"\"Результаты чистого сопоставления и полностью завершённого check.\"\"\"\n    match_results: tuple[bool, ...] = ()\n    report_groups: tuple[ReportGroup, ...] = ()\n    source_calls: tuple[SourceCall, ...] = ()\n\n\n@dataclass(frozen=True)\nclass InputContractObservation:\n    \"\"\"Принятие или отказ вместе с байтами фикстуры до и после проверки.\"\"\"\n    outcome: ValidatedInput | RequestFailure\n    fixture_before: bytes\n    fixture_after: bytes\n\n\n@dataclass(frozen=True)\nclass SourceContractObservation:\n    \"\"\"Наблюдения источников; полученные данные при отказе не являются отчётом.\"\"\"\n    relevance: tuple[RelevantAclPair, ...] = ()\n    snapshots: tuple[AclSnapshot, ...] = ()\n    failure: RequestFailure | None = None\n\n\n@dataclass(frozen=True)\nclass PythonSourceEvidence:\n    \"\"\"Текст Python-модуля для независимой проверки AST и импортов.\"\"\"\n    module_path: str\n    source_text: str\n",
+      "subtree": "Проверка контрактов и ограничений",
+      "data_flow_types": [
+        "CliObservation { stdout: Text, stderr: Text, exit_code: Integer }",
+        "MatchingContractObservation { match_results: Sequence<Boolean>, report_groups: OrderedSequence<ReportGroup>, source_calls: Sequence<SourceCall> }",
+        "InputContractObservation { outcome: ValidatedInput | RequestFailure, fixture_before: Bytes, fixture_after: Bytes }",
+        "SourceContractObservation { relevance: OrderedSequence<RelevantAclPair>, snapshots: Sequence<AclSnapshot>, failure: Optional<RequestFailure> }",
+        "PythonSourceEvidence { module_path: Text, source_text: Text }"
+      ],
+      "file_path": ""
+    }
+  ],
+  "class_names": [],
+  "data_structure_names": [
+    "IPv4Flow",
+    "RulePredicate",
+    "SavedAclRule",
+    "RelevantAclPair",
+    "AclSnapshot",
+    "ReportGroup",
+    "RequestFailure",
+    "RelevanceRecord",
+    "ValidatedSyntheticEvidence",
+    "ValidatedInput",
+    "CliObservation",
+    "SourceCall",
+    "MatchingContractObservation",
+    "InputContractObservation",
+    "SourceContractObservation",
+    "PythonSourceEvidence"
+  ],
+  "uncovered_data_flow_types": [],
+  "success": true,
+  "iterations": 1,
+  "meta": {
+    "primary_language": "python",
+    "target_languages": [
+      "python"
+    ]
+  }
+}

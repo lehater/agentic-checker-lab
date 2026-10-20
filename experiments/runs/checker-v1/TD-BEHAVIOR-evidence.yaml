@@ -1,0 +1,18 @@
+version: 1
+kind: harness-test-realization-evidence
+test_contract: TD-BEHAVIOR
+executables:
+- id: TD-BEHAVIOR-1
+  test: tests/test_checker_acceptance.CheckerAcceptance.test_precode_scenarios
+  status: PASSED
+bindings:
+- id: TD-BEHAVIOR-OP-SCENARIOS
+  obligation: OP-SCENARIOS
+  evidence: &id001
+  - TD-BEHAVIOR-1
+- id: TD-BEHAVIOR-OR-SCENARIOS
+  obligation: OR-SCENARIOS
+  evidence: *id001
+test_source_sha256:
+  tests/test_checker_structure.py: e69e9b15ff7345f337a6dd184f8bad9f3a7d6f689ab9630de154614167f44fec
+  tests/test_checker_acceptance.py: bc87645474589b39ec6cf51ea3c15890978d59fff9ea930175ab79023ed052ff

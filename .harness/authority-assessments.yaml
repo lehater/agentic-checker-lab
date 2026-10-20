@@ -1,0 +1,129 @@
+version: 1
+kind: harness-project-authority-assessments
+assessments:
+- authority_id: DISCOVERY
+  applicability: REQUIRED
+  derivation: EXISTING_CANONICAL_ARTIFACT
+  evidence:
+  - core:authority:DISCOVERY
+  rationale: Existing canonical project knowledge is owned by this Authority.
+  depends_on_evidence:
+  - core:authority:DISCOVERY
+  reopening_conditions:
+  - canonical ownership/evidence changes
+- authority_id: PRODUCT-REQUIREMENTS
+  applicability: REQUIRED
+  derivation: EXISTING_CANONICAL_ARTIFACT
+  evidence:
+  - core:authority:PRODUCT-REQUIREMENTS
+  rationale: Existing canonical project knowledge is owned by this Authority.
+  depends_on_evidence:
+  - core:authority:PRODUCT-REQUIREMENTS
+  reopening_conditions:
+  - canonical ownership/evidence changes
+- authority_id: DOMAIN-STRATEGY
+  applicability: UNASSESSED
+- authority_id: MODEL-CONTEXT-STRATEGY
+  applicability: UNASSESSED
+- authority_id: DOMAIN-USE-CASE-DESIGN
+  applicability: REQUIRED
+  derivation: EXISTING_CANONICAL_ARTIFACT
+  evidence:
+  - core:authority:DOMAIN-USE-CASE-DESIGN
+  rationale: Existing canonical project knowledge is owned by this Authority.
+  depends_on_evidence:
+  - core:authority:DOMAIN-USE-CASE-DESIGN
+  reopening_conditions:
+  - canonical ownership/evidence changes
+- authority_id: TACTICAL-DOMAIN-DESIGN
+  applicability: UNASSESSED
+- authority_id: APPLICATION-DESIGN
+  applicability: UNASSESSED
+- authority_id: SYSTEM-ARCHITECTURE
+  applicability: REQUIRED
+  derivation: EXISTING_CANONICAL_ARTIFACT
+  evidence:
+  - core:authority:SYSTEM-ARCHITECTURE
+  rationale: Existing canonical project knowledge is owned by this Authority.
+  depends_on_evidence:
+  - core:authority:SYSTEM-ARCHITECTURE
+  reopening_conditions:
+  - canonical ownership/evidence changes
+- authority_id: CONCURRENCY-CONSISTENCY-DESIGN
+  applicability: UNASSESSED
+- authority_id: SECURITY-ARCHITECTURE
+  applicability: UNASSESSED
+- authority_id: MACHINE-INTERFACE-DESIGN
+  applicability: REQUIRED
+  derivation: EXISTING_CANONICAL_ARTIFACT
+  evidence:
+  - core:authority:MACHINE-INTERFACE-DESIGN
+  rationale: Existing canonical project knowledge is owned by this Authority.
+  depends_on_evidence:
+  - core:authority:MACHINE-INTERFACE-DESIGN
+  reopening_conditions:
+  - canonical ownership/evidence changes
+- authority_id: HUMAN-INTERFACE-DESIGN
+  applicability: UNASSESSED
+- authority_id: DATA-DESIGN
+  applicability: UNASSESSED
+- authority_id: QUALITY-DESIGN
+  applicability: UNASSESSED
+- authority_id: SECURITY-ANALYSIS
+  applicability: UNASSESSED
+- authority_id: OBLIGATION-ANALYSIS
+  applicability: UNASSESSED
+- authority_id: CHANGE-TRANSITION-DESIGN
+  applicability: UNASSESSED
+- authority_id: OPERABILITY-DESIGN
+  applicability: UNASSESSED
+- authority_id: ENGINEERING-POLICY
+  applicability: REQUIRED
+  derivation: EXISTING_CANONICAL_ARTIFACT
+  evidence:
+  - core:authority:ENGINEERING-POLICY
+  rationale: Existing canonical project knowledge is owned by this Authority.
+  depends_on_evidence:
+  - core:authority:ENGINEERING-POLICY
+  reopening_conditions:
+  - canonical ownership/evidence changes
+- authority_id: COMPONENT-DESIGN
+  applicability: REQUIRED
+  derivation: EXISTING_CANONICAL_ARTIFACT
+  evidence:
+  - core:authority:COMPONENT-DESIGN
+  rationale: Existing canonical project knowledge is owned by this Authority.
+  depends_on_evidence:
+  - core:authority:COMPONENT-DESIGN
+  reopening_conditions:
+  - canonical ownership/evidence changes
+- authority_id: TEST-DESIGN
+  applicability: REQUIRED
+  derivation: EXISTING_CANONICAL_ARTIFACT
+  evidence:
+  - core:authority:TEST-DESIGN
+  rationale: Existing canonical project knowledge is owned by this Authority.
+  depends_on_evidence:
+  - core:authority:TEST-DESIGN
+  reopening_conditions:
+  - canonical ownership/evidence changes
+- authority_id: IMPLEMENTATION-DESIGN
+  applicability: REQUIRED
+  derivation: EXISTING_CANONICAL_ARTIFACT
+  evidence:
+  - core:authority:IMPLEMENTATION-DESIGN
+  rationale: Existing canonical project knowledge is owned by this Authority.
+  depends_on_evidence:
+  - core:authority:IMPLEMENTATION-DESIGN
+  reopening_conditions:
+  - canonical ownership/evidence changes
+- authority_id: VERIFICATION-DESIGN
+  applicability: REQUIRED
+  derivation: EXISTING_CANONICAL_ARTIFACT
+  evidence:
+  - core:authority:VERIFICATION-DESIGN
+  rationale: Existing canonical project knowledge is owned by this Authority.
+  depends_on_evidence:
+  - core:authority:VERIFICATION-DESIGN
+  reopening_conditions:
+  - canonical ownership/evidence changes

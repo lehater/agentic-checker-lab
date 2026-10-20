@@ -6,11 +6,19 @@
 
 **Начало работы:** [карта документации](docs/README.md), [стратегия](docs/project/strategy.md), [текущее состояние](docs/project/current-state.yaml), [порядок разработки](docs/project/governance.md).
 
-Текущее состояние: **P0 — создание документальной основы**. Установка инструментов, генерация RPG, реализация Checker и сравнительные эксперименты ещё не выполнялись; планы и гипотезы не считаются проверенными результатами.
+Текущее состояние: **P4 — синтетический Checker реализован и проверен**. Harness readiness COMPLETE; независимые тесты, native suite и мутационные проверки проходят. Приёмка и ограничения зафиксированы в [прогоне checker-v1](experiments/runs/checker-v1/README.md). Исследование change-impact и сравнение методик ещё впереди.
 
 Ubuntu является целевой средой эксперимента. Само приложение Checker должно работать независимо от Harness и CoderMind.
 
-Проверка целостности документации после клонирования:
+Запуск (Python 3.10+, без установки пакетов):
+
+```bash
+python3 -m checker --input examples/checker-input.json
+python3 -m checker --input examples/checker-input.json --format json
+```
+
+[Контракт и ограничения Checker](docs/checker/README.md).
+Полная быстрая проверка репозитория и приложения после клонирования:
 
 ```bash
 make check

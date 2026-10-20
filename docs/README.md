@@ -10,6 +10,7 @@
 | Что реально завершено и что делать дальше | [Текущее состояние](project/current-state.yaml) |
 | Как работают Git, PR, агенты | [Правила](project/governance.md) |
 | Как сравниваем подходы | [Дизайн эксперимента](project/experiment-design.md) |
+| Как запустить Checker и где его инженерные контракты | [Checker](checker/README.md) |
 | Где границы Checker | [Сценарий](scenario/README.md) |
 | Откуда взяты факты | [Research](research/README.md) |
 | Как сопрягаются Harness и RPG | [Integration](integration/README.md) |

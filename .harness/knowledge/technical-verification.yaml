@@ -1,0 +1,27 @@
+version: 1
+kind: harness-knowledge-artifact
+artifact: technical-verification
+title: Checker structural and interface verification
+schema: verification-plan/v1
+content:
+  purpose: Verify accepted technical constraints separately from behavioral strategy.
+  scope: Synthetic Checker
+  checks:
+  - id: VC-ARCH
+    objective: Domain/application imports obey ARCH-1/POL-1; no mutation and sources
+      substitutable.
+    verifies:
+    - ARCH-1
+    - POL-1
+    - COMP-1
+    method: TEST
+    evidence:
+    - 'REQUIRED: AST import check and source-substitution integration test.'
+  - id: VC-IF
+    objective: CLI contract text/JSON, full field/placement preservation, explicit
+      errors and version validation.
+    verifies:
+    - IF-1
+    method: TEST
+    evidence:
+    - 'REQUIRED: public subprocess checks for text/JSON and negative input cases.'

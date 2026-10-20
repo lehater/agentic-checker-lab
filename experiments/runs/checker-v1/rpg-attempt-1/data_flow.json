@@ -1,0 +1,110 @@
+{
+  "data_flow": [
+    {
+      "source": "Приём и валидация запроса",
+      "target": "Отбор и получение снимков ACL",
+      "data_id": "validated_synthetic_evidence",
+      "data_type": "ValidatedSyntheticEvidence",
+      "transformation": "JSON преобразуется в проверенные записи релевантности и снимки с идентификаторами устройств, ACL, правилами и placements. Сохраняются исходные свидетельства и порядок; значения фиксируются локально для одного вызова без изменения входных данных."
+    },
+    {
+      "source": "Приём и валидация запроса",
+      "target": "Исследование совпадений ACL",
+      "data_id": "validated_ipv4_flow",
+      "data_type": "IPv4Flow { source: IPv4Address, destination: IPv4Address, protocol: Protocol, source_port: Optional<Port>, destination_port: Optional<Port> }",
+      "transformation": "Проверяются конкретные IPv4-адреса, поддерживаемый протокол и допустимые значения портов. Передаются значения потока без зависимости от JSON, файловой системы или CLI."
+    },
+    {
+      "source": "Отбор и получение снимков ACL",
+      "target": "Исследование совпадений ACL",
+      "data_id": "ordered_relevant_acl_pairs",
+      "data_type": "OrderedSequence<RelevantAclPair { device_id, acl_id, placements }>",
+      "transformation": "Внедрённый relevance(source, destination) возвращает синтетически релевантные пары для адресов запроса с сохранением порядка и placements. Порядок не интерпретируется как сетевой путь, а placements не дополняются неподтверждёнными привязками."
+    },
+    {
+      "source": "Отбор и получение снимков ACL",
+      "target": "Исследование совпадений ACL",
+      "data_id": "saved_acl_snapshot",
+      "data_type": "AclSnapshot { device_id, acl_id, rules: OrderedSequence<SavedAclRule> }",
+      "transformation": "Внедрённый snapshot(device, acl) предоставляет обязательный сохранённый снимок каждой релевантной пары. Исходные идентификаторы, действия, свидетельства и порядок правил сохраняются; отсутствующий снимок завершает запрос ошибкой."
+    },
+    {
+      "source": "Исследование совпадений ACL",
+      "target": "Командный интерфейс и публикация отчёта",
+      "data_id": "complete_match_report",
+      "data_type": "OrderedSequence<ReportGroup { device_id, acl_id, placements, status: MATCH | NO_MATCH, matches: OrderedSequence<SavedAclRule> }>",
+      "transformation": "Чистая функция matches(flow, rule) применяется ко всем правилам каждой релевантной пары, и в группу включаются все совпадения в порядке снимка. Только полностью успешный запрос передаёт группы для текстовой или JSON-сериализации; общий permit/deny и неявное deny не создаются."
+    },
+    {
+      "source": "Приём и валидация запроса",
+      "target": "Командный интерфейс и публикация отчёта",
+      "data_id": "input_validation_failure",
+      "data_type": "RequestFailure { category, message, location: Optional<InputLocation> }",
+      "transformation": "Ошибки JSON, структуры, значений и неподдерживаемых предикатов преобразуются в явную диагностику stderr и ненулевой код завершения. Успешный частичный отчёт и статус NO_MATCH при ошибке не выдаются."
+    },
+    {
+      "source": "Отбор и получение снимков ACL",
+      "target": "Командный интерфейс и публикация отчёта",
+      "data_id": "required_evidence_failure",
+      "data_type": "RequestFailure { category, message, location: Optional<InputLocation> }",
+      "transformation": "Ожидаемые ошибки получения обязательных сохранённых данных передаются границе CLI для диагностики и отказа всего запроса. Повторы, подмена данных и подавление ошибок программирования общим except Exception не применяются."
+    },
+    {
+      "source": "Командный интерфейс и публикация отчёта",
+      "target": "Проверка контрактов и ограничений",
+      "data_id": "public_cli_observation",
+      "data_type": "CliObservation { stdout: Text, stderr: Text, exit_code: Integer }",
+      "transformation": "Изолированные приёмочные проверки захватывают потоки вывода и код завершения для текстового и JSON-форматов. JSON разбирается и сравнивается с независимыми фиксированными ожиданиями по группам, полям, идентификаторам, действиям, статусам, placements и отсутствию общего вердикта."
+    },
+    {
+      "source": "Исследование совпадений ACL",
+      "target": "Проверка контрактов и ограничений",
+      "data_id": "matching_contract_observation",
+      "data_type": "MatchingContractObservation { match_results: Sequence<Boolean>, report_groups: OrderedSequence<ReportGroup>, source_calls: Sequence<SourceCall> }",
+      "transformation": "Проверяются результаты matches и check с подставленными узкими source-callable контрактами и фиксированными ожиданиями. Наблюдения подтверждают полноту совпадений, сохранение порядка и отсутствие успешного частичного результата при отказе."
+    },
+    {
+      "source": "Приём и валидация запроса",
+      "target": "Проверка контрактов и ограничений",
+      "data_id": "input_contract_observation",
+      "data_type": "InputContractObservation { outcome: ValidatedInput | RequestFailure, fixture_before: Bytes, fixture_after: Bytes }",
+      "transformation": "Проверки сопоставляют принятие или отклонение входа с независимыми сценариями, включая некорректный JSON, формы и неподдерживаемые значения. Сравнение исходных и конечных байтов подтверждает неизменность фикстур."
+    },
+    {
+      "source": "Отбор и получение снимков ACL",
+      "target": "Проверка контрактов и ограничений",
+      "data_id": "synthetic_source_contract_observation",
+      "data_type": "SourceContractObservation { relevance: OrderedSequence<RelevantAclPair>, snapshots: Sequence<AclSnapshot>, failure: Optional<RequestFailure> }",
+      "transformation": "Проверяются выдача сохранённых данных, порядок, placements и отказ при отсутствии обязательного снимка. Повторные независимые вызовы проверяют отсутствие влияния общего изменяемого состояния."
+    },
+    {
+      "source": "Исследование совпадений ACL",
+      "target": "Проверка контрактов и ограничений",
+      "data_id": "core_architecture_evidence",
+      "data_type": "PythonSourceEvidence { module_path: Text, source_text: Text }",
+      "transformation": "Исходные модули ядра разбираются средствами AST для проверки импортов и архитектурных ограничений. Проверки подтверждают независимость домена и application-контрактов от CLI, JSON-загрузки, файловой системы, сети и внешних адаптеров."
+    }
+  ],
+  "subtree_order": [
+    "Приём и валидация запроса",
+    "Отбор и получение снимков ACL",
+    "Исследование совпадений ACL",
+    "Командный интерфейс и публикация отчёта",
+    "Проверка контрактов и ограничений"
+  ],
+  "success": true,
+  "iterations": 2,
+  "components": [
+    "Исследование совпадений ACL",
+    "Командный интерфейс и публикация отчёта",
+    "Отбор и получение снимков ACL",
+    "Приём и валидация запроса",
+    "Проверка контрактов и ограничений"
+  ],
+  "meta": {
+    "primary_language": "python",
+    "target_languages": [
+      "python"
+    ]
+  }
+}

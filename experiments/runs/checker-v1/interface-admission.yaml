@@ -1,0 +1,58 @@
+version: 1
+kind: harness-artifact-semantic-evaluation
+artifact: interface
+capability: checker.interface
+status: ACCEPTED
+obligations:
+  expected: []
+  satisfied: []
+  dispositions: []
+findings: []
+semantic_claims:
+  accepted:
+  - engineering.interface.machine.contract
+  - engineering.interface.machine.errors
+  - engineering.interface.machine.compatibility
+question_proposals: []
+admission:
+  status: ACCEPTED
+  knowledge_kind: interface-contract
+  skill: skills/artifacts/interface-contract/SKILL.md
+  acceptance_id: checker-v1-7a5af9fc5faa417f2ed58f7d
+  authority: MACHINE-INTERFACE-DESIGN
+  allowed_source_authorities:
+  - DOMAIN-USE-CASE-DESIGN
+  - MACHINE-INTERFACE-DESIGN
+  - PRODUCT-REQUIREMENTS
+  - SYSTEM-ARCHITECTURE
+  changed_paths:
+  - docs/checker/interface.md
+  canonical_references:
+  - referenced_path: .harness/knowledge/requirements.yaml
+  - referenced_path: docs/checker/domain.md
+  - referenced_path: docs/checker/architecture.md
+  accepted_prerequisites: &id001
+    checker.requirements: checker-v1-db81ca67ab2f91e4b14806ff
+    checker.domain: checker-v1-2abd3a6fff3ad8b58bfabf3e
+    checker.architecture: checker-v1-13b83a49054471c3b217f865
+  accepted_prerequisite_semantics: {}
+  semantic_contract: knowledge-kind-semantic-contracts/v1
+  acceptance_policy:
+    version: 1
+    kind: harness-acceptance-policy-baseline
+    evaluator_contract: strict-semantic-admission/v1
+    fingerprint: sha256:38a075e8a6719186b3c11543afaba75911c663ce44308655040369eb7fe726c5
+  acceptance_policy_fingerprint: sha256:38a075e8a6719186b3c11543afaba75911c663ce44308655040369eb7fe726c5
+  decision_exploration: NOT_REQUIRED
+  decision_explorer_request_id: null
+  decision_execution_assurance: NOT_REQUIRED
+  decision_governance: NOT_REQUIRED
+  decision_request_mode: CREATE
+lifecycle_assertion:
+  artifact: interface
+  capability: checker.interface
+  acceptance_id: checker-v1-7a5af9fc5faa417f2ed58f7d
+  acceptance_policy_fingerprint: sha256:38a075e8a6719186b3c11543afaba75911c663ce44308655040369eb7fe726c5
+  accepted_prerequisites: *id001
+  semantic_atom_fingerprints:
+    IF-1: SAF-736d58fe2227dddda22656a0b5f436f274c9e6b0f4207545a93cddd6fe3c062e
