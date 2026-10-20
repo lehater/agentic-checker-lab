@@ -4,7 +4,7 @@ test_contract: TD-BEHAVIOR
 executables:
 - id: TD-BEHAVIOR-1
   test: tests/test_checker_acceptance.CheckerAcceptance.test_precode_scenarios
-  status: FAILED
+  status: PASSED
 bindings:
 - id: TD-BEHAVIOR-OP-SCENARIOS
   obligation: OP-SCENARIOS
@@ -14,5 +14,5 @@ bindings:
   obligation: OR-SCENARIOS
   evidence: *id001
 test_source_sha256:
-  tests/test_checker_structure.py: 3f9f9f2596b15a49dbb15177c5d3d41e98b3434724a2838aa04d34198e911c12
+  tests/test_checker_structure.py: e69e9b15ff7345f337a6dd184f8bad9f3a7d6f689ab9630de154614167f44fec
   tests/test_checker_acceptance.py: bc87645474589b39ec6cf51ea3c15890978d59fff9ea930175ab79023ed052ff

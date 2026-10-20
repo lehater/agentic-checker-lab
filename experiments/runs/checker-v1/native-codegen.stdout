@@ -1,0 +1,59 @@
+10:37:29 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/input/types.py
+10:37:29 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/input/validation.py
+10:38:42 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/domain/types.py
+10:40:14 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/application/types.py
+10:40:14 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/domain/matching.py
+10:40:14 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/domain/types.py
+10:41:28 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/application/types.py
+10:41:28 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/domain/types.py
+10:42:52 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/application/types.py
+10:45:13 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/application/types.py
+10:47:21 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/domain/application/check.py
+10:47:21 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/application/types.py
+10:47:21 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/cli/rendering.py
+10:47:21 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/input/document.py
+10:47:21 [rpg.dep_graph] WARNING: missing alias map for: src/acl_checker/input/types.py
+11:16:22 [__main__] WARNING: Sub-agent reported PASS but did not provide PYTEST_SUMMARY line
+11:17:17 [__main__] WARNING: Sub-agent reported PASS but did not provide PYTEST_SUMMARY line
+
+  [START] Starting batch loop (Ctrl+C to stop after current batch)
+
+  [OK] [1] src_acl_checker_input_validation.py_20261016_102831_451bf703 — PASS (1 attempt(s), 168s) — 1/30 done
+  [OK] [2] src_acl_checker_input_document.py_20261016_102831_6a89756e — PASS (1 attempt(s), 96s) — 2/30 done
+  [OK] [3] src_acl_checker_domain_matching.py_20261016_102858_082948a0 — PASS (1 attempt(s), 73s) — 3/30 done
+  [OK] [4] src_acl_checker_domain_application_check.py_20261016_102858_b1fe9f8a — PASS (1 attempt(s), 92s) — 5/30 done
+  [OK] [5] src_acl_checker_application_evidence.py_20261016_102923_b3ee184e — PASS (1 attempt(s), 74s) — 6/30 done
+  [OK] [6] src_acl_checker_application_sources.py_20261016_102923_7e63e150 — PASS (1 attempt(s), 84s) — 7/30 done
+  [OK] [7] checker___main__.py_20261016_102955_5108d46b — PASS (1 attempt(s), 70s) — 8/30 done
+  [OK] [8] src_acl_checker_cli_rendering.py_20261016_102955_2244bb14 — PASS (1 attempt(s), 70s) — 9/30 done
+  [OK] [9] src_acl_checker_cli_main.py_20261016_102955_f72be716 — PASS (1 attempt(s), 128s) — 11/30 done
+  [OK] [10] tests_test_application.py_20261016_103037_82aac2bc — PASS (1 attempt(s), 154s) — 13/30 done
+  [OK] [11] tests_test_architecture.py_20261016_103037_d3925e04 — PASS (1 attempt(s), 186s) — 15/30 done
+  [OK] [12] tests_test_cli_acceptance.py_20261016_103037_84e1a775 — PASS (1 attempt(s), 190s) — 17/30 done
+  [OK] [13] tests_test_matching.py_20261016_103037_f8d86caa — PASS (1 attempt(s), 88s) — 18/30 done
+  [OK] [14] tests_test_validation.py_20261016_103037_9303794f — PASS (1 attempt(s), 117s) — 19/30 done
+  [OK] [15] <INTEGRATION_TEST>_20261016_103037_5dff01aa — PASS (1 attempt(s), 126s) — 20/30 done
+  [OK] [16] <INTEGRATION_TEST>_20261016_103037_77be30ac — PASS (1 attempt(s), 130s) — 21/30 done
+  [OK] [17] <INTEGRATION_TEST>_20261016_103037_54c9d3a0 — PASS (1 attempt(s), 136s) — 22/30 done
+  [OK] [18] <INTEGRATION_TEST>_20261016_103037_67a97247 — PASS (1 attempt(s), 107s) — 23/30 done
+  [OK] [19] <INTEGRATION_TEST>_20261016_103037_e65b6bf3 — PASS (1 attempt(s), 117s) — 24/30 done
+  [OK] [20] <WIRING>_20261016_103037_236863c5 — PASS (1 attempt(s), 100s) — 25/30 done
+  [OK] [21] <UI_POLISH>_20261016_103037_2b77f2bc — PASS (1 attempt(s), 79s) — 26/30 done
+  [OK] [22] <COMPREHENSIVE_TEST>_20261016_103037_7adb0716 — PASS (1 attempt(s), 155s) — 27/30 done
+  [OK] [23] <MAIN_ENTRY>_20261016_103037_3ce780eb — PASS (1 attempt(s), 58s) — 28/30 done
+  [OK] [24] <REQUIREMENTS>_20261016_103037_8ad1eeea — PASS (1 attempt(s), 55s) — 29/30 done
+  [OK] [25] <README>_20261016_103037_b22a5b74 — PASS (1 attempt(s), 94s) — 30/30 done
+{
+  "success": true,
+  "type": "complete",
+  "message": "All 30 batches completed successfully!",
+  "stats": {
+    "total": 30,
+    "completed": 30,
+    "failed": 0,
+    "success_rate": 100.0
+  },
+  "next_action": "Run final validation: cmind script run_batch.py --final-test --json"
+}
+
+  [TIME]  Total time: 46.1 min (25 passed, 0 failed)

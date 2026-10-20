@@ -6,21 +6,19 @@
   "consumer": "CHECKER-PROTOTYPE",
   "scope": "CHECKER-PROTOTYPE",
   "scope_roots": [],
-  "completion_ready": false,
+  "completion_ready": true,
   "activated_count": 29,
-  "remaining_work_count": 3,
-  "work_item_count": 3,
+  "remaining_work_count": 0,
+  "work_item_count": 0,
   "question_frontier_count": 0,
   "summary": {
     "states": {
-      "COVERED": 21,
-      "MISSING": 3,
+      "COVERED": 24,
       "DEFERRED": 2,
       "NOT_APPLICABLE": 3
     },
     "actions": {
-      "NONE": 26,
-      "MODEL_PRODUCTION_CONTRACT": 3
+      "NONE": 29
     }
   },
   "authority_roles": {
@@ -197,17 +195,13 @@
     },
     {
       "concern": "delivery.release",
-      "state": "MISSING",
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "accepted_semantic_claims": [
-        "engineering.delivery.release"
-      ],
-      "routes": {
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
         "engineering.delivery.release": [
-          "IMPLEMENTATION-DESIGN"
+          "checker.implementation"
         ]
       },
-      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
       "activation_provenance": [
         {
           "source": "RULE",
@@ -220,17 +214,13 @@
     },
     {
       "concern": "delivery.rollback",
-      "state": "MISSING",
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "accepted_semantic_claims": [
-        "engineering.delivery.rollback"
-      ],
-      "routes": {
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
         "engineering.delivery.rollback": [
-          "IMPLEMENTATION-DESIGN"
+          "checker.implementation"
         ]
       },
-      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
       "activation_provenance": [
         {
           "source": "RULE",
@@ -581,18 +571,13 @@
     },
     {
       "concern": "transition.revalidation",
-      "state": "MISSING",
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "accepted_semantic_claims": [
-        "engineering.transition.revalidation"
-      ],
-      "routes": {
+      "state": "COVERED",
+      "action": "NONE",
+      "proof": {
         "engineering.transition.revalidation": [
-          "TEST-DESIGN",
-          "VERIFICATION-DESIGN"
+          "checker.implementation"
         ]
       },
-      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
       "activation_provenance": [
         {
           "source": "RULE",
@@ -713,110 +698,7 @@
     "remaining_work": [],
     "completion_ready": true
   },
-  "remaining_work": [
-    {
-      "concern": "delivery.release",
-      "state": "MISSING",
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "accepted_semantic_claims": [
-        "engineering.delivery.release"
-      ],
-      "routes": {
-        "engineering.delivery.release": [
-          "IMPLEMENTATION-DESIGN"
-        ]
-      },
-      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
-      "activation_provenance": [
-        {
-          "source": "RULE",
-          "rule": "RELEASE-DELIVERY",
-          "signals": [
-            "knowledge_kind:implementation-design"
-          ]
-        }
-      ]
-    },
-    {
-      "concern": "delivery.rollback",
-      "state": "MISSING",
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "accepted_semantic_claims": [
-        "engineering.delivery.rollback"
-      ],
-      "routes": {
-        "engineering.delivery.rollback": [
-          "IMPLEMENTATION-DESIGN"
-        ]
-      },
-      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
-      "activation_provenance": [
-        {
-          "source": "RULE",
-          "rule": "RELEASE-DELIVERY",
-          "signals": [
-            "knowledge_kind:implementation-design"
-          ]
-        }
-      ]
-    },
-    {
-      "concern": "transition.revalidation",
-      "state": "MISSING",
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "accepted_semantic_claims": [
-        "engineering.transition.revalidation"
-      ],
-      "routes": {
-        "engineering.transition.revalidation": [
-          "TEST-DESIGN",
-          "VERIFICATION-DESIGN"
-        ]
-      },
-      "reason": "A capable Authority role exists, but no in-scope Capability declares an accepted semantic claim for this concern.",
-      "activation_provenance": [
-        {
-          "source": "RULE",
-          "rule": "RELEASE-DELIVERY",
-          "signals": [
-            "knowledge_kind:implementation-design"
-          ]
-        }
-      ]
-    }
-  ],
-  "work_items": [
-    {
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "concern": "delivery.release",
-      "candidate_authorities": [
-        "IMPLEMENTATION-DESIGN"
-      ],
-      "accepted_semantic_claims": [
-        "engineering.delivery.release"
-      ]
-    },
-    {
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "concern": "delivery.rollback",
-      "candidate_authorities": [
-        "IMPLEMENTATION-DESIGN"
-      ],
-      "accepted_semantic_claims": [
-        "engineering.delivery.rollback"
-      ]
-    },
-    {
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "concern": "transition.revalidation",
-      "candidate_authorities": [
-        "TEST-DESIGN",
-        "VERIFICATION-DESIGN"
-      ],
-      "accepted_semantic_claims": [
-        "engineering.transition.revalidation"
-      ]
-    }
-  ],
+  "remaining_work": [],
+  "work_items": [],
   "question_frontier": []
 }

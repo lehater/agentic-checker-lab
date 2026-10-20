@@ -213,6 +213,10 @@ authorities:
     - checker.policy
     - checker.components
     - checker.tests
+    semantic_claims:
+    - engineering.delivery.release
+    - engineering.delivery.rollback
+    - engineering.transition.revalidation
 consumers:
 - id: CHECKER-PROTOTYPE
   purpose: Small runnable synthetic Checker requested by owner; progressively reconciled

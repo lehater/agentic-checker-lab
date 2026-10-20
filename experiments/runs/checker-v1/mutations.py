@@ -98,5 +98,6 @@ for kind in ['baseline', 'always_true', 'always_false', 'exclusive_ports', 'firs
         results.append(dict(mutation=kind, status='PASS' if kind == 'baseline' else 'DETECTED', cases=cases))
 for relative, digest in before.items():
     assert hashlib.sha256((ROOT / relative).read_bytes()).hexdigest() == digest
-(RUN / 'mutations.json').write_text(json.dumps(dict(status='PASS', original_source_unchanged=True, results=results), indent=2)+'\n')
+if '--check' not in sys.argv:
+    (RUN / 'mutations.json').write_text(json.dumps(dict(status='PASS', original_source_unchanged=True, results=results), indent=2)+'\n')
 print('PASS: baseline and six semantic mutants; original source unchanged')

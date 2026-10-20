@@ -1,0 +1,72 @@
+--- a/core_pack/scripts/code_gen/global_review.py
++++ b/core_pack/scripts/code_gen/global_review.py
+@@ -1093,6 +1093,7 @@
+     repo_path: Optional[Path] = None,
+     max_iterations: int = 10,
+     timeout_per_iteration: int = 1800,
++    interface_kind: str = "visual",
+ ) -> Dict[str, Any]:
+     """Run global feature review with iterative repair.
+ 
+@@ -1107,10 +1108,13 @@
+     Returns:
+         Result dict with review findings and statistics.
+     """
++    if interface_kind not in {"cli", "visual"}:
++        raise ValueError("interface_kind must be cli or visual")
+     repo_path = repo_path or REPO_DIR
+ 
+     results: Dict[str, Any] = {
+         "type": "global_review",
++        "review_interface": interface_kind,
+         "iterations": [],
+         "success": False,
+         "total_duration": 0.0,
+@@ -1158,6 +1162,10 @@
+ 
+         # 2. Build prompt
+         prompt = _build_review_prompt(repo_path, previous_issues=previous_issues)
++        if interface_kind == "cli":
++            prompt += ("\nReview scope is a CLI-only application: verify real command invocations, "
++                       "help, stdout/stderr and exit codes. Browser/GUI visual checks "
++                       "are not applicable. Do not invent pages or screenshots.\n")
+ 
+         # 3. Dispatch sub-agent (with retries for transient failures).
+         #    Wrap with a heartbeat so the operator sees the iteration is
+@@ -1225,7 +1233,7 @@
+             pages = checklist.get("pages_inspected", 0)
+             screenshots = checklist.get("screenshots_taken", 0)
+             tools_used = pages > 0 or screenshots > 0
+-            if review_passed and not tools_used:
++            if review_passed and interface_kind != "cli" and not tools_used:
+                 logger.warning(
+                     "Agent reported DONE but pages_inspected=%d, screenshots=%d "
+                     "— overriding to CONTINUE (visual verification required)",
+@@ -1255,7 +1263,7 @@
+         # A normal screenshot with actual content is at least a few KB.
+         # This check uses filesystem evidence directly, not the checklist's
+         # self-reported metrics (which may be missing or malformed).
+-        if review_passed:
++        if review_passed and interface_kind != "cli":
+             try:
+                 screenshots_dir = repo_path / ".cmind" / "tmp" / "screenshots"
+                 if screenshots_dir.is_dir():
+--- a/core_pack/scripts/run_batch.py
++++ b/core_pack/scripts/run_batch.py
+@@ -1000,6 +1000,8 @@
+                         help=f"Sub-agent timeout in seconds (default: {DEFAULT_AGENT_TIMEOUT})")
+     parser.add_argument("--max-batches", type=int, default=0,
+                         help="Stop --loop after this many batches (0 = no limit)")
++    parser.add_argument("--review-interface", choices=("visual", "cli"), default="visual",
++                        help="Global review interface scope; visual checks required by default")
+     parser.add_argument("--review-iterations", type=int, default=10,
+                         help="Max iterations for global review (default: 10)")
+     parser.add_argument("--json", action="store_true", help="Output as JSON")
+@@ -1041,6 +1043,7 @@
+         result = global_review(
+             max_iterations=args.review_iterations,
+             timeout_per_iteration=args.agent_timeout,
++            interface_kind=args.review_interface,
+         )
+         if args.json:
+             print(json.dumps(result, indent=2))

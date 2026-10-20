@@ -1,0 +1,366 @@
+knowledge_kind: implementation-design
+depends_on:
+- requirements
+- domain
+- architecture
+- interface
+- policy
+- components
+- tests
+candidate:
+  id: implementation
+  path: docs/checker/realization-plan.md
+  capability: checker.implementation
+  canonical_references:
+  - referenced_path: .harness/knowledge/requirements.yaml
+  - referenced_path: docs/checker/domain.md
+  - referenced_path: docs/checker/architecture.md
+  - referenced_path: docs/checker/interface.md
+  - referenced_path: docs/checker/engineering-policy.md
+  - referenced_path: docs/checker/components.md
+  - referenced_path: .harness/knowledge/tests.yaml
+  semantic_assertions:
+  - id: IMP-1
+    kind: implementation-design
+    subject: IMP-1
+    semantic_value: One synthetic vertical CLI slice realized by root checker launcher
+      and inward stdlib modules; native generation/final-test, independent behavior/boundary
+      checks, six semantic mutants and complete Test Design conformance. Actual function/hash
+      trace to all four requirements. Native global review only passes with explicit
+      CLI-scoped tool patch; original upstream failure is preserved.
+    decision_authority: IMPLEMENTATION-DESIGN
+    derived_from:
+    - REQ-CHECKER-101
+    - REQ-CHECKER-102
+    - REQ-CHECKER-103
+    - REQ-CHECKER-104
+    - DOM-1
+    - DOM-2
+    - ARCH-1
+    - IF-1
+    - POL-1
+    - COMP-1
+    - TD-BEHAVIOR
+    - TD-BOUNDARIES
+  - id: IMP-GATE
+    kind: implementation-design
+    subject: IMP-GATE
+    semantic_value: Authoritative PR repository/check runs reproducible make check,
+      including independent tests, controlled semantic mutations and evidence hash
+      accounting. No model calls or hidden tool cache in this gate. Merge remains
+      review-controlled; no production deployment.
+    decision_authority: IMPLEMENTATION-DESIGN
+    derived_from:
+    - ARCH-1
+    - POL-1
+    - TD-BEHAVIOR
+    - TD-BOUNDARIES
+  - id: IMP-TRANSITION
+    kind: implementation-design
+    subject: IMP-TRANSITION
+    semantic_value: No production data transition. Source-only PR; rollback via revert
+      squash. Upstream changes invalidate affected evidence and require Harness reevaluation,
+      fresh executable checks, source/RPG hash binding and re-admission; no claim
+      that the P5 experiment has run.
+    decision_authority: IMPLEMENTATION-DESIGN
+    derived_from:
+    - ARCH-1
+    - POL-1
+    - COMP-1
+  semantic_review:
+    status: ACCEPTED
+    checks:
+    - source-discipline
+    - authority-boundary
+    - no-invention
+    - implementation-not-upstream-owner
+    - implementation-slices-explicit
+    - repository-realization-derived-from-accepted-boundaries
+    reviewer: Engineering agent under current owner assignment
+    record: docs/checker/realization-plan.md
+    rationale: Read actual CLI/source and independent assertions; all selected Test
+      Design obligations have ACCEPTED executable-correspondence conformance, negative
+      probes reject missing/failed execution. Native 30/30 generation, final-test
+      197/197 and replay 197/197; corrected CLI-scoped actual global review PASS with
+      isolated hash-checked patch and eight regression cases. No accepted upstream
+      semantics or frozen cases changed. Public/runtime and transitive import checks
+      enforce accepted boundaries. Source-only CI gate/provenance/rollback/revalidation
+      are explicit; final publication closure is checked separately.
+  decision_review:
+    axes:
+    - axis: slice-boundaries
+      decisions:
+      - id: slices
+        owner_authority: IMPLEMENTATION-DESIGN
+        alternatives:
+        - id: vertical
+          state: VIABLE
+        - id: layered
+          state: VIABLE
+        disposition: DELEGATED
+        selected: vertical
+        rationale: One coherent observable inspect-flow slice; native per-file units
+          respect actual dependencies, independent contracts precede code.
+    - axis: repository-realization
+      decisions:
+      - id: repository
+        owner_authority: IMPLEMENTATION-DESIGN
+        alternatives:
+        - id: package
+          state: VIABLE
+        - id: src
+          state: VIABLE
+        disposition: DELEGATED
+        selected: package
+        rationale: Root checker launcher runs directly from checkout. Internal src.acl_checker
+          folders preserve inward responsibility boundaries; no installed entrypoint
+          or hidden packaging step.
+    - axis: dependency-tooling
+      decisions:
+      - id: tooling
+        owner_authority: IMPLEMENTATION-DESIGN
+        alternatives:
+        - id: stdlib
+          state: VIABLE
+        - id: validation-lib
+          state: VIABLE
+        disposition: DELEGATED
+        selected: stdlib
+        rationale: The actual strict small JSON/CIDR contract is enforced with stdlib,
+          independently exercised; avoids a runtime install and extra supply-chain
+          footprint.
+    - axis: verification-enforcement
+      decisions:
+      - id: verification
+        owner_authority: IMPLEMENTATION-DESIGN
+        alternatives:
+        - id: automated
+          state: VIABLE
+        - id: manual
+          state: REJECTED
+          rationale: POL-1 requires automated independent scenarios and import checks;
+            manual review supplements these but cannot replace the required gate.
+        disposition: DETERMINED
+        selected: automated
+        rationale: POL-1 requires automated independent scenarios and import checks;
+          manual review supplements these but cannot replace the required gate.
+    - axis: delivery-gates
+      decisions:
+      - id: delivery
+        owner_authority: IMPLEMENTATION-DESIGN
+        alternatives:
+        - id: ci
+          state: VIABLE
+        - id: local
+          state: REJECTED
+          rationale: Versioned PR CI checks the proposed integration tree with the
+            same make check; workstation-only evidence cannot enforce governance merge
+            gates.
+        disposition: DETERMINED
+        selected: ci
+        rationale: Versioned PR CI checks the proposed integration tree with the same
+          make check; workstation-only evidence cannot enforce governance merge gates.
+decision_exploration:
+  axes:
+  - axis: slice-boundaries
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+    - strategy: split-slice
+      challenge: Can layer batching improve independent checks?
+      alternatives:
+      - vertical
+      - layered
+      decision_points:
+      - slices
+    - strategy: dependency-order-perturbation
+      challenge: Would coding before independent expectations hide mistakes?
+      alternatives:
+      - vertical
+      - layered
+      decision_points:
+      - slices
+    decision_points:
+    - id: slices
+      alternatives:
+      - id: vertical
+        difference: One bounded whole CLI slice with pre-code tests.
+        material_effects:
+          slice-granularity: one-query
+          dependency-order: accepted-contracts-tests-code
+          ownership-alignment: whole-query
+      - id: layered
+        difference: Separate matcher, use case and adapter batches.
+        material_effects:
+          slice-granularity: per-layer
+          dependency-order: domain-application-cli
+          ownership-alignment: layer
+  - axis: repository-realization
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+    - strategy: boundary-remap
+      challenge: Do physical modules preserve accepted responsibility boundaries?
+      alternatives:
+      - package
+      - src
+      decision_points:
+      - repository
+    - strategy: composition-root-shift
+      challenge: Would installed entry point improve this local prototype?
+      alternatives:
+      - package
+      - src
+      decision_points:
+      - repository
+    decision_points:
+    - id: repository
+      alternatives:
+      - id: package
+        difference: Root checker package with domain/application/outer modules and
+          separate tests.
+        material_effects:
+          module-boundary: checker-package
+          composition-root: checker.__main__
+          generated-source-placement: reviewed-repo-source
+      - id: src
+        difference: Installed src-layout package.
+        material_effects:
+          module-boundary: src-checker-package
+          composition-root: installed-entrypoint
+          generated-source-placement: src-tree
+  - axis: dependency-tooling
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+    - strategy: tool-substitution
+      challenge: Does schema library reduce enough complexity for this small JSON
+        contract?
+      alternatives:
+      - stdlib
+      - validation-lib
+      decision_points:
+      - tooling
+    - strategy: remove-tool
+      challenge: Can standard library enforce the accepted schema without install?
+      alternatives:
+      - stdlib
+      - validation-lib
+      decision_points:
+      - tooling
+    decision_points:
+    - id: tooling
+      alternatives:
+      - id: stdlib
+        difference: Python standard library runtime and unittest acceptance, CoderMind
+          only for development.
+        material_effects:
+          tool-family: python-stdlib
+          enforcement-point: local-and-ci
+          runtime-footprint: stdlib-only
+      - id: validation-lib
+        difference: Third-party validation library for input schema.
+        material_effects:
+          tool-family: python-validation-package
+          enforcement-point: model-validation
+          runtime-footprint: runtime-package
+  - axis: verification-enforcement
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+    - strategy: manual-vs-automated
+      challenge: Can fixed expectations run reproducibly without human replay?
+      alternatives:
+      - automated
+      - manual
+      decision_points:
+      - verification
+    - strategy: gate-failure-perturbation
+      challenge: Would manual pass records catch a future broken action/order?
+      alternatives:
+      - automated
+      - manual
+      decision_points:
+      - verification
+    decision_points:
+    - id: verification
+      alternatives:
+      - id: automated
+        difference: Public subprocess acceptance, import checks and test-realization
+          conformance in versioned checks.
+        material_effects:
+          verification-layer: public-and-structural
+          automation-boundary: deterministic-tests
+          failure-gate: ci
+      - id: manual
+        difference: Manual scenario runs with review checklist.
+        material_effects:
+          verification-layer: operator-manual
+          automation-boundary: review
+          failure-gate: human-checklist
+  - axis: delivery-gates
+    applicability: APPLICABLE
+    exploration_level: EXPLORE
+    probes:
+    - strategy: local-vs-ci
+      challenge: Which gate observes the exact proposed revision?
+      alternatives:
+      - ci
+      - local
+      decision_points:
+      - delivery
+    - strategy: reproducibility-perturbation
+      challenge: Can another clone run the same checks without tool caches?
+      alternatives:
+      - ci
+      - local
+      decision_points:
+      - delivery
+    decision_points:
+    - id: delivery
+      alternatives:
+      - id: ci
+        difference: One authoritative pull-request CI check; same local make check.
+        material_effects:
+          gate-location: pull-request-ci
+          authority: repository-check
+          reproducibility: versioned-command
+      - id: local
+        difference: Local-only check and reviewer inspection.
+        material_effects:
+          gate-location: workstation
+          authority: operator
+          reproducibility: local-environment
+  - axis: migration-transition
+    applicability: NOT_APPLICABLE
+    exploration_level: EXPLORE
+    applicability_evidence:
+    - problem
+    - requirements
+    - architecture
+    rationale: 'Fresh synthetic prototype: no existing production code/data, deployed
+      users or migration target. Git branch publication only; reconsider before production
+      transition.'
+  decision_space_review:
+    status: COMPLETE
+    checks:
+    - mixed-decision-split
+    - missing-material-case-search
+    - impact-and-reversal-frontier-check
+    - accepted-constraint-cross-check
+    - authority-boundary-cross-check
+    reviewed_decisions:
+    - slices
+    - repository
+    - tooling
+    - verification
+    - delivery
+    open_gaps: []
+    rationale: Considered language/runtime from IF-1 Python CLI, dependency footprint,
+      physical boundaries, code generation provenance, test gates and greenfield migration
+      absence. No deployment/merge authorization created.
+  version: 1
+  kind: harness-decision-exploration
+  capability: checker.implementation
+  knowledge_kind: implementation-design
+  explorer_request_id: sha256:31fbe25d4814dff08956a1bca478ce2c01b453e6f9d1957f8a50766cbf6cef80

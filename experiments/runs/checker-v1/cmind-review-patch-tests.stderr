@@ -1,0 +1,10 @@
+Agent reported DONE but pages_inspected=0, screenshots=0 — overriding to CONTINUE (visual verification required)
+Global review reached max iterations (1) without full pass
+Agent reported DONE but pages_inspected=0, screenshots=0 — overriding to CONTINUE (visual verification required)
+Global review reached max iterations (1) without full pass
+pytest pre-check: 1 failures, 0 errors — agent will fix
+Agent reported DONE but post-pytest FAILED (1 failures, 0 errors) — overriding to CONTINUE
+Global review reached max iterations (1) without full pass
+Global review reached max iterations (1) without full pass
+Agent reported DONE but checklist has unresolved items — overriding to CONTINUE
+Global review reached max iterations (1) without full pass

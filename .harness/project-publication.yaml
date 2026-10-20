@@ -1,7 +1,7 @@
 version: 1
 kind: harness-project-publication
-revision: sha256:eedbce16938e6296805b4100a82a2992f915aa08d54d05f4be46a1ea6270d9ae
-parent_revision: sha256:482cf3549f78c7c29f6f3c0a946d0803464448eeba4f0c835ca19690fe029237
+revision: sha256:8361ff9a04104af6486ae71854a2af5e6d9b3e1789445c200bbefc6e42c35c55
+parent_revision: sha256:eedbce16938e6296805b4100a82a2992f915aa08d54d05f4be46a1ea6270d9ae
 state:
   core_model:
     authorities:
@@ -14,6 +14,7 @@ state:
     - id: ENGINEERING-POLICY
     - id: TEST-DESIGN
     - id: COMPONENT-DESIGN
+    - id: IMPLEMENTATION-DESIGN
     artifacts:
     - id: problem
       authority: DISCOVERY
@@ -107,6 +108,19 @@ state:
       - interface
       - policy
       - technical-verification
+    - id: implementation
+      authority: IMPLEMENTATION-DESIGN
+      path: docs/checker/realization-plan.md
+      provides:
+      - checker.implementation
+      depends_on:
+      - requirements
+      - domain
+      - architecture
+      - interface
+      - policy
+      - components
+      - tests
     questions: []
   semantic_evaluations:
     version: 1
@@ -1096,7 +1110,7 @@ state:
         - referenced_path: docs/checker/interface.md
         - referenced_path: docs/checker/engineering-policy.md
         - referenced_path: .harness/knowledge/technical-verification.yaml
-        accepted_prerequisites: &id001
+        accepted_prerequisites:
           checker.verification: checker-v1-97d0c4a132c300df6c9b018b
           checker.scenarios: checker-v1-c68eab9966725eeff1fee4ac
           checker.interface: checker-v1-7a5af9fc5faa417f2ed58f7d
@@ -1120,10 +1134,300 @@ state:
         capability: checker.tests
         acceptance_id: checker-v1-9fd21c4fa0513cf8bf25f5ab
         acceptance_policy_fingerprint: sha256:08ac8b70820eeac435fd3b810d74f88bd7df6cd246bc91a6a17d6a6e9e5e7d6e
-        accepted_prerequisites: *id001
+        accepted_prerequisites:
+          checker.verification: checker-v1-97d0c4a132c300df6c9b018b
+          checker.scenarios: checker-v1-c68eab9966725eeff1fee4ac
+          checker.interface: checker-v1-7a5af9fc5faa417f2ed58f7d
+          checker.policy: checker-v1-bb39846d836179a7c699b5a8
+          checker.technical-verification: checker-v1-be855fbf59477999d026a06b
         semantic_atom_fingerprints: &id012
           TD-BEHAVIOR: SAF-2d90a81351a71599f60970d5270fbc432c39e9b479f0f597fe08afb692eb8347
           TD-BOUNDARIES: SAF-aa1d788ad067ca6516a04e617301eb02f5911c9976326c400cde95a85945229f
+    - version: 1
+      kind: harness-artifact-semantic-evaluation
+      artifact: implementation
+      capability: checker.implementation
+      status: ACCEPTED
+      obligations:
+        expected: []
+        satisfied: []
+        dispositions: []
+      findings: []
+      semantic_claims:
+        accepted:
+        - engineering.delivery.release
+        - engineering.delivery.rollback
+        - engineering.transition.revalidation
+      decision_exploration:
+        version: 1
+        kind: harness-decision-exploration-evaluation
+        capability: checker.implementation
+        knowledge_kind: implementation-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: slice-boundaries
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - dependency-order-perturbation
+          - split-slice
+          decision_points:
+          - id: slices
+            alternatives:
+            - vertical
+            - layered
+            subjects: []
+            scoped_probe_strategies:
+            - dependency-order-perturbation
+            - split-slice
+            alternative_material_effects:
+              vertical:
+                slice-granularity: one-query
+                dependency-order: accepted-contracts-tests-code
+                ownership-alignment: whole-query
+              layered:
+                slice-granularity: per-layer
+                dependency-order: domain-application-cli
+                ownership-alignment: layer
+        - axis: repository-realization
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - boundary-remap
+          - composition-root-shift
+          decision_points:
+          - id: repository
+            alternatives:
+            - package
+            - src
+            subjects: []
+            scoped_probe_strategies:
+            - boundary-remap
+            - composition-root-shift
+            alternative_material_effects:
+              package:
+                module-boundary: checker-package
+                composition-root: checker.__main__
+                generated-source-placement: reviewed-repo-source
+              src:
+                module-boundary: src-checker-package
+                composition-root: installed-entrypoint
+                generated-source-placement: src-tree
+        - axis: dependency-tooling
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - remove-tool
+          - tool-substitution
+          decision_points:
+          - id: tooling
+            alternatives:
+            - stdlib
+            - validation-lib
+            subjects: []
+            scoped_probe_strategies:
+            - remove-tool
+            - tool-substitution
+            alternative_material_effects:
+              stdlib:
+                tool-family: python-stdlib
+                enforcement-point: local-and-ci
+                runtime-footprint: stdlib-only
+              validation-lib:
+                tool-family: python-validation-package
+                enforcement-point: model-validation
+                runtime-footprint: runtime-package
+        - axis: migration-transition
+          applicability: NOT_APPLICABLE
+          exploration: EXPLORE
+          decision_points: []
+        - axis: verification-enforcement
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - gate-failure-perturbation
+          - manual-vs-automated
+          decision_points:
+          - id: verification
+            alternatives:
+            - automated
+            - manual
+            subjects: []
+            scoped_probe_strategies:
+            - gate-failure-perturbation
+            - manual-vs-automated
+            alternative_material_effects:
+              automated:
+                verification-layer: public-and-structural
+                automation-boundary: deterministic-tests
+                failure-gate: ci
+              manual:
+                verification-layer: operator-manual
+                automation-boundary: review
+                failure-gate: human-checklist
+        - axis: delivery-gates
+          applicability: APPLICABLE
+          exploration: EXPLORE
+          probe_strategies:
+          - local-vs-ci
+          - reproducibility-perturbation
+          decision_points:
+          - id: delivery
+            alternatives:
+            - ci
+            - local
+            subjects: []
+            scoped_probe_strategies:
+            - local-vs-ci
+            - reproducibility-perturbation
+            alternative_material_effects:
+              ci:
+                gate-location: pull-request-ci
+                authority: repository-check
+                reproducibility: versioned-command
+              local:
+                gate-location: workstation
+                authority: operator
+                reproducibility: local-environment
+        explorer_request_id: sha256:31fbe25d4814dff08956a1bca478ce2c01b453e6f9d1957f8a50766cbf6cef80
+        decision_space_review: ACCEPTED
+      decision_execution_assurance:
+        version: 1
+        kind: harness-decision-execution-assurance-evaluation
+        knowledge_kind: implementation-design
+        required: REQUEST_BOUND
+        status: ACCEPTED
+        findings: []
+        executor_trust: UNATTESTED
+        guarantee: AUTHORIZED_INPUT_MANIFEST_BOUND
+      decision_governance:
+        version: 1
+        kind: harness-decision-governance-evaluation
+        artifact: implementation
+        capability: checker.implementation
+        knowledge_kind: implementation-design
+        status: ACCEPTED
+        findings: []
+        axes:
+        - axis: slice-boundaries
+          applicability: APPLICABLE
+          autonomy: BROAD
+          decisions:
+          - id: slices
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - layered
+            - vertical
+            unknown: []
+            disposition: DELEGATED
+            delegation_allowed: true
+        - axis: repository-realization
+          applicability: APPLICABLE
+          autonomy: BROAD
+          decisions:
+          - id: repository
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - package
+            - src
+            unknown: []
+            disposition: DELEGATED
+            delegation_allowed: true
+        - axis: dependency-tooling
+          applicability: APPLICABLE
+          autonomy: BROAD
+          decisions:
+          - id: tooling
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - stdlib
+            - validation-lib
+            unknown: []
+            disposition: DELEGATED
+            delegation_allowed: true
+        - axis: migration-transition
+          applicability: NOT_APPLICABLE
+          decisions: []
+        - axis: verification-enforcement
+          applicability: APPLICABLE
+          autonomy: BROAD
+          decisions:
+          - id: verification
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - automated
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
+        - axis: delivery-gates
+          applicability: APPLICABLE
+          autonomy: BROAD
+          decisions:
+          - id: delivery
+            owner_authority: IMPLEMENTATION-DESIGN
+            viable:
+            - ci
+            unknown: []
+            disposition: DETERMINED
+            delegation_allowed: true
+      question_proposals: []
+      admission:
+        status: ACCEPTED
+        knowledge_kind: implementation-design
+        skill: skills/artifacts/implementation-design/SKILL.md
+        acceptance_id: checker-v1-5f05268d423535cf5754949a
+        authority: IMPLEMENTATION-DESIGN
+        allowed_source_authorities:
+        - COMPONENT-DESIGN
+        - DOMAIN-USE-CASE-DESIGN
+        - ENGINEERING-POLICY
+        - IMPLEMENTATION-DESIGN
+        - MACHINE-INTERFACE-DESIGN
+        - PRODUCT-REQUIREMENTS
+        - SYSTEM-ARCHITECTURE
+        - TEST-DESIGN
+        changed_paths:
+        - docs/checker/realization-plan.md
+        canonical_references:
+        - referenced_path: .harness/knowledge/requirements.yaml
+        - referenced_path: docs/checker/domain.md
+        - referenced_path: docs/checker/architecture.md
+        - referenced_path: docs/checker/interface.md
+        - referenced_path: docs/checker/engineering-policy.md
+        - referenced_path: docs/checker/components.md
+        - referenced_path: .harness/knowledge/tests.yaml
+        accepted_prerequisites: &id001
+          checker.requirements: checker-v1-db81ca67ab2f91e4b14806ff
+          checker.domain: checker-v1-2abd3a6fff3ad8b58bfabf3e
+          checker.architecture: checker-v1-13b83a49054471c3b217f865
+          checker.interface: checker-v1-7a5af9fc5faa417f2ed58f7d
+          checker.policy: checker-v1-bb39846d836179a7c699b5a8
+          checker.components: checker-v1-6f2fc74984ddb072caf02e66
+          checker.tests: checker-v1-9fd21c4fa0513cf8bf25f5ab
+        accepted_prerequisite_semantics: {}
+        semantic_contract: knowledge-kind-semantic-contracts/v1
+        acceptance_policy:
+          version: 1
+          kind: harness-acceptance-policy-baseline
+          evaluator_contract: strict-semantic-admission/v1
+          fingerprint: sha256:3b62a8edb3c03e7a01f8e1f453e0fb534f999be86f192417c53c93eb62b413c8
+        acceptance_policy_fingerprint: sha256:3b62a8edb3c03e7a01f8e1f453e0fb534f999be86f192417c53c93eb62b413c8
+        decision_exploration: ACCEPTED
+        decision_explorer_request_id: sha256:31fbe25d4814dff08956a1bca478ce2c01b453e6f9d1957f8a50766cbf6cef80
+        decision_execution_assurance: ACCEPTED
+        decision_governance: ACCEPTED
+        decision_request_mode: CREATE
+      lifecycle_assertion:
+        artifact: implementation
+        capability: checker.implementation
+        acceptance_id: checker-v1-5f05268d423535cf5754949a
+        acceptance_policy_fingerprint: sha256:3b62a8edb3c03e7a01f8e1f453e0fb534f999be86f192417c53c93eb62b413c8
+        accepted_prerequisites: *id001
+        semantic_atom_fingerprints: &id013
+          IMP-1: SAF-9d7a5d2a9e3330555812a7af6bc13ff774cd9ce1efeaa17d1945961fd1cd2392
+          IMP-GATE: SAF-ed9e4e9b66ff1d9321a3abee0619c49f2daf7f099c65c875674fffc36eabc086
+          IMP-TRANSITION: SAF-b20740b9a790896b96be133c8416156fbea83933a450e7885387c4fc9b6ecfba
   lifecycle:
     version: 1
     kind: harness-capability-lifecycle
@@ -1220,6 +1524,19 @@ state:
         checker.policy: checker-v1-bb39846d836179a7c699b5a8
         checker.technical-verification: checker-v1-be855fbf59477999d026a06b
       semantic_atom_fingerprints: *id012
+    - artifact: implementation
+      capability: checker.implementation
+      acceptance_id: checker-v1-5f05268d423535cf5754949a
+      acceptance_policy_fingerprint: sha256:3b62a8edb3c03e7a01f8e1f453e0fb534f999be86f192417c53c93eb62b413c8
+      accepted_prerequisites:
+        checker.requirements: checker-v1-db81ca67ab2f91e4b14806ff
+        checker.domain: checker-v1-2abd3a6fff3ad8b58bfabf3e
+        checker.architecture: checker-v1-13b83a49054471c3b217f865
+        checker.interface: checker-v1-7a5af9fc5faa417f2ed58f7d
+        checker.policy: checker-v1-bb39846d836179a7c699b5a8
+        checker.components: checker-v1-6f2fc74984ddb072caf02e66
+        checker.tests: checker-v1-9fd21c4fa0513cf8bf25f5ab
+      semantic_atom_fingerprints: *id013
   decision_failures:
     version: 1
     kind: harness-decision-failure-set

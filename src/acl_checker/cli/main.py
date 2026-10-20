@@ -1,5 +1,5 @@
 from __future__ import annotations
-from argparse import ArgumentParser
+from argparse import ArgumentParser, RawDescriptionHelpFormatter
 from collections.abc import Sequence
 from dataclasses import dataclass
 from pathlib import Path
@@ -21,7 +21,9 @@ class CliOptions:
 
 class _InvocationParser(ArgumentParser):
     def error(self, message: str) -> None:
-        raise ExpectedInputFailure(message)
+        raise ExpectedInputFailure(
+            f'{message}. Справка: python3 -m checker --help'
+        )
 
 
 def parse_invocation(argv: Sequence[str], stdout: TextIO) -> CliOptions | None:
@@ -55,6 +57,7 @@ def parse_invocation(argv: Sequence[str], stdout: TextIO) -> CliOptions | None:
         usage='python3 -m checker --input PATH [--format text|json]',
         add_help=False,
         allow_abbrev=False,
+        formatter_class=RawDescriptionHelpFormatter,
         description=(
             'Локальный synthetic Checker: IPv4 TCP/UDP, оба порта обязательны '
             '(0..65535). Показывает все совпавшие сохранённые правила, '
@@ -65,7 +68,14 @@ def parse_invocation(argv: Sequence[str], stdout: TextIO) -> CliOptions | None:
             'placements содержат только предоставленные сведения; пустой список '
             'не доказывает отсутствие привязок в сети. NO_MATCH не означает deny; '
             'implicit deny не создаётся. Свежесть, SLA/TTL не заявлены. '
-            'Только локальные данные, без обращения к устройствам и сети.'
+            'Только локальные данные, без обращения к устройствам и сети.\n\n'
+            'Форматы:\n'
+            '  text — группы ACL и полные правила (по умолчанию)\n'
+            '  json — документ v1 для автоматизации\n\n'
+            'Примеры (request.json — ваш входной файл):\n'
+            '  python3 -m checker --input request.json\n'
+            '  python3 -m checker --input request.json --format json\n'
+            '\nКоды завершения: 0 — отчёт или справка; 2 — ошибка запроса.'
         ),
     )
     parser.add_argument('-h', '--help', action='store_true', help='показать справку')

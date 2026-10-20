@@ -2,66 +2,16 @@
   "version": 1,
   "kind": "harness-project-frontier",
   "target": "CHECKER-PROTOTYPE",
-  "status": "READY",
-  "next_actions": [
-    {
-      "source": "DECISION_ROADMAP",
-      "action": "RUN_CAPABILITY_PIPELINE",
-      "capability": "checker.implementation",
-      "authority": "IMPLEMENTATION-DESIGN",
-      "reason": "CREATE_MISSING_PROVIDER",
-      "decision_request_mode": "CREATE",
-      "pipeline": [
-        "FORM_OPTIONS",
-        "REVIEW_OPTIONS",
-        "CHOOSE_OR_ESCALATE",
-        "PRODUCE_CANDIDATE",
-        "SEMANTIC_ADMISSION"
-      ]
-    },
-    {
-      "source": "ENGINEERING_COVERAGE",
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "concern": "delivery.release",
-      "candidate_authorities": [
-        "IMPLEMENTATION-DESIGN"
-      ],
-      "accepted_semantic_claims": [
-        "engineering.delivery.release"
-      ]
-    },
-    {
-      "source": "ENGINEERING_COVERAGE",
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "concern": "delivery.rollback",
-      "candidate_authorities": [
-        "IMPLEMENTATION-DESIGN"
-      ],
-      "accepted_semantic_claims": [
-        "engineering.delivery.rollback"
-      ]
-    },
-    {
-      "source": "ENGINEERING_COVERAGE",
-      "action": "MODEL_PRODUCTION_CONTRACT",
-      "concern": "transition.revalidation",
-      "candidate_authorities": [
-        "TEST-DESIGN",
-        "VERIFICATION-DESIGN"
-      ],
-      "accepted_semantic_claims": [
-        "engineering.transition.revalidation"
-      ]
-    }
-  ],
+  "status": "COMPLETE",
+  "next_actions": [],
   "failed_validation": [],
   "blocked": [],
   "waiting": [],
   "gaps": [],
   "source_status": {
-    "decision": "READY",
-    "semantic": "INCOMPLETE",
-    "structural": "READY",
-    "coverage_completion_ready": false
+    "decision": "COMPLETE",
+    "semantic": "COMPLETE",
+    "structural": "COMPLETE",
+    "coverage_completion_ready": true
   }
 }

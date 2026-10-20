@@ -15,8 +15,12 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Validate documentation map and required files
-        run: python3 tools/check_repository.py
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+      - name: Verify repository and Checker
+        run: make check
       - name: Check Ubuntu smoke script syntax
         run: |
           bash -n tools/harness_smoke.sh

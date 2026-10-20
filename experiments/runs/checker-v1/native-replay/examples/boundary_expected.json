@@ -1,0 +1,10 @@
+{
+  "version": 1,
+  "groups": [{
+    "device": "edge", "acl": "boundary", "placements": [{"global": true}], "status": "MATCHES",
+    "rules": [
+      {"id": "z-deny", "source": "0.0.0.0/0", "destination": "255.255.255.255/32", "protocol": "any", "source_ports": [0, 0], "destination_ports": [65535, 65535], "action": "deny"},
+      {"id": "a-permit", "source": "0.0.0.0", "destination": "0.0.0.0/0", "protocol": "udp", "source_ports": [0, 65535], "destination_ports": [0, 65535], "action": "permit"}
+    ]
+  }]
+}

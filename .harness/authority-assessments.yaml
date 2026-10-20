@@ -108,7 +108,15 @@ assessments:
   reopening_conditions:
   - canonical ownership/evidence changes
 - authority_id: IMPLEMENTATION-DESIGN
-  applicability: UNASSESSED
+  applicability: REQUIRED
+  derivation: EXISTING_CANONICAL_ARTIFACT
+  evidence:
+  - core:authority:IMPLEMENTATION-DESIGN
+  rationale: Existing canonical project knowledge is owned by this Authority.
+  depends_on_evidence:
+  - core:authority:IMPLEMENTATION-DESIGN
+  reopening_conditions:
+  - canonical ownership/evidence changes
 - authority_id: VERIFICATION-DESIGN
   applicability: REQUIRED
   derivation: EXISTING_CANONICAL_ARTIFACT

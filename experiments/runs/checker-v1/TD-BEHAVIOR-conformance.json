@@ -1,0 +1,16 @@
+{
+  "coverage": {
+    "operations": {
+      "covered": 1,
+      "required": 1
+    },
+    "oracles": {
+      "covered": 1,
+      "required": 1
+    }
+  },
+  "findings": [],
+  "kind": "harness-test-realization-evaluation",
+  "status": "ACCEPTED",
+  "test_contract": "TD-BEHAVIOR"
+}

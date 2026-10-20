@@ -1,6 +1,6 @@
 # Harness ↔ RPG: экспериментальный контракт
 
-Статус: **HYPOTHESIS**, не реализован. Уточняется после P1 CoderMind inspection.
+Статус: **HYPOTHESIS** для полной методики. Прямой путь Harness → RPG → исполняемый Checker реализован в [checker-v1](../../experiments/runs/checker-v1/README.md), включая отклонение семантически неверного RPG. Change-impact и независимый clean toolchain rerun ещё не подтверждены, поэтому полная интеграция не объявлена ACCEPTED.
 
 ## Разделение истины
 

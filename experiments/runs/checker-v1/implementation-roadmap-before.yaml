@@ -1,0 +1,193 @@
+version: 1
+kind: harness-decision-roadmap
+target: CHECKER-PROTOTYPE
+frontier_status: READY
+ready:
+- capability: checker.implementation
+  authority: IMPLEMENTATION-DESIGN
+  knowledge_kind: implementation-design
+  reason: CREATE_MISSING_PROVIDER
+  decision_governed: true
+  decision_request_mode: CREATE
+  read_set: &id001
+  - id: architecture
+    authority: SYSTEM-ARCHITECTURE
+    path: docs/checker/architecture.md
+    provides:
+    - checker.architecture
+  - id: components
+    authority: COMPONENT-DESIGN
+    path: docs/checker/components.md
+    provides:
+    - checker.components
+  - id: domain
+    authority: DOMAIN-USE-CASE-DESIGN
+    path: docs/checker/domain.md
+    provides:
+    - checker.domain
+  - id: interface
+    authority: MACHINE-INTERFACE-DESIGN
+    path: docs/checker/interface.md
+    provides:
+    - checker.interface
+  - id: policy
+    authority: ENGINEERING-POLICY
+    path: docs/checker/engineering-policy.md
+    provides:
+    - checker.policy
+  - id: requirements
+    authority: PRODUCT-REQUIREMENTS
+    path: .harness/knowledge/requirements.yaml
+    provides:
+    - checker.requirements
+  - id: tests
+    authority: TEST-DESIGN
+    path: .harness/knowledge/tests.yaml
+    provides:
+    - checker.tests
+  decision_request:
+    version: 1
+    kind: harness-decision-explorer-request
+    capability: checker.implementation
+    knowledge_kind: implementation-design
+    authority: IMPLEMENTATION-DESIGN
+    mode: CREATE
+    accepted_prerequisites:
+      checker.architecture: checker-v1-13b83a49054471c3b217f865
+      checker.components: checker-v1-6f2fc74984ddb072caf02e66
+      checker.domain: checker-v1-2abd3a6fff3ad8b58bfabf3e
+      checker.interface: checker-v1-7a5af9fc5faa417f2ed58f7d
+      checker.policy: checker-v1-bb39846d836179a7c699b5a8
+      checker.requirements: checker-v1-db81ca67ab2f91e4b14806ff
+      checker.tests: checker-v1-9fd21c4fa0513cf8bf25f5ab
+    canonical_inputs: *id001
+    downstream_consumers:
+    - kind: consumer
+      consumer: CHECKER-PROTOTYPE
+      capabilities:
+      - checker.implementation
+    axes:
+    - axis: slice-boundaries
+      exploration: EXPLORE
+      material_dimensions:
+      - slice-granularity
+      - dependency-order
+      - ownership-alignment
+      challenge_strategies:
+      - split-slice
+      - merge-slices
+      - dependency-order-perturbation
+      minimum_probes: 2
+    - axis: repository-realization
+      exploration: EXPLORE
+      material_dimensions:
+      - module-boundary
+      - composition-root
+      - generated-source-placement
+      challenge_strategies:
+      - boundary-remap
+      - composition-root-shift
+      - generated-source-perturbation
+      minimum_probes: 2
+    - axis: dependency-tooling
+      exploration: EXPLORE
+      material_dimensions:
+      - tool-family
+      - enforcement-point
+      - runtime-footprint
+      challenge_strategies:
+      - tool-substitution
+      - enforcement-point-shift
+      - remove-tool
+      minimum_probes: 2
+    - axis: migration-transition
+      exploration: EXPLORE
+      material_dimensions:
+      - transition-mode
+      - rollback
+      - compatibility
+      challenge_strategies:
+      - in-place-vs-parallel
+      - rollback-perturbation
+      - compatibility-window
+      minimum_probes: 2
+    - axis: verification-enforcement
+      exploration: EXPLORE
+      material_dimensions:
+      - verification-layer
+      - automation-boundary
+      - failure-gate
+      challenge_strategies:
+      - move-verification-layer
+      - manual-vs-automated
+      - gate-failure-perturbation
+      minimum_probes: 2
+    - axis: delivery-gates
+      exploration: EXPLORE
+      material_dimensions:
+      - gate-location
+      - authority
+      - reproducibility
+      challenge_strategies:
+      - local-vs-ci
+      - gate-owner-shift
+      - reproducibility-perturbation
+      minimum_probes: 2
+    forbidden_inputs:
+    - future_candidate
+    - decision_review
+    - preferred_solution
+    - selected_solution
+    - write_set
+    request_id: sha256:31fbe25d4814dff08956a1bca478ce2c01b453e6f9d1957f8a50766cbf6cef80
+  pipeline:
+  - FORM_OPTIONS
+  - REVIEW_OPTIONS
+  - CHOOSE_OR_ESCALATE
+  - PRODUCE_CANDIDATE
+  - SEMANTIC_ADMISSION
+  terminal_outcomes:
+  - CURRENT
+  - BLOCKED
+  - FAILED_VALIDATION
+completed:
+- capability: checker.architecture
+  authority: SYSTEM-ARCHITECTURE
+  state: CURRENT
+- capability: checker.components
+  authority: COMPONENT-DESIGN
+  state: CURRENT
+- capability: checker.domain
+  authority: DOMAIN-USE-CASE-DESIGN
+  state: CURRENT
+- capability: checker.interface
+  authority: MACHINE-INTERFACE-DESIGN
+  state: CURRENT
+- capability: checker.policy
+  authority: ENGINEERING-POLICY
+  state: CURRENT
+- capability: checker.problem
+  authority: DISCOVERY
+  state: CURRENT
+- capability: checker.requirements
+  authority: PRODUCT-REQUIREMENTS
+  state: CURRENT
+- capability: checker.scenarios
+  authority: VERIFICATION-DESIGN
+  state: CURRENT
+- capability: checker.technical-verification
+  authority: VERIFICATION-DESIGN
+  state: CURRENT
+- capability: checker.tests
+  authority: TEST-DESIGN
+  state: CURRENT
+- capability: checker.verification
+  authority: VERIFICATION-DESIGN
+  state: CURRENT
+blocked: []
+failed_validation: []
+lifecycle_gaps: []
+waiting_upstream: []
+execution_rule: Run one READY capability through the complete pipeline, persist its
+  outcome, then recompute this roadmap. FAILED_VALIDATION remains non-READY until
+  explicitly retried.

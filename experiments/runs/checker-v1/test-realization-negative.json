@@ -1,0 +1,72 @@
+{
+  "status": "PASS",
+  "checks": {
+    "missing-operation": {
+      "kind": "harness-test-realization-evaluation",
+      "test_contract": "TD-BEHAVIOR",
+      "status": "REJECTED",
+      "coverage": {
+        "operations": {
+          "required": 1,
+          "covered": 0
+        },
+        "oracles": {
+          "required": 1,
+          "covered": 1
+        }
+      },
+      "findings": [
+        {
+          "code": "TEST_REALIZATION_BINDING_REVIEW_UNKNOWN",
+          "path": "semantic_review.binding_reviews[0].binding",
+          "message": "semantic review references unknown binding TD-BEHAVIOR-OP-SCENARIOS",
+          "binding": "TD-BEHAVIOR-OP-SCENARIOS"
+        },
+        {
+          "code": "TEST_REALIZATION_OPERATION_MISSING",
+          "path": "evidence.bindings",
+          "message": "required operation obligation OP-SCENARIOS has no accepted executable evidence binding",
+          "obligation": "OP-SCENARIOS",
+          "obligation_kind": "operation"
+        }
+      ]
+    },
+    "failed-executable": {
+      "kind": "harness-test-realization-evaluation",
+      "test_contract": "TD-BEHAVIOR",
+      "status": "REJECTED",
+      "coverage": {
+        "operations": {
+          "required": 1,
+          "covered": 0
+        },
+        "oracles": {
+          "required": 1,
+          "covered": 0
+        }
+      },
+      "findings": [
+        {
+          "code": "TEST_REALIZATION_EXECUTABLE_NOT_PASSED",
+          "path": "evidence.executables[0].status",
+          "message": "executable evidence TD-BEHAVIOR-1 must record PASSED",
+          "executable": "TD-BEHAVIOR-1"
+        },
+        {
+          "code": "TEST_REALIZATION_OPERATION_MISSING",
+          "path": "evidence.bindings",
+          "message": "required operation obligation OP-SCENARIOS has no accepted executable evidence binding",
+          "obligation": "OP-SCENARIOS",
+          "obligation_kind": "operation"
+        },
+        {
+          "code": "TEST_REALIZATION_ORACLE_MISSING",
+          "path": "evidence.bindings",
+          "message": "required oracle obligation OR-SCENARIOS has no accepted executable evidence binding",
+          "obligation": "OR-SCENARIOS",
+          "obligation_kind": "oracle"
+        }
+      ]
+    }
+  }
+}

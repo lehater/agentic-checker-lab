@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "patch_sha256": "eed84b7f3d2f206d9eb3ad15e58bff96e73c6f7bf777d35ed7c13eac62597ded",
+  "model_calls": 0,
+  "scope": "Tool regression with external providers replaced",
+  "checks": {
+    "cli_without_visuals": true,
+    "visual_without_visuals_rejected": true,
+    "default_without_visuals_rejected": true,
+    "visual_with_inspection": true,
+    "cli_failed_tests_rejected": true,
+    "cli_stubs_rejected": true,
+    "cli_unresolved_feature_rejected": true,
+    "unknown_scope_rejected": true
+  }
+}

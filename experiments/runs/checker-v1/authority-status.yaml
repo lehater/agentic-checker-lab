@@ -115,9 +115,10 @@ rows:
   - tests
   blocking: []
 - authority: IMPLEMENTATION-DESIGN
-  applicability: UNASSESSED
-  operational_status: null
-  artifacts: []
+  applicability: REQUIRED
+  operational_status: IN_PROGRESS
+  artifacts:
+  - implementation
   blocking: []
 - authority: VERIFICATION-DESIGN
   applicability: REQUIRED

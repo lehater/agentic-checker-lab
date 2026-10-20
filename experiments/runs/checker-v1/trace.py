@@ -1,4 +1,5 @@
 """Bind accepted requirements to real reviewed RPG nodes and independent contracts."""
+import ast
 import hashlib
 import json
 from pathlib import Path
@@ -47,6 +48,10 @@ for requirement, names in selection.items():
         path = ROOT / relative
         if '--require-source' in sys.argv:
             assert path.is_file(), path
+            role, symbol = locator.split('::', 1)[1].split(' ', 1)
+            assert role == 'function', locator
+            assert any(isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name == symbol
+                       for n in ast.parse(path.read_text()).body), locator
         nodes.append(dict(id=node['id'], feature=name, locator=locator,
                           source_sha256=hashlib.sha256(path.read_bytes()).hexdigest() if path.is_file() else None))
     trace.append(dict(requirement=requirement, canonical_artifact='.harness/knowledge/requirements.yaml',
