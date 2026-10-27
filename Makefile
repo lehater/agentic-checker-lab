@@ -1,11 +1,15 @@
-.PHONY: harness-pack-preflight harness-consumer-preflight check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit architecture-test
+.PHONY: harness-pack-preflight harness-consumer-preflight check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit architecture-test telemetry-test
 
 check:
 	python3 tools/check_repository.py
 	python3 -m unittest discover -s tests -p 'test_architecture_policy.py' -v
+	python3 -m unittest discover -s tests -p 'test_run_observability.py' -v
 
 architecture-test:
 	python3 -m unittest discover -s tests -p 'test_architecture_policy.py' -v
+
+telemetry-test:
+	python3 -m unittest discover -s tests -p 'test_run_observability.py' -v
 
 # Historical Harness smoke: not part of the current engineering method.
 harness-smoke:
@@ -14,7 +18,6 @@ harness-smoke:
 cmind-preflight:
 	bash tools/cmind_preflight.sh
 
-# Historical CoderMind/Codex compatibility and synthetic RPG fixtures.
 cmind-codex-smoke:
 	bash tools/cmind_codex_pr96_smoke.sh
 
@@ -40,7 +43,6 @@ RPG_AUDIT_DIR ?= experiments/runs/rpg-synthetic-v1
 cmind-rpg-audit:
 	@python3 tools/audit_synthetic_rpg.py "$(RPG_AUDIT_DIR)"
 
-# Historical Harness preflights retained as evidence, never invoked by CI.
 harness-consumer-preflight:
 	@bash tools/harness_consumer_preflight.sh
 
