@@ -2,7 +2,6 @@ name: repository
 
 on:
   pull_request:
-    branches: [main, design/agentic-sdlc-reset, tooling/architecture-guard]
   push:
     branches: [main]
 
