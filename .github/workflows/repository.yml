@@ -2,7 +2,7 @@ name: repository
 
 on:
   pull_request:
-    branches: [main]
+    branches: [main, design/agentic-sdlc-reset]
   push:
     branches: [main]
 
@@ -15,9 +15,9 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
-      - name: Validate documentation map and required files
-        run: python3 tools/check_repository.py
-      - name: Check Ubuntu smoke script syntax
+      - name: Check docs and architecture regression (no model calls)
+        run: make check
+      - name: Historical tooling shell syntax
         run: |
           bash -n tools/harness_smoke.sh
           bash -n tools/cmind_preflight.sh
@@ -28,7 +28,7 @@ jobs:
           bash -n tools/harness_pack_preflight.sh
           python3 -m py_compile .harness/harnessw.py
           python3 -m json.tool .harness/harness-binding.json > /dev/null
-      - name: Check RPG audit syntax
+      - name: RPG and architecture guard syntax
         run: |
-          python3 -m py_compile tools/audit_synthetic_rpg.py
+          python3 -m py_compile tools/audit_synthetic_rpg.py tools/check_architecture.py
           python3 tools/test_audit_synthetic_rpg.py
