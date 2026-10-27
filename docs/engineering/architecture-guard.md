@@ -1,24 +1,39 @@
-# Architecture guard — first executable regression
+# Architecture guard — requirement-led validation
 
-Status: proposed in tooling PR; **not a replacement for semantic design review**.
+**Status: proposed PR #29.** The executable invariant engine is [tools/check_architecture.py](../../tools/check_architecture.py); it loads [architecture-contract.json](architecture-contract.json) and has **no built-in Checker-specific function names**.
 
-The historical Checker candidate in [PR #27](https://github.com/lehater/agentic-checker-lab/pull/27) was generated from RPG skeleton `experiments/runs/checker-v1/rpg-context-1/skeleton.json` with an invalid file placement: `src/acl_checker/domain/application/check.py`. Its function `check()` imported `src.acl_checker.application.types`, reversing the declared inward dependency. Existing independent structural tests did not reject the location.
+## Source of architecture truth
 
-`tools/check_architecture.py` provides two independently selectable checks:
+[Engineering Policy](policy.md) establishes AR-01..AR-05. The project architecture contract declares:
+- relative package path and import prefix;
+- layers and their directory roots (different names can be used by another project);
+- permitted dependency directions between layers;
+- whether one named layer directory may nest beneath another;
+- optional explicit symbol ownership for post-codegen checks;
+- optional *exact accepted RPG feature IDs* for pre-codegen responsibility checks.
 
-```sh
-python3 tools/check_architecture.py --skeleton tests/fixtures/architecture/legacy-cmind-skeleton.json
-# expected: FAIL (regression; exit 1)
-python3 tools/check_architecture.py --source-root src/acl_checker --json
-# only when a real Checker source package is present
-python3 -m unittest discover -s tests -p test_architecture_policy.py -v
-```
+The existing checker mapping of check() to application and matches() to domain comes from this project's accepted design proposal. It is **data in a reviewable contract**, not a special-case rule in the validator. If those choices change, review the contract alongside the design.
 
-- Pre-codegen: validate all known skeleton file placements; **do not** start expensive interface/codegen stages if the architecture fails.
-- Post-codegen: parse Python imports and role placement; detect prohibited inward-layer imports and direct module cycles.
-- The regression fixture is a minimal path witness, linked to the immutable historical RPG, not a fake full-run artifact.
-- This is Checker-specific and deliberately small: `domain`, `application` and outer adapters, plus ownership of `check()` and `matches()`. Extend only when a real supported consumer requires it.
-- SOLID, KISS and YAGNI remain review obligations; the guard cannot infer whether a class is justified from file structure.
-- These tests need only Python stdlib, run in GitHub Actions with no model calls. Real CoderMind integration/run and live model usage are not claimed.
+## Checks (from repository root)
 
-Next implementation: invoke the guard at an actual CoderMind pause point, then prove a rejected plan is repaired and regenerated without violating frozen contracts.
+Use the fixture for a negative test:
+    python3 tools/check_architecture.py --skeleton tests/fixtures/architecture/legacy-cmind-skeleton.json
+    # expects exit 1: invalid nested layer and feature ownership
+
+Use a CoderMind skeleton when present:
+    python3 tools/check_architecture.py --skeleton /path/to/skeleton.json --json
+
+After codegen, on a real generated source tree:
+    python3 tools/check_architecture.py --source-root /path/to/src/acl_checker --json
+
+Test all declared invariants:
+    python3 -m unittest discover -s tests -p test_architecture_policy.py -v
+
+The historical fixture is a **minimal exact path/feature witness** from [the unmerged PR #27](https://github.com/lehater/agentic-checker-lab/pull/27), not a new full model-driven run. Test coverage is primarily AR-01..AR-05, including numerous potential failures unknown to the historical run. The nested-path check alone is insufficient to prove use-case ownership; the optional feature responsibility map catches mismatched plan features where their IDs are declared.
+
+## Limits
+
+- Imports can be indirect/dynamic, and AST cannot prove that a function's implementation obeys SOLID/KISS/YAGNI.
+- Only imports between declared first-party layers and directly resolvable Python module cycles are checked.
+- The checker does not prove OpenSpec has been accepted, that actual CoderMind is blocked at the intended step, or that independent product behavior tests pass.
+- Do not weaken rules or rewrite accepted contracts automatically to make failing generated artifacts pass.
