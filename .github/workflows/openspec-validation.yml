@@ -1,0 +1,27 @@
+name: openspec-validation
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  validate-openspec:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Install pinned official OpenSpec CLI
+        run: npm install --global @fission-ai/openspec@1.14.3
+      - name: Verify CLI and validate proposed change (no models)
+        env:
+          OPENSPEC_TELEMETRY: '0'
+          DO_NOT_TRACK: '1'
+        run: |
+          openspec --version
+          openspec validate checker-v1-baseline --strict --json --no-interactive

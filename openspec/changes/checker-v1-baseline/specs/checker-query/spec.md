@@ -1,9 +1,5 @@
 # Checker Query — candidate specification delta
 
-## Purpose
-
-Bounded synthetic ACL query CLI: match all stored rules for a single IPv4 flow against separately supplied relevant ACL snapshots, without querying network devices or issuing a global firewall verdict.
-
 ## ADDED Requirements
 
 ### Requirement: Validated one-shot query
