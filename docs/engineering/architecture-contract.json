@@ -1,0 +1,44 @@
+{
+  "schema": "architecture-contract/v1",
+  "package_path": "src/acl_checker",
+  "module_prefix": "src.acl_checker",
+  "layers": {
+    "domain": [
+      "domain"
+    ],
+    "application": [
+      "application"
+    ],
+    "adapters": [
+      "cli",
+      "input",
+      "inputs",
+      "infrastructure",
+      "adapters",
+      "presentation"
+    ]
+  },
+  "allowed_dependencies": {
+    "domain": [
+      "domain"
+    ],
+    "application": [
+      "domain",
+      "application"
+    ],
+    "adapters": [
+      "domain",
+      "application",
+      "adapters"
+    ]
+  },
+  "disallow_nested_layer_roots": true,
+  "symbol_owners": {
+    "matches": "domain",
+    "check": "application"
+  },
+  "feature_owners": {
+    "Исследование совпадений ACL/investigation execution/check traffic evidence": "application",
+    "Исследование совпадений ACL/flow evaluation/evaluate stored rule match": "domain"
+  }
+}
