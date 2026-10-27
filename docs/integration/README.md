@@ -1,49 +1,23 @@
-# Harness ↔ RPG: экспериментальный контракт
+# Integration: accepted design → optional RPG / CoderMind
 
-Статус: **HYPOTHESIS**, не реализован. Уточняется после P1 CoderMind inspection.
+**Current direction: experimental, not E2E verified.** Harness is not used in new engineering flows. Historical bridge proposals remain accessible in the repository history and [PR #27](https://github.com/lehater/agentic-checker-lab/pull/27).
 
-## Разделение истины
+## Authority
 
-| Контур | Владеет | Не вправе |
-| --- | --- | --- |
-| Принятые docs | Проблема, требования, инварианты, архитектурные ограничения, test intent | Механически повторять legacy файлы |
-| Harness | Authority, Capabilities, Questions, зависимость/полнота инженерных знаний | Присваивать знания о предметной области из чужих исходников |
-| RPG/CoderMind | Функциональная структура, компоненты, файлы, interfaces, задачи codegen | Переопределять требования или гарантировать оптимальность дизайна |
-| Приложение | Исполняемый результат Checker | Служить первичной истиной о продукте |
-| Independent oracle | Проверка принятых требований | Принимать только агентные тесты к его собственному коду |
+- Accepted requirements, domain semantics, architecture, interfaces and independent acceptance oracles: versioned specification/ADR. OpenSpec is the intended specification/change manager; actual CLI integration remains unverified.
+- CoderMind/RPG: derived file skeleton, function/interface relationships, implementation tasks and code. It proposes—not approves—architectural choices.
+- Architecture guard: rejects layer placement/dependency violations from RPG before codegen and checks source after codegen.
+- Independent tests: final executable acceptance; model-generated tests do not replace them.
+- Telemetry: descriptive evidence only, never authority over product requirements.
 
-Движение в штатном направлении: accepted engineering knowledge → constrained To-Be RPG → implementation. Обратная связь — diagnostics/Question/review request; **не** автоматическое изменение предметной истины из кода.
+## Minimum input/output contracts
 
-## Кандидат bridge manifest
+Input: exact source revision, requirement/design references, selected architectural constraints, allowed implementation freedoms, expected behavior and negative cases.
 
-Пример смыслового (не совместимого пока с CLI) контракта:
+Output: immutable RPG snapshot with source/provenance, mapped implementation nodes, proposed deviations and unresolved choices, files/functions, model-call timing and usage when measured.
 
-    input_revision: <git-sha>
-    harness_consumer: CHECKER-IMPLEMENTATION
-    harness_evaluation: COMPLETE
-    requirement_refs: [REQ-CHECK-...]
-    accepted_decision_refs: [docs/...]
-    output_revision: <git-sha>
-    rpg_snapshot: experiments/runs/<id>/rpg.json
-    traceability:
-      requirement: REQ-CHECK-...
-      capability: engineering.checker....
-      rpg_nodes: [...]
-      code_locations: [...]
-      oracle_cases: [...]
+A candidate must not silently change accepted CLI, packet matching, status semantics, target scope or source-of-truth. An architecture/semantic failure yields **BLOCKED_REPAIR** before codegen.
 
-Это **не спецификация формата Microsoft**, названия и протокол подлежат проверке. Связь многие-ко-многим; не требуется один узел RPG на requirement/BC/file.
+## Non-goals
 
-## Контрактные инварианты
-
-1. Доступен только accepted knowledge; блокирующий Question останавливает зависимое кодирование.
-2. RPG может предложить другую организацию модулей, но не менять предметный результат.
-3. Каждый критический requirement имеет проверяемую link-chain до independent oracle.
-4. Неуспешный or incomplete graph snapshot не маскируется как готовность.
-5. Изменение требований пересчитывает affected engineering nodes и affected RPG/code; различия требуют анализа.
-6. Графы и код принадлежат фиксированным Git ревизиям; перенос между чатами восстанавливает состояние из репозитория.
-7. Ни RPG, ни Harness не требуются runtime для готового Checker.
-
-## Приёмка интеграции
-
-До перевода HYPOTHESIS в ACCEPTED нужны: положительный сквозной run, негативный случай с запрещённым semantic override, повторимое восстановление и change-impact с независимыми oracle cases. Отдельный отказ CoderMind/agent CLI требует BLOCKED, а не подмены доказательства mock output.
+No new generic graph language, mirrored Harness capability engine, required central orchestration service or mandatory model-driven CI. Keep integration versioned and replaceable.

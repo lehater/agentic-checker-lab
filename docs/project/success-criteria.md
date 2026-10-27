@@ -1,32 +1,19 @@
-# Что будет успехом, неуспехом и неопределённым результатом
+# Success criteria — current research
 
-Статус: **ACCEPTED** по типам критериев и критическим требованиям. Численные сравнительные пороги выбираются ДО измерений, а не после.
+**Owner-directed proposed revision (2026-10-28).** Define comparison budgets/thresholds before model experiments, not after.
 
-| ID | Достижение | Проверяемое доказательство |
+| ID | Objective | Independent evidence |
 | --- | --- | --- |
-| K-01 | Для Checker есть утверждённый предметный scope, входы/выходы, негативные случаи | Требования с источниками и независимый oracle |
-| K-02 | Harness не допускает работу при существенном нерешённом Question | Consumer evaluation и негативный тест блокировки |
-| K-03 | Нет неучтённой пропасти между требованием, решением, RPG, кодом, тестом | Traceability manifest, анализ orphan/unknown |
-| K-04 | Codegen не меняет самостоятельно принятый предметный смысл | Architectural review, специально внедрённый conflict case |
-| K-05 | Checker корректен по критическим независимым сценариям | 100% критических acceptance cases, без ложного универсального allow/deny |
-| K-06 | Чистый Ubuntu checkout восстанавливает инструменты, графы, сборку и проверки | Pin revisions, commands, manifests, независимый clean rerun |
-| K-07 | Change-impact на новом требовании локализован и объясним | Before/after decisions/RPG/source и regression results |
-| K-08 | А/В/С/D сопоставимы при идентичных входах и контролируемых ресурсах | Замороженный экспериментальный протокол и полные run manifests |
-| K-09 | Итог применим к другой задаче либо точно показывает пределы применимости | Репликационный план и evidence-based go/no-go |
+| K-01 | One accepted and bounded Checker specification, explicit unknowns | Human-reviewed source, requirements, domain, design and negative scenarios |
+| K-02 | Clean Architecture remains intact through RPG and codegen | Static dependency/role test rejects historical domain/application defect; valid graph/code passes |
+| K-03 | SOLID/KISS/YAGNI do not regress into needless abstraction | Reviewed responsibilities, alternatives, justified components; record additions and overrides |
+| K-04 | Product semantics not silently overridden by a model | Conflict case, frozen oracle and documented decision trail |
+| K-05 | Correct Checker outcome | Critical independent cases PASS; no invented verdict, device operations or unsupported source |
+| K-06 | Observable efficiency | Per-stage duration, tokens if verified, retries, quality failures, human edits; missing telemetry reported UNKNOWN |
+| K-07 | Method comparison: same specs → direct Codex vs RPG/CoderMind+Codex | Source SHA, frozen model/config/budget, same oracle, comparable runs |
+| K-08 | Local/cloud selection does not degrade quality or time | Controlled comparison of time-to-verified-result and quota consumption |
+| K-09 | Repeatable specification change and portability | Before/after impact + independent tests on Checker and one separate task |
 
-## Неуспех / блокирование
+No success claims from green generated tests, volume of RPG artifacts or an LLM self-assessed review alone. Historical Harness-centered criteria are superseded for new experiments; historical evidence stays available in git history/PR #27.
 
-- Придуман неверный deny/permit или не показаны unknown/freshness.
-- Агент меняет требования/инварианты без решения их владельца.
-- Нет независимо созданных тестов и проверки выбранной предметной цели.
-- Невозможно связать результат RPG с конкретной программной ревизией или повторить run.
-- Заявлен PASS без запуска нужной проверки.
-- Toolchain несовместим: фиксируем BLOCKED и исследуем причины, не подменяем это успехом.
-
-## Отрицательные результаты тоже ценны
-
-Если комбинация Harness+RPG обходится дороже без измеримых преимуществ, это допустимый результат исследования. Не считать количеством созданных узлов, объёмом документов или числом успешно исполненных агентных команд качество методики.
-
-**GO:** корректная воспроизводимая методика + доказанная добавленная ценность/чёткая применимость. **CONDITIONAL GO:** целевой результат работает, но интеграция требует известных исправлений. **NO-GO:** критические потери смысла, невозможность верификации/воспроизводимости либо неоправданные издержки.
-
-Способ сравнения: [experiment-design.md](experiment-design.md).
+**GO:** quality gates met, improved efficiency/traceability proven in controlled scope. **CONDITIONAL GO:** usable with bounded fixes. **NO-GO:** critical drift, unacceptable cost/time or no proven marginal benefit. **INCONCLUSIVE/BLOCKED:** insufficient evidence/tool access.

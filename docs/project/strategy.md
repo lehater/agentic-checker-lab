@@ -1,49 +1,41 @@
-# Стратегия: Agentic Checker Lab
+# Strategy — Agentic Checker Lab
 
-Статус: **ACCEPTED** для миссии, целей, границ. Внутренний дизайн и требования Checker не считаются принятыми по факту существования этого файла.
+**Owner-directed reset, proposed for main via PR (2026-10-28).** Replaces the active Harness-based method, without deleting historical evidence.
 
-## Миссия
+## Mission
 
-**Разработать и экспериментально проверить методику агентной разработки программного обеспечения от постановки реальной задачи до исполняемого кода и управляемого изменения.**
+Разработать и независимо проверить воспроизводимую методику управляемой Agentic SDLC: постановка → требования → предметная модель и архитектура → проектирование реализации → код → проверка → изменение.
 
-Предполагаемая комбинация:
-- **Harness**: инженерные Authority/Capability/Question, зависимости знаний, решения, критерии готовности, влияние изменений.
-- **Microsoft RPG / ZeroRepo / CoderMind**: планирование репозитория, граф функций/модулей/файлов/интерфейсов, генерация и обновление кода.
-- **Человек**: авторитетный смысл проблемы, разрешение спорных решений и независимая приёмка.
-- **Checker**: небольшое, но нетривиальное приложение — проверка гипотезы, не конечный предмет исследования.
+Проверять преимущество каждого дополнительного инструмента; **не использовать Harness в новых сценариях**. Checker — малый реалистичный тестовый продукт, методика — исследуемый результат.
 
-## Исследовательские вопросы
+## Method candidates
 
-- **RQ-01:** можно ли последовательно преобразовать факты legacy в минимальные, подтверждённые новые требования, не копируя неудачную реализацию?
-- **RQ-02:** можно ли связать инженерный граф Harness с реализационным RPG без дублирования предметной истины?
-- **RQ-03:** умеет ли агент построить самостоятельное приложение на основании ограничений Harness и RPG без домыслов о бизнес-правилах?
-- **RQ-04:** помогает ли связка выявлять последствия изменений требований в решениях, интерфейсах, файлах и тестах?
-- **RQ-05:** каковы сравнительные качество, стоимость, воспроизводимость и поддерживаемость по отношению к обычному агенту, Harness отдельно и RPG отдельно?
-- **RQ-06:** повторяется ли методика на другой задаче без специальной логики под SSSR/NAPMS?
+1. Accepted specifications, design decisions and oracle cases, ideally managed by **OpenSpec** once validated in a minimal consumer. Markdown/ADR remain usable while the integration is unverified.
+2. **Direct Codex** implementation baseline.
+3. Optional **Microsoft RPG-ZeroRepo / CoderMind**, consuming *the same accepted design*, producing a proposal for file graph/interfaces/tasks. Never overriding requirements or architectural constraints.
+4. Independent architecture/behavior checks before code generation and after changes.
+5. Trace per-stage time, API/CLI usage where measurable, retries, defects, manual intervention and outcome.
+6. Improve workflow/prompts/model routing only against frozen evaluations and a fixed resource budget.
 
-## Ожидаемые результаты
+## Design policy
 
-1. Зафиксированный и воспроизводимый конвейер: problem → accepted requirements → domain/architecture/test intent → RPG → code → independent tests.
-2. Самостоятельный Checker, работающий без Harness/CoderMind в production runtime.
-3. Связь требования → инженерное решение/Capability → RPG nodes → source code → независимый acceptance oracle.
-4. Демонстрация управляемого изменения требований с трассировкой и обнаружением регрессий.
-5. Честный сравнительный отчёт четырёх режимов и итоговое решение GO / CONDITIONAL GO / NO-GO.
-6. Повторяемая технология, которую можно применить к иной задаче, если опыт окажется успешен.
+[Clean Architecture + SOLID + KISS + YAGNI](../engineering/policy.md). No extra capability, framework, service, interface, hierarchy, generalized adapter or validation bureaucracy without a current reason. Separate enforceable dependency rules from architectural judgments.
 
-## Принципы
+## Boundaries
 
-- **Meaning-first:** назначение функции важнее Django/SQL/VBA техники её реализации.
-- **Источники ≠ требования:** Product и SSSR — свидетельства; NAPMS — последующее расширение предметной области, а не обязательная архитектура Checker.
-- **Single source of truth:** репозиторий, стабильные ссылки на источники, явное принятие решений.
-- **Не смешивать графы:** Harness управляет инженерными знаниями, RPG — производной реализацией.
-- **Независимая проверка:** тесты, созданные агентом по собственному пониманию кода, недостаточны.
-- **Ограниченная полнота:** подтверждаем выбранный сценарий, не 100% неизвестного поведения всей legacy-системы.
-- **Эксперимент вместо демонстрации:** проверяем и первоначальную генерацию, и изменения; фиксируем стоимость/сбои.
-- **Минимум бюрократии:** дополнительный документ/Authority/BC/инструмент вводится только при явной пользе.
-- **Чёткая неопределённость:** unknown/no-match/stale не выдаются за установленный permit или deny.
+- **Checker Lab** owns methodology, tests, reproducible model-run procedures, evidence and limited integration adapters.
+- **AI Lab** provides independently deployable infrastructure on consumer demand; do not import the Checker methodology into its core.
+- **CoderMind** is a replaceable experimental tool, not the source of product truth.
+- **Harness experiments and PR #27** are preserved as historical evidence; do not automatically merge or delete them.
+- No production devices, vendor parsers, network polling, credentials or implicit permit/deny claims.
 
-## Не входит без нового отдельного решения
+## Research questions
 
-Переписывание всего Product/NAPMS; полная DDD-оценка десяти BC; управление реальными устройствами; чтение production credentials; vendor-specific execution; обязательный веб-интерфейс; промышленная миграция данных; разработка универсального нового языка графов.
+RQ-01: Does accepted documentation preserve requirements and design through code and change?
+RQ-02: Does CoderMind improve outcome versus direct Codex at equal inputs/budgets?
+RQ-03: Can hard architecture checks detect generated structural violations before codegen?
+RQ-04: Where are time, tokens and retries spent; which interventions improve efficiency?
+RQ-05: Which model routing policy optimizes time-to-verified-result under actual quota constraints?
+RQ-06: Does the improvement transfer to a second problem?
 
-**Checker не равен методике.** Его успешная генерация сама по себе не доказывает эффективность сочетания инструментов. Критерии: [success-criteria.md](success-criteria.md).
+Historical strategy and its A/B/C/D Harness arms are superseded for new runs, not erased.
