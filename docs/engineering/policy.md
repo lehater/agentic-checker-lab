@@ -1,36 +1,36 @@
 # Engineering Policy — Clean Architecture, SOLID, KISS, YAGNI
 
-**Owner-directed baseline for all new Checker implementation and design proposals.** These are **constraints and review questions**, not a guarantee that an LLM can independently certify design quality.
+**Owner-directed design constraints** for the Checker experiment. A structural validator checks only explicitly declared rules; it cannot prove architectural quality by itself.
 
-## Architecture rules (hard gates where mechanically checkable)
+## General engineering requirements
 
-1. Domain holds entities/value objects and pure business rules. It must not depend on application, infrastructure, CLI, input/file adapters or external services.
-2. Application owns use-case orchestration and inward-facing source ports; application can depend on domain but not on CLI, input/file or concrete infrastructure adapters.
-3. Outer adapters (CLI, input, infrastructure) depend inward; wiring/composition stays at the outer boundary.
-4. A nested `domain/application` package is forbidden. A public `check()` use case belongs in application, while rule predicate `matches()` belongs in domain. Repository design can choose functions or types as warranted.
-5. RPG skeleton and interface graphs must pass applicable checks **before** codegen. Source imports/roles must pass after codegen. Tests must reject historic example: `src/acl_checker/domain/application/check.py` importing `src.acl_checker.application.types`.
-6. Schema/structural checks alone do not prove semantic correctness; human or independent evaluation reviews ownership and observable behavior.
+- **AR-01 (layers):** Domain contains pure business rules, Application coordinates use cases, outer adapters handle I/O and composition. The accepted design owns the actual mapping of packages, responsibilities and entry points.
+- **AR-02 (dependencies):** Dependencies obey the allowed inward direction; no inner layer imports its outer adapters or orchestration. Detect dependency cycles that can be established from source imports.
+- **AR-03 (ownership):** Responsibilities belong to their declared layer regardless of file or function naming. RPG feature ownership is checked at plan time where stable feature IDs are available; source symbol ownership is checked after codegen.
+- **AR-04 (no silent pass):** Missing/invalid architecture contracts, an empty relevant skeleton or an absent source directory fail instead of being reported as compliant.
+- **AR-05 (independent verification):** Architecture policy, accepted product requirements and behavior are verified separately. Valid Python imports do not guarantee correct use-case boundaries or product semantics.
 
-## SOLID (review; do not mechanically count classes)
+The **machine-readable project contract** is [architecture-contract.json](architecture-contract.json). It selects package roots, layer dependency rules and **project-specific** responsibility mappings. The validator contains no hard-coded Checker symbols or filenames. Contract changes require architecture review; do not make invalid output pass by relaxing rules.
 
-- **S**: cohesion—each module/function has a clear responsibility; use case coordination is not business-rule implementation.
-- **O**: extend through existing well-defined ports where change is required, not speculative interfaces.
-- **L**: substitutes preserve observable contracts and failure semantics.
-- **I**: consumer ports are as narrow as present consumers require.
-- **D**: higher-level policy does not import concrete outer implementation; use simple callables when sufficient.
+## SOLID (semantic review)
 
-## KISS and YAGNI (default deny speculative complexity)
+- **S:** modules and functions have coherent responsibilities.
+- **O:** introduce extension seams only for actual variation, not hypothetical APIs.
+- **L:** substitution preserves behavior, invariants and errors.
+- **I:** consumer-facing ports remain minimal.
+- **D:** high-level policy depends on inward contracts, not concrete adapters; small callable ports are often sufficient.
 
-- **KISS**: choose the simplest design that demonstrably meets requirements and known constraints; justify every extra layer, abstraction and cross-component hop.
-- **YAGNI**: no feature, generalization, cache, DB, event bus, UI, adapter or future-compatibility framework without a current requirement, verified risk, or operational need.
-- A component without explicit requirement/architecture/testing/operational rationale is `YAGNI_REVIEW`, not an automatic deletion. Exception needs a short rationale and decision owner.
-- Avoid fake simplicity that violates required security, correctness, independently replaceable sources or error handling.
+## KISS / YAGNI (semantic review)
 
-## Verification protocol
+- **KISS:** choose the least complicated solution that satisfies accepted requirements and verified constraints.
+- **YAGNI:** do not add features, abstractions, caches, persistence, UI, microservices, frameworks or compatibility layers without current justification.
+- Report unsupported/extra parts as YAGNI_REVIEW with evidence and proposed alternatives; do not auto-delete components based on model opinion.
+- Avoid using these principles as a pretext for omitting required security, correctness, tests or error handling.
 
-- **Deterministic:** scan path roles and Python imports/known cycles, validate RPG file placements, run independent behavior tests and diff submitted artifacts. Use stdlib by default.
-- **Semantic review:** ownership, SRP, abstraction value, hypothetical features and hidden duplication. Record finding, evidence, suggested minimal repair and adjudication; do not silently rewrite approved design.
-- **Budget:** fail early on architecture errors; no unbounded repair loop. An optimizer proposes one change at a time and re-runs frozen checks.
-- **Pass conditions:** architecture pass AND independent critical behavior pass, plus explicitly dispositioned review warnings; never report quality as verified from syntax alone.
+## Verification approach
 
-Historical CoderMind/Codex/Checker evidence in PR #27 is a regression target, not authority to mutate the specification.
+**Tests primarily derive from requirements AR-01..AR-05**, with positive and negative matrices, alternative module/package names, import directions, ownership contracts and fail-closed behavior. A **single historical witness** based on [PR #27](https://github.com/lehater/agentic-checker-lab/pull/27) ensures an observed bad RPG still fails. Do not add one test per incidental failure unless it exposes a new invariant or a gap in existing coverage.
+
+Pre-codegen: check the CoderMind skeleton, its paths and declared feature responsibilities. Post-codegen: check Python imports, cycles and declared symbol roles, plus independent product acceptance tests. Semantic SOLID/KISS/YAGNI review remains a separate human/LLM-assisted assessment.
+
+No new model call, native CoderMind gate or production Checker architecture validation is implied by static unit-test PASS.

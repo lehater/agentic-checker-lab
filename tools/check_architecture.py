@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
-"""Zero-dependency architecture guard for Checker RPG skeletons and Python imports.
+"""Validate declared architectural invariants for RPG skeletons and Python source.
 
-This checks *mechanically decidable* boundaries only. SOLID/KISS/YAGNI require
-separate design review. No model calls, no dependency on CoderMind or Harness.
+Generic engine: project names, layer mappings, dependency directions and symbol
+ownership come from an explicit JSON architecture contract, not hardcoded code.
+Semantic SOLID/KISS/YAGNI assessment is not attempted by this tool.
 """
 from __future__ import annotations
 
@@ -12,57 +13,115 @@ import json
 from pathlib import Path, PurePosixPath
 import sys
 
-PACKAGE = "src.acl_checker"
-INNER = {"domain", "application"}
-OUTER = {"cli", "input", "inputs", "infrastructure", "adapters", "presentation"}
-DOMAIN_FORBIDDEN = OUTER | {"application"}
-APPLICATION_FORBIDDEN = OUTER
+
+class ContractError(ValueError):
+    """The declared architecture contract cannot be interpreted safely."""
 
 
-def _relative_parts(path: str) -> tuple[str, ...]:
-    """Extract layout below the Checker package (not arbitrary outside paths)."""
-    parts = PurePosixPath(path.replace("\\", "/")).parts
-    if "acl_checker" not in parts:
-        return ()
-    return parts[parts.index("acl_checker") + 1:]
+def load_contract(path: Path) -> dict:
+    data = json.loads(path.read_text(encoding="utf-8"))
+    if not isinstance(data, dict) or data.get("schema") != "architecture-contract/v1":
+        raise ContractError("unsupported architecture contract schema")
+    package_path = data.get("package_path")
+    package_prefix = data.get("module_prefix")
+    layers = data.get("layers")
+    allowed = data.get("allowed_dependencies")
+    owners = data.get("symbol_owners", {})
+    feature_owners = data.get("feature_owners", {})
+    nested = data.get("disallow_nested_layer_roots", True)
+    if (not isinstance(package_path, str) or not package_path or
+            not isinstance(package_prefix, str) or not package_prefix or
+            not isinstance(layers, dict) or not layers or
+            not isinstance(allowed, dict) or not isinstance(owners, dict) or
+            not isinstance(feature_owners, dict) or
+            not isinstance(nested, bool)):
+        raise ContractError("missing or invalid package_path/module_prefix/layers/allowed_dependencies/symbol_owners")
+    pp = PurePosixPath(package_path)
+    if pp.is_absolute() or ".." in pp.parts or "." == package_path:
+        raise ContractError("package_path must be a relative directory")
+    if not all(part.isidentifier() for part in package_prefix.split(".")):
+        raise ContractError("module_prefix must be a dotted Python package")
+    root_to_layer = {}
+    for layer, roots in layers.items():
+        if not isinstance(layer, str) or not layer or not isinstance(roots, list) or not roots:
+            raise ContractError("layers must map layer IDs to nonempty lists of directory names")
+        for root in roots:
+            if not isinstance(root, str) or not root.isidentifier() or root in root_to_layer:
+                raise ContractError("each layer root must be a unique single directory name")
+            root_to_layer[root] = layer
+    if set(allowed) != set(layers):
+        raise ContractError("allowed_dependencies must cover exactly the declared layers")
+    for layer, targets in allowed.items():
+        if not isinstance(targets, list) or any(t not in layers for t in targets):
+            raise ContractError(f"unknown allowed dependency for {layer}")
+    for symbol, layer in owners.items():
+        if not isinstance(symbol, str) or not symbol.isidentifier() or layer not in layers:
+            raise ContractError("symbol_owners must map Python names to declared layers")
+    for feature, layer in feature_owners.items():
+        if not isinstance(feature, str) or not feature.strip() or layer not in layers:
+            raise ContractError("feature_owners must map exact feature IDs to declared layers")
+    data["_root_to_layer"] = root_to_layer
+    return data
 
 
-def _layout_errors(path: str) -> list[str]:
-    parts = _relative_parts(path)
-    if not parts:
+def _parts_below_package(path: str, contract: dict) -> tuple[str, ...]:
+    path_parts = PurePosixPath(path.replace("\\", "/")).parts
+    package_parts = PurePosixPath(contract["package_path"]).parts
+    for start in range(len(path_parts) - len(package_parts) + 1):
+        if path_parts[start:start + len(package_parts)] == package_parts:
+            return tuple(path_parts[start + len(package_parts):])
+    return ()
+
+
+def _layer_for_parts(parts: tuple[str, ...], contract: dict) -> str | None:
+    return contract["_root_to_layer"].get(parts[0]) if parts else None
+
+
+def _validate_layout(parts: tuple[str, ...], path: str, contract: dict) -> list[str]:
+    layer = _layer_for_parts(parts, contract)
+    if layer is None:
         return []
-    layer = parts[0]
-    errors: list[str] = []
-    if layer == "domain" and any(part in DOMAIN_FORBIDDEN for part in parts[1:-1]):
-        errors.append(f"{path}: forbidden outer/application package nested inside domain")
-    if layer == "application" and any(part in APPLICATION_FORBIDDEN for part in parts[1:-1]):
-        errors.append(f"{path}: forbidden outer adapter nested inside application")
-    if layer == "domain" and parts[-1] == "check.py":
-        errors.append(f"{path}: Checker check() orchestration must live in application, not domain")
-    return errors
+    errs = []
+    if contract["disallow_nested_layer_roots"]:
+        for root in parts[1:-1]:
+            if root in contract["_root_to_layer"]:
+                errs.append(f"{path}: nested layer root {root!r} inside layer {layer!r}")
+    return errs
 
 
-def _iter_skeleton_files(node: object):
+def _skeleton_files(node: object):
     if isinstance(node, list):
-        for item in node:
-            yield from _iter_skeleton_files(item)
+        for child in node:
+            yield from _skeleton_files(child)
     elif isinstance(node, dict):
         if node.get("type") == "file" and isinstance(node.get("path"), str):
-            yield node["path"]
-        for value in node.values():
-            if isinstance(value, (dict, list)):
-                yield from _iter_skeleton_files(value)
+            yield node["path"], node.get("feature_paths", [])
+        for val in node.values():
+            if isinstance(val, (dict, list)):
+                yield from _skeleton_files(val)
 
 
-def check_skeleton(path: Path) -> tuple[list[str], int]:
+def check_skeleton(path: Path, contract: dict) -> tuple[list[str], int]:
     data = json.loads(path.read_text(encoding="utf-8"))
-    paths = list(dict.fromkeys(_iter_skeleton_files(data.get("root", data))))
-    if not paths:
-        return [f"{path}: no file paths in RPG skeleton"], 0
-    errors: list[str] = []
-    for item in paths:
-        errors.extend(_layout_errors(item))
-    return errors, len(paths)
+    files = list(_skeleton_files(data.get("root", data)))
+    errors = []
+    matched = 0
+    for path_str, feature_paths in files:
+        parts = _parts_below_package(path_str, contract)
+        if parts:
+            matched += 1
+            errors.extend(_validate_layout(parts, path_str, contract))
+            if not isinstance(feature_paths, list):
+                errors.append(f"{path_str}: invalid feature_paths list")
+                continue
+            layer = _layer_for_parts(parts, contract)
+            for feature in feature_paths:
+                expected = contract["feature_owners"].get(feature) if isinstance(feature, str) else None
+                if expected and layer != expected:
+                    errors.append(f"{path_str}: feature {feature!r} belongs in {expected}, found {layer or 'unclassified'}")
+    if not matched:
+        errors.append(f"{path}: no files matching declared package_path {contract['package_path']}")
+    return sorted(set(errors)), matched
 
 
 def _module_name(rel: Path, prefix: str) -> str:
@@ -72,121 +131,122 @@ def _module_name(rel: Path, prefix: str) -> str:
     return ".".join([prefix, *parts])
 
 
-def _imports(node: ast.AST, module: str, is_init: bool):
-    package = module if is_init else module.rsplit(".", 1)[0]
-    for item in ast.walk(node):
-        if isinstance(item, ast.Import):
-            for alias in item.names:
-                yield alias.name
-        elif isinstance(item, ast.ImportFrom):
-            if item.level:
-                parts = package.split(".")
-                keep = len(parts) - item.level + 1
-                base = ".".join(parts[:max(0, keep)])
-                target = ".".join(x for x in (base, item.module or "") if x)
+def _import_names(tree: ast.AST, module: str, is_init: bool):
+    current_package = module if is_init else module.rsplit(".", 1)[0]
+    for node in ast.walk(tree):
+        if isinstance(node, ast.Import):
+            for item in node.names:
+                yield item.name
+        elif isinstance(node, ast.ImportFrom):
+            if node.level:
+                parts = current_package.split(".")
+                keep = len(parts) - node.level + 1
+                prefix = ".".join(parts[:max(0, keep)])
+                name = ".".join(x for x in (prefix, node.module or "") if x)
             else:
-                target = item.module or ""
-            yield target
-            for alias in item.names:
+                name = node.module or ""
+            yield name
+            for alias in node.names:
                 if alias.name != "*":
-                    yield target + "." + alias.name if target else alias.name
+                    yield ".".join(x for x in (name, alias.name) if x)
 
 
-def _layer(module: str, prefix: str) -> str | None:
+def _layer_for_import(module: str, contract: dict) -> str | None:
+    prefix = contract["module_prefix"]
     if not module.startswith(prefix + "."):
         return None
-    rest = module[len(prefix) + 1:].split(".")
-    return rest[0] if rest else None
+    relative = module[len(prefix) + 1:].split(".")
+    return contract["_root_to_layer"].get(relative[0])
 
 
-def check_source(root: Path, prefix: str) -> tuple[list[str], int]:
+def check_source(root: Path, contract: dict) -> tuple[list[str], int]:
     if not root.is_dir():
-        return [f"{root}: source directory not found"], 0
-    modules: dict[str, tuple[Path, ast.AST]] = {}
-    errors: list[str] = []
+        return [f"{root}: source root does not exist"], 0
+    prefix = contract["module_prefix"]
+    modules = {}
+    errors = []
     for file in sorted(root.rglob("*.py")):
         rel = file.relative_to(root)
-        name = _module_name(rel, prefix)
-        errors.extend(_layout_errors(file.as_posix()))
+        path_parts = rel.parts
+        layer = _layer_for_parts(path_parts, contract)
+        errors.extend(_validate_layout(path_parts, str(file), contract))
         try:
-            parsed = ast.parse(file.read_text(encoding="utf-8"), filename=str(file))
+            tree = ast.parse(file.read_text(encoding="utf-8"), filename=str(file))
         except (SyntaxError, UnicodeError) as exc:
-            errors.append(f"{file}: Python parse error: {exc}")
+            errors.append(f"{file}: syntax/read error: {exc}")
             continue
-        if name in modules:
-            errors.append(f"{file}: duplicate Python module {name}")
-            continue
-        modules[name] = (file, parsed)
-        if rel.parts[0] == "domain":
-            if any(isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name == "check"
-                   for n in parsed.body):
-                errors.append(f"{file}: use-case function check() belongs in application")
-        if rel.parts[0] != "domain":
-            if any(isinstance(n, (ast.FunctionDef, ast.AsyncFunctionDef)) and n.name == "matches"
-                   for n in parsed.body):
-                errors.append(f"{file}: rule predicate matches() belongs in domain")
+        name = _module_name(rel, prefix)
+        modules[name] = (file, tree)
+        if layer:
+            for definition in tree.body:
+                if isinstance(definition, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef)):
+                    target_layer = contract["symbol_owners"].get(definition.name)
+                    if target_layer and target_layer != layer:
+                        errors.append(f"{file}: {definition.name} belongs in {target_layer}, found {layer}")
+    edges = {name: set() for name in modules}
+    for name, (file, tree) in modules.items():
+        origin = _layer_for_import(name, contract)
+        for target in set(_import_names(tree, name, file.name == "__init__.py")):
+            dest = _layer_for_import(target, contract)
+            if origin and dest and dest not in contract["allowed_dependencies"][origin]:
+                errors.append(f"{file}: forbidden {origin} -> {dest} import: {target}")
+            if target in modules:
+                edges[name].add(target)
+    visited = set()
+    active = set()
 
-    edges: dict[str, set[str]] = {name: set() for name in modules}
-    for name, (file, parsed) in modules.items():
-        origin = _layer(name, prefix)
-        for imp in set(_imports(parsed, name, file.name == "__init__.py")):
-            destination = _layer(imp, prefix)
-            if (origin == "domain" and destination in DOMAIN_FORBIDDEN
-                    or origin == "application" and destination in APPLICATION_FORBIDDEN):
-                errors.append(f"{file}: forbidden {origin} -> {destination} import: {imp}")
-            if imp in modules and imp != name:
-                edges[name].add(imp)
-
-    visited: set[str] = set()
-    active: set[str] = set()
-
-    def visit(name: str, stack: list[str]) -> None:
+    def walk(name: str, path: list[str]) -> None:
         if name in active:
-            cycle = stack[stack.index(name):] + [name]
+            cycle = path[path.index(name):]
             errors.append("module import cycle: " + " -> ".join(cycle))
             return
         if name in visited:
             return
         active.add(name)
-        for target in sorted(edges[name]):
-            visit(target, stack + [target])
+        for dest in sorted(edges[name]):
+            walk(dest, [*path, dest])
         active.remove(name)
         visited.add(name)
 
     for name in sorted(edges):
-        visit(name, [name])
+        if name not in visited:
+            walk(name, [name])
+    if not modules:
+        errors.append(f"{root}: no Python files")
     return sorted(set(errors)), len(modules)
 
 
 def main() -> int:
-    ap = argparse.ArgumentParser(description=__doc__)
-    ap.add_argument("--skeleton", type=Path, help="CoderMind skeleton.json: check before codegen")
-    ap.add_argument("--source-root", type=Path, help="Python source package directory: check after codegen")
-    ap.add_argument("--package-prefix", default=PACKAGE, help="Python import prefix (default: src.acl_checker)")
-    ap.add_argument("--json", action="store_true", help="Emit machine-readable report")
-    args = ap.parse_args()
-    if not args.skeleton and not args.source_root:
-        ap.error("provide --skeleton and/or --source-root")
-    errors: list[str] = []
-    counts: dict[str, int] = {}
+    p = argparse.ArgumentParser(description=__doc__)
+    p.add_argument("--contract", type=Path, default=Path("docs/engineering/architecture-contract.json"),
+                   help="JSON architecture contract, default docs/engineering/architecture-contract.json")
+    p.add_argument("--skeleton", type=Path, help="RPG skeleton.json, pre-codegen")
+    p.add_argument("--source-root", type=Path, help="Python package source root, post-codegen")
+    p.add_argument("--json", action="store_true", help="Machine-readable verdict")
+    args = p.parse_args()
+    if not (args.skeleton or args.source_root):
+        p.error("provide --skeleton and/or --source-root")
+    counts = {}
+    errors = []
     try:
+        contract = load_contract(args.contract)
         if args.skeleton:
-            result, counts["skeleton_files"] = check_skeleton(args.skeleton)
+            result, counts["skeleton_files"] = check_skeleton(args.skeleton, contract)
             errors.extend(result)
         if args.source_root:
-            result, counts["source_modules"] = check_source(args.source_root, args.package_prefix)
+            result, counts["source_modules"] = check_source(args.source_root, contract)
             errors.extend(result)
-    except (OSError, ValueError, KeyError, TypeError) as exc:
-        errors.append(f"invalid input: {exc}")
+    except (ValueError, OSError, TypeError, KeyError) as exc:
+        errors.append(f"invalid contract/input: {exc}")
     report = {"status": "FAIL" if errors else "PASS", "checked": counts,
               "violations": sorted(set(errors))}
     if args.json:
         print(json.dumps(report, ensure_ascii=False, indent=2))
     else:
-        print("Architecture " + report["status"] + ": " + str(counts))
-        for problem in report["violations"]:
-            print(" - " + problem)
-    return 1 if errors else 0
+        print(f"Architecture {report['status']}: {counts}")
+        for error in report["violations"]:
+            print(f" - {error}")
+    return bool(errors)
 
 
 if __name__ == "__main__":
