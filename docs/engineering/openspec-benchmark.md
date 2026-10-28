@@ -1,15 +1,20 @@
-# OpenSpec baseline — candidate for review
+# OpenSpec baseline — mechanically validated, subject to owner review
 
-The official OpenSpec [setup documentation](https://github.com/Fission-AI/OpenSpec/blob/main/docs-lab/start/setup.md) and [spec-driven schema](https://openspec.dev/docs/schemas/spec-driven) define `openspec/config.yaml` and `openspec/changes/<name>/` with `proposal.md`, delta specs, design and tasks.
+The [official OpenSpec CLI reference](https://github.com/Fission-AI/OpenSpec/blob/main/docs/cli.md) defines the spec-driven layout and strict validation. The proposed change lives at [checker-v1-baseline](../../openspec/changes/checker-v1-baseline/proposal.md).
 
-An initial proposed change is at `openspec/changes/checker-v1-baseline/`. It exists so that direct Codex and CoderMind can consume **the same frozen input after acceptance**. The historical PR #27 remains an empirical reference, not the new authority.
+## Verified in GitHub CI
 
-## Validation/approval before model runs
+- OpenSpec CLI: pinned official npm release **1.14.3**, installed in GitHub Actions under Node.js 22.
+- Command: `openspec validate checker-v1-baseline --strict --json --no-interactive`
+- Evidence: [GitHub Actions #40605882242](https://github.com/lehater/agentic-checker-lab/actions/runs/40605882242), **success**.
+- CI uses `OPENSPEC_TELEMETRY=0` and no model credentials or LLM calls.
+- Validates structure and expected OpenSpec artifacts **only**; does not accept product semantics or prove Codex tooling integration.
 
-1. In a disposable clone with a supported pinned OpenSpec CLI, run `openspec init --tools none` and inspect any created/modified files; do not overwrite reviewed project context.
-2. Run `openspec validate checker-v1-baseline --strict`; if invalid, repair artifacts in a PR.
-3. Review whether the selected synthetic matching semantics and CLI are truly within owner-delegated boundaries. Do not declare accepted automatically.
-4. Freeze the accepted delta, architecture policy and independent tests with checksums **before** giving either model the input.
-5. Follow the [experiment design](../project/experiment-design.md) for matched A/B runs, telemetry and evidence.
+## Next approval gates
 
-**Current status:** manually drafted OpenSpec-format artifacts; no CLI execution, validated OpenSpec version, generated tool skills, accepted domain scope, or model evaluation yet. No Harness.
+1. Review the concrete proposed IPv4/CIDR/range/CLI subset against the [owner's original problem](../scenario/owner-problem-brief.md).
+2. Mark accepted or resolve unanswered product/domain decisions before publishing one frozen input for A/B agents.
+3. Check Codex/OpenSpec interactive tooling and CoderMind consumers in a bounded E2E (cannot be proven by CLI validation alone).
+4. Freeze independent oracles, architecture policy and task budget hashes before model runs.
+
+Do not run `openspec init` against the working repository in CI: it may change project files and is not necessary for read-only validation.

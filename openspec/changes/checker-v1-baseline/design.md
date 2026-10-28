@@ -27,5 +27,5 @@ A direct CLI with all logic in one file is simpler physically but couples matchi
 
 - Selected synthetic predicate subset, CLI schema, failure codes and source-provider semantics are candidate decisions based on previous PR, **not owner-approved**.
 - Source-level gate cannot prove SOLID/KISS/YAGNI semantically; design review remains required.
-- OpenSpec CLI and Codex/OpenSpec workflow integration have not been installed or executed.
+- OpenSpec CLI 1.14.3 strict validation has passed in GitHub Actions; local setup and Codex/OpenSpec workflow integration have not been executed.
 - Independent oracles must be frozen and separately reviewed before codegen; historical oracle cases are visible to the old generated candidate and are not automatically held out.
