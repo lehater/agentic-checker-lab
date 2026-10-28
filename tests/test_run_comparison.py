@@ -19,7 +19,7 @@ def sample():
                 "verified_by": "independent-tests", "elapsed_seconds": value,
                 "input_tokens": None, "output_tokens": None,
             })
-    return {"schema": "checker-lab/run-comparison/v1", "runs": records}
+    return {"schema": "checker-lab/run-comparison/v1", "comparison_kind": "process", "runs": records}
 
 
 class RunComparisonTests(unittest.TestCase):
@@ -79,6 +79,17 @@ class RunComparisonTests(unittest.TestCase):
         for record in data["runs"]:
             record["record_class"] = "observed"
         self.assertIsNone(compare(data, minimum_gain=.3)["routing_candidate"])
+
+    def test_process_comparison_rejects_different_models(self):
+        data = sample()
+        data["runs"][0]["model_config_sha"] = "different-model"
+        self.assertFalse(compare(data)["comparable_context"])
+
+    def test_model_comparison_may_have_different_models(self):
+        data = sample()
+        data["comparison_kind"] = "model"
+        data["runs"][0]["model_config_sha"] = "different-model"
+        self.assertTrue(compare(data)["comparable_context"])
 
     def test_duplicate_runs_rejected(self):
         data = sample()

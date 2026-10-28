@@ -20,6 +20,9 @@ def compare(data: dict, minimum_per_arm: int = 2, minimum_gain: float = 0.0) -> 
         raise ValueError("unsupported comparison schema")
     if minimum_per_arm < 2 or not 0 <= minimum_gain < 1:
         raise ValueError("repetition count must be >=2 and minimum gain in [0,1)")
+    comparison_kind = data.get("comparison_kind")
+    if comparison_kind not in {"process", "model"}:
+        raise ValueError("comparison_kind must be process or model")
     runs = data.get("runs")
     if not isinstance(runs, list) or not runs:
         raise ValueError("no run records")
@@ -58,6 +61,9 @@ def compare(data: dict, minimum_per_arm: int = 2, minimum_gain: float = 0.0) -> 
     if len(groups) < 2:
         raise ValueError("at least two arms required")
     comparable = len(keys) == 1
+    # Process A/B must hold the model fixed; model comparisons deliberately vary it.
+    if comparison_kind == "process" and len({r["model_config_sha"] for r in runs}) != 1:
+        comparable = False
     sample = {arm: {"runs": len(items),
                     "median_seconds": statistics.median([r["elapsed_seconds"] for r in items])
                     if all(r["elapsed_seconds"] is not None for r in items) else None,
@@ -75,7 +81,7 @@ def compare(data: dict, minimum_per_arm: int = 2, minimum_gain: float = 0.0) -> 
     reason = "Insufficient independent runtime evidence for routing/optimization"
     status = "INCONCLUSIVE"
     if not comparable:
-        reason = "Different specification, oracle, budget or environment; comparison invalid"
+        reason = "Different specification, oracle, budget, environment or process model configuration; comparison invalid"
     elif any_failure:
         status = "NO_GO"
         reason = "At least one candidate failed frozen quality or architecture checks"
@@ -98,7 +104,7 @@ def compare(data: dict, minimum_per_arm: int = 2, minimum_gain: float = 0.0) -> 
             reason += "; gain is below declared minimum"
     return {"schema": "checker-lab/comparison-result/v1", "status": status,
             "routing_candidate": winner, "confidence": "NOT_STATISTICALLY_ESTABLISHED",
-            "comparable_context": comparable, "all_observed": all_observed,
+            "comparable_context": comparable, "comparison_kind": comparison_kind, "all_observed": all_observed,
             "all_complete": all_complete, "minimum_per_arm": minimum_per_arm,
             "minimum_gain": minimum_gain, "arms": sample, "reason": reason,
             "token_cost_verified": False,
