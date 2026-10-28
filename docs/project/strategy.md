@@ -1,6 +1,6 @@
 # Strategy — Agentic Checker Lab
 
-**Owner-directed reset, proposed for main via PR (2026-10-28).** Replaces the active Harness-based method, without deleting historical evidence.
+**Method baseline (2026-10-28).** Replaces the active Harness-based method while keeping historical evidence. Checker v1 specifications remain proposed, not owner-accepted.
 
 ## Mission
 

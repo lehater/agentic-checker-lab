@@ -1,6 +1,6 @@
 # Architecture guard — requirement-led validation
 
-**Status: proposed PR #29.** The executable invariant engine is [tools/check_architecture.py](../../tools/check_architecture.py); it loads [architecture-contract.json](architecture-contract.json) and has **no built-in Checker-specific function names**.
+**Status: implemented and passing offline CI; NOT integrated into a running CoderMind stage.** The executable invariant engine is [tools/check_architecture.py](../../tools/check_architecture.py); it loads [architecture-contract.json](architecture-contract.json) and has **no built-in Checker-specific function names**.
 
 ## Source of architecture truth
 

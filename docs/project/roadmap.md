@@ -1,6 +1,6 @@
 # Roadmap — post-Harness experimental method
 
-**Owner-directed proposal (2026-10-28); never infer DONE from this plan.** The source of completion evidence is [state](current-state.yaml). Historical TASK-001..009 remain in git history; this roadmap supersedes their forward sequence.
+**Owner-directed method (2026-10-28); phase completion must be supported by actual evidence.** The source of completion evidence is [state](current-state.yaml). Historical TASK-001..009 remain in git history; this roadmap supersedes their forward sequence.
 
 | ID | Small deliverable | Acceptance gate |
 | --- | --- | --- |
@@ -15,4 +15,4 @@
 
 One task, branch, PR and bounded proof at a time. Code execution/LLM calls are **never** implied by a documentation-only PR. Do not bypass architectural checks or rewrite fixed oracles after seeing implementation. An open PR remains a proposal until reviewed/merged.
 
-Next after S0: **S1 regression on the archived 2026-10-20 CoderMind Checker candidate**; do not require merging its Harness integration.
+Offline S1 architecture regression, S2 log parser and OpenSpec CLI structural checks are verified in CI. Next work: accept the candidate product scope, freeze independent acceptance oracles, integrate CoderMind/LLM runtime and collect real metrics. See current-state.yaml.

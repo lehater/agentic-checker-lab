@@ -1,28 +1,30 @@
 schema: agentic-checker-lab/current-state/v1
-status: METHOD_RESET_PROPOSED_NOT_MERGED
-phase: S0
+status: GITHUB_INFRASTRUCTURE_VERIFIED_SPEC_NOT_ACCEPTED
+phase: GITHUB_INFRASTRUCTURE
 date: 2026-10-28
 purpose: Evaluate a spec-first agentic SDLC without Harness using direct Codex and optional CoderMind
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
-next_task: S1_ARCHITECTURE_GUARD
+next_task: REQUIREMENTS_ORACLE_AND_LOCAL_E2E
 accepted:
   - "Owner directed: do not use Harness; evaluate OpenSpec + optional RPG against direct Codex."
   - "Engineering principles: Clean Architecture, SOLID, KISS, YAGNI."
   - "Evidence-based model routing balancing time to verified result and subscription budget; not local-first."
 verified:
-  - "The main branch before this proposed PR is 2bf23ce08512eda92684d09e3c46958d4b6ab3cc; it contains historical Harness/RPG setup, not the completed Checker."
+  - "Prior main SHA before the method reset: 2bf23ce08512eda92684d09e3c46958d4b6ab3cc; archived Harness/RPG remains evidence."
   - "Open PR #27 retains runnable synthetic Checker, 30/30 native CoderMind tasks, tests and failed/patched review evidence; not merged into main."
   - "The CoderMind candidate's saved RPG/skeleton places check under domain/application, violating the architecture contract."
   - "Prior CoderMind run manifests do not provide verified model token/billing counters."
 verified_ci:
-  - "OpenSpec CLI 1.14.3 strict validation PASS in GitHub Actions run 40605882242 (structural validation only)."
+  - "OpenSpec CLI 1.14.3 strict validation PASS in GitHub Actions run 40607731601 (structure only)."
+  - "Architecture contract, offline telemetry and semantic-report protocol tests PASS in GitHub Actions run 40607731442."
+  - "Original CoderMind RPG Git blob a6201115f9597f809aed60a83483bcb713e6acbc rejected by deterministic architecture gate; revised structural counterexample passes."
+  - "Offline semantic benchmark exports omit labels; no AI model evaluation performed."
 not_verified:
-  - "Merge, CI results and independent validation of this method reset."
-  - "OpenSpec installation on the user machine, interactive Codex tooling, accepted domain semantics and live E2E integration."
-  - "Architecture gate on main, new CoderMind instrumentation, token counts and rerun."
-  - "Equal-input comparison, automated optimization, model router and second-task transfer."
-  - "Current GitHub main branch protection; old docs reported temporary exception only."
+  - "Owner acceptance of proposed Checker predicate subset and data schema; local OpenSpec/interactive Codex integration and live E2E."
+  - "Live CoderMind stage interception, actual model usage counters and rerun."
+  - "Equal-input live model comparison, measured process optimization, model routing quality and second-task transfer."
+  - "Current GitHub branch protection settings were not independently verified."
 evidence:
   checker_prior_pr: https://github.com/lehater/agentic-checker-lab/pull/27
   checker_original_brief: docs/scenario/owner-problem-brief.md
