@@ -28,7 +28,7 @@ python3 tools/check_semantic_review.py --request /tmp/review-request.json \
 
 Request fields: schema=semantic-review-request/v1, subject, required_rules, sources containing id/role/path/sha256. Report: schema=semantic-review-report/v1, request_sha256, reviewer {kind, identifier}, coverage (one item per rule: rule_id, assessment, rationale, citations), findings (id, rule_id, severity, claim, reasoning, minimal_fix, citations).
 
-Each citation points to a provided source_id and exact text from 1-based inclusive start_line/end_line (up to 12 lines). Missing citations, source digest mismatch, incomplete coverage, inconsistent FAIL/PASS states and invalid paths **invalidate** the report.
+Each coverage item and finding must cite **both the candidate and a constraint/specification source**. Each citation points to a provided source_id and exact text from 1-based inclusive start_line/end_line (up to 12 lines). Missing citations, source digest mismatch, incomplete coverage, inconsistent FAIL/PASS states and invalid paths **invalidate** the report.
 
 A structurally verified response never says that the semantic claims are true. Results: BLOCK (violations), ESCALATE (insufficient evidence), or HUMAN_REVIEW_REQUIRED (no reported violations). The model cannot approve or merge.
 

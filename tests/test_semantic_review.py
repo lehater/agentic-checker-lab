@@ -34,6 +34,7 @@ class SemanticReviewTests(unittest.TestCase):
         self.assertEqual(self.prep.returncode, 0, self.prep.stderr)
         self.req = json.loads(self.request.read_text(encoding="utf-8"))
         self.citation = self.quote("candidate-1", "domain/application/check.py")
+        self.policy_citation = self.quote("constraint-2", "AR-01")
         self.report = {
             "schema": "semantic-review-report/v1",
             "request_sha256": hashlib.sha256(self.request.read_bytes()).hexdigest(),
@@ -41,7 +42,7 @@ class SemanticReviewTests(unittest.TestCase):
             "coverage": [
                 {"rule_id": name, "assessment": "uncertain",
                  "rationale": "Independent reviewer has not established compliance.",
-                 "citations": [self.citation]}
+                 "citations": [self.citation, self.policy_citation]}
                 for name in self.req["required_rules"]
             ],
             "findings": [],
@@ -82,7 +83,7 @@ class SemanticReviewTests(unittest.TestCase):
             "claim": "Use-case orchestration is placed in domain/application",
             "reasoning": "Assigned implementation feature and proposed package violate the layer role",
             "minimal_fix": "Place use-case orchestration in the application layer; preserve matching in domain",
-            "citations": [self.citation]
+            "citations": [self.citation, self.policy_citation]
         }]
         status, out = self.verify()
         self.assertEqual(status, 0, out)
@@ -100,6 +101,12 @@ class SemanticReviewTests(unittest.TestCase):
         status, result = self.verify()
         self.assertEqual(status, 1, result)
         self.assertIn("repeated", result["error"])
+
+    def test_citation_requires_rule_and_candidate_evidence(self):
+        self.report["coverage"][0]["citations"] = [self.citation]
+        status, result = self.verify()
+        self.assertEqual(status, 1, result)
+        self.assertIn("require both candidate", result["error"])
 
     def test_fabricated_quote_fails_closed(self):
         self.report["coverage"][0]["citations"] = [{

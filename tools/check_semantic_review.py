@@ -40,7 +40,7 @@ def validate_request(root, request):
     check(isinstance(request.get("subject"), str) and request["subject"].strip(), "subject required")
     sources = request.get("sources")
     check(isinstance(sources, list) and len(sources) >= 2, "at least two source documents required")
-    index, roles = {}, set()
+    index, roles = {}, {}
     for source in sources:
         check(isinstance(source, dict), "invalid source")
         sid, role, digest = source.get("id"), source.get("role"), source.get("sha256")
@@ -51,17 +51,17 @@ def validate_request(root, request):
         contents = source_path(root, source.get("path")).read_bytes()
         check(sha256(contents) == digest, f"stale or modified source {sid}")
         index[sid] = contents.decode("utf-8").splitlines()
-        roles.add(role)
-    check("candidate" in roles and bool(roles & {"constraint", "specification"}),
+        roles[sid] = role
+    check("candidate" in roles.values() and bool(set(roles.values()) & {"constraint", "specification"}),
           "candidate and accepted rules/spec source required")
     rules = request.get("required_rules")
     check(isinstance(rules, list) and len(rules) > 0 and
           all(isinstance(x, str) and IDENTIFIER.fullmatch(x) for x in rules) and
           len(rules) == len(set(rules)), "required_rules must be nonempty unique IDs")
-    return index, rules
+    return index, rules, roles
 
 
-def citations_valid(citations, index, where):
+def citations_valid(citations, index, roles, where):
     check(isinstance(citations, list) and bool(citations), f"{where}: citations required")
     for c in citations:
         check(isinstance(c, dict), f"{where}: invalid citation")
@@ -72,13 +72,16 @@ def citations_valid(citations, index, where):
         excerpt = "\n".join(index[sid][start-1:end])
         check(isinstance(quote, str) and bool(quote.strip()) and quote in excerpt,
               f"{where}: quote not present at cited source lines")
+    cited_roles = {roles[c["source_id"]] for c in citations}
+    check("candidate" in cited_roles and bool(cited_roles & {"constraint", "specification"}),
+          f"{where}: require both candidate and requirement/design source evidence")
 
 
 def validate_report(root, request_file, report):
     raw = request_file.read_bytes()
     request = json.loads(raw)
     check(isinstance(request, dict), "request must be an object")
-    index, rules = validate_request(root, request)
+    index, rules, roles = validate_request(root, request)
     check(report.get("schema") == "semantic-review-report/v1", "invalid report schema")
     check(report.get("request_sha256") == sha256(raw), "stale request hash")
     reviewer = report.get("reviewer")
@@ -95,7 +98,7 @@ def validate_report(root, request_file, report):
         check(item.get("assessment") in ASSESS, f"{rid}: unknown assessment")
         check(isinstance(item.get("rationale"), str) and item["rationale"].strip(),
               f"{rid}: rationale required")
-        citations_valid(item.get("citations"), index, f"coverage {rid}")
+        citations_valid(item.get("citations"), index, roles, f"coverage {rid}")
         found[rid] = item
     check(set(found) == set(rules), "missing coverage: " + ",".join(sorted(set(rules)-set(found))))
     findings = report.get("findings")
@@ -113,7 +116,7 @@ def validate_report(root, request_file, report):
         check(found[rid]["assessment"] != "pass", "finding contradicts PASS assessment")
         for key in ("claim", "reasoning", "minimal_fix"):
             check(isinstance(finding.get(key), str) and finding[key].strip(), f"finding {key} required")
-        citations_valid(finding.get("citations"), index, f"finding {fid}")
+        citations_valid(finding.get("citations"), index, roles, f"finding {fid}")
         if finding["severity"] == "BLOCKER":
             blocker = True
         failed.add(rid)
