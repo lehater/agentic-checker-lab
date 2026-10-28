@@ -6,6 +6,7 @@
 | --- | --- |
 | Миссия и границы | [Стратегия](project/strategy.md) |
 | Текущее состояние и ограничения | [State](project/current-state.yaml) |
+| Передача локальному исполнителю | [Handoff](project/local-executor-handoff.md) |
 | Очерёдность небольших проверяемых шагов | [Roadmap](project/roadmap.md) |
 | Clean Architecture, SOLID, KISS, YAGNI | [Engineering Policy](engineering/policy.md) |
 | Условия успеха | [Success criteria](project/success-criteria.md) |
@@ -13,6 +14,7 @@
 | Порядок Git / PR | [Governance](project/governance.md) |
 | Контракт spec → RPG | [Integration](integration/README.md) |
 | Независимые проверки | [Evaluation](evaluation/README.md) |
+| Трассировка OpenSpec → тестов | [Requirements trace](evaluation/requirements-trace.md) |
 | Исходная постановка Checker | [Scenario](scenario/README.md) |
 | Исследования и исторические результаты | [Research](research/README.md) |
 | ADR | [Decisions](decisions/README.md) |

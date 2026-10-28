@@ -15,4 +15,4 @@
 
 One task, branch, PR and bounded proof at a time. Code execution/LLM calls are **never** implied by a documentation-only PR. Do not bypass architectural checks or rewrite fixed oracles after seeing implementation. An open PR remains a proposal until reviewed/merged.
 
-Offline S1 architecture regression, S2 log parser and OpenSpec CLI structural checks are verified in CI. Next work: accept the candidate product scope, freeze independent acceptance oracles, integrate CoderMind/LLM runtime and collect real metrics. See current-state.yaml.
+GitHub CI covers S0 method, S1 architecture regression, S2 offline telemetry, OpenSpec CLI validation, proposed acceptance scenario trace and offline comparison. Live run results are not verified. The remaining L1–L5 local-executor steps are listed in [handoff](local-executor-handoff.md).

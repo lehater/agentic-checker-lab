@@ -2,6 +2,12 @@ schema: agentic-checker-lab/tooling-v1
 status: PINNED_CLI_PREFLIGHT_OPERATOR_REPORTED
 os: Ubuntu
 sources:
+  openspec_cli:
+    package: '@fission-ai/openspec'
+    version: '1.14.3'
+    github_actions: STRICT_VALIDATE_PASS
+    local_installation: NOT_VERIFIED
+    semantic_approval: NOT_VERIFIED
   harness:
     repository: https://github.com/lehater/harness
     revision: 442db854c3a736a5e500b4a41664b80981b0d94c
