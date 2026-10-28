@@ -1,0 +1,10 @@
+{
+  "schema": "checker-discovery-ledger/v1",
+  "status": "NOT_STARTED",
+  "checkpoint": 0,
+  "protocol_version": "0.1",
+  "source_problem": "docs/scenario/owner-problem-brief.md",
+  "rounds": [],
+  "questions": [],
+  "decisions": []
+}

@@ -73,3 +73,9 @@ requirements-trace-test:
 
 run-comparison-test:
 	python3 -m unittest discover -s tests -p 'test_run_comparison.py' -v
+
+.PHONY: discovery-test
+
+discovery-test:
+	python3 tools/check_discovery.py
+	python3 -m unittest discover -s tests -p 'test_discovery.py' -v
