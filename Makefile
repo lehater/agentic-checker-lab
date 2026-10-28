@@ -1,9 +1,10 @@
-.PHONY: harness-pack-preflight harness-consumer-preflight check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit architecture-test telemetry-test
+.PHONY: semantic-test harness-pack-preflight harness-consumer-preflight check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit architecture-test telemetry-test
 
 check:
 	python3 tools/check_repository.py
 	python3 -m unittest discover -s tests -p 'test_architecture_policy.py' -v
 	python3 -m unittest discover -s tests -p 'test_run_observability.py' -v
+	python3 -m unittest discover -s tests -p 'test_semantic_review.py' -v
 
 architecture-test:
 	python3 -m unittest discover -s tests -p 'test_architecture_policy.py' -v
@@ -48,3 +49,6 @@ harness-consumer-preflight:
 
 harness-pack-preflight:
 	@bash tools/harness_pack_preflight.sh
+
+semantic-test:
+	python3 -m unittest discover -s tests -p 'test_semantic_review.py' -v

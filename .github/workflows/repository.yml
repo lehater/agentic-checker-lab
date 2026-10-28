@@ -29,5 +29,5 @@ jobs:
           python3 -m json.tool .harness/harness-binding.json > /dev/null
       - name: Python tooling syntax and old RPG fixture
         run: |
-          python3 -m py_compile tools/audit_synthetic_rpg.py tools/check_architecture.py tools/analyze_run.py
+          python3 -m py_compile tools/audit_synthetic_rpg.py tools/check_architecture.py tools/analyze_run.py tools/check_semantic_review.py tools/prepare_semantic_review.py
           python3 tools/test_audit_synthetic_rpg.py
