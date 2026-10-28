@@ -1,6 +1,6 @@
 # Git, PR и работа агентов
 
-Статус: **ACCEPTED** — политика лаборатории, но не доказательство применения серверных GitHub Rulesets.
+Статус: **ACCEPTED** — политика лаборатории. Серверный Ruleset проверен через GitHub API 2026-10-28, но некоторые рекомендуемые ограничения не включены.
 
 ## Git contract
 
@@ -18,7 +18,7 @@
 - Settings → Rules → Rulesets (или Branch protection) для main: Require a pull request before merging; Required status checks после появления первого успешного job **repository / check**; Block force pushes; Block branch deletions; Require linear history; по возможности Disable bypass.
 - Настройка обязательного review — по решению владельца. Review важен для семантической истины, но автоматические тесты не заменяют такое решение.
 
-**Текст правил не защищает main физически.** Нужна отдельная настройка GitHub. Официальная документация: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets .
+**Проверено через GitHub API:** активный Ruleset main ID 25199406 действует на default branch. Требуются Pull Request, только squash; запрещены удаление и non-fast-forward, bypass actors отсутствуют. При этом правило required_status_checks присутствует с **пустым списком проверок**: CI сейчас запускается и проходит, но не является блокирующим условием merge. Включение обязательных checks repository / check и openspec-validation / validate-openspec требует прав администратора в GitHub Settings; данный GitHub-коннектор не предоставляет обновление Rulesets. Не путать это с недоступностью локальных моделей. Доказательство: [Ruleset](https://github.com/lehater/agentic-checker-lab/rules/25199406). Официальная документация: https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/managing-rulesets/available-rules-for-rulesets .
 
 ## Принятая истина и изменение
 
