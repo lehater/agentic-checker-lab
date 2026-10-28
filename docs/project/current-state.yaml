@@ -16,6 +16,7 @@ verified:
   - "The CoderMind candidate's saved RPG/skeleton places check under domain/application, violating the architecture contract."
   - "Prior CoderMind run manifests do not provide verified model token/billing counters."
 verified_ci:
+  - "Active GitHub Ruleset main ID 25199406 requires PR/squash and prevents deletion and non-fast-forward; required_status_checks list is EMPTY (CI not enforced by branch rule)."
   - "OpenSpec CLI 1.14.3 strict validation PASS in GitHub Actions run 40607731601 (structure only)."
   - "Architecture contract, offline telemetry and semantic-report protocol tests PASS in GitHub Actions run 40607731442."
   - "Original CoderMind RPG Git blob a6201115f9597f809aed60a83483bcb713e6acbc rejected by deterministic architecture gate; revised structural counterexample passes."
@@ -26,7 +27,6 @@ not_verified:
   - "Owner acceptance of proposed Checker predicate subset and data schema; local OpenSpec/interactive Codex integration and live E2E."
   - "Live CoderMind stage interception, actual model usage counters and rerun."
   - "Equal-input live model comparison, measured process optimization, model routing quality and second-task transfer."
-  - "Current GitHub branch protection settings were not independently verified."
 evidence:
   checker_prior_pr: https://github.com/lehater/agentic-checker-lab/pull/27
   checker_original_brief: docs/scenario/owner-problem-brief.md
