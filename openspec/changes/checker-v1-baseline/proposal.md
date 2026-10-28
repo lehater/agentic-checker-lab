@@ -13,7 +13,7 @@ Checker Lab needs one identical accepted specification for evaluating direct Cod
 
 ## Impact
 
-Product implementation is not introduced in this proposal. OpenSpec CLI installation, validation, approval and code generation remain NOT_VERIFIED. The selected IPv4/CIDR/port subset and JSON shape are **candidate engineering decisions** based on historical PR #27, not pre-approved facts inferred from the owner's original brief.
+Product implementation is not introduced in this proposal. OpenSpec strict structural validation is VERIFIED in GitHub Actions run 40605882242 using pinned CLI 1.14.3. Product acceptance, local installation, Codex/CoderMind integration and code generation remain NOT_VERIFIED. The selected IPv4/CIDR/port subset and JSON shape are **candidate engineering decisions** based on historical PR #27, not pre-approved facts inferred from the owner's original brief.
 
 ## Evidence
 

@@ -15,9 +15,11 @@ verified:
   - "Open PR #27 retains runnable synthetic Checker, 30/30 native CoderMind tasks, tests and failed/patched review evidence; not merged into main."
   - "The CoderMind candidate's saved RPG/skeleton places check under domain/application, violating the architecture contract."
   - "Prior CoderMind run manifests do not provide verified model token/billing counters."
+verified_ci:
+  - "OpenSpec CLI 1.14.3 strict validation PASS in GitHub Actions run 40605882242 (structural validation only)."
 not_verified:
   - "Merge, CI results and independent validation of this method reset."
-  - "OpenSpec installation, supported CLI workflow, accepted spec export or live integration."
+  - "OpenSpec installation on the user machine, interactive Codex tooling, accepted domain semantics and live E2E integration."
   - "Architecture gate on main, new CoderMind instrumentation, token counts and rerun."
   - "Equal-input comparison, automated optimization, model router and second-task transfer."
   - "Current GitHub main branch protection; old docs reported temporary exception only."
