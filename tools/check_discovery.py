@@ -60,6 +60,10 @@ def verify(data, root=ROOT):
         fail("At most one round can be PREPARED")
     if prepared and rounds[-1] is not prepared[0]:
         fail("Only the final round may be PREPARED")
+    if any(int(rid.split("-")[1]) != i + 1 for i, rid in enumerate(rr)):
+        fail("Round IDs must be sequential")
+    if any(int(qid.split("-")[1]) != i + 1 for i, qid in enumerate(qq)):
+        fail("Question IDs must be sequential")
     if data["status"] == "NOT_STARTED" and (rounds or questions or decisions or data["checkpoint"]):
         fail("NOT_STARTED ledger must be empty with checkpoint zero")
     if data["status"] != "NOT_STARTED" and not rounds:
@@ -96,6 +100,8 @@ def verify(data, root=ROOT):
         state = q.get("status")
         if state not in Q_STATES:
             fail(qid + ": invalid question status")
+        if not str(q.get("source") or "").strip():
+            fail(qid + ": source missing")
         if not isinstance(q.get("text"), str) or not q["text"].strip():
             fail(qid + ": text missing")
         if q.get("created_round") not in rr:
@@ -107,6 +113,12 @@ def verify(data, root=ROOT):
         for dep in deps:
             if dep not in qq or dep == qid:
                 fail(qid + ": invalid prerequisite " + str(dep))
+        if q.get("created_round") in rr and rr[q["created_round"]].get("status") == "PREPARED":
+            if state != "OPEN":
+                fail(qid + ": prepared question must be OPEN")
+            for dep in deps:
+                if dep in qq and qq[dep].get("status") != "ANSWERED":
+                    fail(qid + ": prepared question depends on unanswered " + str(dep))
         if state == "SUPERSEDED":
             to = q.get("superseded_by", [])
             if not isinstance(to, list) or not to or any(x not in qq or x == qid for x in to):

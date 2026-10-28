@@ -2,6 +2,8 @@
 
 check:
 	python3 tools/check_repository.py
+	python3 tools/check_discovery.py
+	python3 -m unittest discover -s tests -p 'test_discovery.py' -v
 	python3 -m unittest discover -s tests -p 'test_run_comparison.py' -v
 	python3 tools/check_requirements_trace.py
 	python3 -m unittest discover -s tests -p 'test_requirements_trace.py' -v
