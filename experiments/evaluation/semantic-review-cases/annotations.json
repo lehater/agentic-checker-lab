@@ -1,0 +1,59 @@
+{
+  "schema": "semantic-review-cases/v1",
+  "status": "PROPOSED_HUMAN_LABELS_NOT_INDEPENDENTLY_ADJUDICATED",
+  "source": "docs/engineering/semantic-review-rubric.md",
+  "cases": [
+    {
+      "id": "clean-minimal",
+      "candidate": "experiments/evaluation/semantic-review-cases/candidates/minimal-clean.md",
+      "expected": {
+        "AR-01": "pass",
+        "SPEC-TRACE": "pass",
+        "YAGNI": "pass"
+      },
+      "note": "Positive control; any unconditional BLOCKER requires evidence"
+    },
+    {
+      "id": "role-drift",
+      "candidate": "experiments/evaluation/semantic-review-cases/candidates/role-collision.md",
+      "expected": {
+        "AR-01": "fail",
+        "AR-03": "fail"
+      },
+      "note": "Correct import graph but invalid responsibility ownership"
+    },
+    {
+      "id": "behavior-drift",
+      "candidate": "experiments/evaluation/semantic-review-cases/candidates/semantic-first-match.md",
+      "expected": {
+        "SPEC-TRACE": "fail"
+      },
+      "note": "Correct layers but first-match and verdict contradict requirements"
+    },
+    {
+      "id": "scope-inflation",
+      "candidate": "experiments/evaluation/semantic-review-cases/candidates/speculative-platform.md",
+      "expected": {
+        "KISS": "fail",
+        "YAGNI": "fail"
+      },
+      "note": "No justification for additional infrastructure"
+    },
+    {
+      "id": "scope-ambiguity",
+      "candidate": "experiments/evaluation/semantic-review-cases/candidates/missing-authority.md",
+      "expected": {
+        "SPEC-TRACE": "uncertain"
+      },
+      "note": "Insufficient authority to settle requirements change"
+    },
+    {
+      "id": "historical-witness",
+      "candidate": "tests/fixtures/semantic-review/historical-rpg-excerpt.json",
+      "expected": {
+        "AR-03": "fail"
+      },
+      "note": "Archived PR #27 excerpt; regression control, not whole evaluation set"
+    }
+  ]
+}

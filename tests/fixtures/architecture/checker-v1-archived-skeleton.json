@@ -1,0 +1,292 @@
+{
+  "repository_name": "acl-checker",
+  "repository_purpose": "Provide a bounded local Python CLI for investigating every saved ACL rule matching one concrete IPv4 traffic flow across synthetically relevant device/ACL pairs. Preserve original evidence, placements and snapshot ordering while reporting explicit no-match states or request failures.",
+  "meta": {
+    "primary_language": "python",
+    "target_languages": [
+      "python"
+    ]
+  },
+  "root": {
+    "type": "directory",
+    "name": "project_root",
+    "path": ".",
+    "children": [
+      {
+        "type": "directory",
+        "name": "src",
+        "path": "src",
+        "children": [
+          {
+            "type": "directory",
+            "name": "acl_checker",
+            "path": "src/acl_checker",
+            "children": [
+              {
+                "type": "directory",
+                "name": "input",
+                "path": "src/acl_checker/input",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "document.py",
+                    "path": "src/acl_checker/input/document.py",
+                    "feature_paths": [
+                      "Приём и валидация запроса/document intake/load request document"
+                    ],
+                    "component": "Приём и валидация запроса"
+                  },
+                  {
+                    "type": "file",
+                    "name": "validation.py",
+                    "path": "src/acl_checker/input/validation.py",
+                    "feature_paths": [
+                      "Приём и валидация запроса/document intake/validate request envelope",
+                      "Приём и валидация запроса/document intake/reject unknown fields",
+                      "Приём и валидация запроса/flow constraints/validate flow addresses",
+                      "Приём и валидация запроса/flow constraints/validate flow ports",
+                      "Приём и валидация запроса/flow constraints/validate flow protocol",
+                      "Приём и валидация запроса/saved evidence integrity/validate snapshot structure",
+                      "Приём и валидация запроса/saved evidence integrity/reject duplicate snapshot pairs",
+                      "Приём и валидация запроса/saved evidence integrity/reject duplicate rule identifiers",
+                      "Приём и валидация запроса/saved evidence integrity/validate placement entries",
+                      "Приём и валидация запроса/selection constraints/validate relevance entries",
+                      "Приём и валидация запроса/rule constraints/validate rule structure",
+                      "Приём и валидация запроса/rule constraints/validate rule action",
+                      "Приём и валидация запроса/rule constraints/validate rule protocol",
+                      "Приём и валидация запроса/rule constraints/validate address predicates",
+                      "Приём и валидация запроса/rule constraints/validate inclusive port ranges"
+                    ],
+                    "component": "Приём и валидация запроса"
+                  },
+                  {
+                    "type": "file",
+                    "name": "__init__.py",
+                    "path": "src/acl_checker/input/__init__.py",
+                    "feature_paths": []
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "application",
+                "path": "src/acl_checker/application",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "sources.py",
+                    "path": "src/acl_checker/application/sources.py",
+                    "feature_paths": [
+                      "Отбор и получение снимков ACL/provider construction/create relevance provider",
+                      "Отбор и получение снимков ACL/provider construction/create snapshot provider"
+                    ],
+                    "component": "Отбор и получение снимков ACL"
+                  },
+                  {
+                    "type": "file",
+                    "name": "evidence.py",
+                    "path": "src/acl_checker/application/evidence.py",
+                    "feature_paths": [
+                      "Отбор и получение снимков ACL/ordered pair selection/retrieve relevant pairs",
+                      "Отбор и получение снимков ACL/ordered pair selection/deduplicate relevant pairs",
+                      "Отбор и получение снимков ACL/required evidence retrieval/retrieve relevant snapshot",
+                      "Отбор и получение снимков ACL/required evidence retrieval/reject missing snapshot"
+                    ],
+                    "component": "Отбор и получение снимков ACL"
+                  },
+                  {
+                    "type": "file",
+                    "name": "__init__.py",
+                    "path": "src/acl_checker/application/__init__.py",
+                    "feature_paths": []
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "domain",
+                "path": "src/acl_checker/domain",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "matching.py",
+                    "path": "src/acl_checker/domain/matching.py",
+                    "feature_paths": [
+                      "Исследование совпадений ACL/flow evaluation/evaluate stored rule match"
+                    ],
+                    "component": "Исследование совпадений ACL"
+                  },
+                  {
+                    "type": "directory",
+                    "name": "application",
+                    "path": "src/acl_checker/domain/application",
+                    "children": [
+                      {
+                        "type": "file",
+                        "name": "check.py",
+                        "path": "src/acl_checker/domain/application/check.py",
+                        "feature_paths": [
+                          "Исследование совпадений ACL/investigation execution/check traffic evidence",
+                          "Исследование совпадений ACL/evidence assembly/collect matching evidence",
+                          "Исследование совпадений ACL/evidence assembly/determine evidence status",
+                          "Исследование совпадений ACL/evidence assembly/build evidence group"
+                        ],
+                        "component": "Исследование совпадений ACL"
+                      },
+                      {
+                        "type": "file",
+                        "name": "__init__.py",
+                        "path": "src/acl_checker/domain/application/__init__.py",
+                        "feature_paths": []
+                      }
+                    ]
+                  },
+                  {
+                    "type": "file",
+                    "name": "__init__.py",
+                    "path": "src/acl_checker/domain/__init__.py",
+                    "feature_paths": []
+                  }
+                ]
+              },
+              {
+                "type": "directory",
+                "name": "cli",
+                "path": "src/acl_checker/cli",
+                "children": [
+                  {
+                    "type": "file",
+                    "name": "main.py",
+                    "path": "src/acl_checker/cli/main.py",
+                    "feature_paths": [
+                      "Командный интерфейс и публикация отчёта/command entry/parse invocation options",
+                      "Командный интерфейс и публикация отчёта/command entry/display prototype help",
+                      "Командный интерфейс и публикация отчёта/execution wiring/compose local execution",
+                      "Командный интерфейс и публикация отчёта/request diagnostics/emit request diagnostic",
+                      "Командный интерфейс и публикация отчёта/report scope/describe saved evidence scope"
+                    ],
+                    "component": "Командный интерфейс и публикация отчёта"
+                  },
+                  {
+                    "type": "file",
+                    "name": "rendering.py",
+                    "path": "src/acl_checker/cli/rendering.py",
+                    "feature_paths": [
+                      "Командный интерфейс и публикация отчёта/human readable report/render empty relevance message",
+                      "Командный интерфейс и публикация отчёта/human readable report/render text groups",
+                      "Командный интерфейс и публикация отчёта/structured report/render json report"
+                    ],
+                    "component": "Командный интерфейс и публикация отчёта"
+                  },
+                  {
+                    "type": "file",
+                    "name": "__init__.py",
+                    "path": "src/acl_checker/cli/__init__.py",
+                    "feature_paths": []
+                  }
+                ]
+              },
+              {
+                "type": "file",
+                "name": "__init__.py",
+                "path": "src/acl_checker/__init__.py",
+                "feature_paths": []
+              }
+            ]
+          },
+          {
+            "type": "file",
+            "name": "__init__.py",
+            "path": "src/__init__.py",
+            "feature_paths": []
+          }
+        ]
+      },
+      {
+        "type": "directory",
+        "name": "tests",
+        "path": "tests",
+        "children": [
+          {
+            "type": "file",
+            "name": "test_architecture.py",
+            "path": "tests/test_architecture.py",
+            "feature_paths": [
+              "Проверка контрактов и ограничений/dependency integrity/check functional boundaries",
+              "Проверка контрактов и ограничений/dependency integrity/check inward imports",
+              "Проверка контрактов и ограничений/failure containment/check exception handling scope",
+              "Проверка контрактов и ограничений/execution confinement/check bounded runtime scope"
+            ],
+            "component": "Проверка контрактов и ограничений"
+          },
+          {
+            "type": "file",
+            "name": "test_application.py",
+            "path": "tests/test_application.py",
+            "feature_paths": [
+              "Проверка контрактов и ограничений/provider compatibility/verify interchangeable providers",
+              "Проверка контрактов и ограничений/request integrity/verify input immutability",
+              "Проверка контрактов и ограничений/request integrity/verify atomic request failure",
+              "Проверка контрактов и ограничений/execution confinement/verify invocation isolation"
+            ],
+            "component": "Проверка контрактов и ограничений"
+          },
+          {
+            "type": "file",
+            "name": "test_validation.py",
+            "path": "tests/test_validation.py",
+            "feature_paths": [
+              "Проверка контрактов и ограничений/request integrity/verify invalid request rejection"
+            ],
+            "component": "Проверка контрактов и ограничений"
+          },
+          {
+            "type": "file",
+            "name": "test_matching.py",
+            "path": "tests/test_matching.py",
+            "feature_paths": [
+              "Проверка контрактов и ограничений/matching correctness/verify predicate boundaries"
+            ],
+            "component": "Проверка контрактов и ограничений"
+          },
+          {
+            "type": "file",
+            "name": "test_cli_acceptance.py",
+            "path": "tests/test_cli_acceptance.py",
+            "feature_paths": [
+              "Проверка контрактов и ограничений/matching correctness/verify exact evidence groups",
+              "Проверка контрактов и ограничений/report guarantees/verify public output formats",
+              "Проверка контрактов и ограничений/report guarantees/verify evidence interpretation limits",
+              "Проверка контрактов и ограничений/command acceptance/verify cli exit behavior",
+              "Проверка контрактов и ограничений/command acceptance/run isolated cli acceptance"
+            ],
+            "component": "Проверка контрактов и ограничений"
+          },
+          {
+            "type": "file",
+            "name": "__init__.py",
+            "path": "tests/__init__.py",
+            "feature_paths": []
+          }
+        ]
+      }
+    ]
+  },
+  "statistics": {
+    "total_components": 5,
+    "total_features": 50,
+    "total_files": 21,
+    "total_directories": 9,
+    "rpg_nodes": 81,
+    "rpg_edges": 0,
+    "llm_calls_made": 6,
+    "validation_retries": 0
+  },
+  "component_directories": {
+    "Приём и валидация запроса": "src/acl_checker/input",
+    "Отбор и получение снимков ACL": "src/acl_checker/application",
+    "Исследование совпадений ACL": "src/acl_checker/domain",
+    "Командный интерфейс и публикация отчёта": "src/acl_checker/cli",
+    "Проверка контрактов и ограничений": "tests"
+  }
+}

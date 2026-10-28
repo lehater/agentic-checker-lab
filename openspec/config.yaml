@@ -1,0 +1,25 @@
+schema: spec-driven
+context: |
+  Agentic Checker Lab is an experimental spec-first Agentic SDLC project, not a production firewall.
+  The source problem is docs/scenario/owner-problem-brief.md.
+  The project policy is docs/engineering/policy.md: Clean Architecture, SOLID, KISS, YAGNI.
+  Accepted requirements and architecture take precedence over any CoderMind/RPG or generated code.
+  Direct Codex and Codex+CoderMind experiments must consume the same accepted inputs.
+  No Harness, live network devices, vendor parser or real-world firewall changes.
+  All generated behavior is independently evaluated against pre-frozen scenarios.
+rules:
+  proposal:
+    - Identify source evidence separately from engineering hypotheses and decisions.
+    - Declare scope and explain why a change is needed now (YAGNI).
+  specs:
+    - Use normative SHALL requirements with concrete WHEN/THEN scenarios.
+    - Do not silently invent unsupported product semantics or expand v1 scope.
+    - Preserve unknown/error behavior and snapshot ordering.
+  design:
+    - Show domain, application and outer-adapter responsibilities and inward dependencies.
+    - Explicitly justify every abstraction under SOLID, KISS and YAGNI.
+    - Call out alternative designs and any new dependencies.
+  tasks:
+    - Include architecture validation before CoderMind code generation.
+    - Include independent acceptance tests fixed before codegen.
+    - Do not imply a model run, integration or passing test until evidence is recorded.

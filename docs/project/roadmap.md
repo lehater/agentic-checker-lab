@@ -1,38 +1,18 @@
-# Дорожная карта и тактика исполнения
+# Roadmap — post-Harness experimental method
 
-Статус: **ACCEPTED**. Фактическая стадия: [current-state.yaml](current-state.yaml). План не является утверждением, что этапы выполнены.
+**Owner-directed method (2026-10-28); phase completion must be supported by actual evidence.** The source of completion evidence is [state](current-state.yaml). Historical TASK-001..009 remain in git history; this roadmap supersedes their forward sequence.
 
-| Фаза | Задачи | Результат | Exit / Gate |
-| --- | --- | --- | --- |
-| **P0 — Foundation** | Репозиторий, стратегия, AGENTS map, правила PR, документационные проверки, пины источников | Коммит с канонической навигацией и CI | Make check, реальный GitHub CI; branch protection настроен владельцем |
-| **P1 — Toolchain spike** | Чистая Ubuntu, Harness, CoderMind, проверенный coding-agent CLI, экспорт RPG и версионирование | Smoke logs + решение по интеграции | Graph/CLI доступны, версии фиксированы; либо честный BLOCKED |
-| **P2 — Scenario acceptance** | Один Checker job, пользователи, граница, semantics, negative cases, независимые tests | Утверждённая целевая спецификация Checker | Нет незадекларированной доменной неопределённости, важной для реализации |
-| **P3 — Harness engineering closure** | Engineering Graph, требуемые решения и capability deps, вопросы, архитектурные варианты/контракты | Проверенный Harness consumer, tech constraints, test design | Target closure PASS с осмысленной независимой проверкой |
-| **P4 — RPG + generation** | Contract bridge, To-Be RPG, интерфейсы/код, сценарий запуска, снимок графа | Самостоятельный Checker + link manifest | Критические независимые oracle cases PASS; архитектурные границы выдержаны |
-| **P5 — Change impact** | Повторный смысловой запрос: новый источник свидетельств или stale evidence | Before/after: Harness/RPG/code/tests | Изменения объяснимы, нет скрытого semantic drift |
-| **P6 — Controlled comparison** | Один и тот же сценарий для A агент, B Harness, C RPG, D оба | Полные прогоны, метрики, затратность | Сравнимые условия и прозрачные исключения |
-| **P7 — Conclusion** | Trade-off, применимость, второй сценарий для переноса | Отчёт GO/CONDITIONAL/NO-GO + шаблон повторения | Вывод основан на evidence, не на впечатлениях |
+| ID | Small deliverable | Acceptance gate |
+| --- | --- | --- |
+| S0 | Method reset, navigation, scopes, Engineering Policy; preserve PR #27 | Docs/links CI PASS; no active Harness instruction |
+| S1 | Architecture validation against archived CoderMind skeleton and source import graph | Known domain/application violation fails; legitimate inward layout passes; stdlib CI PASS |
+| S2 | CoderMind/Codex telemetry with normalized run schema | One reproducible offline log parser, zero tokens never equated to unknown; live token counts explicitly unverified until live probe |
+| S3 | Freeze Checker task/specifications/independent oracle; evaluate OpenSpec minimal workflow | Same accepted inputs for all candidates; actual OpenSpec version and export validated before implementation |
+| S4 | Controlled direct Codex vs CoderMind run with bounded budget | Architecture + independent tests, wall-clock, tokens or UNKNOWN, retries, interventions and hashes recorded |
+| S5 | Optimize selected bottleneck(s) (no-op reviews, excessive context/iterations, semantic drift) | Measured improved quality-adjusted duration/usage without regressions on frozen cases |
+| S6 | Adaptive model router: deterministic first for mechanical work, local/cloud by observed quality, speed and quota | A/B evidence and safe fallback; no hypothetical savings or forced local-first |
+| S7 | Requirements change-impact and transfer to second task | Before/after trace, independent regression and evidence-based GO/NO-GO |
 
-## Управление задачами
+One task, branch, PR and bounded proof at a time. Code execution/LLM calls are **never** implied by a documentation-only PR. Do not bypass architectural checks or rewrite fixed oracles after seeing implementation. An open PR remains a proposal until reviewed/merged.
 
-- Одна независимая инженерная задача = одна короткоживущая branch = один PR = один squash commit в main.
-- Ветки: research/, design/, tooling/, feat/, fix/, eval/.
-- Каждая задача связана с RQ-*, K-*, собственным TASK-* и проверкой результата.
-- Несколько PR могут завершать одну фазу; фазы не заменяют реальные зависимости знания.
-- При новом знании обновляются только канонические владельцы и затронутые downstream артефакты.
-- Не запускать долгий аудит legacy без доказательства, что неопределённость блокирует выбранный сценарий.
-- Решения о требованиях и критериях оценки принимаются **до** кодогенерации/тестового прогона, а не ретроспективно.
-
-## Конкретный начальный backlog
-
-- **TASK-001 (P0):** закончить структуру, проверить документы и GitHub CI, включить защиту main; затем закрыть P0 в current-state.
-- **TASK-002 (P1):** чистый Ubuntu Harness checkout к pin, minimal Engineering Graph consumer, validate/evaluate/doctor.
-- **TASK-003 (P1):** установленный CoderMind к pin; cmind check; определить поддерживаемый agent CLI и layout RPG snapshots.
-- **TASK-004 (P2):** SCN-006 → независимая target specification + принятие спорных ограничений + oracle до генерации.
-- **TASK-005 (P3):** Harness graph и минимальное domain/architecture/test design по принятым Checker требованиям.
-- **TASK-006 (P4):** bridge Harness → To-Be RPG; сгенерировать и независимо проверить первую реализацию.
-- **TASK-007 (P5):** регрессионный change experiment с изменением требований.
-- **TASK-008 (P6):** выполнить контролируемое сравнение режимов A/B/C/D.
-- **TASK-009 (P7):** оформить итоги и replication design.
-
-Не считать DONE задачи, пока evidence не зафиксировано и проверки не запускались.
+Offline S1 architecture regression, S2 log parser and OpenSpec CLI structural checks are verified in CI. Next work: accept the candidate product scope, freeze independent acceptance oracles, integrate CoderMind/LLM runtime and collect real metrics. See current-state.yaml.

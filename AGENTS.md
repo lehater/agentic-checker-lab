@@ -1,20 +1,9 @@
-# Checker — agent entrypoint
+# Agentic Checker Lab — agent entrypoint
 
-Start with [the owner's problem statement](docs/scenario/owner-problem-brief.md). Treat Checker as a real software engineering assignment, not a predesigned implementation.
+The accepted main branch is the source of truth. Read [docs/README.md](docs/README.md), [current state](docs/project/current-state.yaml), [strategy](docs/project/strategy.md), and [roadmap](docs/project/roadmap.md) before work.
 
-## Harness Consumer API v1
+Current direction: **OpenSpec-style specification-first engineering + direct Codex baseline versus optional Microsoft CoderMind/RPG**, independently evaluated. Harness is NOT part of the active workflow. Historical Harness/RPG runs remain evidence, not active instructions.
 
-Run `python3 .harness/harnessw.py sync` to materialize the pinned Consumer Pack at `.harness/harness-binding.json`. Route operations through `harness.application.skill_router` from that pack. Read returned `instruction_contracts` and the selected SKILL.md. Do not use Maintainer skills for project work.
+Read [Engineering Policy](docs/engineering/policy.md) before design or code changes: Clean Architecture, SOLID, KISS, YAGNI. A structurally valid RPG or passing generated tests is never sufficient proof of architectural or behavioral correctness.
 
-Select applicable Authorities and Capabilities according to Harness rules, not from a preset list. Follow dependencies, required semantic admission and publication. Ask the owner about material domain uncertainty; do not invent ACCEPTED or CURRENT. Produce an appropriate small working vertical slice on synthetic data.
-
-Use RPG/CoderMind for implementation planning and coding based on accepted Harness outputs; independently verify executable behavior. Do not access real firewalls.
-
-## Navigation
-
-- [Owner's problem](docs/scenario/owner-problem-brief.md)
-- [Project state](docs/project/current-state.yaml)
-- [Repository governance](docs/project/governance.md)
-- [Harness–RPG interface](docs/integration/README.md)
-
-Historical research and experimental runs are not accepted product requirements.
+One small task/branch/PR, explicit change scope, independent checks and evidence. No live firewall access or secrets. Model-driven commands and consumption of subscription quota require an explicit bounded experiment; CI must remain model-free.

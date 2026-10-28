@@ -1,17 +1,16 @@
 # Agentic Checker Lab
 
-Исследовательский репозиторий для воспроизводимой проверки методики агентной разработки **от задачи до исполняемого приложения** с использованием [Harness](https://github.com/lehater/harness) и [Microsoft RPG-ZeroRepo / CoderMind](https://github.com/microsoft/RPG-ZeroRepo).
+Experimental repository for **measuring and improving specification-driven agentic software engineering** from problem statement and accepted design to code, independent verification, and controlled change.
 
-**Исследуемый продукт — методика разработки, а не модернизация SSSR, Product или NAPMS.** Минимальный диагностический Checker — экспериментальный пример. Исторические репозитории используются только как зафиксированные источники свидетельств и требований.
+The project compares:
+- **Baseline:** accepted specifications + Codex directly.
+- **Candidate:** the same specifications + Microsoft RPG-ZeroRepo / CoderMind planning and code generation.
+- **Later optimization:** tracing, controlled process improvements and adaptive model routing (Codex/local models).
 
-**Начало работы:** [карта документации](docs/README.md), [стратегия](docs/project/strategy.md), [текущее состояние](docs/project/current-state.yaml), [порядок разработки](docs/project/governance.md).
+[Engineering Policy](docs/engineering/policy.md) requires Clean Architecture, SOLID, KISS and YAGNI, with explicit separation of machine-checkable constraints from human/LLM design review. OpenSpec is the **selected candidate for specification/change management**, not yet an installed or E2E-verified project dependency.
 
-Текущее состояние: **P0 — создание документальной основы**. Установка инструментов, генерация RPG, реализация Checker и сравнительные эксперименты ещё не выполнялись; планы и гипотезы не считаются проверенными результатами.
+**Harness is retired from the active method.** Old Harness-related files, experiments and [PR #27](https://github.com/lehater/agentic-checker-lab/pull/27) remain historical evidence; no Harness operations are required for new work. The PR is not merged and its test results must not be presented as verified main.
 
-Ubuntu является целевой средой эксперимента. Само приложение Checker должно работать независимо от Harness и CoderMind.
+Entry points: [documentation map](docs/README.md), [strategy](docs/project/strategy.md), [current state](docs/project/current-state.yaml), [roadmap](docs/project/roadmap.md), [comparison protocol](docs/project/experiment-design.md).
 
-Проверка целостности документации после клонирования:
-
-```bash
-make check
-```
+Static repository checks (no model calls): `make check`.

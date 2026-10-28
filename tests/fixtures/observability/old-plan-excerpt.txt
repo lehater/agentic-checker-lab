@@ -1,0 +1,11 @@
+# Extract of real log: PR #27, experiments/runs/checker-v1/rpg-attempt-1/plan.stdout
+# 2026-10-16. Minimal lines, not a reproduced complete native execution.
+2026-10-16 09:51:17,784 - INFO - [OK] LLM structured call successful
+2026-10-16 09:53:21,900 - INFO - [OK] LLM structured call successful
+2026-10-16 09:53:21,901 - WARNING - [DataFlowAgent] Validation failed: bad source
+✓  skeleton       done in 118.7s
+✓  data_flow      done in 94.4s
+✓  base_classes   done in 57.2s
+✓  interfaces     done in 640.3s
+✓  tasks          done in 128.0s
+Plan complete in 1039.6s.
