@@ -30,8 +30,8 @@ class DiscoveryLedgerTests(unittest.TestCase):
 
     def test_duplicate_and_missing_dependency_fail(self):
         data = self.prepared()
-        data["questions"].append(copy.deepcopy(data["questions"][0]))
         data["questions"][0]["depends_on"] = ["Q-999"]
+        data["questions"].append(copy.deepcopy(data["questions"][0]))
         errors = verify(data)
         self.assertTrue(any("Duplicate ID" in e for e in errors))
         self.assertTrue(any("prerequisite" in e for e in errors))
