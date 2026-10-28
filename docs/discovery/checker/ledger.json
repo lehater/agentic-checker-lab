@@ -1,10 +1,125 @@
 {
   "schema": "checker-discovery-ledger/v1",
-  "status": "NOT_STARTED",
-  "checkpoint": 0,
+  "status": "IN_PROGRESS",
+  "checkpoint": 1,
   "protocol_version": "0.1",
   "source_problem": "docs/scenario/owner-problem-brief.md",
-  "rounds": [],
-  "questions": [],
+  "rounds": [
+    {
+      "id": "R-001",
+      "status": "PREPARED",
+      "question_ids": [
+        "Q-001",
+        "Q-002",
+        "Q-003",
+        "Q-004",
+        "Q-005"
+      ],
+      "owner_confirmation": null,
+      "source_branch": "experiment/iterative-discovery-protocol",
+      "source_revision": "28b9f8df6a223fd95924576de249db769d8c5ae5",
+      "source_brief_sha": "0061b6f982c015785b59cad4b1b8c9fb95478617",
+      "protocol_sha": "b02961bd941f435ce65fbd8654b5a1e350059bcb",
+      "interviewer": "ChatGPT GPT-6",
+      "prompt_revision": "docs/discovery/chat-start.md @ 3346ec3822cc32dabdae3143c35c5243b110415d + current user instruction",
+      "skill_runtime": "NOT_INVOKED",
+      "observed_input_tokens": null,
+      "observed_output_tokens": null,
+      "elapsed_seconds": null,
+      "prepared_date": "2026-10-28",
+      "frontier_reason": "Five independent domain-semantic issues selected from the owner's brief; engineering-selected predicate subset, JSON/CLI and hidden oracle not promoted to owner-only questions.",
+      "pending_topics": [
+        "Validate proposed domain interpretation against owner examples",
+        "Engineering-selected predicate subset and wire contract to be proposed for consolidated later owner review",
+        "Independent oracle custody requires separate experiment decision"
+      ]
+    }
+  ],
+  "questions": [
+    {
+      "id": "Q-001",
+      "text": "Опишите один характерный сценарий проверки потока, по которому вы будете судить о полезности первого прототипа Checker: какие устройства/ACL и совпадающие правила ожидаете увидеть и какой результат сочтёте ошибочным?",
+      "issue": "Representative acceptance scenario and counterexample",
+      "why": "Нужен проверяемый пример предметного смысла, независимый от предлагаемого JSON/CLI контракта и готовой OpenSpec.",
+      "depends_on": [],
+      "options": [
+        "Сценарий с несколькими ACL на одном устройстве",
+        "Сценарий с несколькими межсетевыми экранами",
+        "Другой выбранный владельцем сценарий"
+      ],
+      "interviewer_proposal": "Начать с небольшого синтетического примера, в котором видно несколько совпадающих строк и порядок; это только предложение для интервью, не утверждённое требование.",
+      "source": "docs/scenario/owner-problem-brief.md#Потребность",
+      "created_round": "R-001",
+      "status": "OPEN",
+      "answer": null
+    },
+    {
+      "id": "Q-002",
+      "text": "Когда устройство лишь потенциально транзитное, но реальный путь потока неизвестен, по какому принципу считать его ACL релевантными с учётом привязок на вход, выход и глобально? Приведите пример ACL, которую следует включить или исключить.",
+      "issue": "Meaning of ACL relevance under uncertain traffic path",
+      "why": "Иначе можно спутать потенциальную применимость с доказанным прохождением трафика и задать неправильный контракт функции релевантности.",
+      "depends_on": [],
+      "options": [
+        "Включать потенциально применимые ACL и явно обозначать неопределённость",
+        "Включать ACL только при подтверждённой применимости",
+        "Другой критерий владельца"
+      ],
+      "interviewer_proposal": "Рассматривать результат как потенциальную релевантность, пока путь не подтверждён; это гипотеза, не предметное решение.",
+      "source": "docs/scenario/owner-problem-brief.md#Релевантность",
+      "created_round": "R-001",
+      "status": "OPEN",
+      "answer": null
+    },
+    {
+      "id": "Q-003",
+      "text": "Как должен трактоваться результат для сохранённого ACL-правила, если у него есть дополнительное условие, которое нельзя проверить по пяти полям запроса (например TCP established или расписание): считать совпадение неподтверждённым, завершать проверку ошибкой или использовать иной подход?",
+      "issue": "Handling unassessable rule predicates without false positive matches",
+      "why": "Нельзя незаметно выдать непроверенное правило за достоверное совпадение или отсутствие совпадений; минимальный набор поддерживаемых предикатов проектирует разработчик.",
+      "depends_on": [],
+      "options": [
+        "Явно пометить как неподтверждённое/непроверенное",
+        "Отклонить соответствующую проверку",
+        "Иное поведение"
+      ],
+      "interviewer_proposal": "Не смешивать 'невозможно проверить' с MATCH и NO_MATCH; конкретная форма отчёта делегируется инженерной проработке.",
+      "source": "docs/scenario/owner-problem-brief.md#Сопоставление",
+      "created_round": "R-001",
+      "status": "OPEN",
+      "answer": null
+    },
+    {
+      "id": "Q-004",
+      "text": "Какой предметный смысл оператор должен видеть в трёх случаях: релевантных ACL нет; релевантные ACL есть, но ни одно сохранённое правило не совпало; релевантная ACL известна, но её снимок отсутствует или неполон? Что оператору запрещено заключать из каждого случая?",
+      "issue": "Evidence absence versus negative match versus missing snapshot",
+      "why": "Нужна граница между отсутствием совпадений и отсутствием достоверных данных; нельзя подменять их общим deny-вердиктом.",
+      "depends_on": [],
+      "options": [
+        "Различать все три ситуации в наблюдаемом результате",
+        "Считать некоторые ситуации эквивалентными при явном обосновании владельца"
+      ],
+      "interviewer_proposal": "Разделять три состояния, не выводить общий permit/deny; это предложенная интерпретация, не утверждение.",
+      "source": "docs/scenario/owner-problem-brief.md#Потребность; docs/scenario/owner-problem-brief.md#Снимки-ACL",
+      "created_round": "R-001",
+      "status": "OPEN",
+      "answer": null
+    },
+    {
+      "id": "Q-005",
+      "text": "Какие сведения о происхождении и актуальности сохранённого ACL-снимка нужны оператору для правильной интерпретации совпадений в прототипе (например время получения, устройство, ACL, место применения), и что из этого действительно обязательно для первой версии?",
+      "issue": "Minimum evidence provenance and freshness for interpreting stored-rule observations",
+      "why": "Результат на сохранённых снимках может быть ошибочно принят за состояние действующей конфигурации.",
+      "depends_on": [],
+      "options": [
+        "Явно показывать происхождение и актуальность снимка",
+        "Ограничиться идентификаторами устройства/ACL с описанным ограничением",
+        "Другой минимум владельца"
+      ],
+      "interviewer_proposal": "Сохранять явную связь результата со снимком; обязательный набор полей и представление остаются предметом ответа владельца.",
+      "source": "docs/scenario/owner-problem-brief.md#Снимки-ACL",
+      "created_round": "R-001",
+      "status": "OPEN",
+      "answer": null
+    }
+  ],
   "decisions": []
 }
