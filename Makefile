@@ -1,4 +1,4 @@
-.PHONY: semantic-benchmark-test semantic-cases-test semantic-test harness-pack-preflight harness-consumer-preflight check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit architecture-test telemetry-test
+.PHONY: archived-rpg-test semantic-benchmark-test semantic-cases-test semantic-test harness-pack-preflight harness-consumer-preflight check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit architecture-test telemetry-test
 
 check:
 	python3 tools/check_repository.py
@@ -7,6 +7,7 @@ check:
 	python3 -m unittest discover -s tests -p 'test_semantic_review.py' -v
 	python3 -m unittest discover -s tests -p 'test_semantic_cases.py' -v
 	python3 -m unittest discover -s tests -p 'test_semantic_benchmark.py' -v
+	python3 -m unittest discover -s tests -p 'test_archived_rpg_gate.py' -v
 
 architecture-test:
 	python3 -m unittest discover -s tests -p 'test_architecture_policy.py' -v
@@ -60,3 +61,6 @@ semantic-cases-test:
 
 semantic-benchmark-test:
 	python3 -m unittest discover -s tests -p 'test_semantic_benchmark.py' -v
+
+archived-rpg-test:
+	python3 -m unittest discover -s tests -p 'test_archived_rpg_gate.py' -v
