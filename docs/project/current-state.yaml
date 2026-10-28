@@ -1,27 +1,30 @@
 schema: agentic-checker-lab/current-state/v1
-status: P2_RESTARTED_NO_CHECKER_ADMISSIONS
-phase: P2
-date: 2026-10-16
-purpose: Develop and evaluate agentic engineering methodology with Harness and RPG
+status: METHOD_RESET_PROPOSED_NOT_MERGED
+phase: S0
+date: 2026-10-28
+purpose: Evaluate a spec-first agentic SDLC without Harness using direct Codex and optional CoderMind
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
-next_task: TASK-004
+next_task: S1_ARCHITECTURE_GUARD
 accepted:
-  - Laboratory strategy and Git governance as defined in canonical project docs
-  - Owner problem brief as input evidence, not accepted Harness requirements
+  - "Owner directed: do not use Harness; evaluate OpenSpec + optional RPG against direct Codex."
+  - "Engineering principles: Clean Architecture, SOLID, KISS, YAGNI."
+  - "Evidence-based model routing balancing time to verified result and subscription budget; not local-first."
 verified:
-  - Rewound main to pre-Discovery Consumer Pack preflight commit 6fc0a88c05f53b779be8d3560e1d481f410424df
-  - Prior Checker state saved at archive/checker-pre-blind-restart-20261016
-  - Harness Consumer binding pinned to 1c31054a8c4af223dc1bb003175c1fbe3f0538d6
-  - New owner problem statement published to docs/scenario/owner-problem-brief.md
-  - Previous checker.problem and checker.requirements CURRENT publications absent from restarted tree
+  - "The main branch before this proposed PR is 2bf23ce08512eda92684d09e3c46958d4b6ab3cc; it contains historical Harness/RPG setup, not the completed Checker."
+  - "Open PR #27 retains runnable synthetic Checker, 30/30 native CoderMind tasks, tests and failed/patched review evidence; not merged into main."
+  - "The CoderMind candidate's saved RPG/skeleton places check under domain/application, violating the architecture contract."
+  - "Prior CoderMind run manifests do not provide verified model token/billing counters."
+verified_ci:
+  - "OpenSpec CLI 1.14.3 strict validation PASS in GitHub Actions run 40605882242 (structural validation only)."
 not_verified:
-  - Consumer Pack sync and validation against new Harness pin on Ubuntu
-  - New agent-operated Harness Discovery and semantic admissions
-  - Harness to RPG transfer, Checker implementation and independent tests
-  - Full isolation of developer from all research documents in shared repository
+  - "Merge, CI results and independent validation of this method reset."
+  - "OpenSpec installation on the user machine, interactive Codex tooling, accepted domain semantics and live E2E integration."
+  - "Architecture gate on main, new CoderMind instrumentation, token counts and rerun."
+  - "Equal-input comparison, automated optimization, model router and second-task transfer."
+  - "Current GitHub main branch protection; old docs reported temporary exception only."
 evidence:
-  owner_problem: docs/scenario/owner-problem-brief.md
-  harness_binding: .harness/harness-binding.json
-git_branch_protection: TEMPORARILY_DISABLED_BY_OWNER_FOR_RESET
+  checker_prior_pr: https://github.com/lehater/agentic-checker-lab/pull/27
+  checker_original_brief: docs/scenario/owner-problem-brief.md
+  checker_historical_rpg: experiments/runs/rpg-synthetic-v1/manifest.json
 toolchain: tooling/versions.yaml

@@ -1,40 +1,36 @@
-# Предрегистрация экспериментального сравнения
+# Experiment design — spec-first Agentic SDLC
 
-Статус: **PROPOSED**. Четыре варианта и независимость проверки — принятое исследовательское намерение. Конкретные бюджеты, модель и число повторов выбираются и замораживаются до P6.
+**PROPOSED / NOT YET RUN.** Freeze inputs and numerical targets before executing comparisons.
 
-## Главная причинная гипотеза
+## Hypotheses
 
-Harness улучшает инженерную полноту/корректность изменения; RPG улучшает исполнимость и локализацию изменения кодовой базы; **комбинация** помогает больше, чем каждый по отдельности, с учётом накладных расходов.
+H1: A deterministic architecture gate rejects invalid RPG plans before expensive codegen.
+H2: CoderMind has measurable marginal value over direct Codex given the *same* accepted specification and tool/model budget.
+H3: Telemetry-guided changes (context size, reviews, retry limits, routing) reduce quality-adjusted time/cost relative to unchanged baseline.
 
-| Arm | Исполнение | Инструменты |
-| --- | --- | --- |
-| A | Один coding agent с утверждённым заданием | Без Harness и RPG |
-| B | Engineering Graph и coding agent | Harness, без RPG |
-| C | Реализационный граф и coding agent | RPG/CoderMind, без Harness |
-| D | Согласованный engineering + implementation graph | Harness + RPG/CoderMind |
+## Arms
 
-## Контроль валидности
+- **A — Direct:** specification, accepted architecture and oracle; Codex implements without CoderMind.
+- **B — RPG:** identical inputs and oracle; CoderMind plans/generates using the same available models.
+- **C — Optimized (later):** same B pipeline with exactly one declared process adjustment per comparison.
+- **D — Adaptive routing (later):** same constraints, route local/cloud by observed completion latency, reliability and subscription budget.
 
-- Один принятый **нейтральный** пакет требований и допустимых входов; ни один arm не получает более полные бизнес-требования.
-- Одинаковый независимый набор обязательных acceptance tests, предусмотренный **до** codegen; держать часть тестов вне контекста генерирующего агента.
-- Одинаковая модель, фиксированные версии agent CLI/tooling, сопоставимые вычислительные и денежные бюджеты, чистые исходные деревья.
-- Опубликовать **все** прогоны, а не только лучший; по возможности несколько повторов с разным порядком вариантов.
-- Общая последовательность: первичная реализация → независимый oracle → одинаковый change request → повторный oracle/impact.
-- Не менять критерии после получения результата; любое отклонение от протокола явно фиксируется и анализируется отдельно.
+No Harness active arm. Preserve old A/B/C/D Harness protocol as historical research rather than falsely treating it as the new experiment.
 
-## Метрики (сбор с первичных данных)
+## Validity
 
-1. **Correctness/safety:** независимые test pass/fail, число критических ошибочных verdict/unknown/freshness, security violations.
-2. **Traceability:** доля принятых требований со связью к code/test и корректной link provenance; ошибочные/отсутствующие impact edges.
-3. **Change locality:** затронутые файлы/модули/контракты, незапланированные модификации, регрессии, циклы исправлений.
-4. **Costs:** wall clock, LLM tokens/cost при наличии, количество agent calls, объём контекста и ручных вмешательств.
-5. **Reproducibility:** восстановление из Git SHA + tools pins + graph snapshots + fixtures на чистой Ubuntu.
-6. **Complexity overhead:** объём и стоимость поддержания графов/документов, накладные действия и время на них.
+- Freeze requirements, architecture, fixtures and hidden independent oracle before any code generation.
+- Capture git SHA, model+CLI versions/config, runtime environment, exact task scope, prompts/config hashes, wall-clock, per-stage attempts and verified tokens (else UNKNOWN).
+- Equal wall-clock ceilings and comparable quotas; record blocked runs without hidden retries.
+- Same architecture gate for A and B **after codegen**; for B additionally gate RPG skeleton/interfaces **before codegen**.
+- Analyze both initial implementation and a bounded change request; separate pre-code design quality from codegen quality.
+- Assess correctness (critical oracles), dependency violations, unnecessary entities, manual intervention, elapsed time and model usage.
+- Repeat and report all runs where feasible; no cherry-picked success, no changed oracle to fit implementation.
 
-Численные thresholds преимущества и N повторов нужно согласовать до P6. Само прохождение 100% критических тестов — обязательный минимум корректности **каждого** варианта, но не критерий превосходства D.
+## Optimization objective
 
-## Режимы вывода
+Minimize time-to-verified-result and expected rework subject to hard correctness/architecture gates and actual subscription budget. More local-model calls are not automatically better; use no LLM for deterministic parsing where possible.
 
-PASS — эмпирически подтверждено в оговорённых условиях. FAIL — есть независимое несоответствие. BLOCKED — невозможность исполнить, отдельно от плохого результата алгоритма. INCONCLUSIVE — недостаточно сравнимых свидетельств.
+## Existing evidence
 
-Рабочие данные: [experiments](../../experiments/README.md). Oracle: [oracle-plan](../evaluation/oracle-plan.md).
+[PR #27](https://github.com/lehater/agentic-checker-lab/pull/27) is a non-blinded historical run: first RPG plan 1039.6s; repeated plan 1118.8s; native codegen ~46 minutes; model cost counters unverified. It is a **diagnostic benchmark**, not a controlled direct-vs-RPG result.

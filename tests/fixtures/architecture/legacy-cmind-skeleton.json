@@ -1,0 +1,26 @@
+{
+  "_provenance": {
+    "source": "https://github.com/lehater/agentic-checker-lab/blob/c7f794099e925a31c381aef53ff2927ae28f09aa/experiments/runs/checker-v1/rpg-context-1/skeleton.json",
+    "extraction": "minimal exact path/feature witness from archived CoderMind RPG; not the whole historical skeleton"
+  },
+  "root": {
+    "type": "directory",
+    "name": "project_root",
+    "children": [
+      {
+        "type": "file",
+        "path": "src/acl_checker/domain/application/check.py",
+        "feature_paths": [
+          "Исследование совпадений ACL/investigation execution/check traffic evidence"
+        ]
+      },
+      {
+        "type": "file",
+        "path": "src/acl_checker/domain/matching.py",
+        "feature_paths": [
+          "Исследование совпадений ACL/flow evaluation/evaluate stored rule match"
+        ]
+      }
+    ]
+  }
+}
