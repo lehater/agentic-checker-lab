@@ -5,14 +5,14 @@ date: 2026-10-28
 purpose: Evaluate a spec-first agentic SDLC without Harness using direct Codex and optional CoderMind
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
-next_task: REQUIREMENTS_ORACLE_AND_LOCAL_E2E
+next_task: LOCAL_EXECUTOR_HANDOFF
 accepted:
   - "Owner directed: do not use Harness; evaluate OpenSpec + optional RPG against direct Codex."
   - "Engineering principles: Clean Architecture, SOLID, KISS, YAGNI."
   - "Evidence-based model routing balancing time to verified result and subscription budget; not local-first."
 verified:
   - "Prior main SHA before the method reset: 2bf23ce08512eda92684d09e3c46958d4b6ab3cc; archived Harness/RPG remains evidence."
-  - "Open PR #27 retains runnable synthetic Checker, 30/30 native CoderMind tasks, tests and failed/patched review evidence; not merged into main."
+  - "Closed-unmerged historical PR #27 retains runnable synthetic Checker and old CoderMind failure/review evidence; no active Checker implementation was merged."
   - "The CoderMind candidate's saved RPG/skeleton places check under domain/application, violating the architecture contract."
   - "Prior CoderMind run manifests do not provide verified model token/billing counters."
 verified_ci:
@@ -20,6 +20,8 @@ verified_ci:
   - "Architecture contract, offline telemetry and semantic-report protocol tests PASS in GitHub Actions run 40607731442."
   - "Original CoderMind RPG Git blob a6201115f9597f809aed60a83483bcb713e6acbc rejected by deterministic architecture gate; revised structural counterexample passes."
   - "Offline semantic benchmark exports omit labels; no AI model evaluation performed."
+  - "PR #42 links all 10 proposed OpenSpec scenarios to independent NOT_RUN acceptance ideas."
+  - "PR #43 adds quality-gated offline process/model comparison; no live measurement performed."
 not_verified:
   - "Owner acceptance of proposed Checker predicate subset and data schema; local OpenSpec/interactive Codex integration and live E2E."
   - "Live CoderMind stage interception, actual model usage counters and rerun."

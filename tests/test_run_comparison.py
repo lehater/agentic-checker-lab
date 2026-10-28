@@ -1,7 +1,6 @@
 """Scenario-policy tests; figures are synthetic fixtures, never measured results."""
 from __future__ import annotations
 
-import copy
 import unittest
 from tools.compare_runs import compare
 
@@ -71,7 +70,8 @@ class RunComparisonTests(unittest.TestCase):
             record["record_class"] = "observed"
         result = compare(data, minimum_gain=.01)
         self.assertEqual(result["status"], "MEASURED_COMPARISON")
-        self.assertEqual(result["routing_candidate"], "direct")
+        self.assertEqual(result["fastest_quality_passing_arm"], "direct")
+        self.assertIsNone(result["routing_candidate"])
         self.assertEqual(result["confidence"], "NOT_STATISTICALLY_ESTABLISHED")
 
     def test_declared_minimum_gain_prevents_overclaim(self):

@@ -103,7 +103,8 @@ def compare(data: dict, minimum_per_arm: int = 2, minimum_gain: float = 0.0) -> 
         else:
             reason += "; gain is below declared minimum"
     return {"schema": "checker-lab/comparison-result/v1", "status": status,
-            "routing_candidate": winner, "confidence": "NOT_STATISTICALLY_ESTABLISHED",
+            "routing_candidate": None, "fastest_quality_passing_arm": winner,
+            "confidence": "NOT_STATISTICALLY_ESTABLISHED",
             "comparable_context": comparable, "comparison_kind": comparison_kind, "all_observed": all_observed,
             "all_complete": all_complete, "minimum_per_arm": minimum_per_arm,
             "minimum_gain": minimum_gain, "arms": sample, "reason": reason,
