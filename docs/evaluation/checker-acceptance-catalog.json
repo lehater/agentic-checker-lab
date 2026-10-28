@@ -1,0 +1,89 @@
+{
+  "schema": "checker-acceptance-catalog/v1",
+  "status": "PROPOSED_NOT_OWNER_ACCEPTED",
+  "spec": "openspec/changes/checker-v1-baseline/specs/checker-query/spec.md",
+  "spec_git_blob_sha": "22c8953ad0c6417d366f07ed79e7a980598dfc7b",
+  "source_problem": "docs/scenario/owner-problem-brief.md",
+  "cases": [
+    {
+      "id": "CHK-001",
+      "requirement": "Validated one-shot query",
+      "scenario": "Valid input",
+      "given": "One synthetic UTF-8 JSON document has source/destination IPv4, TCP and both ports",
+      "expected": "One flow is accepted for evaluation; no real device queried",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-002",
+      "requirement": "Validated one-shot query",
+      "scenario": "Invalid or unsupported input",
+      "given": "Input lacks dst IPv4 or has source port 65536 or an unknown predicate",
+      "expected": "Whole request fails explicitly, without approximation",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-003",
+      "requirement": "Complete stored-rule matching",
+      "scenario": "Multiple matching actions",
+      "given": "Saved ACL has ordered r1 permit tcp 443 and r2 deny tcp 443 both matching",
+      "expected": "Return r1 and r2 in stored order, irrespective of their actions",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-004",
+      "requirement": "Complete stored-rule matching",
+      "scenario": "Predicate boundaries",
+      "given": "Port 443 against inclusive [443,443], nonmatching [444,445]; 192.0.2.4 against /24 and unrelated /24",
+      "expected": "Only containing inclusive ranges and containing networks match",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-005",
+      "requirement": "Relevance is a separate provided input",
+      "scenario": "Duplicate relevance",
+      "given": "Ordered pairs fw-a/acl-1, fw-a/acl-1, fw-b/acl-2",
+      "expected": "Exactly two output groups in first-seen order",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-006",
+      "requirement": "Relevance is a separate provided input",
+      "scenario": "Missing required snapshot",
+      "given": "Relevant pair fw-b/acl-2 has no available snapshot",
+      "expected": "Fail entire query with no partial successful output or invented NO_MATCH",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-007",
+      "requirement": "Preserved observation and presentation",
+      "scenario": "No stored match",
+      "given": "One relevant, valid snapshot contains no matching rule",
+      "expected": "Group reports NO_MATCH and empty rules, not an implicit deny",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-008",
+      "requirement": "Preserved observation and presentation",
+      "scenario": "Structured report",
+      "given": "Relevant ACLs fw-b/acl-2 and fw-a/acl-1 each have ordered stored matches",
+      "expected": "JSON output preserves relevance and snapshot ordering and rule evidence, no global verdict",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-009",
+      "requirement": "Failure atomicity and input isolation",
+      "scenario": "Invalid snapshot input",
+      "given": "A relevant snapshot has an unknown predicate, another is valid",
+      "expected": "Nonzero exit, diagnostic stderr and no successful or partial stdout",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-010",
+      "requirement": "Failure atomicity and input isolation",
+      "scenario": "Local-only execution",
+      "given": "Run with synthetic input and local stored snapshots in isolated environment",
+      "expected": "No network or device activity; result only from supplied evidence",
+      "execution_status": "NOT_RUN"
+    }
+  ]
+}
