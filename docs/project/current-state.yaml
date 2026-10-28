@@ -5,7 +5,9 @@ date: 2026-10-28
 purpose: Evaluate a spec-first agentic SDLC without Harness using direct Codex and optional CoderMind
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
-next_task: LOCAL_EXECUTOR_HANDOFF
+next_task: LOCAL_EXECUTOR_L1
+local_executor_entrypoint: docs/project/local-executor-handoff.md
+local_executor_first_issue: https://github.com/lehater/agentic-checker-lab/issues/32
 accepted:
   - "Owner directed: do not use Harness; evaluate OpenSpec + optional RPG against direct Codex."
   - "Engineering principles: Clean Architecture, SOLID, KISS, YAGNI."
