@@ -11,6 +11,8 @@ The project compares:
 
 **Harness is retired from the active method.** Old Harness-related files, experiments and [PR #27](https://github.com/lehater/agentic-checker-lab/pull/27) remain historical evidence; no Harness operations are required for new work. The PR is not merged and its test results must not be presented as verified main.
 
+**For a local Codex/agent executor:** start with [AGENTS.md](AGENTS.md), then the [local executor handoff](docs/project/local-executor-handoff.md) (begin at L1 / issue #32; candidate domain decisions are not approved).
+
 Entry points: [documentation map](docs/README.md), [strategy](docs/project/strategy.md), [current state](docs/project/current-state.yaml), [roadmap](docs/project/roadmap.md), [comparison protocol](docs/project/experiment-design.md).
 
 Static repository checks (no model calls): `make check`.
