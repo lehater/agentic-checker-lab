@@ -18,11 +18,9 @@
 | Исходная постановка Checker | [Scenario](scenario/README.md) |
 | Исследования и исторические результаты | [Research](research/README.md) |
 | ADR | [Decisions](decisions/README.md) |
+| Экспериментальный discovery-протокол (ветка пилота) | [Discovery protocol](discovery/protocol.md) |
+| Старт нового ChatGPT-чата (пилот) | [Chat start](discovery/chat-start.md) |
 
 ACTIVE: только утверждённая в main методика. PROPOSED: непроверенный кандидат. VERIFIED: реальное проверенное выполнение с SHA и окружением. HISTORICAL: предыдущие эксперименты, включая Harness; не действующие инструкции.
 
 RPG, сгенерированный код, журналы и отчёты — производные от спецификаций. Изменение требований требует явного согласования, а не тихого исправления generated output.
-
-
-| Экспериментальный протокол выявления требований (только ветка пилота) | [Discovery protocol](discovery/protocol.md) |
-| Инструкция для отдельного ChatGPT-чата (пилот) | [Discovery chat start](discovery/chat-start.md) |
