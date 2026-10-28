@@ -54,7 +54,7 @@ class ArchivedRpgGateTests(unittest.TestCase):
         rc, result = gate(ARCHIVED)
         self.assertEqual(rc, 1, result)
         self.assertEqual(result["status"], "FAIL")
-        self.assertEqual(result["checked"]["skeleton_files"], 21)
+        self.assertEqual(result["checked"]["skeleton_files"], 14)  # Files under configured src/acl_checker only
         self.assertTrue(any("nested layer root" in x for x in result["violations"]), result)
         self.assertTrue(any("belongs in application" in x for x in result["violations"]), result)
 
