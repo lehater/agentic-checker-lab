@@ -1,7 +1,7 @@
 {
   "schema": "checker-discovery-ledger/v1",
   "status": "IN_PROGRESS",
-  "checkpoint": 5,
+  "checkpoint": 6,
   "protocol_version": "0.2",
   "source_problem": "docs/scenario/owner-problem-brief.md",
   "rounds": [
@@ -109,7 +109,7 @@
     },
     {
       "id": "R-003",
-      "status": "PREPARED",
+      "status": "CLOSED",
       "question_ids": [
         "Q-009"
       ],
@@ -132,9 +132,26 @@
         "D-007"
       ],
       "pending_topics": [
-        "Wait for owner Q-009 reply and explicit review of normalized answer",
-        "CR-02..CR-14 remain engineering, derived, deferred, contradiction or insufficient evidence; do not auto-promote to owner questions",
-        "Candidate OpenSpec and acceptance oracle remain unapproved"
+        "CR-02: known relevant ACL without first successful snapshot remains delegated to engineering; do not treat as zero matches",
+        "CR-03..CR-14 completeness findings remain engineering/derived/deferred/contradiction/evidence work, not automatic owner questions",
+        "Independent semantic review, candidate OpenSpec / acceptance catalog and oracle are NOT approved; CHK cases NOT_RUN"
+      ],
+      "prepared_commit": "c1e448e9ae71fd596be980a64f5382a6e0eb8e8f",
+      "closed_date": "2026-10-29",
+      "decision_ids": [
+        "D-012"
+      ],
+      "owner_confirmation": "После представления нормализации Q-009 и предложенного D-012 владелец явно подтвердил их ответом «Мда, подтверждаю» (2026-10-29).",
+      "unresolved_topics": [
+        "Модель поведения при отсутствии первого успешного снимка известного ACL — инженерное решение.",
+        "Точный поддерживаемый набор предикатов, контракт источника релевантности, структурный вывод и независимый oracle — инженерная проработка.",
+        "Смысл утверждённых D-001..D-012 требует независимой семантической проверки; исходная речь не подтверждается независимым первичным транскриптом в GitHub."
+      ],
+      "process_observations": [
+        "Completeness Review обнаружил неописанный ранее нулевой уровень кардинальности FW: Q-009 уточняет Q-002 и Q-004, не задавая их повторно.",
+        "Владелец разделил состав фактов (FW → ACL+привязки → matching rules) и способ визуального представления; специальные коды NO_RELEVANT_FW/NO_ACL/NO_MATCH не утверждены.",
+        "Вопрос R-003 был опубликован в GitHub при PREPARED checkpoint 5 до предъявления; после явного review подтверждён одним ответом; прочие обнаруженные пробелы остаются классифицированными без искусственного раунда.",
+        "Поиск использует только доступные корректные снимки; отсутствие первого успешного снимка не превращается в NO_MATCH."
       ]
     }
   ],
@@ -398,12 +415,25 @@
       "interviewer_proposal": "Рекомендация только для обсуждения: отличить NO_RELEVANT_FW от FW_NO_ACL и ACL_NO_MATCH. Это не утверждённый контракт CLI/JSON и не решение о прохождении трафика.",
       "source": "docs/scenario/owner-problem-brief.md#Релевантность; docs/discovery/checker/ledger.json#Q-002; docs/discovery/checker/ledger.json#Q-004; docs/discovery/checker/completeness-review-2026-10-29.md#CR-01",
       "created_round": "R-003",
-      "status": "OPEN",
+      "status": "ANSWERED",
       "reason_code": "new_dependency",
       "follow_up_to": [
         "Q-002",
         "Q-004"
-      ]
+      ],
+      "answer": {
+        "approval": "APPROVED",
+        "normalized": "Результат Checker содержит три уровня фактов: (1) все релевантные FW независимо от наличия ACL; (2) внутри каждого FW все релевантные ACL со всеми их релевантными точками применения независимо от наличия совпавших правил; (3) внутри каждого ACL только совпавшие по принятым критериям правила. Если нет релевантных FW, множество FW пусто; если у релевантного FW нет релевантных ACL, сохраняется сам FW с пустым набором ACL; если у релевантного ACL нет совпавших правил, сохраняется ACL с пустым набором совпадений. Это описание состава и вложенности фактов, а не формы UI или обязательных специальных кодов статусов. Отсутствие успешно полученного снимка не приравнивается к доказанному отсутствию совпадений.",
+        "owner_confirmation": "После представления нормализации Q-009 и предложенного D-012 владелец явно подтвердил их ответом «Мда, подтверждаю» (2026-10-29).",
+        "source_round": "R-003",
+        "reason": "owner_clarification",
+        "review_notes": "Владелец описал иерархию фактов, независимо от UI. Обязательные специальные статусы были только рекомендацией интервьюера, не решением владельца; принята пустота множества объектов соответствующего уровня. D-007/D-010 сохраняются.",
+        "example_mapping": {
+          "rule": "Каждый релевантный FW и каждый релевантный ACL присутствуют в результате независимо от наличия дочерних сущностей; правила показываются только при совпадении.",
+          "example": "FW-A релевантен, ACL нет → FW-A с пустым набором ACL. FW-B релевантен, ACL WEB_IN есть, совпавших правил нет → FW-B/WEB_IN с пустым набором правил. Никаких релевантных FW → пустой набор FW.",
+          "counterexample": "Не показывать релевантный FW лишь потому, что у него нет ACL, либо скрыть релевантный именованный ACL из-за отсутствия совпавших правил, либо выдать обязательные статусы/вердикт вместо фактов."
+        }
+      }
     }
   ],
   "decisions": [
@@ -528,6 +558,17 @@
       "status": "ACCEPTED",
       "owner_confirmation": "Владелец явно подтвердил уточнение Q-006 (одиночные IP, TCP/UDP, порты с пустым значением any по умолчанию) и D-010/D-011 без изменений, ответом «Да, подтверждаю» на итоговое review R-002 (2026-10-29).",
       "accepted_round": "R-002",
+      "reason_code": "owner_clarification"
+    },
+    {
+      "id": "D-012",
+      "text": "Checker формирует иерархию фактов: релевантные FW → релевантные ACL с местами применения → совпавшие правила. Каждый объект включается независимо от наличия дочерних объектов. Отсутствие объектов на любом уровне означает пустое множество соответствующих фактов. Способ представления этих данных определяется отдельно.",
+      "source_questions": [
+        "Q-009"
+      ],
+      "status": "ACCEPTED",
+      "owner_confirmation": "После представления нормализации Q-009 и предложенного D-012 владелец явно подтвердил их ответом «Мда, подтверждаю» (2026-10-29).",
+      "accepted_round": "R-003",
       "reason_code": "owner_clarification"
     }
   ]
