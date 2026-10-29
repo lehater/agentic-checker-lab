@@ -2,7 +2,7 @@
   "schema": "checker-acceptance-catalog/v1",
   "status": "PROPOSED_NOT_OWNER_ACCEPTED",
   "spec": "openspec/changes/checker-v1-baseline/specs/checker-query/spec.md",
-  "spec_git_blob_sha": "120b66959b539bd3e1f48e75918516c3775681a1",
+  "spec_git_blob_sha": "dd3a1a4b890e885fb9d66fa5cfd0c27dc90bdf95",
   "source_problem": "docs/scenario/owner-problem-brief.md",
   "cases": [
     {
