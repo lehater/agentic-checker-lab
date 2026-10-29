@@ -1,4 +1,4 @@
-# Checker L1 — consolidated review packet (proposed, not approved)
+# Checker L1 — approved synthetic scope; technical and oracle gates remain
 
 **Approval outcome (2026-10-29): `APPROVED_SCOPE_AND_SEMANTICS`.** After the full package was explicitly presented in this ChatGPT conversation, the owner answered: **«Да, утверждаю, продолжай.»** This records acceptance of the **synthetic L1 scope and observable meaning in this review packet**, including the explicitly deferred implementation coverage and permission for the engineer to finalize the proposed JSON/CLI contract within this scope. It is **not** approval of unpublished technical changes, a hidden oracle, or execution of code-generation models. The underlying original chat message is not independently linkable from GitHub; this documentation records the approval claim and its context.
 
@@ -38,7 +38,7 @@
 - **Error/missing evidence:** proposed fail-atomic for invalid mandatory inputs or missing/corrupt relevant snapshots; **never** silently turn unknown evidence into zero matches. Exit and stderr are engineering wire details, subject to review.
 - **Excluded from this first implementation:** real route-table/ingress-egress ACL selection, collection/refresh/logging, long-term snapshot history, vendor parsing, distributed storage, live connectivity check.
 
-The [contract proposal](checker-v1-contract-proposal.md) now **proposes explicit engineering rules** for duplicate identities, unexpected fields, ordering, mandatory matcher validation, error shape and port types. They remain reviewable proposed choices (not owner-confirmed universal product requirements). A formal JSON Schema and executable oracle have **not** been produced or accepted.
+The [contract proposal](checker-v1-contract-proposal.md) now **proposes explicit engineering rules** for duplicate identities, unexpected fields, ordering, mandatory matcher validation, error shape and port types. They remain reviewable proposed choices (not owner-confirmed universal product requirements). A [draft JSON Schema](checker-v1-input.schema.json) and [public no-dependency input linter](../../tools/validate_checker_l1_input.py) now exist with [open negative tests](../../tests/test_checker_l1_input_contract.py). They are **engineering-authored contract checks, not an independently authored or held-out acceptance oracle**. The schema does not by itself express cross-object identity, canonical IPv4 CIDR or port-range ordering; the linter checks those. No executable Checker behavior has been tested.
 
 ## 4. Approval request — one package, not renewed interrogation
 
