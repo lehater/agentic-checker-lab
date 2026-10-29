@@ -18,7 +18,7 @@
 
 ## 2. Exactly equal task input; no spoilers
 
-- Source is [original owner brief](../../scenario/owner-problem-brief.md) with Git blob **`0061b6f982c015785b59cad4b1b8c9fb95478617`**. Copy frozen text from [inputs/checker-brief.md](inputs/checker-brief.md) **verbatim**. The full prior ledger/rounds/spec/Completeness Review/semantic audits MUST NOT be shared with participants.
+- Source is [original owner brief](../../../scenario/owner-problem-brief.md) with Git blob **`0061b6f982c015785b59cad4b1b8c9fb95478617`**. Copy frozen text from [inputs/checker-brief.md](inputs/checker-brief.md) **verbatim**. The full prior ledger/rounds/spec/Completeness Review/semantic audits MUST NOT be shared with participants.
 - B requires a Spec Kit feature spec; [inputs/spec-kit-neutral-seed.md](inputs/spec-kit-neutral-seed.md) is a **neutral wrapper around exactly the same original brief**, not a previously refined specification. Record this input-format asymmetry: it is necessary for B and could affect results.
 - For native tools, install all arms in separate **clean workspaces**. No old `AGENTS.md`, issue history, PRs, spec drafts, project files or corpus retrieval. With ChatGPT-only prompt emulation, record `PROMPT_EMULATION`; never present it as native skill execution.
 - Start **three fresh temporary/memory-isolated chats** where possible; turn off memory and project/history connections for participants. A *new normal chat with explicit “ignore history” instruction is not proven blind*. For the strictest test, use separate workspace with no GitHub connector/web access to the original repo. If isolation cannot be guaranteed, record `BLINDING_UNVERIFIED` and downgrade any comparison claim.
