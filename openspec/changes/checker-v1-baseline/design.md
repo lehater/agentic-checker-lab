@@ -4,6 +4,8 @@
 
 The owner's brief requires all matching stored ACL rules in the full provided relevant firewall → ACL → rule hierarchy. Historical PR #27 is informative evidence, not executable input for a fair new evaluation. OpenSpec validation and owner approval are still pending.
 
+**Proposed concrete CLI/JSON example (not accepted):** [Checker v1 contract proposal](../../../docs/evaluation/checker-v1-contract-proposal.md). This contract is for consolidated owner/engineering review and is not an independent oracle.
+
 ## Goals and non-goals
 
 Goals: a small read-only CLI; deterministic outcome; narrow domain rules; replaceable relevance/snapshot provider in the application; stable external failure semantics; independent tests.
