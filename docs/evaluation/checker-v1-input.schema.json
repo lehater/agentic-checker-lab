@@ -1,0 +1,301 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://example.invalid/checker/synthetic-input-v1.schema.json",
+  "title": "Checker L1 synthetic input — proposed contract",
+  "description": "Approved synthetic L1 scope; this schema is an engineering proposal and is public, not a hidden oracle. Enforce cross-array identity/cardinality, canonical CIDR, valid IPv4 format and min<=max separately. No live devices.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "flow",
+    "firewalls",
+    "snapshots"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "flow": {
+      "type": "object",
+      "required": [
+        "src_ip",
+        "dst_ip",
+        "protocol"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "src_ip": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "Format validation with an IPv4-aware format checker is required"
+        },
+        "dst_ip": {
+          "type": "string",
+          "format": "ipv4",
+          "description": "Format validation with an IPv4-aware format checker is required"
+        },
+        "protocol": {
+          "enum": [
+            "tcp",
+            "udp"
+          ]
+        },
+        "src_port": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            {
+              "const": "any"
+            }
+          ]
+        },
+        "dst_port": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            {
+              "const": "any"
+            }
+          ]
+        }
+      },
+      "description": "Omitted src_port and dst_port mean any and impose no restriction on corresponding ACL dimension"
+    },
+    "firewalls": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/firewall"
+      }
+    },
+    "snapshots": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/snapshot"
+      }
+    }
+  },
+  "$defs": {
+    "firewall": {
+      "type": "object",
+      "required": [
+        "id",
+        "acls"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "acls": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/acl"
+          }
+        }
+      }
+    },
+    "acl": {
+      "type": "object",
+      "required": [
+        "id",
+        "placements"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "placements": {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "required": [
+                  "kind",
+                  "name",
+                  "direction"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "interface"
+                  },
+                  "name": {
+                    "type": "string",
+                    "minLength": 1
+                  },
+                  "direction": {
+                    "enum": [
+                      "ingress",
+                      "egress"
+                    ]
+                  }
+                }
+              },
+              {
+                "type": "object",
+                "required": [
+                  "kind"
+                ],
+                "additionalProperties": false,
+                "properties": {
+                  "kind": {
+                    "const": "global"
+                  }
+                }
+              }
+            ]
+          }
+        }
+      }
+    },
+    "snapshot": {
+      "type": "object",
+      "required": [
+        "device_id",
+        "acl_id",
+        "last_success_at",
+        "rules"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "device_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "acl_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "last_success_at": {
+          "type": "string",
+          "format": "date-time",
+          "description": "RFC3339 UTC last successful snapshot instant; validator must enforce UTC offset"
+        },
+        "rules": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/rule"
+          }
+        }
+      }
+    },
+    "rule": {
+      "type": "object",
+      "required": [
+        "action",
+        "src_ip",
+        "dst_ip",
+        "protocol",
+        "src_port",
+        "dst_port"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "enum": [
+            "permit",
+            "deny"
+          ]
+        },
+        "src_ip": {
+          "type": "string",
+          "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}(?:/(?:[0-9]|[12][0-9]|3[0-2]))?$",
+          "description": "Exact IPv4 or canonical CIDR; validate IP octets/network alignment separately (e.g. Python ipaddress with strict=True)."
+        },
+        "dst_ip": {
+          "type": "string",
+          "pattern": "^(?:[0-9]{1,3}\\.){3}[0-9]{1,3}(?:/(?:[0-9]|[12][0-9]|3[0-2]))?$",
+          "description": "Exact IPv4 or canonical CIDR; validate IP octets/network alignment separately (e.g. Python ipaddress with strict=True)."
+        },
+        "protocol": {
+          "enum": [
+            "tcp",
+            "udp",
+            "any"
+          ]
+        },
+        "src_port": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            {
+              "const": "any"
+            },
+            {
+              "type": "object",
+              "required": [
+                "min",
+                "max"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "min": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+                },
+                "max": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+                }
+              },
+              "description": "Validate min <= max in semantic review; this condition is beyond the declarative property bounds."
+            }
+          ]
+        },
+        "dst_port": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 65535
+            },
+            {
+              "const": "any"
+            },
+            {
+              "type": "object",
+              "required": [
+                "min",
+                "max"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "min": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+                },
+                "max": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "maximum": 65535
+                }
+              },
+              "description": "Validate min <= max in semantic review; this condition is beyond the declarative property bounds."
+            }
+          ]
+        },
+        "extra": {
+          "type": "object",
+          "description": "Arbitrary JSON-safe supplemental conditions preserved verbatim but never evaluated as matching predicates",
+          "additionalProperties": true
+        }
+      }
+    }
+  }
+}

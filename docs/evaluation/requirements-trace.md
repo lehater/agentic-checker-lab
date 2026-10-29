@@ -1,6 +1,6 @@
 # Candidate Checker requirements trace and independent acceptance ideas
 
-Five requirements and ten WHEN/THEN scenarios are defined in the proposed OpenSpec Checker baseline. The [acceptance catalog](checker-acceptance-catalog.json) links every scenario to a concrete, independently authored scenario description with expected behavior.
+Five proposed requirements and sixteen WHEN/THEN scenarios are defined in the proposed OpenSpec Checker baseline. The [acceptance catalog](checker-acceptance-catalog.json) links every scenario to a concrete, independently authored scenario description with expected behavior.
 
 Each case has a stable CHK-NNN identifier, the exact requirement and scenario heading, and nontrivial given/expected descriptions. CI checks complete traceability and the Git blob hash of the spec. A changed requirement or missing test idea fails until explicitly reconciled.
 

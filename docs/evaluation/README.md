@@ -6,6 +6,9 @@
 - [Критерии успеха/остановки](../project/success-criteria.md)
 - [Каталог предполагаемых независимых оракулов](oracle-plan.md)
 - [Трассировка кандидатных требований](requirements-trace.md)
+- [Checker L1 — утверждённые границы синтетического MVP, ожидает независимой проверки](checker-l1-owner-review.md)
+- [Checker L1 — проверка независимым оценщиком и хранение скрытого oracle](checker-l1-independent-oracle-handoff.md)
+- [Публичные схема и тесты формата входа Checker L1](checker-v1-input.schema.json)
 - [Офлайн-сравнение запусков](run-comparison.md)
 - [Архив будущих прогонов](../../experiments/README.md)
 
