@@ -16,6 +16,7 @@
 | Независимые проверки | [Evaluation](evaluation/README.md) |
 | Трассировка OpenSpec → тестов | [Requirements trace](evaluation/requirements-trace.md) |
 | Исходная постановка Checker | [Scenario](scenario/README.md) |
+| Evidence-Gated Requirements Discovery v0.1 (experimental practice) | [Discovery](discovery/README.md) |
 | Исследования и исторические результаты | [Research](research/README.md) |
 | ADR | [Decisions](decisions/README.md) |
 
