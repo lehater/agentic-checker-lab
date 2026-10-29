@@ -1,6 +1,6 @@
 # Checker L1 — consolidated review packet (proposed, not approved)
 
-**Request:** approve or request corrections to **one coherent synthetic Checker MVP specification**, rather than repeat the already recorded interview. **No consent has been inferred from a general "continue" instruction.**
+**Approval outcome (2026-10-29): `APPROVED_SCOPE_AND_SEMANTICS`.** After the full package was explicitly presented in this ChatGPT conversation, the owner answered: **«Да, утверждаю, продолжай.»** This records acceptance of the **synthetic L1 scope and observable meaning in this review packet**, including the explicitly deferred implementation coverage and permission for the engineer to finalize the proposed JSON/CLI contract within this scope. It is **not** approval of unpublished technical changes, a hidden oracle, or execution of code-generation models. The underlying original chat message is not independently linkable from GitHub; this documentation records the approval claim and its context.
 
 **Review revision:** Draft [PR #51](https://github.com/lehater/agentic-checker-lab/pull/51); [candidate OpenSpec](../../openspec/changes/checker-v1-baseline/specs/checker-query/spec.md); [proposed concrete CLI/JSON contract](checker-v1-contract-proposal.md); [proposed CHK catalog](checker-acceptance-catalog.json), **16 items, all NOT_RUN**.
 
@@ -42,9 +42,9 @@ The [contract proposal](checker-v1-contract-proposal.md) now **proposes explicit
 
 ## 4. Approval request — one package, not renewed interrogation
 
-**Decision to record after explicit owner response:** Is the corrected synthetic MVP scope **sufficient as the L1 basis for specification and oracle preparation**, retaining the D-001..D-012 meanings as above, with D-002/D-003/D-006/D-008 implementation coverage explicitly deferred, and the minimal JSON/CLI/error contract treated as a proposed engineering choice?
+**Approved scope and observable semantics:** The owner explicitly approved this consolidated Checker L1 package on 2026-10-29 by replying «Да, утверждаю, продолжай.» to the stated review request. The approval covers the synthetic MVP boundary, preservation of historically recorded D-001..D-012 semantics, explicit implementation deferrals for D-002/D-003/D-006/D-008, and engineering finalization of the documented minimal JSON/CLI/error contract. It does not make implementation coverage of deferred work complete.
 
-Permitted outcomes: `APPROVED_SCOPE_AND_SEMANTICS` (with exact source/date), `CORRECTION_REQUIRED` (show the disputed section), or `DEFERRED`. No acceptance from silence, "continue", or a CI result. **Acceptance does not imply authorization to codegen** before independent oracle and operator preflight.
+**Recorded decision:** `APPROVED_SCOPE_AND_SEMANTICS`. This was an explicit response to the review package, **not** inferred from a generic continuation or CI result. **Acceptance does not imply authorization to codegen** before independent oracle and operator preflight. If later engineering changes materially alter the approved observable behavior, return the changed meaning for review.
 
 ## 5. After approval, not before
 
@@ -53,4 +53,4 @@ Permitted outcomes: `APPROVED_SCOPE_AND_SEMANTICS` (with exact source/date), `CO
 3. Independent semantic review reconciles changed spec and fixtures with the approved D evidence. Freeze versioned spec + oracle hashes.
 4. Local operator verifies toolchain/OpenSpec/Codex and authorized quota. Only after these gates may the separately bounded code/model experiment begin.
 
-**Current status:** `OWNER_REVIEW_REQUEST_READY / PRODUCT_SPEC_NOT_APPROVED / ORACLE_NOT_FROZEN / LOCAL_PREFLIGHT_NOT_VERIFIED`.
+**Current status:** `OWNER_SCOPE_SEMANTICS_APPROVED / ENGINEERING_CONTRACT_HARDENING / INDEPENDENT_ORACLE_NOT_FROZEN / LOCAL_PREFLIGHT_NOT_VERIFIED`. The OpenSpec remains a reviewed **candidate** until typed grammar, independent semantic review and approval evidence are reconciled on the final revision.
