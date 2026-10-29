@@ -1,8 +1,8 @@
 # Discovery — Fast question batch (template)
 
-Task/branch: `<task>` · source brief: `<link@sha>` · checkpoint: `<sha or NOT_COMMITTED>`  
+Task/branch: `«task»` · source brief: `«link@sha»` · checkpoint: `«sha or NOT_COMMITTED»`  
 Round: `R-xxx` · status: `PREPARED | ASKED | REVIEWED | CLOSED`  
-Owner decision authority: `<role>`
+Owner decision authority: `«role»`
 
 ## Why this round
 
@@ -10,14 +10,14 @@ Goal and boundary (1–3 sentences). Existing accepted decisions used, with link
 
 ## Questions (usually 3–7, fewer if justified)
 
-### Q-001 · <one independent decision>
+### Q-001 · «one independent decision»
 
-- **Scenario / consequence:** <specific user-observable difference>
-- **A:** <behavior>
-- **B:** <behavior>
-- **Source and authority:** <exact brief/previous D reference>; <OWNER_UNRESOLVED reasoning>
-- **Dependencies:** <none or preceding Q IDs>
-- **Recommendation (optional):** <clearly labelled, not owner approval>
+- **Scenario / consequence:** «specific user-observable difference»
+- **A:** «behavior»
+- **B:** «behavior»
+- **Source and authority:** «exact brief/previous D reference»; «OWNER_UNRESOLVED reasoning»
+- **Dependencies:** «none or preceding Q IDs»
+- **Recommendation (optional):** «clearly labelled, not owner approval»
 - **Answer:** `PENDING`
 - **Status:** `PREPARED`
 
