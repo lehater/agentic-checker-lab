@@ -10,6 +10,7 @@ import argparse
 from datetime import datetime, timedelta
 from ipaddress import IPv4Address, IPv4Network
 import json
+import re
 from pathlib import Path
 import sys
 
@@ -63,8 +64,8 @@ def ip(v: object, where: str, *, predicate: bool) -> None:
 
 
 def timestamp(v: object, where: str) -> None:
-    if not isinstance(v, str) or not v.endswith("Z"):
-        fail(where, "UTC timestamp with Z suffix required")
+    if not isinstance(v, str) or re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z", v) is None:
+        fail(where, "RFC3339 UTC timestamp with seconds and Z suffix required")
     try:
         t = datetime.fromisoformat(v.replace("Z", "+00:00"))
         if t.utcoffset() != timedelta(0):
