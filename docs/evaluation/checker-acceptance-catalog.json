@@ -2,23 +2,23 @@
   "schema": "checker-acceptance-catalog/v1",
   "status": "PROPOSED_NOT_OWNER_ACCEPTED",
   "spec": "openspec/changes/checker-v1-baseline/specs/checker-query/spec.md",
-  "spec_git_blob_sha": "22c8953ad0c6417d366f07ed79e7a980598dfc7b",
+  "spec_git_blob_sha": "c451508f07a7f1017a5f60d20c2a05c58cf287b1",
   "source_problem": "docs/scenario/owner-problem-brief.md",
   "cases": [
     {
       "id": "CHK-001",
       "requirement": "Validated one-shot query",
       "scenario": "Valid input",
-      "given": "One synthetic UTF-8 JSON document has source/destination IPv4, TCP and both ports",
-      "expected": "One flow is accepted for evaluation; no real device queried",
+      "given": "Single-host source and destination IPv4, TCP, and both ports blank/any in a local input",
+      "expected": "One directed flow is evaluated against synthetic inputs without contacting any real device",
       "execution_status": "NOT_RUN"
     },
     {
       "id": "CHK-002",
       "requirement": "Validated one-shot query",
       "scenario": "Invalid or unsupported input",
-      "given": "Input lacks dst IPv4 or has source port 65536 or an unknown predicate",
-      "expected": "Whole request fails explicitly, without approximation",
+      "given": "Input has absent source address, a subnet instead of a host, or source port 65536",
+      "expected": "Reject malformed required values without treating an omitted port as an error",
       "execution_status": "NOT_RUN"
     },
     {
@@ -73,8 +73,8 @@
       "id": "CHK-009",
       "requirement": "Failure atomicity and input isolation",
       "scenario": "Invalid snapshot input",
-      "given": "A relevant snapshot has an unknown predicate, another is valid",
-      "expected": "Nonzero exit, diagnostic stderr and no successful or partial stdout",
+      "given": "Stored snapshot has malformed or unsupported required matching field and another rule with opaque extra text",
+      "expected": "Reject an unsupported required matcher without successful partial output; opaque extras alone do not fail",
       "execution_status": "NOT_RUN"
     },
     {
@@ -83,6 +83,70 @@
       "scenario": "Local-only execution",
       "given": "Run with synthetic input and local stored snapshots in isolated environment",
       "expected": "No network or device activity; result only from supplied evidence",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-011",
+      "requirement": "Validated one-shot query",
+      "scenario": "Any source port",
+      "given": "TCP 10.0.0.5:any to 192.0.2.10:443; source port restrictions differ across otherwise matching ACL rows",
+      "expected": "Both source-restricted rows remain eligible when every specified query dimension matches",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-012",
+      "requirement": "Validated one-shot query",
+      "scenario": "Any destination port",
+      "given": "UDP 10.0.0.5:53000 to 192.0.2.10:any; saved ACL contains different destination port restrictions",
+      "expected": "Destination port restrictions do not exclude rules when that query port is unrestricted",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-013",
+      "requirement": "Validated one-shot query",
+      "scenario": "Directed query",
+      "given": "One query 10.0.0.5:55000 to 192.0.2.10:443 and additional reverse-only ACL evidence",
+      "expected": "Return only rules for the requested direction; reverse search requires another request",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-014",
+      "requirement": "Complete stored-rule matching",
+      "scenario": "Additional conditions preserved",
+      "given": "A five-field matching ACL rule contains established and schedule conditions absent from the query",
+      "expected": "Keep the rule and original extra conditions visible; do not interpret their applicability",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-015",
+      "requirement": "Complete stored-rule matching",
+      "scenario": "Unsupported matching field",
+      "given": "One saved ACL rule has an unsupported required matcher; another has only extra uninterpreted text",
+      "expected": "Unsupported required matcher is reported as invalid; opaque extra text alone is preserved",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-016",
+      "requirement": "Relevance is a separate provided input",
+      "scenario": "Multiple placements of one ACL",
+      "given": "One named ACL is attached to inbound interface and globally on the same FW",
+      "expected": "Output one ACL group with both bindings and one copy of each matched rule",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-017",
+      "requirement": "Relevance is a separate provided input",
+      "scenario": "Relevant device without ACL",
+      "given": "A relevant synthetic FW has no ACL bound at applicable places",
+      "expected": "Represent the FW without an ACL name, not an invented ACL or implicit deny",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-018",
+      "requirement": "Preserved observation and presentation",
+      "scenario": "Per-ACL last-success date",
+      "given": "ACL-A was last read successfully at 10:00, ACL-B at 10:05; ACL-A failed refresh at 11:00",
+      "expected": "ACL-A date remains 10:00 and ACL-B date 10:05; failed read does not update date",
       "execution_status": "NOT_RUN"
     }
   ]

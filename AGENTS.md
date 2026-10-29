@@ -9,3 +9,5 @@ Current direction: **OpenSpec-style specification-first engineering + direct Cod
 Read [Engineering Policy](docs/engineering/policy.md) before design or code changes: Clean Architecture, SOLID, KISS, YAGNI. A structurally valid RPG or passing generated tests is never sufficient proof of architectural or behavioral correctness.
 
 One small task/branch/PR, explicit change scope, independent checks and evidence. No live firewall access or secrets. Model-driven commands and consumption of subscription quota require an explicit bounded experiment; CI must remain model-free.
+
+**EXPERIMENTAL PILOT (this branch only):** [Discovery protocol](docs/discovery/protocol.md), [chat start](docs/discovery/chat-start.md). Commit questions before asking; confirm and commit results before continuing. Not approved; L1 gates remain.

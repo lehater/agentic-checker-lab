@@ -1,0 +1,216 @@
+{
+  "schema": "checker-decision-trace/v1",
+  "status": "PROPOSED_UNREVIEWED",
+  "semantic_review": "NOT_PERFORMED",
+  "source_ledger": "docs/discovery/checker/ledger.json",
+  "candidate_spec": "openspec/changes/checker-v1-baseline/specs/checker-query/spec.md",
+  "candidate_catalog": "docs/evaluation/checker-acceptance-catalog.json",
+  "audit_source": "https://github.com/lehater/agentic-checker-lab/pull/48#issuecomment-6490016712",
+  "warning": "PROPOSED candidate links and open gaps, not semantic approval. CHK cases NOT_RUN; independent reviewer pending.",
+  "entries": [
+    {
+      "decision_id": "D-001",
+      "links": [
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-001"
+        },
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-008"
+        },
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-013"
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "decision_id": "D-002",
+      "links": [],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "Candidate takes relevance pairs as synthetic input, without an explicit rule for inferring different routed interfaces.",
+          "next_action": "Define whether routing/interface inference is deferred behind the MVP relevance seam and trace its deferred contract."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-003",
+      "links": [
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-005"
+        },
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-016"
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "Display of multiple placements is now proposed, but selecting inbound on ingress, outbound on egress and global bindings in a route-based provider is not specified or verified.",
+          "next_action": "Independently specify the provider contract or explicitly defer route-based selection beyond the local MVP."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-004",
+      "links": [
+        {
+          "requirement": "Complete stored-rule matching",
+          "case_id": "CHK-004"
+        },
+        {
+          "requirement": "Failure atomicity and input isolation",
+          "case_id": "CHK-009"
+        },
+        {
+          "requirement": "Complete stored-rule matching",
+          "case_id": "CHK-014"
+        },
+        {
+          "requirement": "Complete stored-rule matching",
+          "case_id": "CHK-015"
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "decision_id": "D-005",
+      "links": [
+        {
+          "requirement": "Complete stored-rule matching",
+          "case_id": "CHK-003"
+        },
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-008"
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "decision_id": "D-006",
+      "links": [
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-018"
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "The candidate reports each ACL last-success date, but persisted replacement on successful reads, nonreplacement on errors and no history are not specified as working storage behavior.",
+          "next_action": "Specify storage and collector acceptance cases separately or explicitly defer persistence beyond the local prototype."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-007",
+      "links": [
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-007"
+        },
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-017"
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "decision_id": "D-008",
+      "links": [],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "The collector-stage log and retention requirement is described only as an external boundary; no independent collector fixture checks logs and failure nonoverwrite.",
+          "next_action": "Propose external collector error retention scenarios or explicitly defer that component from the MVP."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-009",
+      "links": [
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-001"
+        },
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-002"
+        },
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-011"
+        },
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-012"
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "decision_id": "D-010",
+      "links": [
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-005"
+        },
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-008"
+        },
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-016"
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "decision_id": "D-011",
+      "links": [
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-001"
+        },
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-013"
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "decision_id": "D-012",
+      "links": [
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-017"
+        },
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-007"
+        },
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-016"
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "The candidate cases separately cover a relevant firewall without ACL, a relevant ACL without matching rows and one ACL with multiple bindings, but they do not explicitly exercise zero relevant firewalls or the composed FW→ACL→matching-rule hierarchy. Candidate NO_MATCH/status presentation details are not an owner-approved mandatory UI contract.",
+          "next_action": "Before accepting the candidate specification and oracle, add a concrete zero-relevant-FW scenario plus independent hierarchical inclusion/multiplicity counterexamples, trace all D-012 semantics, and verify that any status labels remain engineering presentation choices."
+        }
+      ]
+    }
+  ]
+}
