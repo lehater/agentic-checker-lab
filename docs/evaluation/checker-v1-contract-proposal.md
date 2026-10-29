@@ -142,9 +142,13 @@ For **zero relevant FW**, the result contains `"firewalls":[]`. For a relevant A
 | Corrupt or unsupported mandatory match fields | **Proposed** fail-atomic diagnostic, never silently drop an unknown required predicate |
 | Supplemental conditions | Arbitrary JSON-safe `extra` object is **display-only**, never a matching predicate or a reason to claim full applicability |
 | Refresh failure | Actual collector/refresh is outside L1: do not claim failed-refresh preservation was executed; future collector tests must verify preserving the last successful snapshot and timestamp |
-| Unknown fields, error codes and ordering across different FW/ACL | Decide precisely during engineering review and independent acceptance design; do not guess from this example |
+| Identity and duplicates | Firewall IDs uniquely identify an FW in one input; repeated firewall objects or duplicate snapshots keyed by `(device_id, acl_id)` are invalid. Repeated ACL references within a firewall are coalesced by ACL name, aggregating distinct placement facts without duplicating row occurrences |
+| Unexpected data | Extra arbitrary saved attributes are allowed **only** inside row `extra` objects. Unrecognized top-level, flow, firewall, ACL, snapshot and required rule-matcher keys are **proposed validation failures**, rather than silently guessed new semantics |
+| Integrity and order | Every relevant ACL needs exactly one valid corresponding snapshot, with an RFC3339 UTC last-success timestamp and a `rules` array (possibly empty). Extra snapshots for nonexistent identities are invalid. Preserve input firewall/ACL first-occurrence order and distinct placement first-occurrence order as engineering presentation choices; preserve original stored row-array order as owner meaning |
+| Error diagnostics | Invalid JSON/field types/duplicate IDs/missing snapshot/unsupported mandatory predicates produce nonzero exit and a nonempty stderr diagnostic, without any successful stdout document. Exact diagnostic wording and nonzero code numbers are not specified |
+| Data type boundaries | Boolean values must not be treated as integer ports; reject out-of-range values, reversed intervals and noncanonical CIDR where the grammar demands canonical networks. Required ACL action is `permit` or `deny`; `extra` if present is an opaque JSON object |
 
-Important ambiguity left for **engineering review**: The core JSON example is concrete, but it is not a formal JSON Schema. The next engineering review should explicitly settle exact unknown-field validation and diagnostics and independently check that the proposed grammar serves the minimal goal, without asking the owner to choose field names one by one.
+**Engineering proposal for review:** The concrete example above is not yet a formal JSON Schema, but its supported field grammar, duplicate policy, error shape and ordering are now explicitly bounded for independent fixture design. The owner is being asked to approve the **observable MVP scope in one package**, not to decide JSON field names, exception strings or implementation classes individually.
 
 ## Examples to freeze with independent acceptance later
 
