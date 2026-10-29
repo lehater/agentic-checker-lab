@@ -24,12 +24,12 @@ class RequirementsTraceTests(unittest.TestCase):
     def test_every_proposed_scenario_has_oracle(self):
         verdict = self.check_changed(self.data)
         self.assertEqual(verdict["status"], "PASS", verdict)
-        self.assertEqual(verdict["case_count"], 10)
+        self.assertEqual(verdict["case_count"], len(scenario_pairs((ROOT / self.data["spec"]).read_text())))
         self.assertIs(verdict["implementation_executed"], False)
 
     def test_new_requirement_is_detectable(self):
         source = (ROOT / self.data["spec"]).read_text()
-        self.assertEqual(len(scenario_pairs(source + "\n### Requirement: New\n#### Scenario: Missing\n")), 11)
+        self.assertEqual(len(scenario_pairs(source + "\n### Requirement: New\n#### Scenario: Missing\n")), 17)
 
     def test_missing_acceptance_case_fails(self):
         changed = copy.deepcopy(self.data)
