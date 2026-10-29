@@ -20,7 +20,7 @@ Document `NOT_APPLICABLE` with reason instead of manufacturing cases.
 
 ## 2. Issue-level Authority Gate
 
-### G-001 — <scenario>
+### G-001 — «scenario»
 
 - **A versus B (user-visible):** ...
 - **Precise source and status:** ...
