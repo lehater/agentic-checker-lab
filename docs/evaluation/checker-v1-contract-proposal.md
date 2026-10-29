@@ -1,0 +1,159 @@
+# Checker synthetic v1 — proposed wire/CLI contract (NOT ACCEPTED)
+
+**Status: ENGINEERING PROPOSAL ONLY.** This document makes the current proposed [Checker OpenSpec](../../openspec/changes/checker-v1-baseline/specs/checker-query/spec.md) concrete enough for owner/spec review and future independent executable acceptance tests. It does **not** replace the original owner need, historically recorded D-001..D-012, or the held-out oracle. No runtime exists or was tested by this document.
+
+## Proposed one-shot CLI
+
+```sh
+checker check --input /path/to/case.json
+```
+
+The CLI reads **one UTF-8 JSON document** from the explicitly given local path. It does not read live firewalls or issue network requests. On success, it emits **one** JSON document to stdout and exits `0`. On invalid input, missing/invalid mandatory evidence or unsupported mandatory matching syntax, it emits a diagnostic to **stderr**, exits nonzero and emits **no successful or partial stdout**. Specific exit codes and final field names require engineering/spec review, and may change before acceptance. Do not treat this draft as an approved contract.
+
+## Example input
+
+```json
+{
+  "schema_version": 1,
+  "flow": {
+    "src_ip": "192.0.2.15",
+    "dst_ip": "198.51.100.8",
+    "protocol": "tcp",
+    "dst_port": 443
+  },
+  "firewalls": [
+    {
+      "id": "fw-a",
+      "acls": [
+        {
+          "id": "WEB_IN",
+          "placements": [
+            {"kind": "interface", "name": "outside", "direction": "ingress"},
+            {"kind": "global"}
+          ]
+        }
+      ]
+    },
+    {"id": "fw-b", "acls": []}
+  ],
+  "snapshots": [
+    {
+      "device_id": "fw-a",
+      "acl_id": "WEB_IN",
+      "last_success_at": "2026-10-29T08:00:00Z",
+      "rules": [
+        {
+          "action": "permit",
+          "src_ip": "192.0.2.0/24",
+          "dst_ip": "198.51.100.8",
+          "protocol": "tcp",
+          "src_port": {"min": 40000, "max": 65535},
+          "dst_port": 443,
+          "extra": {"time_range": "office_hours"}
+        },
+        {
+          "action": "deny",
+          "src_ip": "192.0.2.0/24",
+          "dst_ip": "198.51.100.8",
+          "protocol": "tcp",
+          "src_port": "any",
+          "dst_port": 443,
+          "extra": {"note": "not a full applicability verdict"}
+        }
+      ]
+    }
+  ]
+}
+```
+
+**Meaning:** `flow.src_port` is intentionally **omitted**, which is the same as explicit `"any"` and therefore **does not filter** source ports. Both stored rows match the other four supported fields, so both appear in the result even if their actions disagree. The `time_range` note is displayed but not evaluated; neither rule constitutes a conclusive end-to-end permit/deny verdict. FW `fw-b` is relevant even without ACL; it remains present.
+
+The `firewalls` input is **already selected relevance evidence**; the prototype does not calculate the routes or choose interface placements. A real provider must eventually honor the separately agreed relevance and ingress/egress/global rules.
+
+## Example successful output (proposed)
+
+```json
+{
+  "schema_version": 1,
+  "firewalls": [
+    {
+      "id": "fw-a",
+      "acls": [
+        {
+          "id": "WEB_IN",
+          "placements": [
+            {"kind": "interface", "name": "outside", "direction": "ingress"},
+            {"kind": "global"}
+          ],
+          "last_success_at": "2026-10-29T08:00:00Z",
+          "matched_rules": [
+            {
+              "snapshot_index": 0,
+              "rule": {
+                "action": "permit",
+                "src_ip": "192.0.2.0/24",
+                "dst_ip": "198.51.100.8",
+                "protocol": "tcp",
+                "src_port": {"min": 40000, "max": 65535},
+                "dst_port": 443,
+                "extra": {"time_range": "office_hours"}
+              }
+            },
+            {
+              "snapshot_index": 1,
+              "rule": {
+                "action": "deny",
+                "src_ip": "192.0.2.0/24",
+                "dst_ip": "198.51.100.8",
+                "protocol": "tcp",
+                "src_port": "any",
+                "dst_port": 443,
+                "extra": {"note": "not a full applicability verdict"}
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {"id": "fw-b", "acls": []}
+  ]
+}
+```
+
+For **zero relevant FW**, the result contains `"firewalls":[]`. For a relevant ACL with a **valid** last-successful snapshot but zero matched rules, keep the FW and ACL with `matched_rules:[]` and preserve the ACL timestamp. Do not emit a special `NO_MATCH` status unless later approved as a display/format choice. No implicit deny or global verdict is synthesized.
+
+**Occurrence identity:** `snapshot_index` is the zero-based position of the original rule occurrence, not a hash of rule text. Two matching equal-text rule occurrences at different positions must appear twice, while one ACL group is not duplicated across placements.
+
+## Proposed minimal typed validation and error boundaries
+
+| Data aspect | Proposed v1 subset and handling |
+| --- | --- |
+| Query IPs | Required exact IPv4 addresses, no wildcard, no missing input |
+| Query protocol | Required `tcp` or `udp`; unsupported protocols fail validation |
+| Query source/destination ports | Each may be a single integer 0..65535, explicit `"any"`, or **omitted** meaning `"any"`; no implicit default to an arbitrary concrete port |
+| Saved rule IP predicate | Exact IPv4 or canonical IPv4 CIDR, including `/0` when represented canonically |
+| Saved rule protocol predicate | `tcp`, `udp`, `any` |
+| Saved rule port predicate | Single integer, `"any"`, or object `{"min":N,"max":M}` with `0 <= N <= M <= 65535` (inclusive) |
+| Saved rule row | Position = array index; original `action`, all supported matcher fields and opaque `extra` retained; no first-match behavior |
+| ACL identity | Group by `(firewall.id, acl.id)` even when same ACL name exists on different firewalls |
+| Relevant placements | Ingress/egress interface or global placement facts preselected by the fixture; repeated exact placement references do not duplicate ACL groups |
+| ACL snapshot | Each **relevant named ACL** must have exactly one complete saved snapshot with `last_success_at` RFC3339 UTC timestamp; different ACL timestamps allowed |
+| No first successful snapshot | **Proposed** fail-atomic diagnostic, not valid empty match; owner has not approved this error wire contract |
+| Corrupt or unsupported mandatory match fields | **Proposed** fail-atomic diagnostic, never silently drop an unknown required predicate |
+| Supplemental conditions | Arbitrary JSON-safe `extra` object is **display-only**, never a matching predicate or a reason to claim full applicability |
+| Refresh failure | The valid saved snapshot stays unchanged; actual collector/refresh is outside MVP; tests may construct the prior saved state synthetically |
+| Unknown fields, error codes and ordering across different FW/ACL | Decide precisely during engineering review and independent acceptance design; do not guess from this example |
+
+Important ambiguity left for **engineering review**: The core JSON example is concrete, but it is not a formal JSON Schema. The next engineering review should explicitly settle exact unknown-field validation and diagnostics and independently check that the proposed grammar serves the minimal goal, without asking the owner to choose field names one by one.
+
+## Examples to freeze with independent acceptance later
+
+- Omitted vs explicit `any` ports with otherwise equal flow and data.
+- Reversed flow must require a new query.
+- FW with no ACL, ACL with valid snapshot and zero matches, and no relevant FW.
+- One ACL with multiple placements and two distinct equal-text matching row occurrences.
+- Supplemental `time_range` retained without checking its truth, and unknown **mandatory** matcher rejected.
+- Two per-ACL last-success timestamps and no overwritten saved evidence after an injected failed refresh.
+- Relevant named ACL with no initial successful snapshot: explicit error, not inferred deny/no-match.
+
+**Approval gate:** Review revised OpenSpec, this proposed contract and black-box cases **as one package**. After owner acceptance, the independent oracle custodian must prepare and freeze held-out inputs/expected results inaccessible to implementation agents; existing CHK cases are public proposals marked `NOT_RUN`. Neither passing structural CI nor this example authorizes code generation.
