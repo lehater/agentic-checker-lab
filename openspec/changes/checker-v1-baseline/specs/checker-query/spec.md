@@ -1,7 +1,5 @@
 # Checker Query — reconciled candidate specification delta (NOT OWNER ACCEPTED)
 
-This is an **engineering proposal** for L1, NOT an approval or implementation. The original [owner brief](../../../../../docs/scenario/owner-problem-brief.md) is the product starting point. The unmerged [historical discovery ledger](https://github.com/lehater/agentic-checker-lab/blob/experiment/iterative-discovery-protocol/docs/discovery/checker/ledger.json) records normalized D-001..D-012 as owner-confirmed; these meanings are evidence to reconcile and are **not automatically accepted as this OpenSpec**. A separate L1 owner/spec review and independently held-out acceptance review are still required.
-
 ## ADDED Requirements
 
 ### Requirement: Validated one-shot query
@@ -24,7 +22,7 @@ The Checker SHALL accept one explicitly selected local UTF-8 versioned JSON inpu
 - **THEN** reverse-flow rules are not included; checking the reverse direction requires its own query
 
 ### Requirement: Complete stored-rule matching
-The Checker SHALL compare the directed query against source/destination IPv4 exact-address or canonical CIDR predicates, tcp/udp/any protocol predicates and inclusive numeric port ranges, returning **all matching original row occurrences** in each ACL's snapshot order without a first-match shortcut. Permit and deny are *reported facts*, not an effective-path verdict. A valid supported predicate required for matching SHALL be distinguished from supplemental stored conditions that are preserved as uninterpreted evidence.
+The Checker SHALL compare a directed flow against supported synthetic predicates over five fields and return **every original matching row occurrence** in its ACL snapshot order, without a first-match shortcut or end-to-end verdict. Supplemental saved conditions SHALL be displayed but not evaluated; unsupported mandatory matching predicate forms SHALL NOT be guessed.
 
 #### Scenario: Multiple matching actions
 - **WHEN** a snapshot contains both permit and deny rule rows matching the flow
@@ -43,7 +41,7 @@ The Checker SHALL compare the directed query against source/destination IPv4 exa
 - **THEN** both occurrences are retained in snapshot order even if the ACL appears in multiple relevant placements
 
 ### Requirement: Relevance is separate provided evidence
-The Checker SHALL consume a synthetic **list of relevant firewall identities**, each with zero or more relevant ACL identities and their relevant ingress/egress/global placement facts. Device relevance and ACL attachment selection are **already supplied** for this thin slice, not inferred from live routing. An ACL SHALL appear once per device with all relevant placements; repeated provider references SHALL NOT create duplicate ACL groups, while distinct devices SHALL NOT be merged just because ACL names coincide. The complete relevant-device hierarchy MUST be representable even if no ACL is bound.
+The Checker SHALL consume synthetic **relevant firewall** evidence, including firewalls with no ACL, plus each ACL's relevant ingress/egress/global placements. An ACL SHALL appear once per firewall with all applicable placements, without duplication of matched rows. Firewalls SHALL NOT be merged solely because their ACL names coincide. Real route inference is outside this prototype.
 
 #### Scenario: Duplicate relevance
 - **WHEN** one relevant firewall repeats a relevant ACL binding, or one ACL has multiple distinct applicable bindings
@@ -58,7 +56,7 @@ The Checker SHALL consume a synthetic **list of relevant firewall identities**, 
 - **THEN** the **proposed engineering error contract** fails the whole query explicitly without reporting an invented `NO_MATCH` or a partially successful normal report
 
 ### Requirement: Preserved observation and presentation
-The Checker SHALL report the **hierarchy of facts** relevant firewall → relevant ACL including relevant placements → matching stored rows, retaining parent objects even when child collections are empty. Each ACL with a successful snapshot SHALL expose its **own** last-successful snapshot timestamp and stored rows in snapshot order; an unsuccessful later refresh MUST NOT silently change that saved timestamp or content. The first slice MAY use supplied synthetic last-success snapshots rather than implementing a real collector. Presentation MAY add useful statuses but cannot turn no match into implicit deny or claim full end-to-end permit/deny.
+The Checker SHALL report relevant firewalls, their relevant ACLs and placements, and matching rule rows as a hierarchy, keeping parents even with empty child collections. Each saved ACL SHALL expose its **own** last-successful timestamp and content, unchanged after a failed refresh. The output SHALL NOT claim an end-to-end permit/deny verdict.
 
 #### Scenario: No stored match
 - **WHEN** a relevant named ACL has a valid complete saved snapshot with zero matching rows
@@ -73,7 +71,7 @@ The Checker SHALL report the **hierarchy of facts** relevant firewall → releva
 - **THEN** each ACL retains its own last-success timestamp and saved content; no past collection failure is asserted as a current matching outcome
 
 ### Requirement: Failure atomicity and input isolation
-The Checker SHALL not query or modify live devices or mutate input snapshots. For the proposed one-shot CLI, a malformed input, an unsupported **required** matching predicate, corrupt saved snapshot, or missing required first-successful snapshot SHALL cause an explicit nonzero failure and diagnostic stderr with **no successful or partial stdout report**. This atomic-failure rule is an engineering proposal subject to L1 contract review; it is not a new owner-confirmed decision about every future missing-data scenario.
+The Checker SHALL not access live devices or modify supplied evidence. The **proposed CLI error contract** SHALL reject malformed input, unsupported required matching predicates, corrupt saved snapshots or missing first-successful snapshots with a diagnostic and no partially successful output. This atomic failure policy remains a delegated engineering proposal pending L1 review.
 
 #### Scenario: Invalid snapshot input
 - **WHEN** a relevant snapshot is corrupt or includes an unsupported mandatory five-field matcher form, even if other ACLs have valid evidence
