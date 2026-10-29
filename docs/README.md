@@ -9,6 +9,7 @@
 | Передача локальному исполнителю | [Handoff](project/local-executor-handoff.md) |
 | Очерёдность небольших проверяемых шагов | [Roadmap](project/roadmap.md) |
 | План проектирования: OpenSpec + готовые skills, этапы D1–D6 и восстановление в новом чате | [Design-stage plan](project/design-stage-plan.md) |
+| D2: минимальный design stack, handoff и review checklist | [Design stack](project/design-stack.md) |
 | Clean Architecture, SOLID, KISS, YAGNI | [Engineering Policy](engineering/policy.md) |
 | Условия успеха | [Success criteria](project/success-criteria.md) |
 | Экспериментальное сравнение | [Experiment design](project/experiment-design.md) |

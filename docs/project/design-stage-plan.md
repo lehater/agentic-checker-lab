@@ -20,17 +20,17 @@ Assemble and evaluate a **minimal reproducible Agentic SDLC using existing tools
 
 | ID | Deliverable | Evidence / exit condition | State |
 | --- | --- | --- | --- |
-| D0 | Persist the recoverable plan | This document linked in roadmap and current-state; docs-only PR checked and merged | IN PROGRESS until merged |
-| **D1** | **Audit ready-made tools** | Evidence-linked review of upstream source, real skills/templates, licenses, maintenance, actual enforcement vs prompts; ADOPT / ADAPT / REJECT with minimal shortlist | **TODO — NEXT** |
-| D2 | Select smallest working design stack | One OpenSpec schema/source of record; chosen optional skills; role handoffs, design checklist, bounded synthetic dry-run and explicit design rationale | TODO |
-| D3 | Prepare Checker L1 domain/architecture/detailed design | Domain terms/invariants, use cases, module boundaries and dependency direction, interface/error contracts, justified C4/ADR, traceable to reconciled L1 spec | TODO; final acceptance depends on L1 semantics |
+| D0 | Persist the recoverable plan | This document linked in roadmap and current-state; docs-only PR checked and merged | **DONE** — merged PR #53 |
+| D1 | Audit ready-made tools | Evidence-linked review of upstream source, skills/templates, licenses, maintenance and enforcement; ADOPT / ADAPT / REJECT | **DONE** — [PR #56](https://github.com/lehater/agentic-checker-lab/pull/56), [report](../research/openspec-design-stack.md) |
+| **D2** | **Select smallest working design stack** | [Minimal workflow contract](design-stack.md), role handoffs, checklist, [paper-only dry-run](../research/design-stack-d2-dry-run.md) and rationale | **CANDIDATE SELECTED** — merged only after D2 PR review/CI; no independent reviewer claimed |
+| D3 | Prepare Checker L1 domain/architecture/detailed design | Domain terms/invariants, use cases, module boundaries and dependency direction, interface/error contracts, justified C4/ADR, traceable to reconciled L1 spec | **NEXT after D2 merge**; candidate until final L1 semantics/spec acceptance |
 | D4 | Independent Design Review and repair | Separate evaluator checks source trace, architecture ownership, cycles, missing evidence and unnecessary complexity; bounded correction and recorded outcome | TODO |
 | D5 | Freeze implementation inputs and preflight | Approved spec/design hashes, independently authored and privately held oracle hash, real local tool versions and access recorded | BLOCKED: pending independent oracle and operator evidence |
 | D6 | Controlled implementation comparison | Direct Codex baseline vs optional RPG+Codex using the same accepted design, oracle, budget and quality gates; authentic outcomes and token/time evidence | BLOCKED by D4+D5 |
 
 **Dependencies:** D1 → D2 → D3 → D4. L1 spec review, private oracle custody and operator preflight may proceed **in parallel** with D1–D3, but no codegen before D4+D5. D3 is a *candidate* until the product spec is approved and reconciled. This plan complements existing S3→S4 roadmap and L1→L5 handoff; it does **not** supersede them.
 
-## D1 — next concrete task: source audit
+## D1 — completed source audit (retained historical instruction)
 
 Inspect these **candidates**, not pre-approved dependencies:
 
@@ -41,7 +41,7 @@ Inspect these **candidates**, not pre-approved dependencies:
 
 Inspect actual upstream revision, source templates/prompts, examples, license, maintenance, installation and compatibility, artifact contract, overlap and costs. Do not combine incompatible workflow schemas. Separate author-reported benchmarks from independent evidence.
 
-**D1 output:** a sourced research document at docs/research/openspec-design-stack.md with **ADOPT / ADAPT / REJECT**, baseline vs candidate features, verified limitations and recommended **minimum**. D1 involves no installation or model calls.
+**D1 output:** [source-linked research](../research/openspec-design-stack.md) merged through [PR #56](https://github.com/lehater/agentic-checker-lab/pull/56). No installation or model calls. **D2 selected process (candidate):** [design-stack.md](design-stack.md), with [bounded paper trace](../research/design-stack-d2-dry-run.md). D2 is accepted as a working process only after its scoped PR passes CI/review and is merged; independent design evaluation remains D4.
 
 ## Proportional design quality
 

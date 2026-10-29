@@ -8,8 +8,10 @@ roadmap: docs/project/roadmap.md
 next_task: LOCAL_EXECUTOR_L1
 parallel_design_workstream:
   plan: docs/project/design-stage-plan.md
-  stage: D1_AUDIT_READY_MADE_OPENSPEC_DESIGN_TOOLS
-  scope: "Research/design preparation only. No tool installed, model-run, hidden oracle, design approval or codegen."
+  stage: D2_MINIMAL_DESIGN_STACK_SELECTED_D3_CANDIDATE_NEXT
+  selected_process: docs/project/design-stack.md
+  evidence: docs/research/design-stack-d2-dry-run.md
+  scope: "Docs-only minimal OpenSpec spec-driven workflow and source-traced dry-run. D3 candidate design next; no installation, model run, hidden oracle, or codegen."
   dependencies: "Checker L1 semantic/spec/oracle gates remain independently required before implementation."
 local_executor_entrypoint: docs/project/local-executor-handoff.md
 local_executor_first_issue: https://github.com/lehater/agentic-checker-lab/issues/32
@@ -18,6 +20,8 @@ accepted:
   - "Engineering principles: Clean Architecture, SOLID, KISS, YAGNI."
   - "Evidence-based model routing balancing time to verified result and subscription budget; not local-first."
 verified:
+  - "Design D1 source audit merged via PR #56, commit bfa7683c4c07f1e34e152620a7b01b4a06b6f8ae; results are research, not approval of third-party tools."
+  - "D2 candidate stack selects existing spec-driven plus project-owned review checklist, with source-traced paper dry-run only; independent D4 review NOT_RUN."
   - "Prior main SHA before the method reset: 2bf23ce08512eda92684d09e3c46958d4b6ab3cc; archived Harness/RPG remains evidence."
   - "Closed-unmerged historical PR #27 retains runnable synthetic Checker and old CoderMind failure/review evidence; no active Checker implementation was merged."
   - "The CoderMind candidate's saved RPG/skeleton places check under domain/application, violating the architecture contract."
@@ -31,10 +35,14 @@ verified_ci:
   - "PR #42 links all 10 proposed OpenSpec scenarios to independent NOT_RUN acceptance ideas."
   - "PR #43 adds quality-gated offline process/model comparison; no live measurement performed."
 not_verified:
+  - "Independent D4 design review and measured usefulness of the D2 checklist; paper dry-run is not independent approval."
   - "Final merged Checker L1 specification and independent held-out oracle (Draft PR #51 records owner scope approval but is not merged); local OpenSpec/interactive Codex integration and live E2E."
   - "Live CoderMind stage interception, actual model usage counters and rerun."
   - "Equal-input live model comparison, measured process optimization, model routing quality and second-task transfer."
 evidence:
+  design_d1_pr: https://github.com/lehater/agentic-checker-lab/pull/56
+  design_d2_process: docs/project/design-stack.md
+  design_d2_dry_run: docs/research/design-stack-d2-dry-run.md
   checker_prior_pr: https://github.com/lehater/agentic-checker-lab/pull/27
   checker_original_brief: docs/scenario/owner-problem-brief.md
   checker_historical_rpg: experiments/runs/rpg-synthetic-v1/manifest.json
