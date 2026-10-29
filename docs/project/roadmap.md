@@ -13,6 +13,10 @@
 | S6 | Adaptive model router: deterministic first for mechanical work, local/cloud by observed quality, speed and quota | A/B evidence and safe fallback; no hypothetical savings or forced local-first |
 | S7 | Requirements change-impact and transfer to second task | Before/after trace, independent regression and evidence-based GO/NO-GO |
 
+## Параллельный подготовительный трек: проектирование Agentic SDLC
+
+**[DS-01..DS-06 — канонический план стека Design](agentic-sdlc-design-stack-plan.md).** DS-01 — ближайшая небольшая задача: аудит исходников готовых расширений OpenSpec (Intent-Driven, DDD Skills, Anvil), без их установки и без генерации Checker. DS-02 — минимальная обоснованная конфигурация OpenSpec; DS-03/04 — проект Checker и независимый Architecture Review. DS-05 синхронизируется с существующим L1/S3 (независимый oracle и preflight), DS-06 — с S4 (контролируемый Direct vs RPG); **это детализация этапов, не новая конкурирующая дорожная карта**. Подготовительное проектирование не снимает существующих blockers и не означает принятия PR #51.
+
 One task, branch, PR and bounded proof at a time. Code execution/LLM calls are **never** implied by a documentation-only PR. Do not bypass architectural checks or rewrite fixed oracles after seeing implementation. An open PR remains a proposal until reviewed/merged.
 
 GitHub CI covers S0 method, S1 architecture regression, S2 offline telemetry, OpenSpec CLI validation, proposed acceptance scenario trace and offline comparison. Live run results are not verified. The remaining L1–L5 local-executor steps are listed in [handoff](local-executor-handoff.md).
