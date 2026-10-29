@@ -3,7 +3,7 @@
 Task/PR: ... · original need: ... · base `main` SHA: ...  
 Owner role: ... · last verified checkpoint: `NONE` · interview status: `OPEN`
 
-> Copy to the task's own branch (e.g. `docs/discovery/work/<task>/ledger.md`). This file is only a template; **not** the Checker product ledger. Do not copy prior decisions as approved unless the active project recognizes their authority.
+> Copy to the task's own branch (e.g. `docs/discovery/work/«task»/ledger.md`). This file is only a template; **not** the Checker product ledger. Do not copy prior decisions as approved unless the active project recognizes their authority.
 
 ## Questions
 
