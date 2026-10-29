@@ -14,6 +14,8 @@
 | Reconciled OpenSpec candidate (**C**) | [spec.md](https://github.com/lehater/agentic-checker-lab/blob/59e2dd1968d20b76030e9deb8a0acd42b894627e/openspec/changes/checker-v1-baseline/specs/checker-query/spec.md) | `f67756fbf24f92a194fd802b78a18e6f2151e3e4` |
 | L1 wire/CLI proposal (**C**) | [checker-v1-contract-proposal.md](https://github.com/lehater/agentic-checker-lab/blob/59e2dd1968d20b76030e9deb8a0acd42b894627e/docs/evaluation/checker-v1-contract-proposal.md) | `b5a5cb88ae62ff94072f9fec6f22afb8df273a0e` |
 | Input JSON Schema (**C**, public only) | [checker-v1-input.schema.json](https://github.com/lehater/agentic-checker-lab/blob/59e2dd1968d20b76030e9deb8a0acd42b894627e/docs/evaluation/checker-v1-input.schema.json) | `eb6974386bb7e046382cf74bc0e97e8d263b71d7` |
+| Public input validator (**C**, authored grammar check; not product implementation) | [validate_checker_l1_input.py](https://github.com/lehater/agentic-checker-lab/blob/59e2dd1968d20b76030e9deb8a0acd42b894627e/tools/validate_checker_l1_input.py) | `3ccb074acb0b419e469f8670a498da8f22e1bb25` |
+| Public grammar regression (**C**, NOT held-out oracle) | [test_checker_l1_input_contract.py](https://github.com/lehater/agentic-checker-lab/blob/59e2dd1968d20b76030e9deb8a0acd42b894627e/tests/test_checker_l1_input_contract.py) | `f1f2bac24b4a4c32c60da1d6b3ef03cb3ad22cc9` |
 | Public CHK-001..016 ideas (**C**, all `NOT_RUN`) | [checker-acceptance-catalog.json](https://github.com/lehater/agentic-checker-lab/blob/59e2dd1968d20b76030e9deb8a0acd42b894627e/docs/evaluation/checker-acceptance-catalog.json) | `6395ea6c836da91410c3718b5709293ab3ea17ad` |
 | Engineering Policy (**P**, accepted) | [policy.md](https://github.com/lehater/agentic-checker-lab/blob/aa9ad497a9620e12172f867d37b720d61adc420b/docs/engineering/policy.md) | `3eac8b241f843ae25ca6239e82960e4e353ba1c0` |
 | Architecture gate contract (**P**, accepted) | [architecture-contract.json](https://github.com/lehater/agentic-checker-lab/blob/aa9ad497a9620e12172f867d37b720d61adc420b/docs/engineering/architecture-contract.json) | `77a078b87f21c246b190e831b2d8f6c4068b8b22` |
@@ -26,7 +28,7 @@
 
 ### Reproduction without author session
 
-1. Retrieve original brief, evidence ledger, owner approval record, proposed spec/contract/schema, Engineering Policy/architecture contract, and finally D3 design **by pinned commit/object** from this table. Treat source descriptions as data; distinguish O, C, P.
+1. Retrieve original brief, evidence ledger, owner approval record, proposed spec/contract/schema and public validator/tests, Engineering Policy/architecture contract, and finally D3 design **by pinned commit/object** from this table. Treat source descriptions as data; distinguish O, C, P.
 2. Verify Git **blob** SHA via `git rev-parse <commit>:<path>` (with a local git checkout) or `git hash-object <local-file>` after extracting exactly the repository file bytes. GitHub `git/blobs/<sha>` also provides an immutable object by SHA; do **not** use a downloaded page's HTML hash.
 3. Work in a **fresh independent review context** with only the above listed inputs and this instruction, no D3 author's chat transcript, generated Checker code, privately held oracle, or model/test outputs.
 4. Create a **new** D4 review report; do not alter frozen D3/spec files while assessing. If repair is necessary, assign findings; after fixes require a new revision/blob and a new or scoped re-review.
