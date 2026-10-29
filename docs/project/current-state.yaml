@@ -5,6 +5,10 @@ date: 2026-10-28
 purpose: Evaluate a spec-first agentic SDLC without Harness using direct Codex and optional CoderMind
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
+design_stack_plan: docs/project/agentic-sdlc-design-stack-plan.md
+design_stack_plan_status: ACTIVE_RESEARCH_PLAN_NO_STACK_SELECTED
+design_stack_next_task: DS-01_AUDIT_CANDIDATE_COMPONENT_SOURCES
+design_stack_scope: "Parallel documentation/source audit only; implementation still blocked on accepted spec/design, independent oracle, and local preflight."
 next_task: LOCAL_EXECUTOR_L1
 local_executor_entrypoint: docs/project/local-executor-handoff.md
 local_executor_first_issue: https://github.com/lehater/agentic-checker-lab/issues/32
@@ -25,6 +29,8 @@ verified_ci:
   - "Offline semantic benchmark exports omit labels; no AI model evaluation performed."
   - "PR #42 links all 10 proposed OpenSpec scenarios to independent NOT_RUN acceptance ideas."
   - "PR #43 adds quality-gated offline process/model comparison; no live measurement performed."
+# Branch-local owner approval evidence exists for synthetic L1 scope in Draft PR #51 (2026-10-29).
+# It has not yet become an accepted main-branch specification or a frozen oracle.
 not_verified:
   - "Owner acceptance of proposed Checker predicate subset and data schema; local OpenSpec/interactive Codex integration and live E2E."
   - "Live CoderMind stage interception, actual model usage counters and rerun."
