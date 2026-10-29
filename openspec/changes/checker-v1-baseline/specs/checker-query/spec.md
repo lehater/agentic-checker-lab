@@ -56,7 +56,7 @@ The Checker SHALL consume synthetic **relevant firewall** evidence, including fi
 - **THEN** the **proposed engineering error contract** fails the whole query explicitly without reporting an invented `NO_MATCH` or a partially successful normal report
 
 ### Requirement: Preserved observation and presentation
-The Checker SHALL report relevant firewalls, their relevant ACLs and placements, and matching rule rows as a hierarchy, keeping parents even with empty child collections. Each saved ACL SHALL expose its **own** last-successful timestamp and content, unchanged after a failed refresh. The output SHALL NOT claim an end-to-end permit/deny verdict.
+The Checker SHALL report relevant firewalls, their relevant ACLs and placements, and matching rule rows as a hierarchy, keeping parents even with empty child collections. Each relevant ACL with a valid supplied snapshot SHALL expose its **own** last-successful timestamp and matching evidence. Collection, retry and preservation after later refresh failures are outside the executable synthetic L1 slice. The output SHALL NOT claim an end-to-end permit/deny verdict.
 
 #### Scenario: No stored match
 - **WHEN** a relevant named ACL has a valid complete saved snapshot with zero matching rows
@@ -67,8 +67,8 @@ The Checker SHALL report relevant firewalls, their relevant ACLs and placements,
 - **THEN** the versioned output preserves the relevant firewall-to-ACL-to-row hierarchy, relevant placements and original matching row order, without a global verdict
 
 #### Scenario: Per-ACL last-success provenance
-- **WHEN** two relevant ACLs were successfully snapshotted at different times and a later collection attempt for one failed
-- **THEN** each ACL retains its own last-success timestamp and saved content; no past collection failure is asserted as a current matching outcome
+- **WHEN** a synthetic input supplies two relevant ACLs with valid successful snapshots bearing different last-success timestamps
+- **THEN** each ACL's corresponding timestamp and matching rows are preserved in the result; the prototype does not claim to execute or verify a later refresh attempt
 
 ### Requirement: Failure atomicity and input isolation
 The Checker SHALL not access live devices or modify supplied evidence. The **proposed CLI error contract** SHALL reject malformed input, unsupported required matching predicates, corrupt saved snapshots or missing first-successful snapshots with a diagnostic and no partially successful output. This atomic failure policy remains a delegated engineering proposal pending L1 review.
