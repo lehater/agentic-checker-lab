@@ -10,6 +10,8 @@ checker check --input /path/to/case.json
 
 The CLI reads **one UTF-8 JSON document** from the explicitly given local path. It does not read live firewalls or issue network requests. On success, it emits **one** JSON document to stdout and exits `0`. On invalid input, missing/invalid mandatory evidence or unsupported mandatory matching syntax, it emits a diagnostic to **stderr**, exits nonzero and emits **no successful or partial stdout**. Specific exit codes and final field names require engineering/spec review, and may change before acceptance. Do not treat this draft as an approved contract.
 
+**Draft typed input grammar:** [JSON Schema](checker-v1-input.schema.json). **Open engineering regression check:** [stdlib validator](../../tools/validate_checker_l1_input.py), with [negative tests](../../tests/test_checker_l1_input_contract.py). The schema covers types, allowed keys and field shape; the validator additionally checks cross-object snapshot identity, canonical IPv4 CIDR, UTC timestamps, range ordering and nonempty IDs. These public checks are **not held-out acceptance** and do not implement matching or relevance.
+
 ## Example input
 
 ```json
@@ -148,7 +150,7 @@ For **zero relevant FW**, the result contains `"firewalls":[]`. For a relevant A
 | Error diagnostics | Invalid JSON/field types/duplicate IDs/missing snapshot/unsupported mandatory predicates produce nonzero exit and a nonempty stderr diagnostic, without any successful stdout document. Exact diagnostic wording and nonzero code numbers are not specified |
 | Data type boundaries | Boolean values must not be treated as integer ports; reject out-of-range values, reversed intervals and noncanonical CIDR where the grammar demands canonical networks. Required ACL action is `permit` or `deny`; `extra` if present is an opaque JSON object |
 
-**Engineering proposal for review:** The concrete example above is not yet a formal JSON Schema, but its supported field grammar, duplicate policy, error shape and ordering are now explicitly bounded for independent fixture design. The owner is being asked to approve the **observable MVP scope in one package**, not to decide JSON field names, exception strings or implementation classes individually.
+**Engineering proposal for review:** The concrete example is now accompanied by a draft JSON Schema, but its supported field grammar, duplicate policy, error shape and ordering are now explicitly bounded for independent fixture design. The owner is being asked to approve the **observable MVP scope in one package**, not to decide JSON field names, exception strings or implementation classes individually.
 
 ## Examples to freeze with independent acceptance later
 
