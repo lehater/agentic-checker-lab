@@ -239,6 +239,8 @@ class DiscoveryLedgerTests(unittest.TestCase):
 
     def test_superseded_question_requires_successor_and_reason(self):
         data = self.next_frontier()
+        # The successor must not depend on the now-superseded question.
+        data["questions"][1]["depends_on"] = []
         old = data["questions"][0]
         old.update(status="SUPERSEDED", answer=None)
         self.assert_rejected(data, "SUPERSEDED needs successor Q IDs")
