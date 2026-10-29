@@ -8,6 +8,15 @@ roadmap: docs/project/roadmap.md
 next_task: LOCAL_EXECUTOR_L1
 local_executor_entrypoint: docs/project/local-executor-handoff.md
 local_executor_first_issue: https://github.com/lehater/agentic-checker-lab/issues/32
+l1_review: docs/project/l1-owner-review.md
+l1_status: AWAITING_OWNER_DECISIONS_AND_INDEPENDENT_ORACLE_CUSTODIAN
+local_preflight:
+  main_sha: 23fb14db473635b8ad2dfbb8121a581a9c42eafa
+  make_check: PASS
+  openspec_on_path: false
+  node_version: v18.19.1
+  codex_version: 0.163.0
+  openspec_codex_integration: NOT_RUN
 accepted:
   - "Owner directed: do not use Harness; evaluate OpenSpec + optional RPG against direct Codex."
   - "Engineering principles: Clean Architecture, SOLID, KISS, YAGNI."

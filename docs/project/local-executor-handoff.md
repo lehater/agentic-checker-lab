@@ -17,6 +17,8 @@ GitHub Actions pins @fission-ai/openspec 1.14.3 on Node.js 22. Use the same supp
 
 ## L1 — approve scope and freeze independent oracle (issue #32)
 
+See the [scope comparison and pending owner decisions](l1-owner-review.md) for the observed local preflight and remaining contract/oracle questions. L1 is not complete.
+
 - Compare docs/scenario/owner-problem-brief.md with the PROPOSED OpenSpec Checker subset. Owner explicitly accepts or rejects IPv4/CIDR/TCP/UDP/ports, JSON input and output, failure semantics. An executor cannot manufacture approval.
 - Resolve open semantics; update requirements, design and docs/evaluation/checker-acceptance-catalog.json together in a PR.
 - Turn all ten proposed cases CHK-001..010 into concrete immutable black-box input/expected-result fixtures; keep a truly held-out oracle inaccessible to implementation agents.
