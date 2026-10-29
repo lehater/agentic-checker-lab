@@ -4,7 +4,7 @@
 
 ## 1. Exact, immutable review baseline
 
-**Repository:** `lehater/agentic-checker-lab`. **Main reference commit:** `aa9ad497a9620e12172f867d37b720d61adc420b`. **Checker L1 proposed-spec parent commit:** `59e2dd1968d20b76030e9deb8a0acd42b894627e` (Draft [PR #51](https://github.com/lehater/agentic-checker-lab/pull/51)). **D3 authoring commit:** `50e20db3f98be1d8ee40b3986600cc7e5365bc6f`. **D3 design Git blob:** `5204e5d55966d7056e50ec6a1e208d5c3bb5f711`.
+**Repository:** `lehater/agentic-checker-lab`. **Main reference commit:** `aa9ad497a9620e12172f867d37b720d61adc420b`. **Checker L1 proposed-spec parent commit:** `59e2dd1968d20b76030e9deb8a0acd42b894627e` (Draft [PR #51](https://github.com/lehater/agentic-checker-lab/pull/51)). **D3 authoring commit:** `29f5af790879248eaeb57cba3500cc9e9b69c0ff`. **D3 design Git blob:** `1973d0ee197a51aeb8c3ba328fa79687a4cf7e02`.
 
 | Role / authority | Pinned source path (use the **commit**, not moving branches) | Expected Git blob SHA |
 | --- | --- | --- |
@@ -18,7 +18,9 @@
 | Engineering Policy (**P**, accepted) | [policy.md](https://github.com/lehater/agentic-checker-lab/blob/aa9ad497a9620e12172f867d37b720d61adc420b/docs/engineering/policy.md) | `3eac8b241f843ae25ca6239e82960e4e353ba1c0` |
 | Architecture gate contract (**P**, accepted) | [architecture-contract.json](https://github.com/lehater/agentic-checker-lab/blob/aa9ad497a9620e12172f867d37b720d61adc420b/docs/engineering/architecture-contract.json) | `77a078b87f21c246b190e831b2d8f6c4068b8b22` |
 | D2 design process and DS-C01..10 (**P**, process candidate) | [design-stack.md](https://github.com/lehater/agentic-checker-lab/blob/aa9ad497a9620e12172f867d37b720d61adc420b/docs/project/design-stack.md) | `015a85b6117c9be2fa38bb2a35a80cae81609b12` |
-| **Design under review** (**C**) | [D3 design.md](https://github.com/lehater/agentic-checker-lab/blob/50e20db3f98be1d8ee40b3986600cc7e5365bc6f/openspec/changes/checker-v1-baseline/design.md) | **`5204e5d55966d7056e50ec6a1e208d5c3bb5f711`** |
+| **Design under review** (**C**) | [D3 design.md](https://github.com/lehater/agentic-checker-lab/blob/29f5af790879248eaeb57cba3500cc9e9b69c0ff/openspec/changes/checker-v1-baseline/design.md) | **`1973d0ee197a51aeb8c3ba328fa79687a4cf7e02`** |
+
+**Two source trees:** PR #51/D3 inherits an older tree without D0/D2 documents. D2 `docs/project/design-stack.md` and `docs/project/design-stage-plan.md` MUST be loaded from the frozen merged-main commit above, not from the D3 branch; the D3 design now links directly to the correct commit. A checkout of the D3 branch alone is **insufficient** to retrieve every review authority. Record both trees in the reviewer source-integrity check.
 
 **Sourcing rule:** verify each Git blob SHA before reviewing. A mismatched/missing source means `INCONCLUSIVE` until baseline is corrected. GitHub links above pin immutable commit/object identities; `main`, `PR #51` and D3 branch remain mutable pointers and are **not** freeze identifiers. D3 design is based on the candidate spec at **exact** 59e2dd, not whatever PR #51 may contain after this packet is authored.
 
@@ -65,8 +67,8 @@ independence_basis: NOT_ESTABLISHED # distinct evaluator and materials, conflict
 source_main_commit: aa9ad497a9620e12172f867d37b720d61adc420b
 source_spec_parent_commit: 59e2dd1968d20b76030e9deb8a0acd42b894627e
 source_spec_blob: f67756fbf24f92a194fd802b78a18e6f2151e3e4
-design_commit: 50e20db3f98be1d8ee40b3986600cc7e5365bc6f
-design_blob: 5204e5d55966d7056e50ec6a1e208d5c3bb5f711
+design_commit: 29f5af790879248eaeb57cba3500cc9e9b69c0ff
+design_blob: 1973d0ee197a51aeb8c3ba328fa79687a4cf7e02
 scope: "D3 domain/architecture/contracts + D-001..012/CHK-001..016 trace"
 source_integrity: NOT_CHECKED
 checks: [] # DS-C01..DS-C10 with PASS/FAIL/N_A + supporting refs
