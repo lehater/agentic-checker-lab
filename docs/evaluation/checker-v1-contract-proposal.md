@@ -141,7 +141,7 @@ For **zero relevant FW**, the result contains `"firewalls":[]`. For a relevant A
 | No first successful snapshot | **Proposed** fail-atomic diagnostic, not valid empty match; owner has not approved this error wire contract |
 | Corrupt or unsupported mandatory match fields | **Proposed** fail-atomic diagnostic, never silently drop an unknown required predicate |
 | Supplemental conditions | Arbitrary JSON-safe `extra` object is **display-only**, never a matching predicate or a reason to claim full applicability |
-| Refresh failure | The valid saved snapshot stays unchanged; actual collector/refresh is outside MVP; tests may construct the prior saved state synthetically |
+| Refresh failure | Actual collector/refresh is outside L1: do not claim failed-refresh preservation was executed; future collector tests must verify preserving the last successful snapshot and timestamp |
 | Unknown fields, error codes and ordering across different FW/ACL | Decide precisely during engineering review and independent acceptance design; do not guess from this example |
 
 Important ambiguity left for **engineering review**: The core JSON example is concrete, but it is not a formal JSON Schema. The next engineering review should explicitly settle exact unknown-field validation and diagnostics and independently check that the proposed grammar serves the minimal goal, without asking the owner to choose field names one by one.
@@ -153,7 +153,7 @@ Important ambiguity left for **engineering review**: The core JSON example is co
 - FW with no ACL, ACL with valid snapshot and zero matches, and no relevant FW.
 - One ACL with multiple placements and two distinct equal-text matching row occurrences.
 - Supplemental `time_range` retained without checking its truth, and unknown **mandatory** matcher rejected.
-- Two per-ACL last-success timestamps and no overwritten saved evidence after an injected failed refresh.
+- Two different last-success timestamps in synthetic snapshots; a separate future collector acceptance test must cover failed refresh without overwriting saved evidence.
 - Relevant named ACL with no initial successful snapshot: explicit error, not inferred deny/no-match.
 
 **Approval gate:** Review revised OpenSpec, this proposed contract and black-box cases **as one package**. After owner acceptance, the independent oracle custodian must prepare and freeze held-out inputs/expected results inaccessible to implementation agents; existing CHK cases are public proposals marked `NOT_RUN`. Neither passing structural CI nor this example authorizes code generation.
