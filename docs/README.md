@@ -8,6 +8,7 @@
 | Текущее состояние и ограничения | [State](project/current-state.yaml) |
 | Передача локальному исполнителю | [Handoff](project/local-executor-handoff.md) |
 | Очерёдность небольших проверяемых шагов | [Roadmap](project/roadmap.md) |
+| **Текущий план стека проектирования, checkpoint для новых чатов** | [Agentic SDLC Design Stack Plan](project/agentic-sdlc-design-stack-plan.md) |
 | Clean Architecture, SOLID, KISS, YAGNI | [Engineering Policy](engineering/policy.md) |
 | Условия успеха | [Success criteria](project/success-criteria.md) |
 | Экспериментальное сравнение | [Experiment design](project/experiment-design.md) |
