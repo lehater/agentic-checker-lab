@@ -1,12 +1,10 @@
 # Checker Query — candidate specification delta (NOT owner-accepted)
 
-> This is a PROPOSED engineering specification. Only the explicit D-001–D-011 decisions in the discovery ledger are owner-approved. No live collection, independent semantic sign-off, or executed acceptance cases are implied.
 
 ## ADDED Requirements
 
 ### Requirement: Validated one-shot query
-The Checker SHALL accept one explicitly selected local UTF-8 JSON document representing one directed TCP/UDP query with required single host IPv4 source and destination addresses (not subnets). Each port may be a concrete integer in 0..65535 or unrestricted `any`: absent, blank UI fields are interpreted as `any` and are the default for both ports; `any` imposes no filter on that query port. The exact JSON wildcard encoding and local CLI form are PROPOSED engineering choices, not approved owner semantics. The Checker SHALL not claim a real-access or aggregated permit/deny verdict.
-
+The Checker SHALL accept one directed TCP/UDP query with required source/destination single-host IPv4 addresses and optional source/destination ports. Each port can be a numeric value (0..65535) or unrestricted `any`; an absent port means `any`, which removes that port filter. Neither real reachability nor a global access verdict is computed.
 #### Scenario: Valid input
 - **WHEN** the operator submits one valid document containing two single-host IPv4 addresses, TCP or UDP, and either concrete or unrestricted port selections
 - **THEN** the application evaluates only this directed query against provided synthetic evidence
@@ -28,8 +26,7 @@ The Checker SHALL accept one explicitly selected local UTF-8 JSON document repre
 - **THEN** the result contains no automatically checked reverse-only rules or stateful return-path decision; reversing addresses and ports requires a separate request
 
 ### Requirement: Complete stored-rule matching
-The Checker SHALL compare request host IP addresses against the stored supported exact host or CIDR matchers, protocols against tcp/udp/any, and concrete query ports against stored inclusive ranges; a query port `any` SHALL not constrain selection on that dimension. It SHALL return every selected rule in snapshot order, without a first-match shortcut. Additional ACL conditions outside the five query fields (such as established and scheduling) SHALL be preserved in the original displayed rule without evaluation. A required unsupported five-field matcher is distinct from an opaque extra ACL condition; the former SHALL not be silently guessed as a match.
-
+The Checker SHALL select all saved ACL rules that match the query's five dimensions, treating query port `any` as unconstrained. It SHALL retain rule order and original extra ACL conditions as display-only evidence, without evaluating those extra conditions. Required unknown matching fields cannot silently be treated as matches.
 #### Scenario: Multiple matching actions
 - **WHEN** a snapshot contains both permit and deny rules matching the same flow
 - **THEN** the returned evidence contains both original rules and actions in snapshot order
@@ -47,8 +44,7 @@ The Checker SHALL compare request host IP addresses against the stored supported
 - **THEN** it is rejected explicitly as a missing matching capability instead of silently treated as opaque display data or as a match
 
 ### Requirement: Relevance is a separate provided input
-For the initial synthetic query slice, the Checker SHALL accept separately provided relevance evidence describing devices, named ACL bindings, and possibly a relevant device with no ACL. It SHALL deduplicate each named ACL per device while retaining all relevant interface-direction or global placements. The external provider's approved route-based relevance policy (different routing interfaces to source/destination; inbound ACL on ingress, outbound on egress, global ACLs) is NOT implemented by merely supplying synthetic pairs. A provider contract remains required.
-
+The synthetic prototype SHALL consume provided relevant devices and ACL bindings, display one named ACL per device with all applicable placements, and retain a relevant device without ACL. The approved route/interface relevance policy remains a separate provider contract, not implemented by consuming provided evidence.
 #### Scenario: Duplicate relevance
 - **WHEN** the relevance source repeats the same device/ACL pair
 - **THEN** exactly one output group is produced for that pair in first-seen order
@@ -66,8 +62,7 @@ For the initial synthetic query slice, the Checker SHALL accept separately provi
 - **THEN** the device remains visible without an ACL name, and no ACL rules or implicit deny are fabricated
 
 ### Requirement: Preserved observation and presentation
-The Checker SHALL report each relevant device and one group per named ACL on that device, preserving all relevant placements, original matching rule fields and actions, and the date of each ACL's last successfully obtained snapshot. A relevant device without an attached ACL is reported without an ACL name. A named ACL with no matching stored rules has an empty rules list, not an absent ACL or deny verdict. The MVP consumes stored synthetic snapshots; actual collection and history management are separate scope.
-
+The Checker SHALL report each relevant device, named ACL, matching and unmatched saved ACL rules, applicable placements, original rule fields/actions and per-ACL last-successful snapshot date without inferring a permit/deny verdict. A named ACL with no matches is distinct from a device without an ACL.
 #### Scenario: No stored match
 - **WHEN** a relevant ACL has no matching stored rules
 - **THEN** the group is reported as NO_MATCH with an empty rules list, not a deny verdict
@@ -81,8 +76,7 @@ The Checker SHALL report each relevant device and one group per named ACL on tha
 - **THEN** each ACL displays its own last-successful date, not the timestamp of an unsuccessful attempt
 
 ### Requirement: Failure atomicity and input isolation
-The proposed local query SHALL neither access live firewalls nor alter supplied stored snapshots, nor publish a partial successful result after malformed or undecodable mandatory input. It SHALL distinguish an unsupported required matching field from a preserved opaque additional ACL condition. Separately, the approved collector-stage behavior is to log a failed refresh and retain the previously successful ACL snapshot and its date; the MVP does not claim to implement collection.
-
+The proposed local Checker SHALL not contact live firewalls, alter input snapshots or publish partial successes for invalid mandatory matching data. Opaque extra ACL conditions are preserved rather than rejected solely for being uninterpreted. Refresh-error logging and retention of last successful snapshots are an external collector contract, not an implemented MVP feature.
 #### Scenario: Invalid snapshot input
 - **WHEN** a relevant snapshot is absent or malformed, or a required matching field cannot be interpreted (not merely an opaque additional condition)
 - **THEN** the CLI returns nonzero, writes diagnostic stderr, and does not publish successful stdout
