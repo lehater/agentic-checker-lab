@@ -38,7 +38,7 @@
 - **Error/missing evidence:** proposed fail-atomic for invalid mandatory inputs or missing/corrupt relevant snapshots; **never** silently turn unknown evidence into zero matches. Exit and stderr are engineering wire details, subject to review.
 - **Excluded from this first implementation:** real route-table/ingress-egress ACL selection, collection/refresh/logging, long-term snapshot history, vendor parsing, distributed storage, live connectivity check.
 
-This contract is coherent enough for review but is not yet a formal JSON Schema; exact handling of duplicate snapshot identities, unknown non-`extra` JSON fields and diagnostics remains an **engineering validation decision** to resolve **before freezing executable fixtures**. These details must not silently change owner-observable meaning.
+The [contract proposal](checker-v1-contract-proposal.md) now **proposes explicit engineering rules** for duplicate identities, unexpected fields, ordering, mandatory matcher validation, error shape and port types. They remain reviewable proposed choices (not owner-confirmed universal product requirements). A formal JSON Schema and executable oracle have **not** been produced or accepted.
 
 ## 4. Approval request — one package, not renewed interrogation
 
