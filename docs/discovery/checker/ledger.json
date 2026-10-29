@@ -1,8 +1,8 @@
 {
   "schema": "checker-discovery-ledger/v1",
   "status": "IN_PROGRESS",
-  "checkpoint": 4,
-  "protocol_version": "0.1",
+  "checkpoint": 5,
+  "protocol_version": "0.2",
   "source_problem": "docs/scenario/owner-problem-brief.md",
   "rounds": [
     {
@@ -105,6 +105,36 @@
         "Известный ACL без первого успешного снимка — делегированный инженерный контракт.",
         "Минимальный набор поддерживаемых предикатов, JSON/CLI, UX и независимый acceptance oracle — отдельная инженерная проработка.",
         "Независимая семантическая проверка и ретроспектива протокола после двух завершённых раундов."
+      ]
+    },
+    {
+      "id": "R-003",
+      "status": "PREPARED",
+      "question_ids": [
+        "Q-009"
+      ],
+      "source_branch": "experiment/iterative-discovery-protocol",
+      "source_revision": "a0c2f32bec9ac9be20226d0c17da984738b35eaa",
+      "source_ledger_blob_sha": "4d2a7bbda5dd4ce3930c2ae802919e2482c1e4c3",
+      "source_brief_sha": "0061b6f982c015785b59cad4b1b8c9fb95478617",
+      "protocol_sha": "bf60b8f6e550a2add2863823029d20454fccc7a3",
+      "interviewer": "ChatGPT GPT-6",
+      "prompt_revision": "docs/discovery/chat-start.md @ 3346ec3822cc32dabdae3143c35c5243b110415d + owner Completeness Review instruction 2026-10-29",
+      "skill_runtime": "NOT_INVOKED",
+      "observed_input_tokens": null,
+      "observed_output_tokens": null,
+      "elapsed_seconds": null,
+      "prepared_date": "2026-10-29",
+      "frontier_reason": "CR-01: one independently discovered operator-facing meaning gap, not answered by Q-002 or Q-004. No manufactured extra owner questions; route ambiguity and missing snapshots remain delegated engineering/deferred.",
+      "source_review": "docs/discovery/checker/completeness-review-2026-10-29.md",
+      "prerequisite_decisions": [
+        "D-002",
+        "D-007"
+      ],
+      "pending_topics": [
+        "Wait for owner Q-009 reply and explicit review of normalized answer",
+        "CR-02..CR-14 remain engineering, derived, deferred, contradiction or insufficient evidence; do not auto-promote to owner questions",
+        "Candidate OpenSpec and acceptance oracle remain unapproved"
       ]
     }
   ],
@@ -350,6 +380,30 @@
           "counterexample": "Нельзя автоматически объединять ACL-правила для обоих направлений в одном результате."
         }
       }
+    },
+    {
+      "id": "Q-009",
+      "text": "Если поиск по корректным данным не обнаружил ни одного потенциально релевантного межсетевого экрана (например, на всех проверенных FW оба адреса соответствуют одному интерфейсу), какой смысл и какой результат должен увидеть оператор? Нужно ли явно отличать этот случай от найденного FW без ACL и от ACL без совпавших правил?",
+      "issue": "Meaning of a valid relevance evaluation with zero candidate firewalls",
+      "why": "Q-002 fixes the heuristic for including/excluding a FW; Q-004 clarifies a relevant FW lacking ACL vs a named ACL with zero matching rows. Neither defines what the operator should infer or see when the set of relevant firewalls itself is empty. Without a distinction the output may imply false NO_MATCH.",
+      "depends_on": [
+        "Q-002",
+        "Q-004"
+      ],
+      "options": [
+        "Явно показать отсутствие потенциально релевантных FW по принятой эвристике, без вывода о доступности или ACL-match",
+        "Вернуть пустой список без отдельного признака, сохранив смысл только в контексте запроса",
+        "Другое предметное значение/представление по решению владельца"
+      ],
+      "interviewer_proposal": "Рекомендация только для обсуждения: отличить NO_RELEVANT_FW от FW_NO_ACL и ACL_NO_MATCH. Это не утверждённый контракт CLI/JSON и не решение о прохождении трафика.",
+      "source": "docs/scenario/owner-problem-brief.md#Релевантность; docs/discovery/checker/ledger.json#Q-002; docs/discovery/checker/ledger.json#Q-004; docs/discovery/checker/completeness-review-2026-10-29.md#CR-01",
+      "created_round": "R-003",
+      "status": "OPEN",
+      "reason_code": "new_dependency",
+      "follow_up_to": [
+        "Q-002",
+        "Q-004"
+      ]
     }
   ],
   "decisions": [
