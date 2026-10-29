@@ -187,6 +187,30 @@
         }
       ],
       "gaps": []
+    },
+    {
+      "decision_id": "D-012",
+      "links": [
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-017"
+        },
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-007"
+        },
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-016"
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "The candidate cases separately cover a relevant firewall without ACL, a relevant ACL without matching rows and one ACL with multiple bindings, but they do not explicitly exercise zero relevant firewalls or the composed FW→ACL→matching-rule hierarchy. Candidate NO_MATCH/status presentation details are not an owner-approved mandatory UI contract.",
+          "next_action": "Before accepting the candidate specification and oracle, add a concrete zero-relevant-FW scenario plus independent hierarchical inclusion/multiplicity counterexamples, trace all D-012 semantics, and verify that any status labels remain engineering presentation choices."
+        }
+      ]
     }
   ]
 }
