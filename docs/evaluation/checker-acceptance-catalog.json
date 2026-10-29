@@ -2,23 +2,23 @@
   "schema": "checker-acceptance-catalog/v1",
   "status": "PROPOSED_NOT_OWNER_ACCEPTED",
   "spec": "openspec/changes/checker-v1-baseline/specs/checker-query/spec.md",
-  "spec_git_blob_sha": "22c8953ad0c6417d366f07ed79e7a980598dfc7b",
+  "spec_git_blob_sha": "120b66959b539bd3e1f48e75918516c3775681a1",
   "source_problem": "docs/scenario/owner-problem-brief.md",
   "cases": [
     {
       "id": "CHK-001",
       "requirement": "Validated one-shot query",
       "scenario": "Valid input",
-      "given": "One synthetic UTF-8 JSON document has source/destination IPv4, TCP and both ports",
-      "expected": "One flow is accepted for evaluation; no real device queried",
+      "given": "Versioned local JSON includes valid IPv4 src/dst, TCP, omitted source port and concrete destination port",
+      "expected": "Accept the directed request and treat omitted source port as unconstrained; read only supplied synthetic evidence",
       "execution_status": "NOT_RUN"
     },
     {
       "id": "CHK-002",
       "requirement": "Validated one-shot query",
       "scenario": "Invalid or unsupported input",
-      "given": "Input lacks dst IPv4 or has source port 65536 or an unknown predicate",
-      "expected": "Whole request fails explicitly, without approximation",
+      "given": "Input lacks required source IP, uses ICMP, or has numeric port 65536",
+      "expected": "Explicit error; do not return empty success or silently approximate unsupported input",
       "execution_status": "NOT_RUN"
     },
     {
@@ -26,7 +26,7 @@
       "requirement": "Complete stored-rule matching",
       "scenario": "Multiple matching actions",
       "given": "Saved ACL has ordered r1 permit tcp 443 and r2 deny tcp 443 both matching",
-      "expected": "Return r1 and r2 in stored order, irrespective of their actions",
+      "expected": "Preserve every permit and deny matching row occurrence in ACL snapshot order with no first-match or end-to-end verdict",
       "execution_status": "NOT_RUN"
     },
     {
@@ -34,47 +34,47 @@
       "requirement": "Complete stored-rule matching",
       "scenario": "Predicate boundaries",
       "given": "Port 443 against inclusive [443,443], nonmatching [444,445]; 192.0.2.4 against /24 and unrelated /24",
-      "expected": "Only containing inclusive ranges and containing networks match",
+      "expected": "Only supported enclosing inclusive port ranges and CIDR networks match; unknown mandatory predicate never silently matches",
       "execution_status": "NOT_RUN"
     },
     {
       "id": "CHK-005",
-      "requirement": "Relevance is a separate provided input",
+      "requirement": "Relevance is separate provided evidence",
       "scenario": "Duplicate relevance",
-      "given": "Ordered pairs fw-a/acl-1, fw-a/acl-1, fw-b/acl-2",
-      "expected": "Exactly two output groups in first-seen order",
+      "given": "One FW includes repeated WEB_IN binding and two distinct applicable placements; another FW has ACL named WEB_IN",
+      "expected": "One WEB_IN group per distinct FW, all distinct relevant attachments, no repeated row occurrences from duplicated placements",
       "execution_status": "NOT_RUN"
     },
     {
       "id": "CHK-006",
-      "requirement": "Relevance is a separate provided input",
+      "requirement": "Relevance is separate provided evidence",
       "scenario": "Missing required snapshot",
       "given": "Relevant pair fw-b/acl-2 has no available snapshot",
-      "expected": "Fail entire query with no partial successful output or invented NO_MATCH",
+      "expected": "Proposed engineering fail-atomic contract; no successful partial report and no invented NO_MATCH",
       "execution_status": "NOT_RUN"
     },
     {
       "id": "CHK-007",
       "requirement": "Preserved observation and presentation",
       "scenario": "No stored match",
-      "given": "One relevant, valid snapshot contains no matching rule",
-      "expected": "Group reports NO_MATCH and empty rules, not an implicit deny",
+      "given": "One relevant FW has named ACL with a valid complete snapshot containing no matching rules",
+      "expected": "Report retains FW and named ACL with empty matched rows, not an access verdict",
       "execution_status": "NOT_RUN"
     },
     {
       "id": "CHK-008",
       "requirement": "Preserved observation and presentation",
       "scenario": "Structured report",
-      "given": "Relevant ACLs fw-b/acl-2 and fw-a/acl-1 each have ordered stored matches",
-      "expected": "JSON output preserves relevance and snapshot ordering and rule evidence, no global verdict",
+      "given": "Two relevant devices, one ACL per device and multiple relevant placements for one ACL, with matching rows",
+      "expected": "Versioned output preserves FW→ACL+placements→matched rows, snapshot row order and no global verdict",
       "execution_status": "NOT_RUN"
     },
     {
       "id": "CHK-009",
       "requirement": "Failure atomicity and input isolation",
       "scenario": "Invalid snapshot input",
-      "given": "A relevant snapshot has an unknown predicate, another is valid",
-      "expected": "Nonzero exit, diagnostic stderr and no successful or partial stdout",
+      "given": "One relevant ACL snapshot contains unsupported mandatory matcher and another ACL is valid; a supplemental time-range is present on valid rules",
+      "expected": "Fail-atomic with nonzero stderr, no success stdout for unsupported mandatory matcher; display-only extra alone must not cause error",
       "execution_status": "NOT_RUN"
     },
     {
@@ -83,6 +83,54 @@
       "scenario": "Local-only execution",
       "given": "Run with synthetic input and local stored snapshots in isolated environment",
       "expected": "No network or device activity; result only from supplied evidence",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-011",
+      "requirement": "Validated one-shot query",
+      "scenario": "Omitted and wildcard query ports",
+      "given": "A TCP query omits source port and specifies destination 443; stored supported rule restricts source port 40000",
+      "expected": "Same match as explicit query source_port=any, while destination 443 still filters; missing port is not invalid input",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-012",
+      "requirement": "Validated one-shot query",
+      "scenario": "No automatic reverse direction",
+      "given": "A-to-B query with only B-to-A stored ACL rule matching the reverse tuple",
+      "expected": "No reverse rule reported; a separate query is required for B-to-A",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-013",
+      "requirement": "Complete stored-rule matching",
+      "scenario": "Supplemental conditions are displayed but not evaluated",
+      "given": "A five-field matching rule has a saved time-range flag outside the present time",
+      "expected": "Return matching rule with supplemental time-range as opaque evidence; do not evaluate its current truth or conclude permit/deny",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-014",
+      "requirement": "Complete stored-rule matching",
+      "scenario": "Identical rows at different snapshot positions",
+      "given": "One named ACL has identical permit text at saved lines 2 and 5 and is bound to two relevant placements",
+      "expected": "One ACL group with both placements and two matching rule occurrences in positions 2 and 5",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-015",
+      "requirement": "Relevance is separate provided evidence",
+      "scenario": "Relevant firewall with no ACL",
+      "given": "FW-A is relevant with zero ACL; FW-B is irrelevant; separately test no relevant FW",
+      "expected": "FW-A appears with zero ACL children and FW-B is absent; no relevant FW produces an empty FW collection",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-016",
+      "requirement": "Preserved observation and presentation",
+      "scenario": "Per-ACL last-success provenance",
+      "given": "ACL-A and ACL-B snapshots have different successful timestamps, and a later failed update on ACL-A",
+      "expected": "Report retains distinct original last-success timestamps and original ACL-A data; no invented match failure notification",
       "execution_status": "NOT_RUN"
     }
   ]
