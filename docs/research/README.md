@@ -3,6 +3,7 @@
 Исследования отделены от принятых требований и архитектурных решений.
 
 - [Source ledger](source-ledger.md) — пины версий, доверие, происхождение фактов.
+- [OpenSpec design stack — D1 source audit](openspec-design-stack.md) — ревизии upstream, контракт артефактов, реальные gates, лицензии и обоснование минимального стека.
 - [Legacy checker semantics](legacy-checker.md) — подтверждённое историческое назначение и ограничения.
 - [Toolchain and compatibility](tooling.md) — Harness, Microsoft RPG/CoderMind, установка/неопределённости.
 - [Harness operator smoke](p1-harness-spike.md) — real Ubuntu outcome and limitations.
