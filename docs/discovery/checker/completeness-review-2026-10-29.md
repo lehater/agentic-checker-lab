@@ -8,7 +8,7 @@
 ## 1. Evidence and recovered state
 
 Sources (all at observed branch HEAD unless an immutable SHA/URL is given):
-- [AGENTS.md](../../../../AGENTS.md), [protocol v0.2](../protocol.md), [chat-start](../chat-start.md), [original owner brief](../../scenario/owner-problem-brief.md);
+- [AGENTS.md](../../../AGENTS.md), [protocol v0.2](../protocol.md), [chat-start](../chat-start.md), [original owner brief](../../scenario/owner-problem-brief.md);
 - [ledger](ledger.json): checkpoint **4**, `IN_PROGRESS`, **R-001/R-002 CLOSED**, **Q-001..Q-008 ANSWERED/APPROVED**, **D-001..D-011 ACCEPTED**, no PREPARED R-003;
 - [round 001](rounds/001.md) and [round 002](rounds/002.md) with published exact questions, normalized answers, corrections and recorded approval;
 - [pilot retrospective](../pilot-retrospective.md), [fresh-chat audit](https://github.com/lehater/agentic-checker-lab/pull/48#issuecomment-6490016712);
