@@ -1,7 +1,7 @@
 {
   "schema": "checker-discovery-ledger/v1",
   "status": "IN_PROGRESS",
-  "checkpoint": 2,
+  "checkpoint": 3,
   "protocol_version": "0.1",
   "source_problem": "docs/scenario/owner-problem-brief.md",
   "rounds": [
@@ -51,6 +51,41 @@
         "Интервьюер предложил интерпретировать дополнительные условия; владелец отверг интерпретации.",
         "Успешный сохранённый снимок и ошибка получения нового снимка относятся к разным этапам.",
         "Предложенные в ходе review Q-006/Q-007 не публиковались в ledger и были разрешены уточнениями; не задавать их повторно."
+      ]
+    },
+    {
+      "id": "R-002",
+      "status": "PREPARED",
+      "question_ids": [
+        "Q-006",
+        "Q-007",
+        "Q-008"
+      ],
+      "owner_confirmation": null,
+      "source_branch": "experiment/iterative-discovery-protocol",
+      "source_revision": "726dda63c18c730b3a4c8cb1dd25f6b9ddf60b4a",
+      "source_ledger_blob_sha": "851f1d0f9a49c01f55a5eb7989fd24094ed8cbe4",
+      "source_brief_sha": "0061b6f982c015785b59cad4b1b8c9fb95478617",
+      "protocol_sha": "b02961bd941f435ce65fbd8654b5a1e350059bcb",
+      "source_decisions": [
+        "D-001",
+        "D-002",
+        "D-003",
+        "D-004",
+        "D-007"
+      ],
+      "interviewer": "ChatGPT GPT-6",
+      "prompt_revision": "docs/discovery/chat-start.md @ 3346ec3822cc32dabdae3143c35c5243b110415d + current user instruction",
+      "skill_runtime": "NOT_INVOKED",
+      "observed_input_tokens": null,
+      "observed_output_tokens": null,
+      "elapsed_seconds": null,
+      "prepared_date": "2026-10-29",
+      "frontier_reason": "Three independent owner-meaning edges following confirmed R-001: unknown source-port semantics, duplicate ACL attachment evidence, and reverse-direction scope. Candidate OpenSpec field/schema choices delegated to developers. No repetition of R-001 questions or earlier provisional Q-006/Q-007 themes on snapshots.",
+      "pending_topics": [
+        "Engineering contract for no prior successful snapshot remains delegated and is not asked",
+        "Frozen independent oracle custody requires separate readiness decision",
+        "Retrospective on two-round pilot and checkpoint minimization after R-002 confirmation"
       ]
     }
   ],
@@ -198,6 +233,68 @@
           "counterexample": "Сделать дату 11:00 либо заменить снимок пустым недопустимо."
         }
       }
+    },
+    {
+      "id": "Q-006",
+      "text": "Если оператор не знает фактический порт источника (например, клиент обращается к TCP/443 с динамического порта), что должно означать значение порта источника по умолчанию: проверку конкретного номера, отсутствие ограничения по этому полю или иной смысл? Какое поведение поиска вы ожидаете для правила, ограничивающего порт источника?",
+      "issue": "Unknown source port query semantics versus concrete default",
+      "why": "Конкретный порт по умолчанию и 'любой порт' могут возвращать разные наборы ACL-правил. Это влияет на предметный смысл совпадения, а не только на удобство интерфейса.",
+      "depends_on": [
+        "Q-001",
+        "Q-003"
+      ],
+      "options": [
+        "Числовой порт по умолчанию — проверять его как конкретное значение",
+        "Неизвестный порт означает отсутствие ограничения по порту источника",
+        "Другое поведение, выбранное владельцем"
+      ],
+      "interviewer_proposal": "Предположение для обсуждения: отсутствие известного порта может означать отсутствие ограничения, но это не утверждено; разработчик подберёт UI/JSON форму после решения о семантике.",
+      "source": "docs/discovery/checker/rounds/001.md#Q-001; docs/discovery/checker/rounds/001.md#Q-003",
+      "reason_code": "owner_clarification",
+      "created_round": "R-002",
+      "status": "OPEN",
+      "answer": null
+    },
+    {
+      "id": "Q-007",
+      "text": "Если один и тот же ACL привязан к нескольким применимым местам на одном межсетевом экране (например, вход интерфейса и глобальная привязка), должен результат содержать одну группу ACL со всеми местами применения или отдельную группу для каждой привязки? Что оператор должен видеть, чтобы не потерять факт каждой привязки?",
+      "issue": "Identity and multiplicity of ACL attachments in output",
+      "why": "Группировка только по имени ACL может скрыть несколько фактов применения, а дублирование правил по привязкам может создать ложное впечатление разных ACL.",
+      "depends_on": [
+        "Q-002",
+        "Q-004"
+      ],
+      "options": [
+        "Одна группа на ACL с перечислением всех релевантных привязок",
+        "Отдельная группа для каждой релевантной привязки",
+        "Другая форма без потери привязок"
+      ],
+      "interviewer_proposal": "Предположение для обсуждения: одна группа ACL с полным набором релевантных привязок исключает дубли строк, но требование пользователя к представлению важнее этого удобства.",
+      "source": "docs/discovery/checker/rounds/001.md#Q-002; docs/discovery/checker/rounds/001.md#Q-004",
+      "reason_code": "new_dependency",
+      "created_round": "R-002",
+      "status": "OPEN",
+      "answer": null
+    },
+    {
+      "id": "Q-008",
+      "text": "При запросе от клиента к серверу (например, TCP 10.0.0.5:55000 → 192.0.2.10:443) должен Checker показывать только ACL-правила для указанного направления или дополнительно искать правила для ответного направления (192.0.2.10:443 → 10.0.0.5:55000)? Если обратное направление нужно, оно проверяется отдельным запросом или тем же?",
+      "issue": "Directed request scope versus implicit reverse-direction rule search",
+      "why": "Слово 'соединение' может ошибочно превратиться в двухсторонний анализ; в R-001 утверждён направленный поиск, но граница с ответным трафиком требует явного проверочного примера.",
+      "depends_on": [
+        "Q-001"
+      ],
+      "options": [
+        "Только заданное направление; обратное — отдельный запрос",
+        "Оба направления в одном результате",
+        "Иной критерий владельца"
+      ],
+      "interviewer_proposal": "Следовать направленному запросу из D-001, а обратное направление запрашивать отдельно; это предлагаемый пример границы, не пересмотр решения без согласования.",
+      "source": "docs/discovery/checker/rounds/001.md#Q-001; docs/discovery/checker/rounds/001.md#Accepted-decisions",
+      "reason_code": "owner_clarification",
+      "created_round": "R-002",
+      "status": "OPEN",
+      "answer": null
     }
   ],
   "decisions": [
