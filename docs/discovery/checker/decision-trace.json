@@ -6,7 +6,7 @@
   "candidate_spec": "openspec/changes/checker-v1-baseline/specs/checker-query/spec.md",
   "candidate_catalog": "docs/evaluation/checker-acceptance-catalog.json",
   "audit_source": "https://github.com/lehater/agentic-checker-lab/pull/48#issuecomment-6490016712",
-  "warning": "Candidate links are navigational and unreviewed. A structurally valid matrix is NOT an accepted specification, semantic agreement, or a run of CHK cases.",
+  "warning": "PROPOSED candidate links and open gaps, not semantic approval. CHK cases NOT_RUN; independent reviewer pending.",
   "entries": [
     {
       "decision_id": "D-001",
@@ -18,6 +18,10 @@
         {
           "requirement": "Preserved observation and presentation",
           "case_id": "CHK-008"
+        },
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-013"
         }
       ],
       "gaps": []
@@ -39,13 +43,17 @@
         {
           "requirement": "Relevance is a separate provided input",
           "case_id": "CHK-005"
+        },
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-016"
         }
       ],
       "gaps": [
         {
           "kind": "MISSING_COVERAGE",
-          "description": "The proposed pair source does not verify inbound, outbound, and global ACL attachment selection.",
-          "next_action": "Define an explicit relevance-provider contract and independent placement example."
+          "description": "Display of multiple placements is now proposed, but selecting inbound on ingress, outbound on egress and global bindings in a route-based provider is not specified or verified.",
+          "next_action": "Independently specify the provider contract or explicitly defer route-based selection beyond the local MVP."
         }
       ]
     },
@@ -59,15 +67,17 @@
         {
           "requirement": "Failure atomicity and input isolation",
           "case_id": "CHK-009"
+        },
+        {
+          "requirement": "Complete stored-rule matching",
+          "case_id": "CHK-014"
+        },
+        {
+          "requirement": "Complete stored-rule matching",
+          "case_id": "CHK-015"
         }
       ],
-      "gaps": [
-        {
-          "kind": "UNRESOLVED_CONTRACT",
-          "description": "Candidate rejects unsupported snapshot predicates; approved decision says to display additional rule conditions without interpretation. Boundary between unsupported match predicate and uninterpreted additional condition is not specified.",
-          "next_action": "Separate supported matching predicates from preserved uninterpreted rule fields; review counterexamples with an independent oracle."
-        }
-      ]
+      "gaps": []
     },
     {
       "decision_id": "D-005",
@@ -85,12 +95,17 @@
     },
     {
       "decision_id": "D-006",
-      "links": [],
+      "links": [
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-018"
+        }
+      ],
       "gaps": [
         {
           "kind": "MISSING_COVERAGE",
-          "description": "Candidate does not state per-ACL last successful snapshot, per-ACL update timestamp, or absence of version history.",
-          "next_action": "Map storage/update semantics to a future contract or explicitly defer the collector while retaining the visible timestamp requirement."
+          "description": "The candidate reports each ACL last-success date, but persisted replacement on successful reads, nonreplacement on errors and no history are not specified as working storage behavior.",
+          "next_action": "Specify storage and collector acceptance cases separately or explicitly defer persistence beyond the local prototype."
         }
       ]
     },
@@ -100,15 +115,13 @@
         {
           "requirement": "Preserved observation and presentation",
           "case_id": "CHK-007"
+        },
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-017"
         }
       ],
-      "gaps": [
-        {
-          "kind": "MISSING_COVERAGE",
-          "description": "Candidate covers named ACL with no matches, but not a relevant firewall with no attached ACL name.",
-          "next_action": "Add an explicit representation scenario for relevant FW without ACL or document a justified adapter boundary."
-        }
-      ]
+      "gaps": []
     },
     {
       "decision_id": "D-008",
@@ -116,8 +129,8 @@
       "gaps": [
         {
           "kind": "MISSING_COVERAGE",
-          "description": "Candidate snapshot failure is a query failure; approved D-008 concerns a failed collection refresh with a previously successful snapshot preserved.",
-          "next_action": "Specify collection-stage logging and non-overwrite separately from query-stage failure, or document a justified MVP seam."
+          "description": "The collector-stage log and retention requirement is described only as an external boundary; no independent collector fixture checks logs and failure nonoverwrite.",
+          "next_action": "Propose external collector error retention scenarios or explicitly defer that component from the MVP."
         }
       ]
     },
@@ -131,15 +144,17 @@
         {
           "requirement": "Validated one-shot query",
           "case_id": "CHK-002"
+        },
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-011"
+        },
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-012"
         }
       ],
-      "gaps": [
-        {
-          "kind": "CONFLICT",
-          "description": "Candidate requires two supplied integer port values; approved owner decision permits blank/any for either port, including default.",
-          "next_action": "Revise candidate query semantics and add acceptance cases for each port wildcard and explicit numeric port, followed by independent review."
-        }
-      ]
+      "gaps": []
     },
     {
       "decision_id": "D-010",
@@ -151,15 +166,13 @@
         {
           "requirement": "Preserved observation and presentation",
           "case_id": "CHK-008"
+        },
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-016"
         }
       ],
-      "gaps": [
-        {
-          "kind": "MISSING_COVERAGE",
-          "description": "Candidate deduplicates repeated device/ACL pairs but does not test preserving multiple relevant placements of one ACL.",
-          "next_action": "Add a case with two relevant attachments of one named ACL and assert one rules group retaining both attachments."
-        }
-      ]
+      "gaps": []
     },
     {
       "decision_id": "D-011",
@@ -167,15 +180,13 @@
         {
           "requirement": "Validated one-shot query",
           "case_id": "CHK-001"
+        },
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-013"
         }
       ],
-      "gaps": [
-        {
-          "kind": "REVIEW_REQUIRED",
-          "description": "Candidate's one-flow wording does not explicitly rule out automatic matching of the reverse direction within the same query.",
-          "next_action": "Add a directed-query scenario and reverse-direction counterexample; independently verify the boundary."
-        }
-      ]
+      "gaps": []
     }
   ]
 }
