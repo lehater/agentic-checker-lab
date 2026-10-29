@@ -12,10 +12,10 @@ Quality Gate: ... · Deep: `SKIPPED / COMPLETED` (reason)
 
 ## Outstanding work
 
-- **Owner decisions:** <none or Q IDs and bounded dependency, not assumptions>
-- **Engineering contracts:** <validation, data grammar, edge handling, performance when delegated>
-- **Independent checks:** <needed semantic review and oracle approvals>
-- **Evidence limitations:** <missing raw approval, CI limits, known untested behaviors>
+- **Owner decisions:** «none or Q IDs and bounded dependency, not assumptions»
+- **Engineering contracts:** «validation, data grammar, edge handling, performance when delegated»
+- **Independent checks:** «needed semantic review and oracle approvals»
+- **Evidence limitations:** «missing raw approval, CI limits, known untested behaviors»
 
 ## Gate results
 
