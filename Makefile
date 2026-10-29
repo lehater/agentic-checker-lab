@@ -1,10 +1,11 @@
-.PHONY: run-comparison-test requirements-trace-test archived-rpg-test semantic-benchmark-test semantic-cases-test semantic-test harness-pack-preflight harness-consumer-preflight check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit architecture-test telemetry-test
+.PHONY: checker-l1-input-test run-comparison-test requirements-trace-test archived-rpg-test semantic-benchmark-test semantic-cases-test semantic-test harness-pack-preflight harness-consumer-preflight check harness-smoke cmind-preflight cmind-codex-smoke cmind-codex-live cmind-rpg-init cmind-rpg-phase1 cmind-rpg-skeleton cmind-rpg-status cmind-rpg-export cmind-rpg-audit architecture-test telemetry-test
 
 check:
 	python3 tools/check_repository.py
 	python3 -m unittest discover -s tests -p 'test_run_comparison.py' -v
 	python3 tools/check_requirements_trace.py
 	python3 -m unittest discover -s tests -p 'test_requirements_trace.py' -v
+	python3 -m unittest discover -s tests -p 'test_checker_l1_input_contract.py' -v
 	python3 -m unittest discover -s tests -p 'test_architecture_policy.py' -v
 	python3 -m unittest discover -s tests -p 'test_run_observability.py' -v
 	python3 -m unittest discover -s tests -p 'test_semantic_review.py' -v
@@ -73,3 +74,7 @@ requirements-trace-test:
 
 run-comparison-test:
 	python3 -m unittest discover -s tests -p 'test_run_comparison.py' -v
+
+# Public contract validation, NOT an independent oracle or Checker implementation.
+checker-l1-input-test:
+	python3 -m unittest discover -s tests -p 'test_checker_l1_input_contract.py' -v
