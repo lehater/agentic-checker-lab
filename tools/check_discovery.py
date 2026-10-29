@@ -94,6 +94,8 @@ def verify(data, root=ROOT):
             expected = root / "docs/discovery/checker/rounds" / (str(rid).split("-")[-1] + ".md")
             if not expected.is_file():
                 fail(str(rid) + ": closed round report missing: " + str(expected))
+        elif r.get("owner_confirmation"):
+            fail(str(rid) + ": PREPARED cannot have owner_confirmation")
         if state == "CLOSED" and "decision_ids" in r:
             accepted_ids = r["decision_ids"]
             if not isinstance(accepted_ids, list) or any(
@@ -119,8 +121,6 @@ def verify(data, root=ROOT):
                     )
                     if len(reported_ids) != len(set(reported_ids)) or set(reported_ids) != set(accepted_ids):
                         fail(str(rid) + ": round report decision IDs do not match ledger")
-        elif r.get("owner_confirmation"):
-            fail(str(rid) + ": PREPARED cannot have owner_confirmation")
     for qid, q in qq.items():
         state = q.get("status")
         if state not in Q_STATES:
