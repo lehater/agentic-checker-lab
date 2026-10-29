@@ -1,6 +1,6 @@
 # Evidence-Gated Requirements Discovery — methodology v0.1
 
-**Status:** experimental working practice. Owner answers remain the only authority for owner-controlled product meaning. The active \`main\` baseline and [engineering policy](../engineering/policy.md) still apply.
+**Status:** experimental working practice. Owner answers remain the only authority for owner-controlled product meaning. The active `main` baseline and [engineering policy](../engineering/policy.md) still apply.
 
 ## When to run
 
@@ -56,9 +56,9 @@ Deep does **not** automatically generate another owner interview. Apply Authorit
 
 ## 4. Completion, handoff and change control
 
-Allowed statuses: \`READY_FOR_SPEC_REVIEW\`, \`NEEDS_OWNER_DECISIONS\`, \`BLOCKED_EVIDENCE\`, \`DEFERRED_WITH_SCOPE\`. A status is always accompanied by reasons; \`READY\` is **not** product specification approval.
+Allowed statuses: `READY_FOR_SPEC_REVIEW`, `NEEDS_OWNER_DECISIONS`, `BLOCKED_EVIDENCE`, `DEFERRED_WITH_SCOPE`. A status is always accompanied by reasons; `READY` is **not** product specification approval.
 
-Only claim \`READY_FOR_SPEC_REVIEW\` when:
+Only claim `READY_FOR_SPEC_REVIEW` when:
 1. Scope/goal and all critical user-visible choices are source-backed, owner-accepted or validly derived.
 2. No conflicting accepted requirement or unjustified owner-choice assumption remains.
 3. Required Quality Gate completed with concrete counterexamples; Deep either justified or explicitly skipped.
@@ -70,8 +70,8 @@ Use [handoff](templates/handoff.md). Engineering must not silently promote an in
 
 ## Governance, efficiency and constraints
 
-- Scope: one task, one branch, small PR. GitHub is the durable state. If writes fail, mark \`BLOCKED_EVIDENCE\`; do not claim committed status.
-- Stable IDs \`Q-xxx\` and \`D-xxx\`. Corrections preserve history; major changes supersede old decisions instead of silently rewriting. Retain source and approval evidence, but avoid posting secrets, private transcripts or raw audio to a public repository.
-- Measure: unique material questions, repeat/low-value questions, owner corrections, semantic loss, checkpoints, new gaps from Quality Gate/Deep, owner-active minutes where observed, and \`UNKNOWN\` when not.
+- Scope: one task, one branch, small PR. GitHub is the durable state. If writes fail, mark `BLOCKED_EVIDENCE`; do not claim committed status.
+- Stable IDs `Q-xxx` and `D-xxx`. Corrections preserve history; major changes supersede old decisions instead of silently rewriting. Retain source and approval evidence, but avoid posting secrets, private transcripts or raw audio to a public repository.
+- Measure: unique material questions, repeat/low-value questions, owner corrections, semantic loss, checkpoints, new gaps from Quality Gate/Deep, owner-active minutes where observed, and `UNKNOWN` when not.
 - The experiment in PR #48 produced 24 reported Fast questions and zero new Standard/Deep questions. Mutation testing found some misses and unstable authority triage. **No evidence yet proves that a full separate Deep stage is worth default cost.**
-- **Do not modify** project state, local-executor L1–L5 gates, independent acceptance oracle, code or \`main\` merely by applying this methodology.
+- **Do not modify** project state, local-executor L1–L5 gates, independent acceptance oracle, code or `main` merely by applying this methodology.
