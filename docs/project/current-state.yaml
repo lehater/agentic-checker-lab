@@ -1,11 +1,16 @@
 schema: agentic-checker-lab/current-state/v1
 status: GITHUB_INFRASTRUCTURE_VERIFIED_SPEC_NOT_ACCEPTED
 phase: GITHUB_INFRASTRUCTURE
-date: 2026-10-28
+date: 2026-10-29
 purpose: Evaluate a spec-first agentic SDLC without Harness using direct Codex and optional CoderMind
 strategy: docs/project/strategy.md
 roadmap: docs/project/roadmap.md
 next_task: LOCAL_EXECUTOR_L1
+parallel_design_workstream:
+  plan: docs/project/design-stage-plan.md
+  stage: D1_AUDIT_READY_MADE_OPENSPEC_DESIGN_TOOLS
+  scope: "Research/design preparation only. No tool installed, model-run, hidden oracle, design approval or codegen."
+  dependencies: "Checker L1 semantic/spec/oracle gates remain independently required before implementation."
 local_executor_entrypoint: docs/project/local-executor-handoff.md
 local_executor_first_issue: https://github.com/lehater/agentic-checker-lab/issues/32
 accepted:
@@ -26,7 +31,7 @@ verified_ci:
   - "PR #42 links all 10 proposed OpenSpec scenarios to independent NOT_RUN acceptance ideas."
   - "PR #43 adds quality-gated offline process/model comparison; no live measurement performed."
 not_verified:
-  - "Owner acceptance of proposed Checker predicate subset and data schema; local OpenSpec/interactive Codex integration and live E2E."
+  - "Final merged Checker L1 specification and independent held-out oracle (Draft PR #51 records owner scope approval but is not merged); local OpenSpec/interactive Codex integration and live E2E."
   - "Live CoderMind stage interception, actual model usage counters and rerun."
   - "Equal-input live model comparison, measured process optimization, model routing quality and second-task transfer."
 evidence:
