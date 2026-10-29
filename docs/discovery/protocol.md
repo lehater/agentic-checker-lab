@@ -1,4 +1,4 @@
-# Iterative Requirements Discovery — experimental operating protocol v0.1
+# Iterative Requirements Discovery — experimental operating protocol v0.2
 
 **Status: EXPERIMENTAL / NOT ACCEPTED.** Applies only to the Checker discovery pilot branch and its Draft PR. It does not approve the current proposed Checker OpenSpec, acceptance oracle or any model-driven implementation. Owner approves domain meanings; an AI never silently approves them.
 
@@ -55,6 +55,16 @@ In **one commit**, after approval:
 3. Mark that round `CLOSED` and record explicit owner confirmation; update checkpoint number. **May** append prepared questions for round N+1 in same commit. Those questions are not sent until this commit succeeds.
 4. Run `python3 tools/check_discovery.py` and repository checks; fix structural errors without changing owner meaning. Commit on pilot branch and update Draft PR. If checks/commit fail, remain BLOCKED.
 5. Announce committed SHA, counts, unresolved issues and *then* ask next prepared frontier, if any. On resumed chat, read persisted checkpoint first; don't reconstruct a supposed commit from memory.
+
+### Pilot audit and post-interview trace gate (v0.2 amendment)
+
+- After two closed rounds, perform a read-only, new-chat recovery audit from GitHub. Record its evidence and limitations; successful state reconstruction does not establish semantic correctness or independent verification of oral consent.
+- Every accepted decision must have an explicit candidate trace: Decision ID → exact candidate OpenSpec Requirement heading → existing CHK acceptance case, **or** an actionable, classified gap. A partially covered decision must retain its gap. Machine checking verifies references and gap completeness, never semantic equivalence.
+- Audit reports must match the canonical decision IDs in the ledger, including each round's accepted-decision list. Check in a clean temporary fixture independent from the live ledger; run the live ledger check separately.
+- The candidate spec and CHK cases remain PROPOSED/NOT_RUN. A structural trace PASS with unresolved gaps is **not** authorization to change the owner decisions, accept the spec, merge the PR, or implement Checker.
+- Require an independent semantic reviewer to resolve/review each gap, inspect examples/counterexamples and the approved decision source before proposing spec or oracle approval. Distinguish unsupported matching predicates from additional ACL conditions preserved only as displayed evidence.
+- Prefer merging the closure checkpoint for round N and the PREPARED frontier of N+1 into one atomic commit **when** a new owner-only frontier is genuinely needed. Do not create a new round just to exercise the mechanism.
+- This amendment changes process checks only, not the meaning or historical SHA of previous v0.1 rounds.
 
 ## Question / answer / decision policy
 

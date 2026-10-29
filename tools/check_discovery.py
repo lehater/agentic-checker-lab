@@ -94,6 +94,31 @@ def verify(data, root=ROOT):
             expected = root / "docs/discovery/checker/rounds" / (str(rid).split("-")[-1] + ".md")
             if not expected.is_file():
                 fail(str(rid) + ": closed round report missing: " + str(expected))
+        if state == "CLOSED" and "decision_ids" in r:
+            accepted_ids = r["decision_ids"]
+            if not isinstance(accepted_ids, list) or any(
+                not isinstance(did, str) or not re.fullmatch(r"D-[0-9]{3,}", did)
+                for did in accepted_ids
+            ) or len(accepted_ids) != len(set(accepted_ids)):
+                fail(str(rid) + ": decision_ids must be unique valid IDs")
+            else:
+                for did in accepted_ids:
+                    if did not in dd:
+                        fail(str(rid) + ": unknown accepted decision " + did)
+                    elif dd[did].get("status") != "ACCEPTED":
+                        fail(str(rid) + ": round references non-accepted decision " + did)
+                if expected.is_file():
+                    report_text = expected.read_text(encoding="utf-8")
+                    section = re.search(
+                        r"(?ms)^## Accepted decisions\s*\n(.*?)(?=^## |\Z)",
+                        report_text,
+                    )
+                    reported_ids = re.findall(
+                        r"(?m)^\s*[-*]\s+(?:\*\*)?(D-[0-9]+)(?:\*\*)?\s*(?=←|\()",
+                        section.group(1) if section else "",
+                    )
+                    if len(reported_ids) != len(set(reported_ids)) or set(reported_ids) != set(accepted_ids):
+                        fail(str(rid) + ": round report decision IDs do not match ledger")
         elif r.get("owner_confirmation"):
             fail(str(rid) + ": PREPARED cannot have owner_confirmation")
     for qid, q in qq.items():

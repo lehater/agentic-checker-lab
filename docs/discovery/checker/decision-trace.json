@@ -1,0 +1,181 @@
+{
+  "schema": "checker-decision-trace/v1",
+  "status": "PROPOSED_UNREVIEWED",
+  "semantic_review": "NOT_PERFORMED",
+  "source_ledger": "docs/discovery/checker/ledger.json",
+  "candidate_spec": "openspec/changes/checker-v1-baseline/specs/checker-query/spec.md",
+  "candidate_catalog": "docs/evaluation/checker-acceptance-catalog.json",
+  "audit_source": "https://github.com/lehater/agentic-checker-lab/pull/48#issuecomment-6490016712",
+  "warning": "Candidate links are navigational and unreviewed. A structurally valid matrix is NOT an accepted specification, semantic agreement, or a run of CHK cases.",
+  "entries": [
+    {
+      "decision_id": "D-001",
+      "links": [
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-001"
+        },
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-008"
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "decision_id": "D-002",
+      "links": [],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "Candidate takes relevance pairs as synthetic input, without an explicit rule for inferring different routed interfaces.",
+          "next_action": "Define whether routing/interface inference is deferred behind the MVP relevance seam and trace its deferred contract."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-003",
+      "links": [
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-005"
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "The proposed pair source does not verify inbound, outbound, and global ACL attachment selection.",
+          "next_action": "Define an explicit relevance-provider contract and independent placement example."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-004",
+      "links": [
+        {
+          "requirement": "Complete stored-rule matching",
+          "case_id": "CHK-004"
+        },
+        {
+          "requirement": "Failure atomicity and input isolation",
+          "case_id": "CHK-009"
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "UNRESOLVED_CONTRACT",
+          "description": "Candidate rejects unsupported snapshot predicates; approved decision says to display additional rule conditions without interpretation. Boundary between unsupported match predicate and uninterpreted additional condition is not specified.",
+          "next_action": "Separate supported matching predicates from preserved uninterpreted rule fields; review counterexamples with an independent oracle."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-005",
+      "links": [
+        {
+          "requirement": "Complete stored-rule matching",
+          "case_id": "CHK-003"
+        },
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-008"
+        }
+      ],
+      "gaps": []
+    },
+    {
+      "decision_id": "D-006",
+      "links": [],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "Candidate does not state per-ACL last successful snapshot, per-ACL update timestamp, or absence of version history.",
+          "next_action": "Map storage/update semantics to a future contract or explicitly defer the collector while retaining the visible timestamp requirement."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-007",
+      "links": [
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-007"
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "Candidate covers named ACL with no matches, but not a relevant firewall with no attached ACL name.",
+          "next_action": "Add an explicit representation scenario for relevant FW without ACL or document a justified adapter boundary."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-008",
+      "links": [],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "Candidate snapshot failure is a query failure; approved D-008 concerns a failed collection refresh with a previously successful snapshot preserved.",
+          "next_action": "Specify collection-stage logging and non-overwrite separately from query-stage failure, or document a justified MVP seam."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-009",
+      "links": [
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-001"
+        },
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-002"
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "CONFLICT",
+          "description": "Candidate requires two supplied integer port values; approved owner decision permits blank/any for either port, including default.",
+          "next_action": "Revise candidate query semantics and add acceptance cases for each port wildcard and explicit numeric port, followed by independent review."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-010",
+      "links": [
+        {
+          "requirement": "Relevance is a separate provided input",
+          "case_id": "CHK-005"
+        },
+        {
+          "requirement": "Preserved observation and presentation",
+          "case_id": "CHK-008"
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "MISSING_COVERAGE",
+          "description": "Candidate deduplicates repeated device/ACL pairs but does not test preserving multiple relevant placements of one ACL.",
+          "next_action": "Add a case with two relevant attachments of one named ACL and assert one rules group retaining both attachments."
+        }
+      ]
+    },
+    {
+      "decision_id": "D-011",
+      "links": [
+        {
+          "requirement": "Validated one-shot query",
+          "case_id": "CHK-001"
+        }
+      ],
+      "gaps": [
+        {
+          "kind": "REVIEW_REQUIRED",
+          "description": "Candidate's one-flow wording does not explicitly rule out automatic matching of the reverse direction within the same query.",
+          "next_action": "Add a directed-query scenario and reverse-direction counterexample; independently verify the boundary."
+        }
+      ]
+    }
+  ]
+}

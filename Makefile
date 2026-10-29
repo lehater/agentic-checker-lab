@@ -7,6 +7,8 @@ check:
 	python3 -m unittest discover -s tests -p 'test_run_comparison.py' -v
 	python3 tools/check_requirements_trace.py
 	python3 -m unittest discover -s tests -p 'test_requirements_trace.py' -v
+	python3 tools/check_decision_trace.py
+	python3 -m unittest discover -s tests -p 'test_decision_trace.py' -v
 	python3 -m unittest discover -s tests -p 'test_architecture_policy.py' -v
 	python3 -m unittest discover -s tests -p 'test_run_observability.py' -v
 	python3 -m unittest discover -s tests -p 'test_semantic_review.py' -v

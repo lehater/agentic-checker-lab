@@ -266,6 +266,33 @@ class DiscoveryLedgerTests(unittest.TestCase):
         data["decisions"][0]["superseded_by"] = "D-002"
         self.assert_valid(data)
 
+    def test_round_report_decision_ids_match_ledger_and_detect_typos(self):
+        data = self.closed()
+        data["decisions"].append(decision())
+        data["rounds"][0]["decision_ids"] = ["D-001"]
+        report = self.root / "docs/discovery/checker/rounds/001.md"
+        report.write_text(
+            "# Round\n\n## Accepted decisions\n\n- D-001 ← Q-001: meaning\n",
+            encoding="utf-8",
+        )
+        self.assert_valid(data)
+        report.write_text(
+            "# Round\n\n## Accepted decisions\n\n- D-01 ← Q-001: meaning\n",
+            encoding="utf-8",
+        )
+        self.assert_rejected(data, "round report decision IDs do not match ledger")
+
+    def test_round_report_cannot_omit_accepted_decision(self):
+        data = self.closed()
+        data["decisions"].append(decision())
+        data["rounds"][0]["decision_ids"] = ["D-001"]
+        self.assert_rejected(data, "round report decision IDs do not match ledger")
+
+    def test_round_cannot_reference_unknown_decision_id(self):
+        data = self.closed()
+        data["rounds"][0]["decision_ids"] = ["D-999"]
+        self.assert_rejected(data, "unknown accepted decision D-999")
+
     def test_ready_for_spec_rejects_open_or_prepared_items(self):
         data = prepared()
         data["status"] = "READY_FOR_SPEC"
