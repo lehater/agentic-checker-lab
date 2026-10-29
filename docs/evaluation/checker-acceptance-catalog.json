@@ -2,7 +2,7 @@
   "schema": "checker-acceptance-catalog/v1",
   "status": "PROPOSED_NOT_OWNER_ACCEPTED",
   "spec": "openspec/changes/checker-v1-baseline/specs/checker-query/spec.md",
-  "spec_git_blob_sha": "dd3a1a4b890e885fb9d66fa5cfd0c27dc90bdf95",
+  "spec_git_blob_sha": "f67756fbf24f92a194fd802b78a18e6f2151e3e4",
   "source_problem": "docs/scenario/owner-problem-brief.md",
   "cases": [
     {
@@ -129,8 +129,8 @@
       "id": "CHK-016",
       "requirement": "Preserved observation and presentation",
       "scenario": "Per-ACL last-success provenance",
-      "given": "ACL-A and ACL-B snapshots have different successful timestamps, and a later failed update on ACL-A",
-      "expected": "Report retains distinct original last-success timestamps and original ACL-A data; no invented match failure notification",
+      "given": "Two relevant named ACLs have valid stored synthetic snapshots with different last-success timestamps",
+      "expected": "Each ACL group reports its own matching rows and matching last-success date; collector failure handling remains outside runnable L1",
       "execution_status": "NOT_RUN"
     }
   ]
