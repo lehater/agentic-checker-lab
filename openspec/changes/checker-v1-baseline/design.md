@@ -3,7 +3,7 @@
 **Status:** `D3_SECOND_REPAIR_CANDIDATE / D4_SECOND_INDEPENDENT_REVISE / NEXT_SCOPED_RE_REVIEW_NOT_RUN / IMPLEMENTATION_NOT_AUTHORIZED`. Documentation only; no executable Checker, model run, hidden oracle or new product approval is claimed.  
 **Revised candidate spec:** [spec.md](specs/checker-query/spec.md) Git blob **`a592b86532dcda65bc858c1255e368a792e56ff7`** (original PR #51 baseline `f67756fbf24f92a194fd802b78a18e6f2151e3e4` at `59e2dd1968d20b76030e9deb8a0acd42b894627e`). Independent [D4 REVISE report PR #60](https://github.com/lehater/agentic-checker-lab/pull/60) reviewed the earlier design blob `1973d0ee197a51aeb8c3ba328fa79687a4cf7e02`; this revised candidate requires new review.  
 **Parent authorities:** [original owner brief](../../../docs/scenario/owner-problem-brief.md) blob `0061b6f982c015785b59cad4b1b8c9fb95478617`; [owner scope record](../../../docs/evaluation/checker-l1-owner-review.md) blob `aa76e72e231460b05df617cc3dd60417430fe2c3`; [proposed wire contract](../../../docs/evaluation/checker-v1-contract-proposal.md) revised blob `b8410c3f826fb6c71c229bc1d9e082e1a83c92a1`; [input schema](../../../docs/evaluation/checker-v1-input.schema.json) revised blob `c3698737d78aacc73e7593a00f9a8b40aef0326c`; [Engineering Policy](../../../docs/engineering/policy.md) main blob `3eac8b241f843ae25ca6239e82960e4e353ba1c0`; [architecture contract](../../../docs/engineering/architecture-contract.json).  
-**Process:** [D0–D6 plan](https://github.com/lehater/agentic-checker-lab/blob/aa9ad497a9620e12172f867d37b720d61adc420b/docs/project/design-stage-plan.md), [D2 minimum stack](https://github.com/lehater/agentic-checker-lab/blob/aa9ad497a9620e12172f867d37b720d61adc420b/docs/project/design-stack.md). [D4 reviewer handoff](../../../docs/design/checker-l1-d4-review-packet.md) binds this document's exact blob. The catalog CHK-001..016 is public, `NOT_RUN`, not a held-out acceptance oracle.
+**Process:** [D0–D6 plan](https://github.com/lehater/agentic-checker-lab/blob/aa9ad497a9620e12172f867d37b720d61adc420b/docs/project/design-stage-plan.md), [D2 minimum stack](https://github.com/lehater/agentic-checker-lab/blob/aa9ad497a9620e12172f867d37b720d61adc420b/docs/project/design-stack.md). [D4 reviewer handoff](../../../docs/design/checker-l1-d4-review-packet.md) binds this document's exact blob. The catalog CHK-001..019 is public (001–016 original, 017–019 candidate engineering edge cases), all `NOT_RUN`, not a held-out oracle.
 
 **Split-tree warning:** this design branch inherits the pre-D2 Draft PR #51 tree and does **not** contain the D0/D2 files linked above. Those process sources intentionally point to immutable merged `main` commit `aa9ad497a9620e12172f867d37b720d61adc420b`. Do not resolve them relative to this branch; reconcile both trees before eventual merge to `main`.
 
@@ -155,7 +155,7 @@ Input parser validates **all** supplied mandatory rule predicates, not just rows
 
 ## 7. Requirement and acceptance-idea trace
 
-**Trace convention:** `O` owner meaning / approved synthetic boundary as recorded, `C` unmerged engineering contract / design candidate, `F` explicitly deferred. CHK-001..016 are **public proposed scenarios, all NOT_RUN**. These are trace references, not an independent acceptance oracle.
+**Trace convention:** `O` owner meaning / approved synthetic boundary as recorded, `C` unmerged engineering contract / design candidate, `F` explicitly deferred. CHK-001..019 are **public proposed scenarios, all NOT_RUN**, with 017–019 added as candidate engineering edge cases. These are trace references, not an independent acceptance oracle.
 
 | Decision / status | Design property / owning element | Public acceptance ideas |
 | --- | --- | --- |
@@ -185,7 +185,7 @@ The [second independent D4 report](https://github.com/lehater/agentic-checker-la
 - **N01:** validate full UTC source text and normalize only the trailing `+00:00` to `Z`; fractional text remains unchanged.
 - **N02:** `extra` numbers retain precise decimal values and digits; no binary `float`. Candidate v1 bounds nonzero adjusted decimal exponent to 308 (so `1e400` remains invalid); `0.1234567890123456789012345` must remain a JSON number with exact value rather than a rounded number or JSON string. No supplemental matching evaluation.
 - **N03:** JSON Schema is partial; strict parser + semantic validator are the authoritative candidate input gate.
-- **N04:** public CHK variants record new edges, remain `NOT_RUN`, and do not form a hidden oracle.
+- **N04:** public CHK-006/009/013/016 variants and dedicated CHK-017/018/019 map new edge cases; all remain `NOT_RUN` and are not a hidden oracle.
 - **N05:** frozen reviewer packet links the historical decision ledger by immutable Git blob URL.
 
 **Gate:** independent second verdict stays `REVISE`. Corrected source must be frozen again and reviewed independently; neither D5 nor Checker implementation is authorized.
