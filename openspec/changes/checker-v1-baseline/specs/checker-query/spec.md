@@ -66,6 +66,10 @@ The Checker SHALL report relevant firewalls, ACLs, placements and matching rows 
 - **WHEN** there are several relevant devices, ACLs and placements, including an ACL attached more than once
 - **THEN** the versioned output preserves the relevant firewall-to-ACL-to-row hierarchy, relevant placements and original matching row order, without a global verdict
 
+#### Scenario: Fractional timestamp precision (candidate C)
+- **WHEN** valid ACL evidence contains `2026-10-29T08:00:00.12345678901234567890+00:00`
+- **THEN** the reported UTC timestamp is `2026-10-29T08:00:00.12345678901234567890Z`, preserving all fractional digits without microsecond rounding
+
 #### Scenario: Per-ACL last-success provenance
 - **WHEN** a synthetic input supplies two relevant ACLs with valid successful snapshots bearing different last-success timestamps
 - **THEN** each ACL's corresponding timestamp and matching rows are preserved in the result; proposed wire grammar accepts UTC `Z` or `+00:00` and canonicalizes output to `Z` without changing the instant; the prototype does not claim to execute or verify a later refresh attempt
@@ -76,6 +80,14 @@ The Checker SHALL not access live devices or modify supplied evidence. The **pro
 #### Scenario: Invalid snapshot input
 - **WHEN** a relevant snapshot is corrupt, a named relevant ACL lacks placement evidence, or a rule includes an unsupported mandatory matcher or nonfinite supplemental JSON value, even if other ACLs have valid evidence
 - **THEN** the CLI returns nonzero, reports a diagnostic to stderr, and does not publish successful or partial stdout; a supplemental display-only condition alone does not cause this failure
+
+#### Scenario: Exact supplemental numeric evidence (candidate C)
+- **WHEN** a matched saved rule includes strict JSON supplemental numeric evidence `{"ratio":0.1234567890123456789012345}` within the supported decimal magnitude bound
+- **THEN** the report retains the exact numeric value without binary-float rounding or stringification; it does not interpret this as another matching predicate
+
+#### Scenario: Decimal magnitude and strict input boundary (candidate C)
+- **WHEN** opaque `extra` includes `1e400`, nonstandard `NaN`/`Infinity`, or a direct in-memory binary-float value that cannot establish original saved precision
+- **THEN** the proposed input contract rejects the evidence explicitly with no successful partial report
 
 #### Scenario: Local-only execution
 - **WHEN** the query runs with prepared synthetic snapshots and relevance inputs
