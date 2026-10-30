@@ -75,6 +75,12 @@ def timestamp(v: object, where: str) -> None:
         fail(where, "invalid RFC3339 date-time")
 
 
+def canonical_utc_text(v: str) -> str:
+    """Lexical offset normalization: retain every fractional digit exactly."""
+    timestamp(v, "$.last_success_at")
+    return v[:-6] + "Z" if v.endswith("+00:00") else v
+
+
 def json_finite(v: object, where: str) -> None:
     """Ensure opaque extra data can be faithfully emitted as strict JSON."""
     if isinstance(v, dict):
