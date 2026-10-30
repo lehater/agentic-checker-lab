@@ -3,6 +3,7 @@
 Исследования отделены от принятых требований и архитектурных решений.
 
 - [Source ledger](source-ledger.md) — пины версий, доверие, происхождение фактов.
+- [Agent harness platform candidates: Prime Agent, OpenJarvis, QM](agent-harness-platform-candidates-2026-10-30.md) — future full-SDLC, multi-stakeholder and skill-optimization research; not adoption.
 - [OpenSpec design stack — D1 source audit](openspec-design-stack.md) — ревизии upstream, контракт артефактов, реальные gates, лицензии и обоснование минимального стека.
 - [D2 design-stack dry-run](design-stack-d2-dry-run.md) — source-traced paper example, boundaries, proposed review handoff and explicit NOT_RUN gates.
 - [Legacy checker semantics](legacy-checker.md) — подтверждённое историческое назначение и ограничения.
