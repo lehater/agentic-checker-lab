@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://example.invalid/checker/synthetic-input-v1.schema.json",
   "title": "Checker L1 synthetic input — proposed contract",
-  "description": "Approved synthetic L1 scope; this schema is an engineering proposal and is public, not a hidden oracle. Enforce cross-array identity/cardinality, canonical CIDR, valid IPv4 format and min<=max separately. No live devices.",
+  "description": "Approved synthetic L1 scope, proposed engineering wire. Partial structural schema only: schema-only PASS is not L1 validity; strict parser/semantic validator is the normative candidate input gate. In particular UTC-only offsets, integer token forms, exact decimal extra evidence, cross-array identity, canonical CIDR and range ordering require the semantic gate. No live devices.",
   "type": "object",
   "required": [
     "schema_version",
@@ -294,7 +294,7 @@
         },
         "extra": {
           "type": "object",
-          "description": "Opaque supplemental conditions; only strict JSON values with finite numbers, recursively; emitted without semantic interpretation.",
+          "description": "Opaque supplemental conditions; the authoritative parser preserves exact decimal numeric values (no float) and validator restricts nonzero adjusted decimal exponent <= 308; schema alone cannot guarantee representation fidelity. Emitted as strict JSON number tokens without evaluation.",
           "additionalProperties": true
         }
       }
