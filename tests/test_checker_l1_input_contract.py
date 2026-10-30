@@ -111,6 +111,10 @@ class CheckerL1InputTests(unittest.TestCase):
         self.check_invalid(lambda d: d["snapshots"][0]["rules"][0]
                            .update(time_range="office_hours"))
 
+    def test_named_relevant_acl_requires_a_placement(self):
+        self.check_invalid(lambda d: d["firewalls"][0]["acls"][0]
+                           .update(placements=[]))
+
     def test_invalid_placement_rejected(self):
         self.check_invalid(lambda d: d["firewalls"][0]["acls"][0]["placements"]
                            .append({"kind": "interface", "name": "inside"}))
