@@ -10,7 +10,9 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from tools.validate_checker_l1_input import validate_payload, parse_document, _unique_keys
+from tools.validate_checker_l1_input import (validate_payload, parse_document,
+                                             canonical_utc_text, _unique_keys)
+from decimal import Decimal
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = ROOT / "docs/evaluation/checker-v1-input.schema.json"
@@ -153,6 +155,35 @@ class CheckerL1InputTests(unittest.TestCase):
         parsed = parse_document(text)
         with self.assertRaises(ValueError):
             validate_payload(parsed)
+
+    def test_fractional_utc_normalization_is_lexically_lossless(self):
+        raw = "2026-10-29T08:00:00.12345678901234567890+00:00"
+        self.assertEqual(canonical_utc_text(raw),
+                         "2026-10-29T08:00:00.12345678901234567890Z")
+        self.assertEqual(canonical_utc_text(raw[:-6] + "Z"), raw[:-6] + "Z")
+
+    def test_precise_extra_number_does_not_pass_through_float(self):
+        source = "0.1234567890123456789012345"
+        text = json.dumps(valid_case()).replace('"office_hours"', source, 1)
+        decoded = parse_document(text)
+        validate_payload(decoded)
+        value = decoded["snapshots"][0]["rules"][0]["extra"]["time_range"]
+        self.assertIsInstance(value, Decimal)
+        self.assertEqual(str(value), source)
+        # Candidate output rule: emit the exact decimal numeric token, not a quoted string.
+        reparsed = parse_document('{"number":' + str(value) + '}')
+        self.assertEqual(reparsed["number"], value)
+
+    def test_decimal_magnitude_subset_and_in_memory_float(self):
+        good = json.dumps(valid_case()).replace('"office_hours"', "1e308", 1)
+        validate_payload(parse_document(good))
+        self.check_invalid(lambda d: d["snapshots"][0]["rules"][0]
+                           .update(extra={"rounded": 0.1234567890123456789012345}))
+
+    def test_numeric_lexeme_that_schema_can_treat_as_integer_is_rejected(self):
+        data = json.dumps(valid_case()).replace('"dst_port": 443', '"dst_port": 443.0', 1)
+        with self.assertRaises(ValueError):
+            validate_payload(parse_document(data))
 
     def test_unknown_snapshot_identity_rejected(self):
         self.check_invalid(lambda d: d["snapshots"][0]
