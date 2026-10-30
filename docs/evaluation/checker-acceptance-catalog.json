@@ -2,7 +2,7 @@
   "schema": "checker-acceptance-catalog/v1",
   "status": "PROPOSED_NOT_OWNER_ACCEPTED",
   "spec": "openspec/changes/checker-v1-baseline/specs/checker-query/spec.md",
-  "spec_git_blob_sha": "789d0579a7b355883a25d5dc79a4dbcdb9d1516b",
+  "spec_git_blob_sha": "a592b86532dcda65bc858c1255e368a792e56ff7",
   "source_problem": "docs/scenario/owner-problem-brief.md",
   "cases": [
     {
@@ -51,7 +51,15 @@
       "scenario": "Missing required snapshot",
       "given": "Relevant pair fw-b/acl-2 has no available snapshot",
       "expected": "Proposed engineering fail-atomic contract; no successful partial report and no invented NO_MATCH",
-      "execution_status": "NOT_RUN"
+      "execution_status": "NOT_RUN",
+      "public_edge_variants": [
+        {
+          "id": "PLACEMENT_EMPTY",
+          "given": "Named relevant ACL has `placements:[]` with otherwise valid stored snapshot",
+          "expected": "Fail atomically with nonzero diagnostic and no successful/partial stdout; FW without ACL remains separately valid",
+          "execution_status": "NOT_RUN"
+        }
+      ]
     },
     {
       "id": "CHK-007",
@@ -75,7 +83,21 @@
       "scenario": "Invalid snapshot input",
       "given": "One relevant ACL snapshot contains unsupported mandatory matcher and another ACL is valid; a supplemental time-range is present on valid rules",
       "expected": "Fail-atomic with nonzero stderr, no success stdout for unsupported mandatory matcher; display-only extra alone must not cause error",
-      "execution_status": "NOT_RUN"
+      "execution_status": "NOT_RUN",
+      "public_edge_variants": [
+        {
+          "id": "EXTRA_NONFINITE",
+          "given": "One mandatory matching row's nested `extra` contains JSON NaN/Infinity or exponent-overflow `1e400`, while another ACL is valid",
+          "expected": "Reject as input/evidence contract failure with stderr, nonzero status and zero success stdout",
+          "execution_status": "NOT_RUN"
+        },
+        {
+          "id": "FLOAT_DIRECT",
+          "given": "Direct in-memory caller provides opaque `extra` as binary float instead of exact decimal evidence",
+          "expected": "Reject typed input before use case; never silently round saved numeric evidence",
+          "execution_status": "NOT_RUN"
+        }
+      ]
     },
     {
       "id": "CHK-010",
@@ -107,7 +129,15 @@
       "scenario": "Supplemental conditions are displayed but not evaluated",
       "given": "A five-field matching rule has a saved time-range flag outside the present time",
       "expected": "Return matching rule with supplemental time-range as opaque evidence; do not evaluate its current truth or conclude permit/deny",
-      "execution_status": "NOT_RUN"
+      "execution_status": "NOT_RUN",
+      "public_edge_variants": [
+        {
+          "id": "EXTRA_PRECISION",
+          "given": "A matched row has `extra:{\"ratio\":0.1234567890123456789012345}`",
+          "expected": "Carry the exact numeric value in the output as a JSON number token, no rounding or stringification; no matcher evaluation",
+          "execution_status": "NOT_RUN"
+        }
+      ]
     },
     {
       "id": "CHK-014",
@@ -131,6 +161,44 @@
       "scenario": "Per-ACL last-success provenance",
       "given": "Two relevant named ACLs have valid stored synthetic snapshots with different last-success timestamps",
       "expected": "Each ACL group reports its own matching rows and matching last-success date; collector failure handling remains outside runnable L1",
+      "execution_status": "NOT_RUN",
+      "public_edge_variants": [
+        {
+          "id": "UTC_SUFFIX_ALIAS",
+          "given": "The same saved ACL success instant is supplied with `Z` and `+00:00` forms",
+          "expected": "Equivalent UTC instant in report with canonical Z suffix",
+          "execution_status": "NOT_RUN"
+        },
+        {
+          "id": "UTC_LONG_FRACTION",
+          "given": "`last_success_at` is `2026-10-29T08:00:00.12345678901234567890+00:00`",
+          "expected": "Report exactly `2026-10-29T08:00:00.12345678901234567890Z`, preserving all fractional digits",
+          "execution_status": "NOT_RUN"
+        }
+      ]
+    },
+    {
+      "id": "CHK-017",
+      "requirement": "Failure atomicity and input isolation",
+      "scenario": "Decimal magnitude and strict input boundary (candidate C)",
+      "given": "Opaque extra on otherwise valid matching evidence contains 1e400, NaN/Infinity or a direct in-memory binary float with unknown saved precision",
+      "expected": "Proposed input gate rejects unsupported numbers with an explicit diagnostic and no successful partial output; do not evaluate supplemental matcher conditions",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-018",
+      "requirement": "Failure atomicity and input isolation",
+      "scenario": "Exact supplemental numeric evidence (candidate C)",
+      "given": "One matched saved row contains extra numeric JSON token 0.1234567890123456789012345 under the proposed decimal magnitude bound",
+      "expected": "Strict report carries an exactly equal JSON numeric value, no binary float rounding or quoted string and no supplemental predicate evaluation",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-019",
+      "requirement": "Preserved observation and presentation",
+      "scenario": "Fractional timestamp precision (candidate C)",
+      "given": "One valid ACL snapshot has last_success_at 2026-10-29T08:00:00.12345678901234567890+00:00",
+      "expected": "Output for that ACL uses 2026-10-29T08:00:00.12345678901234567890Z, preserving every fractional digit and per-ACL provenance",
       "execution_status": "NOT_RUN"
     }
   ]
