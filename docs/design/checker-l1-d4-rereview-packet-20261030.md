@@ -2,7 +2,7 @@
 
 **Status:** `AUTHOR_REPAIRS_PREPARED / D4_ORIGINAL_VERDICT_REVISE / INDEPENDENT_RE_REVIEW_NOT_RUN`. **Date:** 2026-10-30.  
 **Candidate repair branch base:** [D3 PR #58](https://github.com/lehater/agentic-checker-lab/pull/58) head `9e73c76a87a853d4dde8b0ace51d057d0cd85997`.  
-**Proposed repaired baseline commit:** `2335d6a19c09cd834ab33ad2b2ccdc0df890b263` (immutable commit; packet itself is a later docs-only commit).  
+**Proposed repaired baseline commit:** `27bda5bfc36cea79725a17f524bdcb99099868ac` (immutable commit; packet itself is a later docs-only commit).  
 **Original outside review:** [Independent D4 PR #60](https://github.com/lehater/agentic-checker-lab/pull/60), source review Git blob `1463bd7f9e9833e8392d3eb1dc5493d3881bd981`. Its `REVISE` verdict and `PARTIAL` source-integrity statement are historically accurate, **never overwritten** by this author's follow-up.
 
 ## 1. Reproducible source baseline and integrity evidence
@@ -21,13 +21,13 @@ This package intentionally spans three immutable histories: accepted `main` proc
 | Original reviewed D3 design | [source](https://github.com/lehater/agentic-checker-lab/blob/9e73c76a87a853d4dde8b0ace51d057d0cd85997/openspec/changes/checker-v1-baseline/design.md) | `1973d0ee197a51aeb8c3ba328fa79687a4cf7e02` |
 | Original D4 handoff | [source](https://github.com/lehater/agentic-checker-lab/blob/9e73c76a87a853d4dde8b0ace51d057d0cd85997/docs/design/checker-l1-d4-review-packet.md) | `990b17a585f246d19993414f70bbe986e23df5dc` |
 | Independent D4 REVISE report | [source](https://github.com/lehater/agentic-checker-lab/blob/febf1364d72baa650cb40056ee28acd21990bbcc/docs/reviews/checker-l1-d4-independent-review-2026-10-30.md) | `1463bd7f9e9833e8392d3eb1dc5493d3881bd981` |
-| Revised candidate spec | [source](https://github.com/lehater/agentic-checker-lab/blob/2335d6a19c09cd834ab33ad2b2ccdc0df890b263/openspec/changes/checker-v1-baseline/specs/checker-query/spec.md) | `7712be84dc84c2bf70c35a0fdaca462ba58bab4e` |
-| Revised CLI/wire contract | [source](https://github.com/lehater/agentic-checker-lab/blob/2335d6a19c09cd834ab33ad2b2ccdc0df890b263/docs/evaluation/checker-v1-contract-proposal.md) | `ea4cfa963945202d174c9fd571181e68cafcb204` |
-| Revised input JSON Schema | [source](https://github.com/lehater/agentic-checker-lab/blob/2335d6a19c09cd834ab33ad2b2ccdc0df890b263/docs/evaluation/checker-v1-input.schema.json) | `4f7bc98fd97435b1f32cbbe0d4b52ef9c671e456` |
-| Revised public input validator | [source](https://github.com/lehater/agentic-checker-lab/blob/2335d6a19c09cd834ab33ad2b2ccdc0df890b263/tools/validate_checker_l1_input.py) | `76bfa8669f615dc1bc9f27ef1619e725d312ca08` |
-| Revised public grammar tests | [source](https://github.com/lehater/agentic-checker-lab/blob/2335d6a19c09cd834ab33ad2b2ccdc0df890b263/tests/test_checker_l1_input_contract.py) | `7c4163fae148a5c5b985854b62818edc6f631943` |
-| Public NOT_RUN acceptance ideas | [source](https://github.com/lehater/agentic-checker-lab/blob/2335d6a19c09cd834ab33ad2b2ccdc0df890b263/docs/evaluation/checker-acceptance-catalog.json) | `03c2eea306e615f0a51377e80410df2d11ec34e0` |
-| Revised D3 design | [source](https://github.com/lehater/agentic-checker-lab/blob/2335d6a19c09cd834ab33ad2b2ccdc0df890b263/openspec/changes/checker-v1-baseline/design.md) | `38d60bc9aec1a7b4387fe25af139fb2519dbe247` |
+| Revised candidate spec | [source](https://github.com/lehater/agentic-checker-lab/blob/27bda5bfc36cea79725a17f524bdcb99099868ac/openspec/changes/checker-v1-baseline/specs/checker-query/spec.md) | `789d0579a7b355883a25d5dc79a4dbcdb9d1516b` |
+| Revised CLI/wire contract | [source](https://github.com/lehater/agentic-checker-lab/blob/27bda5bfc36cea79725a17f524bdcb99099868ac/docs/evaluation/checker-v1-contract-proposal.md) | `ea4cfa963945202d174c9fd571181e68cafcb204` |
+| Revised input JSON Schema | [source](https://github.com/lehater/agentic-checker-lab/blob/27bda5bfc36cea79725a17f524bdcb99099868ac/docs/evaluation/checker-v1-input.schema.json) | `4f7bc98fd97435b1f32cbbe0d4b52ef9c671e456` |
+| Revised public input validator | [source](https://github.com/lehater/agentic-checker-lab/blob/27bda5bfc36cea79725a17f524bdcb99099868ac/tools/validate_checker_l1_input.py) | `76bfa8669f615dc1bc9f27ef1619e725d312ca08` |
+| Revised public grammar tests | [source](https://github.com/lehater/agentic-checker-lab/blob/27bda5bfc36cea79725a17f524bdcb99099868ac/tests/test_checker_l1_input_contract.py) | `7c4163fae148a5c5b985854b62818edc6f631943` |
+| Public NOT_RUN acceptance ideas | [source](https://github.com/lehater/agentic-checker-lab/blob/27bda5bfc36cea79725a17f524bdcb99099868ac/docs/evaluation/checker-acceptance-catalog.json) | `89bf8411dbeb90f2a325f16db29f84a33b3ad85a` |
+| Revised D3 design | [source](https://github.com/lehater/agentic-checker-lab/blob/27bda5bfc36cea79725a17f524bdcb99099868ac/openspec/changes/checker-v1-baseline/design.md) | `f5cca431b6641343d2eb5546efea28903c574af8` |
 
 **Reproduction:** fetch each immutable path, compute `git hash-object <file>` on exact bytes or use `git rev-parse <commit>:<path>` with a local repository; compare hashes in this table. The historical ledger **was decoded** for this author-side follow-up and matches the recorded blob. Reviewers shall independently validate whichever sources they consume; this author-side verification must not be misreported as the original D4 evaluator's work.
 
