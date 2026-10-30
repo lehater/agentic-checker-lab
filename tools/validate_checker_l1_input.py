@@ -66,7 +66,7 @@ def ip(v: object, where: str, *, predicate: bool) -> None:
 
 def timestamp(v: object, where: str) -> None:
     if not isinstance(v, str) or re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|\+00:00)", v) is None:
-        fail(where, "RFC3339 UTC timestamp with seconds and Z suffix required")
+        fail(where, "RFC3339 UTC timestamp with seconds and Z or +00:00 required")
     try:
         t = datetime.fromisoformat(v.replace("Z", "+00:00"))
         if t.utcoffset() != timedelta(0):
@@ -159,8 +159,8 @@ def validate_payload(v: object) -> None:
             a = keys(acl, aw, {"id", "placements"})
             aid = ident(a["id"], aw + ".id")
             expected_snapshots.add((fid, aid))
-            if not isinstance(a["placements"], list):
-                fail(aw + ".placements", "array required")
+            if not isinstance(a["placements"], list) or not a["placements"]:
+                fail(aw + ".placements", "nonempty array required for a relevant named ACL")
             for k, p in enumerate(a["placements"]):
                 placement(p, f"{aw}.placements[{k}]")
             # Multiple ACL references under one FW are intentionally allowed;
