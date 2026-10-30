@@ -1,8 +1,8 @@
 # D3 — Checker L1 domain, architecture and detailed design (CANDIDATE)
 
-**Status:** `D3_AUTHOR_DRAFT / D4_NOT_RUN / IMPLEMENTATION_NOT_AUTHORIZED`. Documentation only; no executable Checker, model run, hidden oracle or new product approval is claimed.  
-**Source freeze:** proposed L1 OpenSpec [spec.md](specs/checker-query/spec.md) **Git blob `f67756fbf24f92a194fd802b78a18e6f2151e3e4`** at Draft [PR #51 head `59e2dd1968d20b76030e9deb8a0acd42b894627e`](https://github.com/lehater/agentic-checker-lab/pull/51). If its blob changes, this trace and D4 packet require re-baselining.  
-**Parent authorities:** [original owner brief](../../../docs/scenario/owner-problem-brief.md) blob `0061b6f982c015785b59cad4b1b8c9fb95478617`; [owner scope record](../../../docs/evaluation/checker-l1-owner-review.md) blob `aa76e72e231460b05df617cc3dd60417430fe2c3`; [proposed wire contract](../../../docs/evaluation/checker-v1-contract-proposal.md) blob `b5a5cb88ae62ff94072f9fec6f22afb8df273a0e`; [input schema](../../../docs/evaluation/checker-v1-input.schema.json) blob `eb6974386bb7e046382cf74bc0e97e8d263b71d7`; [Engineering Policy](../../../docs/engineering/policy.md) main blob `3eac8b241f843ae25ca6239e82960e4e353ba1c0`; [architecture contract](../../../docs/engineering/architecture-contract.json).  
+**Status:** `D3_REPAIR_CANDIDATE / D4_INDEPENDENT_REVISE / RE_REVIEW_NOT_RUN / IMPLEMENTATION_NOT_AUTHORIZED`. Documentation only; no executable Checker, model run, hidden oracle or new product approval is claimed.  
+**Revised candidate spec:** [spec.md](specs/checker-query/spec.md) Git blob **`7712be84dc84c2bf70c35a0fdaca462ba58bab4e`** (original PR #51 baseline `f67756fbf24f92a194fd802b78a18e6f2151e3e4` at `59e2dd1968d20b76030e9deb8a0acd42b894627e`). Independent [D4 REVISE report PR #60](https://github.com/lehater/agentic-checker-lab/pull/60) reviewed the earlier design blob `1973d0ee197a51aeb8c3ba328fa79687a4cf7e02`; this revised candidate requires new review.  
+**Parent authorities:** [original owner brief](../../../docs/scenario/owner-problem-brief.md) blob `0061b6f982c015785b59cad4b1b8c9fb95478617`; [owner scope record](../../../docs/evaluation/checker-l1-owner-review.md) blob `aa76e72e231460b05df617cc3dd60417430fe2c3`; [proposed wire contract](../../../docs/evaluation/checker-v1-contract-proposal.md) revised blob `ea4cfa963945202d174c9fd571181e68cafcb204`; [input schema](../../../docs/evaluation/checker-v1-input.schema.json) revised blob `4f7bc98fd97435b1f32cbbe0d4b52ef9c671e456`; [Engineering Policy](../../../docs/engineering/policy.md) main blob `3eac8b241f843ae25ca6239e82960e4e353ba1c0`; [architecture contract](../../../docs/engineering/architecture-contract.json).  
 **Process:** [D0–D6 plan](https://github.com/lehater/agentic-checker-lab/blob/aa9ad497a9620e12172f867d37b720d61adc420b/docs/project/design-stage-plan.md), [D2 minimum stack](https://github.com/lehater/agentic-checker-lab/blob/aa9ad497a9620e12172f867d37b720d61adc420b/docs/project/design-stack.md). [D4 reviewer handoff](../../../docs/design/checker-l1-d4-review-packet.md) binds this document's exact blob. The catalog CHK-001..016 is public, `NOT_RUN`, not a held-out acceptance oracle.
 
 **Split-tree warning:** this design branch inherits the pre-D2 Draft PR #51 tree and does **not** contain the D0/D2 files linked above. Those process sources intentionally point to immutable merged `main` commit `aa9ad497a9620e12172f867d37b720d61adc420b`. Do not resolve them relative to this branch; reconcile both trees before eventual merge to `main`.
@@ -41,9 +41,9 @@
 - **I-03 (O):** relevance/placement is **supplied fact** for L1. Preserve every relevant FW even when ACL list empty; preserve a named ACL even when zero rows match. Empty matched list does **not** establish ACL emptiness, implicit deny or connection outcome.
 - **I-04 (O/C):** group ACL by `(FW id, ACL id)` and retain distinct placements; a duplicated placement never duplicates matching row output. FW IDs are unique; repeated FW object is input error (C).
 - **I-05 (O/C):** ACL timestamps belong to their own saved snapshots, not device-level lookup date. Missing/invalid initial snapshot is **not** a valid zero-match observation (C error contract).
-- **I-06 (C):** every relevant named ACL has **exactly one** well-formed snapshot; no orphan or duplicate snapshot; unused snapshots do not establish hidden relevance. Full input is validated before any successful report.
-- **I-07 (C):** invalid/unsupported mandatory predicate grammar fails explicitly; `extra` alone never fails matching; unknown mandatory keys cannot be silently classified as supplemental.
-- **I-08 (P):** no domain/application dependency on CLI, JSON, filesystem or live network. Mutating supplied evidence is prohibited by L1 scope.
+- **I-06 (C):** every relevant named ACL has **exactly one** well-formed snapshot and **at least one** preselected placement per named ACL reference; empty placement evidence is rejected. No orphan or duplicate snapshot; unused snapshots do not establish hidden relevance. Full input is validated before any successful report.
+- **I-07 (C):** invalid/unsupported mandatory predicate grammar fails explicitly; `extra` does not participate in matching, but its nested values must be strict JSON with finite numbers; `NaN`/`Infinity` and overflow-derived nonfinite numbers fail. Unknown mandatory keys cannot be silently classified as supplemental.
+- **I-08 (P):** no domain/application dependency on CLI, JSON, filesystem or live network. Mutating supplied evidence is prohibited by L1 scope; the validated request owns a detached/immutable copy of its nested supplemental data.
 
 **No complex aggregates required:** a complete ACL snapshot is the useful consistency unit. FW/ACL are grouping identities, not persistent aggregate roots. There are no domain events, services, polymorphic rule hierarchies or snapshot repositories in this slice (KISS/YAGNI).
 
@@ -90,11 +90,11 @@ FlowQuery        = {src_ip, dst_ip: IPv4Host; protocol: tcp|udp;
 Placement        = Global | Interface(name: NonEmptyString, direction: ingress|egress)
 RuleOccurrence   = {snapshot_index: NonNegativeInt; action: permit|deny;
                     predicate: RulePredicate; extra: OpaqueSupplementalData?}
-RelevantACL      = {id: NonEmptyString; placements: Placement[]}
+RelevantACL      = {id: NonEmptyString; placements: NonEmptyArray<Placement>}
 RelevantFirewall = {id: NonEmptyString; acls: RelevantACL[]}
 ACLSnapshot      = {device_id, acl_id: NonEmptyString; last_success_at: UtcInstant;
                     rules: RuleOccurrence[]}
-CheckRequest     = {flow: FlowQuery; firewalls: RelevantFirewall[];
+ValidatedCheckRequest = {flow: FlowQuery; firewalls: RelevantFirewall[];
                     snapshots: ACLSnapshot[]}
 MatchedRow       = {snapshot_index: NonNegativeInt; rule: OriginalValidatedRule}
 ACLReport        = {id: String; placements: Placement[]; last_success_at: UtcInstant;
@@ -102,10 +102,10 @@ ACLReport        = {id: String; placements: Placement[]; last_success_at: UtcIns
 FWReport         = {id: String; acls: ACLReport[]}
 CheckReport      = {firewalls: FWReport[]}
 matches(flow: FlowQuery, predicate: RulePredicate) -> bool
-check(request: CheckRequest) -> Result<CheckReport, CheckError>
+check(request: ValidatedCheckRequest) -> Result<CheckReport, EvidenceIntegrityError>
 ```
 
-`OriginalValidatedRule` denotes the complete allowed saved action/matcher/`extra` fields; the **domain matcher sees only `RulePredicate`**. Application can carry the validated opaque original value as evidence without parsing the supplemental semantics. Output adapter owns `schema_version:1`, `snapshot_index` and JSON field spellings. No special `NO_MATCH` status is needed: `matched_rules: []` is the truthful observable result when the snapshot exists and is valid.
+`OriginalValidatedRule` denotes the complete allowed saved action/matcher/`extra` fields; the **domain matcher sees only `RulePredicate`**. Application carries a detached, transitively immutable validated value without interpreting supplemental semantics. Local JSON decoding produces a fresh tree; direct in-memory inputs are detached once (deep copy or equivalent immutable representation) before calling `check`. Projection never mutates or aliases an input-owned mutable nested `extra` object. Output adapter owns `schema_version:1` and JSON field spellings; application assigns `snapshot_index` from the saved row position. UTC `Z` and `+00:00` input timestamps represent the same instant and serialize to canonical `Z` without losing valid fractional precision. Output JSON must reject non-finite numbers. No special `NO_MATCH` status is needed: `matched_rules: []` is the truthful observable result when the snapshot exists and is valid.
 
 **Match table (O for behavior, C for grammar):**
 
@@ -116,9 +116,9 @@ check(request: CheckRequest) -> Result<CheckReport, CheckError>
 | Source/destination port | Query filter `Any`: **true** regardless of saved port restriction; query `Exact(n)`: saved `any`, equal exact, or inclusive `min≤n≤max` | Out-of-range, bool-as-int, reversed range and unsupported shape reject request |
 | Action and `extra` | Excluded from match predicate | Valid supplemental `extra` is carried unchanged, not interpreted |
 
-**Cross-object contract (C):** reject duplicate firewall IDs; collapse repeated ACL references *within* a FW by ACL ID, collecting first-seen distinct placements; reject duplicate snapshot keys, missing snapshot for referenced ACL or orphan snapshot without referenced ACL. Preserve first-seen FW/ACL/placement order (C) and rule-array order (O). Empty FW list must have no snapshots; a relevant FW with zero ACL needs no snapshot. Two FWs with equal ACL names must not share a snapshot.
+**Cross-object contract (C):** reject duplicate firewall IDs; collapse repeated ACL references *within* a FW by ACL ID, collecting first-seen distinct placements; reject duplicate snapshot keys, missing snapshot for referenced ACL or orphan snapshot without referenced ACL. Preserve first-seen FW/ACL/placement order (C) and rule-array order (O). Empty FW list must have no snapshots; a relevant FW with zero ACL needs no snapshot. Two FWs with equal ACL names must not share a snapshot. A named ACL with an empty placements array is invalid supplied evidence (C), not a valid zero-match report.
 
-**CLI boundary (C from PR #51):** `checker check --input PATH` reads one local UTF-8 versioned JSON document, returns exactly one schema-versioned success JSON object on stdout with exit `0`. Any input/evidence/unsupported mandatory matcher error produces **nonzero exit**, **nonempty stderr diagnostic**, **no success/partial stdout**. No specific numeric nonzero code or diagnostic wording is frozen. File/UTF-8/JSON errors belong to outer layer; no application or domain errors are printed directly. Read/parse + validate all relevant references and mandatory rule syntax *before* output serialization (no streaming partial reports).
+**CLI boundary (C from PR #51):** `checker check --input PATH` reads one local UTF-8 versioned JSON document, returns exactly one strict JSON schema-versioned success object on stdout with exit `0`. Any input/evidence/unsupported mandatory matcher error produces **nonzero exit**, **nonempty stderr diagnostic**, **no success/partial stdout**. No specific numeric nonzero code or diagnostic wording is frozen. File/UTF-8/JSON errors belong to outer layer; no application or domain errors are printed directly. Read/parse + validate all relevant references and mandatory rule syntax *before* output serialization (no streaming partial reports).
 
 **Error algebra (C):**
 
