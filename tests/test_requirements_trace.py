@@ -29,7 +29,8 @@ class RequirementsTraceTests(unittest.TestCase):
 
     def test_new_requirement_is_detectable(self):
         source = (ROOT / self.data["spec"]).read_text()
-        self.assertEqual(len(scenario_pairs(source + "\n### Requirement: New\n#### Scenario: Missing\n")), 17)
+        self.assertEqual(len(scenario_pairs(source + "\n### Requirement: New\n#### Scenario: Missing\n")),
+                         len(scenario_pairs(source)) + 1)
 
     def test_missing_acceptance_case_fails(self):
         changed = copy.deepcopy(self.data)
