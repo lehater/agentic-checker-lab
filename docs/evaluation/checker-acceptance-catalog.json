@@ -176,6 +176,30 @@
           "execution_status": "NOT_RUN"
         }
       ]
+    },
+    {
+      "id": "CHK-017",
+      "requirement": "Failure atomicity and input isolation",
+      "scenario": "Decimal magnitude and strict input boundary (candidate C)",
+      "given": "Opaque extra on otherwise valid matching evidence contains 1e400, NaN/Infinity or a direct in-memory binary float with unknown saved precision",
+      "expected": "Proposed input gate rejects unsupported numbers with an explicit diagnostic and no successful partial output; do not evaluate supplemental matcher conditions",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-018",
+      "requirement": "Failure atomicity and input isolation",
+      "scenario": "Exact supplemental numeric evidence (candidate C)",
+      "given": "One matched saved row contains extra numeric JSON token 0.1234567890123456789012345 under the proposed decimal magnitude bound",
+      "expected": "Strict report carries an exactly equal JSON numeric value, no binary float rounding or quoted string and no supplemental predicate evaluation",
+      "execution_status": "NOT_RUN"
+    },
+    {
+      "id": "CHK-019",
+      "requirement": "Preserved observation and presentation",
+      "scenario": "Fractional timestamp precision (candidate C)",
+      "given": "One valid ACL snapshot has last_success_at 2026-10-29T08:00:00.12345678901234567890+00:00",
+      "expected": "Output for that ACL uses 2026-10-29T08:00:00.12345678901234567890Z, preserving every fractional digit and per-ACL provenance",
+      "execution_status": "NOT_RUN"
     }
   ]
 }
