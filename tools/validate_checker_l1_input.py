@@ -196,14 +196,18 @@ def _unique_keys(pairs: list[tuple[str, object]]) -> dict:
     return result
 
 
+def parse_document(text: str) -> object:
+    """Read only strict JSON; the same boundary serves CLI and public grammar tests."""
+    return json.loads(text, object_pairs_hook=_unique_keys,
+                      parse_constant=lambda v: fail("$", "invalid JSON constant: " + v))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", type=Path, help="local proposed synthetic input JSON")
     args = parser.parse_args()
     try:
-        data = json.loads(args.input.read_text(encoding="utf-8"),
-                          object_pairs_hook=_unique_keys,
-                          parse_constant=lambda v: fail("$", "invalid JSON constant: " + v))
+        data = parse_document(args.input.read_text(encoding="utf-8"))
         validate_payload(data)
     except (ValueError, OSError, UnicodeError) as e:
         print("INVALID proposed L1 input:", e, file=sys.stderr)
