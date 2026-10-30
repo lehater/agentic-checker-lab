@@ -8,9 +8,9 @@ from __future__ import annotations
 
 import argparse
 from datetime import datetime, timedelta
+from decimal import Decimal
 from ipaddress import IPv4Address, IPv4Network
 import json
-import math
 import re
 from pathlib import Path
 import sys
@@ -85,10 +85,20 @@ def json_finite(v: object, where: str) -> None:
     elif isinstance(v, list):
         for i, item in enumerate(v):
             json_finite(item, f"{where}[{i}]")
+    elif isinstance(v, Decimal):
+        if not v.is_finite():
+            fail(where, "non-finite decimal is not a JSON value")
+        # Bounded v1 subset: do not admit exponent overflow from the earlier
+        # float-based input grammar (e.g. 1e400), while preserving all digits.
+        if v and v.adjusted() > 308:
+            fail(where, "number exceeds proposed v1 decimal magnitude limit")
     elif isinstance(v, float):
-        if not math.isfinite(v):
-            fail(where, "non-finite number is not a JSON value")
+        # A float may already have rounded the opaque saved evidence before
+        # validation; direct callers must supply an exact Decimal or int.
+        fail(where, "inexact float in supplemental evidence; use Decimal")
     elif v is None or isinstance(v, (str, bool, int)):
+        if type(v) is int and v and len(str(abs(v))) > 309:
+            fail(where, "integer exceeds proposed v1 decimal magnitude limit")
         return
     else:
         fail(where, "value is not representable as strict JSON")
@@ -199,6 +209,7 @@ def _unique_keys(pairs: list[tuple[str, object]]) -> dict:
 def parse_document(text: str) -> object:
     """Read only strict JSON; the same boundary serves CLI and public grammar tests."""
     return json.loads(text, object_pairs_hook=_unique_keys,
+                      parse_float=Decimal,
                       parse_constant=lambda v: fail("$", "invalid JSON constant: " + v))
 
 
