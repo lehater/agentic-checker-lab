@@ -1,6 +1,6 @@
 # Checker L1 D4 — second repair, third scoped independent checkpoint
 
-**Author-prepared candidate; NOT a reviewer verdict.** Prepared on 2026-10-30 in response to [independent PR #62 REVISE](https://github.com/lehater/agentic-checker-lab/pull/62). Repaired sources pinned at commit `e39ac3b9234576f998da5bdd2a2c8a77b1e8c349`; this handoff file may be committed later without modifying those source blobs.
+**Author-prepared candidate; NOT a reviewer verdict.** Prepared on 2026-10-30 in response to [independent PR #62 REVISE](https://github.com/lehater/agentic-checker-lab/pull/62). Repaired sources pinned at commit `dd71bdd540882435935f105899b6456f0d8bd24f`; this handoff file may be committed later without modifying those source blobs.
 
 **Gate:** `D4_SECOND_INDEPENDENT_VERDICT=REVISE` / `AUTHOR_REPAIR_PROPOSED` / `INDEPENDENT_SCOPED_REVIEW_NOT_RUN` / `D5_BLOCKED`.
 
@@ -18,13 +18,13 @@
 | First D4 report (PR #60) | [exact file](https://github.com/lehater/agentic-checker-lab/blob/febf1364d72baa650cb40056ee28acd21990bbcc/docs/reviews/checker-l1-d4-independent-review-2026-10-30.md) | `1463bd7f9e9833e8392d3eb1dc5493d3881bd981` |
 | Second D4 REVISE report (PR #62) | [exact file](https://github.com/lehater/agentic-checker-lab/blob/2de514604cc1ef7e05f0843de1bd6c89bd6344a2/docs/reviews/checker-l1-d4-independent-rereview-2026-10-30.md) | `3839ca672068cae2d4157f8f970ca64173b4f00f` |
 | Prior candidate and packet | [exact file](https://github.com/lehater/agentic-checker-lab/blob/e8c35a0e29f678f217282c18b5caad20339c3978/docs/design/checker-l1-d4-rereview-packet-20261030.md) | `c5fd49966b15edb02f52c97d40f6ed06c3b18053` |
-| Repaired spec | [exact file](https://github.com/lehater/agentic-checker-lab/blob/e39ac3b9234576f998da5bdd2a2c8a77b1e8c349/openspec/changes/checker-v1-baseline/specs/checker-query/spec.md) | `a592b86532dcda65bc858c1255e368a792e56ff7` |
-| Repaired design | [exact file](https://github.com/lehater/agentic-checker-lab/blob/e39ac3b9234576f998da5bdd2a2c8a77b1e8c349/openspec/changes/checker-v1-baseline/design.md) | `6bfd114a99272fd0651d79fed52f2b06736ad0e4` |
-| Repaired wire contract | [exact file](https://github.com/lehater/agentic-checker-lab/blob/e39ac3b9234576f998da5bdd2a2c8a77b1e8c349/docs/evaluation/checker-v1-contract-proposal.md) | `b8410c3f826fb6c71c229bc1d9e082e1a83c92a1` |
-| Repaired JSON Schema | [exact file](https://github.com/lehater/agentic-checker-lab/blob/e39ac3b9234576f998da5bdd2a2c8a77b1e8c349/docs/evaluation/checker-v1-input.schema.json) | `c3698737d78aacc73e7593a00f9a8b40aef0326c` |
-| Repaired public validator | [exact file](https://github.com/lehater/agentic-checker-lab/blob/e39ac3b9234576f998da5bdd2a2c8a77b1e8c349/tools/validate_checker_l1_input.py) | `c151ef1cfe3631be378f2dbf568e6fd530a7fa61` |
-| Repaired public tests | [exact file](https://github.com/lehater/agentic-checker-lab/blob/e39ac3b9234576f998da5bdd2a2c8a77b1e8c349/tests/test_checker_l1_input_contract.py) | `ef3f025fe09d0d25b3f96f5c1f68146768d410bd` |
-| Public acceptance idea catalog (all NOT_RUN) | [exact file](https://github.com/lehater/agentic-checker-lab/blob/e39ac3b9234576f998da5bdd2a2c8a77b1e8c349/docs/evaluation/checker-acceptance-catalog.json) | `165ad5249b80d9b57816585afee5891e6874ba58` |
+| Repaired spec | [exact file](https://github.com/lehater/agentic-checker-lab/blob/dd71bdd540882435935f105899b6456f0d8bd24f/openspec/changes/checker-v1-baseline/specs/checker-query/spec.md) | `a592b86532dcda65bc858c1255e368a792e56ff7` |
+| Repaired design | [exact file](https://github.com/lehater/agentic-checker-lab/blob/dd71bdd540882435935f105899b6456f0d8bd24f/openspec/changes/checker-v1-baseline/design.md) | `98f5542fceea4c0d285114809fb8a0e58c5bcb18` |
+| Repaired wire contract | [exact file](https://github.com/lehater/agentic-checker-lab/blob/dd71bdd540882435935f105899b6456f0d8bd24f/docs/evaluation/checker-v1-contract-proposal.md) | `b8410c3f826fb6c71c229bc1d9e082e1a83c92a1` |
+| Repaired JSON Schema | [exact file](https://github.com/lehater/agentic-checker-lab/blob/dd71bdd540882435935f105899b6456f0d8bd24f/docs/evaluation/checker-v1-input.schema.json) | `c3698737d78aacc73e7593a00f9a8b40aef0326c` |
+| Repaired public validator | [exact file](https://github.com/lehater/agentic-checker-lab/blob/dd71bdd540882435935f105899b6456f0d8bd24f/tools/validate_checker_l1_input.py) | `c151ef1cfe3631be378f2dbf568e6fd530a7fa61` |
+| Repaired public tests | [exact file](https://github.com/lehater/agentic-checker-lab/blob/dd71bdd540882435935f105899b6456f0d8bd24f/tests/test_checker_l1_input_contract.py) | `ef3f025fe09d0d25b3f96f5c1f68146768d410bd` |
+| Public acceptance idea catalog (all NOT_RUN) | [exact file](https://github.com/lehater/agentic-checker-lab/blob/dd71bdd540882435935f105899b6456f0d8bd24f/docs/evaluation/checker-acceptance-catalog.json) | `8e0d56c8f18c06793dc6c325c6f4907d539ff1c8` |
 
 **Source verification obligation:** Independently check Git blob identity using `git rev-parse <commit>:<path>` (or `git hash-object` on exact raw file bytes); for the ledger use the immutable blob-object ID. Read and verify the relevant content. These hashes are author-recorded expectations, not claims that the separate reviewer already verified them. If verification is impossible, state `PARTIAL` rather than adopting an author's integrity assertion. Historical review reports remain unchanged.
 
@@ -36,7 +36,7 @@
 | **N01 / P2** | Validate UTC RFC3339 text; normalize `+00:00` by replacing suffix with `Z` rather than formatting through microsecond-limited `datetime` | `2026-10-29T08:00:00.12345678901234567890+00:00` must be represented exactly as `...12345678901234567890Z` |
 | **N02 / P1** | Lossless decimal JSON values in opaque `extra`: parse JSON decimals with exact representation, preserve all accepted digits, emit strict numeric tokens without float conversion or quoting; reject `NaN/Infinity` and `1e400` under explicit proposed `adjusted_exponent <= 308` bound | `0.1234567890123456789012345` remains a numeric value with exact source decimal representation; `1e308` allowed; `1e400` rejected. No Checker output implementation exists; test whether the **contract** is implementable and sufficiently unambiguous |
 | **N03 / P2** | JSON Schema explicitly described as insufficient structural gate; public strict parser + semantic validator is normative input gate | A schema-only PASS for UTC `+01:00` or lexical port `443.0` is not L1 validity; validator rejects both |
-| **N04 / P2** | CHK-006/009/013/016 include explicit `public_edge_variants` with `NOT_RUN`, covering empty placements, strict-JSON error/no success stdout, exact extra decimal output, UTC suffix equivalence and fractional precision | Verify every new publicly observable candidate behavior is mapped and none is misrepresented as executed or held-out |
+| **N04 / P2** | CHK-006/009/013/016 include explicit `public_edge_variants` and CHK-017/018/019 map the three added OpenSpec scenarios one-to-one; every public case remains `NOT_RUN`. Cover empty placements, strict-JSON error/no success stdout, exact extra decimal output, UTC suffix equivalence and fractional precision | Verify every new publicly observable candidate behavior is mapped and none is misrepresented as executed or held-out |
 | **N05 / P2** | This packet links ledger via immutable Git blob-object URL | Compare URL to expected blob; no mutable branch link is required to reproduce the source |
 
 ## 3. Stop criteria and authority boundary
