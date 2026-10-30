@@ -10,7 +10,7 @@ from pathlib import Path
 import tempfile
 import unittest
 
-from tools.validate_checker_l1_input import validate_payload, _unique_keys
+from tools.validate_checker_l1_input import validate_payload, parse_document, _unique_keys
 
 ROOT = Path(__file__).resolve().parents[1]
 SCHEMA = ROOT / "docs/evaluation/checker-v1-input.schema.json"
@@ -111,6 +111,10 @@ class CheckerL1InputTests(unittest.TestCase):
         self.check_invalid(lambda d: d["snapshots"][0]["rules"][0]
                            .update(time_range="office_hours"))
 
+    def test_named_relevant_acl_requires_a_placement(self):
+        self.check_invalid(lambda d: d["firewalls"][0]["acls"][0]
+                           .update(placements=[]))
+
     def test_invalid_placement_rejected(self):
         self.check_invalid(lambda d: d["firewalls"][0]["acls"][0]["placements"]
                            .append({"kind": "interface", "name": "inside"}))
@@ -118,6 +122,37 @@ class CheckerL1InputTests(unittest.TestCase):
     def test_invalid_timestamp_rejected(self):
         self.check_invalid(lambda d: d["snapshots"][0]
                            .update(last_success_at="yesterday"))
+
+    def test_utc_z_and_plus_zero_offset_accepted(self):
+        for suffix in ("Z", "+00:00"):
+            with self.subTest(suffix=suffix):
+                data = valid_case()
+                data["snapshots"][0]["last_success_at"] = "2026-10-29T08:00:00" + suffix
+                validate_payload(data)
+
+    def test_non_utc_timestamp_offset_rejected(self):
+        self.check_invalid(lambda d: d["snapshots"][0]
+                           .update(last_success_at="2026-10-29T09:00:00+01:00"))
+
+    def test_nested_nonfinite_extra_rejected(self):
+        for bad in (float("nan"), float("inf"), float("-inf")):
+            with self.subTest(value=str(bad)):
+                self.check_invalid(lambda d: d["snapshots"][0]["rules"][0]
+                                   .update(extra={"nested": [{"x": bad}]}))
+
+    def test_strict_json_decoder_rejects_nonstandard_constants(self):
+        for bad in ("NaN", "Infinity", "-Infinity"):
+            with self.subTest(constant=bad):
+                document = json.dumps(valid_case()).replace(
+                    '"office_hours"', bad, 1)
+                with self.assertRaises(ValueError):
+                    parse_document(document)
+
+    def test_json_exponent_overflow_rejected_in_extra(self):
+        text = json.dumps(valid_case()).replace('"office_hours"', "1e400", 1)
+        parsed = parse_document(text)
+        with self.assertRaises(ValueError):
+            validate_payload(parsed)
 
     def test_unknown_snapshot_identity_rejected(self):
         self.check_invalid(lambda d: d["snapshots"][0]

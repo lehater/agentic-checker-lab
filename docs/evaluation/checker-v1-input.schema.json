@@ -115,6 +115,8 @@
         },
         "placements": {
           "type": "array",
+          "minItems": 1,
+          "description": "A named relevant ACL has at least one preselected ingress/egress/global placement fact (engineering L1 integrity policy).",
           "items": {
             "oneOf": [
               {
@@ -179,7 +181,7 @@
         "last_success_at": {
           "type": "string",
           "format": "date-time",
-          "description": "RFC3339 UTC last successful snapshot instant; validator must enforce UTC offset"
+          "description": "RFC3339 UTC instant with required seconds, optional fraction and explicit Z or +00:00; output uses canonical Z (proposed v1 grammar)."
         },
         "rules": {
           "type": "array",
@@ -292,7 +294,7 @@
         },
         "extra": {
           "type": "object",
-          "description": "Arbitrary JSON-safe supplemental conditions preserved verbatim but never evaluated as matching predicates",
+          "description": "Opaque supplemental conditions; only strict JSON values with finite numbers, recursively; emitted without semantic interpretation.",
           "additionalProperties": true
         }
       }

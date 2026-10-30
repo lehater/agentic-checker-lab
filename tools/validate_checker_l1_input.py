@@ -10,6 +10,7 @@ import argparse
 from datetime import datetime, timedelta
 from ipaddress import IPv4Address, IPv4Network
 import json
+import math
 import re
 from pathlib import Path
 import sys
@@ -64,14 +65,33 @@ def ip(v: object, where: str, *, predicate: bool) -> None:
 
 
 def timestamp(v: object, where: str) -> None:
-    if not isinstance(v, str) or re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z", v) is None:
-        fail(where, "RFC3339 UTC timestamp with seconds and Z suffix required")
+    if not isinstance(v, str) or re.fullmatch(r"\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?(?:Z|\+00:00)", v) is None:
+        fail(where, "RFC3339 UTC timestamp with seconds and Z or +00:00 required")
     try:
         t = datetime.fromisoformat(v.replace("Z", "+00:00"))
         if t.utcoffset() != timedelta(0):
             fail(where, "timestamp must be UTC")
     except ValueError:
         fail(where, "invalid RFC3339 date-time")
+
+
+def json_finite(v: object, where: str) -> None:
+    """Ensure opaque extra data can be faithfully emitted as strict JSON."""
+    if isinstance(v, dict):
+        for key, value in v.items():
+            if not isinstance(key, str):
+                fail(where, "JSON object keys must be strings")
+            json_finite(value, where + "." + key)
+    elif isinstance(v, list):
+        for i, item in enumerate(v):
+            json_finite(item, f"{where}[{i}]")
+    elif isinstance(v, float):
+        if not math.isfinite(v):
+            fail(where, "non-finite number is not a JSON value")
+    elif v is None or isinstance(v, (str, bool, int)):
+        return
+    else:
+        fail(where, "value is not representable as strict JSON")
 
 
 def placement(v: object, where: str) -> None:
@@ -100,8 +120,10 @@ def rule(v: object, where: str) -> None:
         ip(x[k], where + "." + k, predicate=True)
     for k in ("src_port", "dst_port"):
         port(x[k], where + "." + k, query=False)
-    if "extra" in x and not isinstance(x["extra"], dict):
-        fail(where + ".extra", "object required")
+    if "extra" in x:
+        if not isinstance(x["extra"], dict):
+            fail(where + ".extra", "object required")
+        json_finite(x["extra"], where + ".extra")
 
 
 def validate_payload(v: object) -> None:
@@ -137,8 +159,8 @@ def validate_payload(v: object) -> None:
             a = keys(acl, aw, {"id", "placements"})
             aid = ident(a["id"], aw + ".id")
             expected_snapshots.add((fid, aid))
-            if not isinstance(a["placements"], list):
-                fail(aw + ".placements", "array required")
+            if not isinstance(a["placements"], list) or not a["placements"]:
+                fail(aw + ".placements", "nonempty array required for a relevant named ACL")
             for k, p in enumerate(a["placements"]):
                 placement(p, f"{aw}.placements[{k}]")
             # Multiple ACL references under one FW are intentionally allowed;
@@ -174,13 +196,18 @@ def _unique_keys(pairs: list[tuple[str, object]]) -> dict:
     return result
 
 
+def parse_document(text: str) -> object:
+    """Read only strict JSON; the same boundary serves CLI and public grammar tests."""
+    return json.loads(text, object_pairs_hook=_unique_keys,
+                      parse_constant=lambda v: fail("$", "invalid JSON constant: " + v))
+
+
 def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("input", type=Path, help="local proposed synthetic input JSON")
     args = parser.parse_args()
     try:
-        data = json.loads(args.input.read_text(encoding="utf-8"),
-                          object_pairs_hook=_unique_keys)
+        data = parse_document(args.input.read_text(encoding="utf-8"))
         validate_payload(data)
     except (ValueError, OSError, UnicodeError) as e:
         print("INVALID proposed L1 input:", e, file=sys.stderr)
