@@ -17,3 +17,9 @@
 One task, branch, PR and bounded proof at a time. Code execution/LLM calls are **never** implied by a documentation-only PR. Do not bypass architectural checks or rewrite fixed oracles after seeing implementation. An open PR remains a proposal until reviewed/merged.
 
 GitHub CI covers S0 method, S1 architecture regression, S2 offline telemetry, OpenSpec CLI validation, proposed acceptance scenario trace and offline comparison. Live run results are not verified. The remaining L1–L5 local-executor steps are listed in [handoff](local-executor-handoff.md). Parallel **S3D** design-stage work is detailed in the [recoverable OpenSpec design-stage plan](design-stage-plan.md); the immediate documentation task is its D1 source audit, not Checker codegen.
+
+## Platform and collaboration research backlog (NON-BLOCKING)
+
+[Prime Agent, OpenJarvis and QM — pinned source study and future evaluation gates](../research/agent-harness-platform-candidates-2026-10-30.md).
+
+These are **candidate research tasks, not new mandatory SDLC stages**: R-H01 multi-stakeholder Discovery/approval scopes (QM); R-H02 measurable skill and local/cloud model improvement (OpenJarvis); R-H03 recoverable long-running agents and bounded self-refinement (Prime Agent); R-H04 separately discover multi-user requirements of any eventual delivered service. Evaluate against a real need and frozen independent quality evidence; no platform selected, installed or verified. The active S3/S3D → S4 → S5–S7 sequence and D4/D5 implementation gates remain unchanged.
