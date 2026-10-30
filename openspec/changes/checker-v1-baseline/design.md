@@ -124,21 +124,22 @@ check(request: ValidatedCheckRequest) -> Result<CheckReport, EvidenceIntegrityEr
 
 | Variant / stage | Reason | Boundary effect |
 | --- | --- | --- |
-| `InputDecodeError` / outer | Unreadable path, invalid UTF-8/JSON | Nonzero + stderr; empty success stdout |
-| `InputContractError` / input | Missing/unknown keys, wrong types/version, invalid IPv4/CIDR/UTC/range/IDs/action/port | Same |
-| `EvidenceIntegrityError` / application | Duplicate FW or snapshot key; orphan/missing snapshot; inconsistent cross-object identity | Same |
-| `UnsupportedMandatoryMatcher` / input/domain construction | Mandatory predicate not represented by approved v1 matcher grammar | Same |
+| `InputDecodeError` / outer, **before check** | Unreadable path, invalid UTF-8/JSON, `NaN/Infinity` constants | Nonzero + stderr; empty success stdout |
+| `InputContractError` / input, **before check** | Unknown keys, invalid shape/typed IP/port/UTC/range, unsupported mandatory matcher, nonfinite nested `extra`, empty placements | Same |
+| `EvidenceIntegrityError` / application **check** | Duplicate FW or snapshot key; orphan/missing snapshot; inconsistent cross-object identity | Same |
 | Valid zero-match / application | All evidence complete, no supported row matches | **Success** with FW/ACL present and `matched_rules:[]` |
+
+**Typed error boundary (C):** Outer JSON/file decoding creates `InputDecodeError`; the input adapter owns schema, domain-value construction and unsupported matcher mapping to `InputContractError`. Only a fully typed, detached `ValidatedCheckRequest` reaches `application.check`; this use case returns only `EvidenceIntegrityError` for cross-object integrity checks. `domain.matches` returns `bool` for already valid predicate values. The CLI maps each error family to nonzero exit + stderr with no stdout. The abstract `Result` notation does not require a library or custom framework.
 
 Input parser validates **all** supplied mandatory rule predicates, not just rows likely to match one flow, so a malformed irrelevant-looking row cannot silently produce success. This is an intentional candidate strictness aligned with fail-atomic/closed evidence handling; D4 must assess proportionality.
 
 ## 5. One-shot use-case sequence
 
-1. **Outer decode:** read the explicit path and UTF-8 JSON; reject invalid version/unknown mandatory shape, normalize omitted ports to `Any`, materialize domain values and immutable evidence DTOs. Original saved rule attributes and `extra` remain available to report.
-2. **Application preflight:** validate unique FW IDs; coalesce ACL duplicates per FW while collecting distinct placements; index snapshot keys; validate exactly-one relevant snapshot, no missing/orphan snapshot, complete provenance, and all supported mandatory rules. **Abort before producing a success report** if any failure is found.
+1. **Outer decode:** read the explicit path and UTF-8 JSON; reject invalid version/unknown mandatory shape, normalize omitted ports to `Any`, materialize domain values and immutable evidence DTOs. Original saved rule attributes and nested `extra` remain available as detached, immutable evidence in the report. Parsing rejects nonstandard JSON constants and nonfinite numbers, accepts valid UTC `Z` and `+00:00`.
+2. **Application preflight:** validate unique FW IDs; coalesce ACL duplicates per FW while collecting distinct placements; index snapshot keys; validate exactly-one relevant snapshot, no missing/orphan snapshot, complete provenance and nonempty placement evidence for named ACLs. The input adapter has already checked mandatory rule syntax; application checks cross-object identity. **Abort before producing a success report** if any failure is found.
 3. **Application execute:** iterate relevant FWs in given order, grouped ACLs in first-seen order, each snapshot's saved rows by `enumerate` original zero-based position; call `domain.matches` for each predicate and include every true row with its original index, action and supplemental evidence. No short-circuit on first permit or deny.
 4. **Application project:** retain FW with zero ACL, and named ACL with zero matches; include distinct placements and **that ACL's** `last_success_at`. Do not generate implicit deny or verdict.
-5. **Outer serialize:** only after successful complete report, emit one JSON object. For errors, emit nonempty diagnostic on stderr with nonzero exit and no success stdout.
+5. **Outer serialize:** only after successful complete report, emit one strict JSON object (e.g. `allow_nan=False` if using Python). For errors, emit nonempty diagnostic on stderr with nonzero exit and no success stdout.
 
 **Consistency & complexity:** an in-memory map from `(FW id, ACL id)` to snapshot validates evidence in approximately `O(F + A + R)` time and `O(A + R)` bounded temporary/report space for F firewall records, A ACL references/snapshots and R rows. No caching, asynchronous work or IO inside matching. Actual asymptotics depend on placement dedup sets; no performance promise is implied.
 
@@ -175,6 +176,19 @@ Input parser validates **all** supplied mandatory rule predicates, not just rows
 | AR-04..05 **P** | No silent pass, separate structural/semantic/oracle gates (§4,8) | Public CHK ideas not counted as test results |
 
 **Coverage gaps, deliberately retained:** no scenario verifies future D-002 route inference, D-003 ACL selection, D-006 snapshot replacement or D-008 failed collection; none is silently considered completed. The D3 design does not write `tasks.md` or authorize implementation.
+
+## 8. Independent D4 REVISE — author repair dispositions
+
+| Finding | Proposed correction | Gate |
+| --- | --- | --- |
+| D4-F01 P1 | Accept UTC `Z` and `+00:00` inputs; canonicalize output instant to `Z` | FIX_PROPOSED / RE_REVIEW_NOT_RUN |
+| D4-F02 P1 | Strict JSON input with recursive finite-number check; strict JSON output | FIX_PROPOSED / RE_REVIEW_NOT_RUN |
+| D4-F03 P2 | A named relevant ACL requires a nonempty placements array; incomplete evidence is an input error | ENGINEERING_CHOICE_PROPOSED / RE_REVIEW_NOT_RUN |
+| D4-F04 P2 | Detached, transitively immutable supplemental evidence at the input boundary | CLARIFICATION_PROPOSED / RE_REVIEW_NOT_RUN |
+| D4-F05 P2 | Outer decode and input contract errors precede application; `check` returns cross-object evidence errors only | CLARIFICATION_PROPOSED / RE_REVIEW_NOT_RUN |
+| D4-F06 P3 | Re-review packet uses `DS-C05a/b/c` | FIX_PROPOSED / RE_REVIEW_NOT_RUN |
+
+The original independent [D4 REVISE report](https://github.com/lehater/agentic-checker-lab/pull/60) remains unchanged. These dispositions are **author proposals**, not an independent acceptance. A separate evaluator must review changed spec, schema, public validator/tests and design at exact blobs; D5 remains blocked.
 
 ## 8. Review risks, gates and next action
 
