@@ -1,4 +1,4 @@
-# Checker Query — reconciled candidate specification delta (NOT OWNER ACCEPTED)
+# Checker Query — reconciled candidate specification delta (OWNER L1 SCOPE RECORDED APPROVED; FINAL SPEC NOT ACCEPTED)
 
 ## ADDED Requirements
 
@@ -41,7 +41,7 @@ The Checker SHALL compare a directed flow against supported synthetic predicates
 - **THEN** both occurrences are retained in snapshot order even if the ACL appears in multiple relevant placements
 
 ### Requirement: Relevance is separate provided evidence
-The Checker SHALL consume synthetic **relevant firewall** evidence, including firewalls with no ACL, plus each ACL's relevant ingress/egress/global placements. An ACL SHALL appear once per firewall with all applicable placements, without duplication of matched rows. Firewalls SHALL NOT be merged solely because their ACL names coincide. Real route inference is outside this prototype.
+The Checker SHALL consume synthetic **relevant firewall** evidence, including firewalls with no ACL, plus each ACL's relevant ingress/egress/global placements. An ACL SHALL appear once per firewall with all applicable placements, without duplication of matched rows. **Proposed L1 engineering integrity policy:** a named relevant ACL reference SHALL include at least one preselected placement fact; an empty placements array is incomplete evidence and is rejected, rather than silently interpreted as an applicable ACL. Firewalls SHALL NOT be merged solely because their ACL names coincide. Real route inference is outside this prototype.
 
 #### Scenario: Duplicate relevance
 - **WHEN** one relevant firewall repeats a relevant ACL binding, or one ACL has multiple distinct applicable bindings
@@ -56,7 +56,7 @@ The Checker SHALL consume synthetic **relevant firewall** evidence, including fi
 - **THEN** the **proposed engineering error contract** fails the whole query explicitly without reporting an invented `NO_MATCH` or a partially successful normal report
 
 ### Requirement: Preserved observation and presentation
-The Checker SHALL report relevant firewalls, their relevant ACLs and placements, and matching rule rows as a hierarchy, keeping parents even with empty child collections. Each relevant ACL with a valid supplied snapshot SHALL expose its **own** last-successful timestamp and matching evidence. Collection, retry and preservation after later refresh failures are outside the executable synthetic L1 slice. The output SHALL NOT claim an end-to-end permit/deny verdict.
+The Checker SHALL report relevant firewalls, their relevant ACLs and placements, and matching rule rows as a hierarchy, keeping parents even with empty child collections. Each relevant ACL with a valid supplied snapshot SHALL expose its **own** last-successful timestamp and matching evidence. **Proposed L1 wire grammar:** a timestamp MAY use UTC suffix `Z` or `+00:00` and SHALL be normalized to `Z` for report output without changing its instant. Collection, retry and preservation after later refresh failures are outside the executable synthetic L1 slice. The output SHALL NOT claim an end-to-end permit/deny verdict.
 
 #### Scenario: No stored match
 - **WHEN** a relevant named ACL has a valid complete saved snapshot with zero matching rows
@@ -71,10 +71,10 @@ The Checker SHALL report relevant firewalls, their relevant ACLs and placements,
 - **THEN** each ACL's corresponding timestamp and matching rows are preserved in the result; the prototype does not claim to execute or verify a later refresh attempt
 
 ### Requirement: Failure atomicity and input isolation
-The Checker SHALL not access live devices or modify supplied evidence. The **proposed CLI error contract** SHALL reject malformed input, unsupported required matching predicates, corrupt saved snapshots or missing first-successful snapshots with a diagnostic and no partially successful output. This atomic failure policy remains a delegated engineering proposal pending L1 review.
+The Checker SHALL not access live devices or modify supplied evidence. The **proposed CLI error contract** SHALL reject malformed/non-strict JSON (including nonfinite numbers in opaque `extra`), unsupported required matching predicates, incomplete placement evidence, corrupt saved snapshots or missing first-successful snapshots with a diagnostic and no partially successful output. This atomic failure policy remains a delegated engineering proposal pending L1 review.
 
 #### Scenario: Invalid snapshot input
-- **WHEN** a relevant snapshot is corrupt or includes an unsupported mandatory five-field matcher form, even if other ACLs have valid evidence
+- **WHEN** a relevant snapshot is corrupt, a named relevant ACL lacks placement evidence, or a rule includes an unsupported mandatory matcher or nonfinite supplemental JSON value, even if other ACLs have valid evidence
 - **THEN** the CLI returns nonzero, reports a diagnostic to stderr, and does not publish successful or partial stdout; a supplemental display-only condition alone does not cause this failure
 
 #### Scenario: Local-only execution
